@@ -1,0 +1,36 @@
+dyns = yes
+part <id p1 inst "oboe">
+
+// measures
+time 0 dur 3 measure <>
+time 0 dur 3 meas <>
+time 0 dur 3 mea <>
+time 0 dur 3 me <>
+time 0 dur 3 e <>
+time 0 dur 3 ||
+
+// note event parameters
+part p1 voice 1
+note time 0 grace 0 duration 1/2 pitch 59 dynamic 1 ;
+note time 0 duration 1 pitch 60 dynamic 1 ;
+mark [.];
+
+par p1 voi 1
+not tim 2 gra 0 dur 1/2 pit 59 dyn 1 ;
+not tim 2 dur 1 pit 60 dyn 1 ;
+mar [.];
+
+pa p1 vo 1
+no ti 4 gr 0 du 1/2 pi 59 dy 1 ;
+no ti 4 du 1 pi 60 dy 1;
+ma [.];
+
+a p1 v 1
+n t 6 g 0 d 1/2 p 59 y 1 ;
+n t 6 d 1 p 60 y 1;
+m [.];
+
+rest tim 7 dur 1 ;
+res tim 8 dur 1 ;
+re tim 9 dur 1 ;
+r tim 10 dur 1 ;

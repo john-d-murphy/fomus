@@ -1,0 +1,11 @@
+// front page settings
+title = "My Piece"
+author = "David Psenicka"
+
+part <id p1 inst flute>
+part <id p2 inst oboe>
+
+part p1
+time 0 dur 1 pitch 72 ;
+time 4 dur 1 pitch 72 [break>] ;
+time 8 dur 1 pitch 72 ;

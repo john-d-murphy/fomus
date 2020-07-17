@@ -1,0 +1,34 @@
+// percussion instruments
+percinst <id bdr, perc-note c4, perc-name "B. Drum">
+percinst <id cym, perc-note c4, perc-name "Cymbal">
+
+// group the two woodblocks into one instrument
+// based off of the built-in `percussion' instrument
+inst <id myperc, template percussion,
+      percinsts (bdr cym)>
+
+// parts
+part <id perc, inst myperc>
+
+// events
+part perc
+duration 1
+time 0 pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch cym ;
+time + pitch cym ;
+time + pitch cym ;
+time + pitch cym ;
+time + pitch cym ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;
+time + pitch bdr ;

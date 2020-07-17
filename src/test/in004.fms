@@ -1,0 +1,65 @@
+// voices
+duration 1/2 
+voice 1
+
+time 0     pitch 55;
+time 1/2   pitch 56;
+time 1     pitch 57;
+time 1+1/2 pitch 58;
+time 2     pitch 59;
+time 2+1/2 pitch 60;
+time 3     pitch 61;
+time 3+1/2 pitch 62;
+time 4     pitch 63;
+time 4+1/2 pitch 64;
+time 5     pitch 65;
+time 5+1/2 pitch 66;
+time 6     pitch 67;
+
+pitch +4 {
+  time 0     pitch 55;
+  time 1/2   pitch 56;
+  time 1     pitch 57;
+  time 1+1/2 pitch 58;
+  time 2     pitch 59;
+  time 2+1/2 pitch 60;
+  time 3     pitch 61;
+  time 3+1/2 pitch 62;
+  time 4     pitch 63;
+  time 4+1/2 pitch 64;
+  time 5     pitch 65;
+  time 5+1/2 pitch 66;
+  time 6     pitch 67;
+}
+
+time 8 {
+  time 0     pitch 67;
+  time 1/2   pitch 66;
+  time 1     pitch 65;
+  time 1+1/2 pitch 64;
+  time 2     pitch 63;
+  time 2+1/2 pitch 62;
+  time 3     pitch 61;
+  time 3+1/2 pitch 60;
+  time 4     pitch 59;
+  time 4+1/2 pitch 58;
+  time 5     pitch 57;
+  time 5+1/2 pitch 56;
+  time 6     pitch 55;
+
+  pitch +4 {
+    time 0     pitch 67;
+    time 1/2   pitch 66;
+    time 1     pitch 65;
+    time 1+1/2 pitch 64;
+    time 2     pitch 63;
+    time 2+1/2 pitch 62;
+    time 3     pitch 61;
+    time 3+1/2 pitch 60;
+    time 4     pitch 59;
+    time 4+1/2 pitch 58;
+    time 5     pitch 57;
+    time 5+1/2 pitch 56;
+    time 6     pitch 55;
+  }
+}

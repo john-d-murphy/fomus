@@ -1,0 +1,16 @@
+quartertones = yes
+
+time 0 duration s pitch c3; // octave is given only on first note
+time + duration e pitch dn; // d natural
+time + duration q pitch ef;
+time + duration h pitch fs;
+time + duration w pitch gb;
+time + duration e. pitch f#; // dot modifiers
+time + duration q. pitch e-;
+time + duration h. pitch d+;
+// tuplet modifiers
+time 20 duration qt pitch cns4; // one quartertone sharp (natural-sharp)
+time + duration qt pitch cnf;
+time + duration qt pitch bff; // three quartertones flat (flat-flat)
+
+time 24 duration q+s pitch css;

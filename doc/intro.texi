@@ -1,0 +1,105 @@
+@c   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+@c   This file is part of FOMUS.
+
+@c   FOMUS is free software: you can redistribute it and/or modify
+@c   it under the terms of the GNU General Public License as published by
+@c   the Free Software Foundation, either version 3 of the License, or
+@c   (at your option) any later version.
+
+@c   FOMUS is distributed in the hope that it will be useful,
+@c   but WITHOUT ANY WARRANTY; without even the implied warranty of
+@c   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+@c   GNU General Public License for more details.
+
+@c   You should have received a copy of the GNU General Public License
+@c   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+@node Introduction, Installing, Top, Top
+@chapter Introduction
+
+@menu
+* Purpose of FOMUS::            
+* This Documentation::          
+@end menu
+
+@node Purpose of FOMUS, This Documentation, Introduction, Introduction
+@section Purpose of FOMUS
+
+FOMUS is a open source software application that automates many musical notation tasks for composers. 
+It facilitates the process of creating professionally notated scores by allowing the composer to separate consideration of
+logical attributes such as the times, durations and pitches of events from the representation of them in conventional music notation.
+It is especially useful for composers who work with algorithms and works with computer music software languages/environments such as CM/Grace, Pure Data and Lisp.
+It can also be used to import data from MIDI files into a graphical notation editor
+or creating scores from scratch using text files.
+
+In FOMUS, input of musical events is narrowed down to a small set of basic attributes: time, duration, pitch, an list of marks and an optional dynamic level.
+Measures are also conceived as containers with time offsets and durations.
+With the change of a few settings, an entire score can be renotated with different rhythmic values (e.g., eighth notes instead of quarter notes), or
+in a different meter (e.g., 5/8 instead of 4/4).  
+A score for percussion ensemble can be renotated with different layouts using single or multiple staves,
+or entire blocks of music can be easily shifted by any value (e.g., an eighth note or one third of an eighth note triplet).
+As the software develops the user will have multiple specialized algorithms to choose from for any given task
+and will be able to tailor the program to his/her own style or aesthetic.
+Until it develops to that point, FOMUS offers a general-purpose solution that produces reasonable
+results in most cases.
+If desired, many automated tasks can be switched off or overridden by the user, the goal being to allow varying levels of control over the output.
+
+Following is a partial list of tasks or notational features that FOMUS automates:
+@itemize @bullet
+@item
+Quantization (FOMUS chooses the notation that provide the ``best fit'' to the time/duration data given to it)
+
+@item 
+Rhythmic notation (including beams) and placement of tuplets
+
+@item 
+Note accidentals
+
+@item
+Voice selections (FOMUS chooses which voice a note or group of notes belongs to)
+
+@item
+Staff and clef selections (FOMUS chooses which staff and/or clef a note or group of notes belongs in based on which instruments are selected for the score)
+
+@item
+Transpositions (FOMUS transposes parts automatically based on which instruments are selected)
+
+@item
+Octave signs (based on which instruments are selected)
+
+@item
+``Pruning'' of overlapping note events
+
+@item
+Metrical divisions
+
+@item
+Score layouts (parts in orchestral scores are ordered and grouped automatically)
+
+@item
+Help with trills, tremolos, harmonics, and other score symbols (based on which instruments are selected)
+@end itemize
+
+The software is implemented as a shared library, and can be used in programming environments such as Lisp or Common Music
+or as an external in graphical programming environments such as Pure Data.  It can also load files written in FOMUS's native file format
+and import data from other file formats (such as MIDI).  
+Once the composer loads or inputs his/her information, FOMUS outputs a file (or multiple files) in one or more different formats suitable for importing into a graphical
+notation program such as LilyPond, Finale or Sibelius.  The user can then load the output file into one of these programs and make further edits to
+produce a finished score.
+FOMUS thus determines symbolic aspects of notation while leaving issues related to graphical layout and positioning to another program
+where this type of editing can be done.  
+The library can easily be extended to work with other programming environments and its plugin-style architecture allows the user
+to modify, add to or replace parts of its functionality.  
+
+A long term goal for this software for it to evolve into a ``true'' automatic notation program 
+that can be used for automatic MIDI file conversion, automatic music transciption, etc..
+In its present stage of development, however, it is missing a few essential algorithms (e.g., meter detection, key signature detection) that
+would make this possible.  The user must supply this information when importing MIDI files, for example.
+
+@node This Documentation,  , Purpose of FOMUS, Introduction
+@section This Documentation
+
+For installation and basic usage see @ref{Installing} and @ref{Usage}.
+Once FOMUS is installed see @ref{Tutorial} for a quick look at how it works.
+See @ref{Reference} for more detailed information and the examples sections
+starting with @ref{`.fms' File Examples} for examples of many of FOMUS's features.

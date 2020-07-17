@@ -1,0 +1,55 @@
+TODO:
+
+finish:
+  for beta version:
+    documentation (examples)
+      nested tuplets example
+    better error messages when wrong type of value is input (like a list for a pitch)
+    trills on chords?
+    enharmonic tremolos
+    sal062 causes problem when multithreads are on
+    point durations that are too long
+  later:
+    compressed XML file
+    marks shouldn't conflict with vocal text
+    harp pedals
+    fret diagrams
+    allow modules to ask whether or not it's already processed a note event (for on-the-fly module switching, only a few need this)
+    default instruments w/ assigned perc-inst groups
+    vars to store time, etc.
+    default instrument abbreviations
+    a way to put groups of notes in same voice w/o specifying the voice
+    better Pd example
+    unify error processing (look for active module, then look for active fomusdata struct)
+    breath marks before very first note
+
+bugs:
+  tutorial 4.7 and 4.8 parts are in wrong order
+  single notes get attached w/ a secondary beam (remove the beam)
+  layouts don't work when instruments are used as templates--need extra setting that identifies the instrument
+  Emacs mode `part' inside structures doesn't get highlighted
+  Emacs mode `-' or `+' in front of mark is highlighted wrong
+
+backend issues:
+  LilyPond:
+    polymeters
+    grace note slashes only attach to single note
+  MusicXML:
+    Finale:
+      extra full measure rests created if there is only one voice
+      rests that should be invisible aren't (appear as more extra rests)
+      rests go on wrong staves (the staff number is ignored)
+      multi-note tremolos aren't imported
+    Sibelius:
+      nested tuplets don't important correctly
+      clefs are ignored
+
+features:
+  more percussion instruments
+  more instruments (other than orchestral ones)
+  pitch ranges for deciding voices
+  complex meters (including fractional durations and compound meters)
+
+internal:
+  go through all #warnings in code
+  cleanup code

@@ -1,0 +1,16 @@
+process myproc (note, beat, harm1, harm2, pname)
+  for harm from harm1 to harm2
+  for knum = key(hz(note) * harm)
+  fms:note(dur: rhythm(beat), pitch: knum, part: pname)
+  wait rhythm(beat)
+end
+
+loop with procs = {} , parts = {},
+     sets = {:quartertones #t :tuplets 11}
+  for ph in {2 3 5 7 11}
+  for pn in {"c2" "c3" "c5" "c7" "c11"}
+  set procs &= myproc("c1", 1 / ph, ph, ph * 4, pn) ,
+      parts &= concat(:id, pn, {:inst "cello"})
+  finally
+  sprout(procs, *filename*, parts: parts, sets: sets)
+end

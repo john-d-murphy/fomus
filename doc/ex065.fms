@@ -1,0 +1,16 @@
+beat 1/8
+
+part <id pno, inst piano>
+
+part pno
+
+time 0 dur 4 ||
+dur 1
+time 0 pitch 60 ;
+time + pitch 58 ;
+time + pitch 58 ;
+time + pitch 55 ;
+time + pitch 55 ;
+time + pitch 57 ;
+time + pitch 55 ;
+time + pitch 56 ;

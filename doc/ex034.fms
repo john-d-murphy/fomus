@@ -1,0 +1,28 @@
+duration 1/3
+tupletdur 2 {
+time 0 pitch 64 [tup..] ;
+time 1/3 pitch 60 ;
+time 2/3 pitch 61 ;
+time 1 pitch 68 ;
+time 1+1/3 pitch 60 ;
+time 1+2/3 pitch 60 ;
+time 2 pitch 69 [tup..] ;
+time 2+1/3 pitch 65 ;
+time 2+2/3 pitch 69 ;
+time 3 pitch 64 ;
+time 3+1/3 pitch 62 ;
+time 3+2/3 pitch 64 ;
+}
+
+time 4 pitch 62 [tup..] ;
+time 4+1/3 pitch 72 ;
+time 4+2/3 pitch 60 ;
+time 5 pitch 69 [tup..] ;
+time 5+1/3 pitch 71 ;
+time 5+2/3 pitch 70 ;
+time 6 pitch 63 [tup..] ;
+time 6+1/3 pitch 72 ;
+time 6+2/3 pitch 71 ;
+time 7 pitch 66 [tup..] ;
+time 7+1/3 pitch 64 ;
+time 7+2/3 pitch 61 ;

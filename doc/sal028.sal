@@ -1,0 +1,11 @@
+define process myproc ()
+  for p from 0
+  while (elapsed() < 3)
+  fms:note(part: :prt1, dur: 1/2, pitch: p + 65)
+  fms:note(part: "prt2", dur: 1/2, pitch: 48 - p)
+  wait 1/2
+end
+
+sprout(myproc(), *filename*,
+       parts: {{:id "prt1" :inst "guitar"}
+               {:id prt2 :inst TUBA}})

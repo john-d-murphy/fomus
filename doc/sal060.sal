@@ -1,0 +1,10 @@
+process myproc (n, r)
+  with clfs = make-cycle({"treble" "treble" "treble" "treble" "bass" "bass" "bass" "bass"})
+  repeat n
+  for stf = 1 then 3 - stf
+  for clf = next(clfs)
+  fms:note(dur: r, pitch: 60, staff: stf, clef: clf)
+  wait r
+end
+
+sprout(myproc(16, 1/2), *filename*)

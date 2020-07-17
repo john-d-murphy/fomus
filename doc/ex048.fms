@@ -1,0 +1,30 @@
+mark-texts = (vib "vibrato", moltovib "molto vibrato")
+
+part <id apart, inst piano>
+
+part apart
+
+duration 1/2
+
+time 0     pitch 53  ;
+time 1/2   pitch 65 [vib] ;
+time 1     pitch 55 [vib] ;
+time 1+1/2 pitch 48 [vib] ;
+time 2     pitch 59 [vib] ;
+time 2+1/2 pitch 63 [vib] ;
+time 3     pitch 59 [vib] ;
+time 3+1/2 pitch 68 [vib] ;
+time 4     pitch 70 [vib] ;
+time 4+1/2 pitch 52 [moltovib] ;
+time 5     pitch 59 [moltovib] ;
+time 5+1/2 pitch 62 [moltovib] ;
+time 6     pitch 53 [moltovib] ;
+time 6+1/2 pitch 59 [moltovib] ;
+time 7     pitch 67 [moltovib] ;
+time 7+1/2 pitch 69 [moltovib] ;
+time 8     pitch 65 ;
+time 8+1/2 pitch 50 ;
+time 9     pitch 49 ;
+time 9+1/2 pitch 54 ;
+
+time 10 dur 1 pitch 64 ;

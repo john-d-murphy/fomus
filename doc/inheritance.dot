@@ -1,0 +1,44 @@
+digraph A {
+	fillcolor = "white"
+	bgcolor = "white"
+	style = filled
+
+subgraph clusterA {
+	note [shape=box style=rounded]
+	rest [shape=box style=rounded]
+	mark [shape=box style=rounded]
+	clef [shape=box style=rounded]
+	staff [shape=box style=rounded]
+	part [shape=box style=rounded]
+	meas [shape=box style=rounded]
+	measdef [shape=box style=rounded]
+	inst [shape=box style=rounded]
+	percinst [shape=box style=rounded]
+	score [shape=box style=rounded]
+	metapart [shape=box style=rounded]
+	partmap [shape=box style=rounded]
+	
+	meas -> note
+	meas -> rest
+	meas -> mark
+	measdef -> meas
+	part -> measdef
+	metapart -> measdef
+	inst -> part
+	clef -> note
+	staff -> note
+	clef -> rest
+	staff -> rest
+	clef -> mark
+	staff -> mark
+	score -> inst
+	inst -> percinst
+	inst -> import
+	inst -> export
+	percinst -> import
+	percinst -> export
+	score -> partmap
+        score -> metapart
+}
+}
+

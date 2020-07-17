@@ -1,0 +1,46 @@
+part <id 0, inst flute>
+part <id 1, inst tuba>
+
+part 0
+duration 1/2
+time 0 pitch 72 ;
+time 0+1/2 pitch 72 ;
+time 1 pitch 72 ;
+time 1+1/2 pitch 72 ;
+time 2 pitch 72 ;
+time 2+1/2 pitch 72 ;
+time 3 pitch 72 ;
+time 3+1/2 pitch 72 ;
+time 4 pitch 72 ;
+time 4+1/2 pitch 72 ;
+time 5 pitch 72 ;
+time 5+1/2 pitch 72 ;
+time 6 pitch 72 ;
+
+duration 0
+time 1 [.] mark ;
+time 2 [.] mark ;
+time 3 [.] mark ;
+time 4 [.] mark ;
+
+part 1
+duration 1/2
+time 0 pitch 48 ;
+time 0+1/2 pitch 48 ;
+time 1 pitch 48 ;
+time 1+1/2 pitch 48 ;
+time 2 pitch 48 ;
+time 2+1/2 pitch 48 ;
+time 3 pitch 48 ;
+time 3+1/2 pitch 48 ;
+time 4 pitch 48 ;
+time 4+1/2 pitch 48 ;
+time 5 pitch 48 ;
+time 5+1/2 pitch 48 ;
+time 6 pitch 48 ;
+
+duration 0
+time 3 [^] mark ;
+time 4 [^] mark ;
+time 5 [^] mark ;
+time 6 [^] mark ;

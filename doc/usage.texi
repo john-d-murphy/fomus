@@ -1,0 +1,215 @@
+@c   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+@c   This file is part of FOMUS.
+
+@c   FOMUS is free software: you can redistribute it and/or modify
+@c   it under the terms of the GNU General Public License as published by
+@c   the Free Software Foundation, either version 3 of the License, or
+@c   (at your option) any later version.
+
+@c   FOMUS is distributed in the hope that it will be useful,
+@c   but WITHOUT ANY WARRANTY; without even the implied warranty of
+@c   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+@c   GNU General Public License for more details.
+
+@c   You should have received a copy of the GNU General Public License
+@c   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+@node Usage, Tutorial, Installing, Top
+@chapter Usage
+
+@menu
+* Input::                       
+* Output::                      
+* Initialization File::         
+* Environment Variables::       
+@end menu
+
+@node Input, Output, Usage, Usage
+@section Input
+
+@subsection Command Line
+
+The command for running fomus at the command prompt is @command{fomus}.  To get help on command-line options, type:
+
+@example
+fomus -h
+@end example
+
+To process a @file{.fms} file, type:
+
+@example
+fomus @var{path/to/file}.fms
+@end example
+
+The @file{.fms} file might have its output file set to an unexpected location or may not output the type of file you're interested in.
+To override this, specify an output file also by typing:
+
+@example
+fomus -o@var{path/to/output}.ly @var{path/to/file}.fms
+@end example
+
+The @option{-S} option prints out a list of FOMUS's settings.  Two useful additional options to add to this are @option{-u}, 
+which changes the so-called ``use level,'' and @option{-n}, which specifies the number of settings to return if you are searching for a specific one.  
+Use levels range from 0 (beginner) to 3 (guru).  Levels 0 through 2 contain all of the settings that should be useful to most users
+while level 3 settings require some amount of technical knowledge to use.
+
+For example, to view all of the documentation for ``intermediate'' (and ``beginner'') level settings  type:
+
+@example
+fomus -S -u1
+@end example
+
+To search for settings that might have something to do with double accidentals, type:
+
+@example
+fomus -S -u2 -n3 double-acc
+@end example
+
+This gives you the top three matches for settings (up to ``advanced'' level) that have names similar to @samp{double-acc}.  You can also add @option{-d}
+to the command line to search documentation strings instead (rather than names).  The @option{-h} option lists all of the possibilities for searching and 
+filtering lists of settings, marks and modules.
+
+@ifplaintext
+See the FOMUS HTML documentation for more information on @file{.fms} files, settings, marks and modules.
+@end ifplaintext
+
+@subsection Emacs
+
+An Emacs FOMUS mode is installed in the @file{/@var{install_prefix}/shared/emacs/site-lisp} directory 
+(the exact location depends on the build prefix you specified in the @command{./configure} line).
+It offers customizable syntax highlighting for @file{.fms} files and a few commands for processing them.
+To use it, put the following in your @file{.emacs} initialization file:
+
+@example
+(add-to-list 'load-path "/@var{install_prefix}/share/emacs/site-lisp") ; (if necessary)
+(require 'fomus)
+@end example
+
+@subsection Common Music and Grace
+
+Grace contains a built-in graphical front-end for FOMUS, with several dialog boxes for editing settings and objects as well as @file{.fms} data files.
+To use the Grace front-end, create a new score and rename it to the output file you wish to generate (select the @option{Rename Score} menu option).  
+Renaming a score is the same
+as specifying an output filename via @option{-o} on the command line or changing the value of the @code{filename} setting.  
+Note events are entered using functions that are prefixed with a @code{fms:} package symbol.
+@ifnotplaintext
+See the examples in @ref{SAL Examples} or the Grace documentation for more information on how to use them.
+@end ifnotplaintext
+@ifplaintext
+See the examples in the FOMUS or Grace documentation for more information on how to use them.
+@end ifplaintext
+
+@subsection Pure Data
+
+If the appropriate Pd header files are installed on your system, @command{make} will also build a Pure Data @code{fomus} patch object.
+Rather than guessing the proper location to install this, it is instead placed in the @file{/@var{install_prefix}/share/fomus} directory.
+Either link/copy this to the appropriate directory or add the directory to Pd's search path.
+An example patch file @file{fomus.pd} is also installed to the same location.
+
+@subsection Lisp
+
+Two files, @file{fomus.lisp} and @file{fomus.asd}, are provided for using FOMUS in a Lisp environment such as SBCL, CLISP or Clozure CL.
+They are located in @file{/@var{install_prefix}/share/fomus}.  
+The CFFI package is required for @file{fomus.lisp} to compile and load, so make sure this is installed on your system.
+If you use ASDF to compile and load Lisp packages, simply create a link to @file{file.asd} in your
+ASDF system directory or make sure @file{/@var{install_prefix}/share/fomus/} is included in the @code{asdf:*central-registry*} variable.
+You can then type @samp{(asdf:operate 'asdf:load-op :fomus)} in Lisp to compile and load FOMUS. 
+Evaluate @samp{(fms:version)} to test if the FOMUS library is loaded correctly (FOMUS should return a version string).
+
+@subsection Importing Data
+
+FOMUS supports importing type 0 or 1 MIDI files.
+Although FOMUS attempts to make correct decisions based on information contained in the file, 
+you will most likely need to provide FOMUS with part and instrument definitions, measures, and also a time scale factor for this to work.
+@ifnotplaintext
+See @ref{MIDI Import Examples} for examples of how to do this.
+@end ifnotplaintext
+@ifplaintext
+See the HTML documentation for examples of how to do this.
+@end ifplaintext
+
+@node Output, Initialization File, Input, Usage
+@section Output
+
+@subsection LilyPond
+
+FOMUS can output LilyPond @uref{http://lilypond.org/} files for processing into PostScript or PDF format.
+If you specify that FOMUS output an @file{.ly} file and the @command{lilypond} command is in your path 
+then FOMUS automatically invokes lilypond for you, generating a @file{.pdf} output file.  
+It should also automatically open a viewer application afterwards to show you the results.
+Unless you are running Linux, this should probably work out of the box (Acrobat Reader must be installed in the default location
+in Windows).  If one or both of these two things doesn't happen, the following two lines should fix this if they are placed in the
+@file{.fomus} initialization file in your home directory:
+
+@example
+lily-exe-path = "@var{path/to/lilypond_app}"
+lily-view-exe-path = "@var{path/to/my_pdf_viewer_app}"
+@end example
+
+@subsection Finale and Sibelius
+
+To send output to either of these two commercial applications, specify an output file with an @file{.xml} extension.  
+This generates a MusicXML file which can be loaded using the Dolet plugin or a special import XML menu selection.
+See the MusicXML web site at @uref{http://www.recordare.com/} for a list of other software packages that import MusicXML.
+
+@subsection MIDI
+
+FOMUS also outputs standard MIDI (type 1) files.
+It attempts to produce a file that accurately reflects the score on listening but is not necessarily useful as a means of importing into other programs.
+Each voice and percussion part in the score is sent to a separate MIDI channel.
+FOMUS adds additional MIDI ports to work around the 16 channel limitation, so if you have many parts 
+it is necessary to use a MIDI player that understands multiple ports.
+
+@node Initialization File, Environment Variables, Output, Usage
+@section Initialization File
+
+When FOMUS starts up, it searches for an initialization file named @file{.fomus} in your home directory.  
+You must create yourself if it doesn't already exist.
+Use this file to modify FOMUS's default behavior by changing setting values.
+The syntax is flexible, and can be one of @samp{setting = value}, @samp{setting: value} and @samp{setting value}.
+Examples of some useful initialization file settings are:
+
+@example
+// Set the documentation use level to 0, the level for total newbies.
+use-level = 0
+
+// Set verbosity to 2, the highest value (0 is the lowest).
+verbose = 2
+
+// Set the path to the LilyPond executable, so FOMUS automatically processes
+// LilyPond output files.
+lily-exe-path = "/usr/bin/lilypond"
+
+// Set the path to a .pdf viewer application, so FOMUS automatically displays
+// the results.
+lily-view-exe-path = "evince"
+// A Windows example:
+lily-exe-path = "C:\\Program Files\\Adobe\\Reader 9.0\\Reader\\AcroRd32.exe"
+
+// If you don't specify an output filename anywhere, this will be the default.
+filename = "/tmp/out.ly"
+
+// Always produce a .fms, .xml and .ly file.
+output = (fms xml ly)
+@end example
+
+@ifnotplaintext
+This is also a good place for adding extensions to FOMUS's instrument and percussion instrument libraries
+(see @ref{`.fms' File Examples} for examples of defining instruments and percussion instruments).
+@end ifnotplaintext
+@ifplaintext
+This is also a good place for adding extensions to FOMUS's instrument and percussion instrument libraries.
+@end ifplaintext
+
+@example
+inst-defs += (<id my-special-inst ...> <id another-special-inst ...> ...)
+
+percinst-defs += (<id my-special-percinst ...> <id another-special-percinst ...> ...)
+
+layout-defs += (my-ensemble (kazoo ukulele glockenspiel organ))
+@end example
+
+@node Environment Variables,  , Initialization File, Usage
+@section Environment Variables
+
+TODO

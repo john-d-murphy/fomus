@@ -1,0 +1,14 @@
+part <id apart, inst piano>
+
+part apart
+
+voice 1
+
+time 3  duration 1 pitch 68 ;
+time 3  duration 2 pitch 60 ;
+time 4  duration 4 pitch 77 ;
+time 12 duration 2 pitch 66 ;
+time 13 duration 1 pitch 77 ;
+time 17 duration 3 pitch 77 ;
+time 18 duration 2 pitch 82 ;
+time 18 duration 2 pitch 60 ;

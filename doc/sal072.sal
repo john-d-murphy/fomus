@@ -1,0 +1,17 @@
+process myproc-notes ()
+  with pit = make-cycle({60 61 62 63 64 65 64 63 62 61})
+  while elapsed() < 10
+  fms:note(part: "pno", dur: 1/2, pitch: next(pit))
+  wait 1/2
+end
+
+process myproc-meass ()
+  repeat 1
+  fms:meas(dur: 3, meas-divs: {{3/2 3/2}})
+end
+
+begin
+  with parts = {{:id "pno" :inst "piano"}}
+  sprout(list(myproc-notes(), myproc-meass()),
+         *filename*, parts: parts)
+end

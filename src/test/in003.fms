@@ -1,0 +1,17 @@
+// pruning
+time 0     dur 1   pitch 55;
+time 1/2   dur 1/2 pitch 55;
+
+time 1+1/2 dur 1   pitch 53;
+time 2     dur 2   pitch 53;
+time 2+1/2 dur 1/2 pitch 53;
+
+// for comparison
+time +4 {
+  time 0     dur 1/2   pitch 55;
+  time 1/2   dur 1/2   pitch 55;
+
+  time 1+1/2 dur 1/2   pitch 53;
+  time 2     dur 1/2   pitch 53;
+  time 2+1/2 dur 1+1/2 pitch 53;
+}

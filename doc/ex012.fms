@@ -1,0 +1,4 @@
+// include the comments example at the beginning of this section
+include "comments.fms"
+
+time: 4 dur: 1+1/2 pitch: 30;

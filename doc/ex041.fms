@@ -1,0 +1,45 @@
+// parts
+part <id vla1, inst viola>
+part <id vla2, inst viola>
+part <id vla3, inst viola>
+
+// metaparts
+metapart <id vla, parts (<from-voice 1, to-voice 1, part vla1>
+                         <from-voice 2, to-voice 1, part vla2>
+                         <from-voice 3, to-voice 1, part vla3>)>
+
+// events
+part vla
+voice (1 2 3)
+dur 0.25
+
+time 0.0 pitch 61 ; pitch 63 ; pitch 65 ;
+time 0.25 pitch 62 ; pitch 64 ; pitch 66 ;
+time 0.5 pitch 60 ; pitch 62 ; pitch 64 ;
+time 0.75 pitch 60 ; pitch 62 ; pitch 64 ;
+time 1.0 pitch 62 ; pitch 64 ; pitch 66 ;
+time 1.25 pitch 61 ; pitch 63 ; pitch 65 ;
+time 1.5 pitch 60 ; pitch 62 ; pitch 64 ;
+time 1.75 pitch 61 ; pitch 63 ; pitch 65 ;
+time 2.0 pitch 62 ; pitch 64 ; pitch 66 ;
+time 2.25 pitch 61 ; pitch 63 ; pitch 65 ;
+time 2.5 pitch 60 ; pitch 62 ; pitch 64 ;
+time 2.75 pitch 62 ; pitch 64 ; pitch 66 ;
+time 3.0 pitch 61 ; pitch 63 ; pitch 65 ;
+time 3.25 pitch 62 ; pitch 64 ; pitch 66 ;
+time 3.5 pitch 60 ; pitch 62 ; pitch 64 ;
+time 3.75 pitch 61 ; pitch 63 ; pitch 65 ;
+time 4.0 pitch 60 ; pitch 62 ; pitch 64 ;
+time 4.25 pitch 62 ; pitch 64 ; pitch 66 ;
+time 4.5 pitch 61 ; pitch 63 ; pitch 65 ;
+time 4.75 pitch 60 ; pitch 62 ; pitch 64 ;
+time 5.0 pitch 62 ; pitch 64 ; pitch 66 ;
+time 5.25 pitch 62 ; pitch 64 ; pitch 66 ;
+time 5.5 pitch 61 ; pitch 63 ; pitch 65 ;
+time 5.75 pitch 60 ; pitch 62 ; pitch 64 ;
+time 6.0 pitch 60 ; pitch 62 ; pitch 64 ;
+time 6.25 pitch 61 ; pitch 63 ; pitch 65 ;
+time 6.5 pitch 62 ; pitch 64 ; pitch 66 ;
+time 6.75 pitch 62 ; pitch 64 ; pitch 66 ;
+time 7.0 pitch 60 ; pitch 62 ; pitch 64 ;
+time 7.25 pitch 61 ; pitch 63 ; pitch 65 ;

@@ -1,0 +1,96 @@
+// spanner marks
+detach = yes
+wedges-canspanone = yes
+wedges-canspanrests = yes
+wedges-cantouch = yes
+
+part <id vln inst violin>
+
+duration 1/2 
+time 0 pitch 56;
+duration 1
+time + pitch 55 [>];
+time + pitch 56 [.];
+time + pitch 57 [^];
+time + pitch 56 [-];
+
+duration 1/4
+time 6 pitch 55 [(..];
+time + pitch 56;
+time + pitch 57;
+time + pitch 56;
+time + pitch 55 [(..];
+time + pitch 56;
+time + pitch 57;
+time + pitch 56 [(..];
+time + pitch 55;
+time + pitch 56 [(..];
+time + pitch 57 [(..];
+time + pitch 56;
+time + pitch 55;
+time + pitch 56;
+time + pitch 57 [..)];
+time + pitch 56;
+time + pitch 55 [<..];
+time + pitch 56;
+time + pitch 57;
+time + pitch 56;
+time + pitch 55 [>..];
+time + pitch 56;
+time + pitch 57;
+time + pitch 56 [<..];
+time + pitch 55;
+time + pitch 56 [>..];
+time + pitch 57 [<..];
+time + pitch 56;
+time + pitch 55;
+time + pitch 56;
+time + pitch 57 [..<];
+time + pitch 68;
+
+time +16 {
+  time 0 duration 4 pitch 60;
+  time 4 duration 4 pitch 60;
+  time 8 duration 4 pitch 60;
+  mark time 0 duration 2 [<..];
+  mark time 2 duration 4 [>..][..>]; // FIXME: in XML, the wedge extends to the next measure
+}
+
+time +28 {
+  duration 1/4
+  pitch 67
+  time 0 [dot(..];
+  time +;
+  time +;
+  time + [..dot)];
+  time + [dash(..];
+  time +;
+  time +;
+  time + [..dash)];
+}
+
+time +32 {
+  duration 1/4
+  pitch 62
+  time 0 [(..];
+  time + [.(.];
+  time + [.(.];
+  time + [.(.];
+  time +;
+  time +;
+  time + [.(.];
+  time + [.(.];
+  time + [.(.];
+  time + [..)];
+  time +;
+  time +;
+  time + [.(.][(..];
+  time + [.(.];
+  time + [.(.];
+  time + [.(.];
+  time + [.(.][(..];
+  time + [.(.];
+  time + [.(.];
+  time + [.(.];
+  time +;
+}

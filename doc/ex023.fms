@@ -1,0 +1,11 @@
+part <id apart, inst piano>
+
+part apart
+
+voice (1 2 3)
+tim 2.08318 dur 2.88301 pit 75 ;
+tim 2.09164 dur 2.99741 pit 68 ;
+tim 7.4124 dur 2.67397 pit 63 ;
+tim 8.08441 dur 1.2428 pit 66 ;
+tim 8.25527 dur 1.22803 pit 64 ;
+tim 10.35368 dur 1.01455 pit 74 ;

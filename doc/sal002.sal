@@ -1,0 +1,13 @@
+process myproc ()
+  with marks = {{} {"."} {">"} {"^"} {"!"} {"/."}}
+  repeat 21
+  fms:note(dur: #?(elapsed() < 10, 1/2, 1),
+           pitch: between(48, 73),
+           marks: marks[random(length(marks))])
+  wait 1/2
+end
+
+begin
+  with parts = {{:id "apart" :inst "piano"}}
+  sprout(myproc(), *filename*, parts: parts)
+end

@@ -1,0 +1,23 @@
+// compound meter
+time 0 duration 4 |comp = yes|
+
+time 0 duration qc pitch c4;
+time + duration ec pitch d;
+time + duration qc pitch e;
+time + duration ec pitch f;
+time + duration ec pitch e;
+time + duration qc pitch d;
+time + duration hc pitch c;
+
+// FIXME: get it to make dotted eighths here
+// FIXME: get rid of long beam in 2nd half of 2nd to last measure
+
+time +8 {
+  time 0 duration q pitch c4;
+  time + duration e pitch d;
+  time + duration q pitch e;
+  time + duration e pitch f;
+  time + duration e pitch e;
+  time + duration q pitch d;
+  time + duration h pitch c;
+}

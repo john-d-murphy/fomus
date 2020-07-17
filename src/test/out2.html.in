@@ -1,0 +1,8 @@
+    <p><b>NAME</b></p>
+    <table>
+      <tr>
+	<td><object data="IN" type="text/plain" width="630" height="800"/></td>
+	<td><object data="OUT" type="image/png" width="630"/></td>
+      </tr>
+    </table>
+    <hr/>

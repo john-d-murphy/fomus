@@ -1,0 +1,7 @@
+process myproc (n, r)
+  repeat n
+  fms:note(dur: r, pitch: 60, staff: pick(1, 2))
+  wait r
+end
+
+sprout(myproc(16, 1/2), *filename*)

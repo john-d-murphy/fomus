@@ -1,0 +1,56 @@
+// percussion instruments
+percinst <id wb1, perc-note a3>
+percinst <id wb2, perc-note e4>
+
+// group the two woodblocks into one instrument
+// based off of the built-in `percussion' instrument
+inst <id myperc, template percussion,
+      percinsts (wb1 wb2)>
+
+// parts
+part <id perc, inst myperc>
+
+// events
+part perc
+duration 1/2
+time 0 pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;

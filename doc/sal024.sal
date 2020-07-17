@@ -1,0 +1,24 @@
+variable parts
+  = {{:id "vla1" :inst "viola"}
+     {:id "vla2" :inst "viola"}
+     {:id "vla3" :inst "viola"}}
+
+variable metaparts
+  = {{:id "vla" :parts {{:part "vla1" :from-voice 1 :to-voice 1}
+                        {:part "vla2" :from-voice 2 :to-voice 1}
+                        {:part "vla3" :from-voice 3 :to-voice 1}}}}
+
+process aproc (reps, dur, pset)
+  with pat = make-heap(pset, limit: reps)
+  for c = next(pat)
+  until ( eod?(c) )
+  loop for k in c
+    fms:note(pitch: k, part: "vla", dur: dur,
+         voice: {1 2 3})
+  end
+  wait dur
+end
+
+sprout(aproc(10, rhythm("s", 60), {{60 62 64} {61 63 65} {62 64 66}}),
+       *filename*,
+       parts: parts, metaparts: metaparts)

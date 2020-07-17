@@ -1,0 +1,39 @@
+// three versions of majchd are defined
+macro majchd(ti du pi)
+" time @ti
+  dur @du pitch @pi ;
+  pitch +4 { dur @du pitch @pi ; }
+  pitch +7 { dur @du pitch @pi ; }"
+
+macro majchd(du pi)
+" time +
+  dur @du pitch @pi ;
+  pitch +4 { dur @du pitch @pi ; }
+  pitch +7 { dur @du pitch @pi ; }"
+
+macro majchd (pi) "majchd(2 @pi)" // invokes the macro above
+
+macro noargs() "time 16 dur 4 pitch 60 ;"
+
+majchd(0 1 60) // three arguments calls the first macro
+majchd(+ 1 62)
+majchd (1 64) // two arguments calls the second macro
+majchd: (1 65) // alternate syntax
+majchd: (2 67)
+majchd = 72 // one argument selects the third macro (don't need the parentheses)
+
+noargs()
+
+// chord macro
+macro chord (pit1 pit2) "pitch @pit1; pitch @pit2;"
+macro chord (pit1 pit2 pit3) "pitch @pit1; pitch @pit2; pitch @pit3;"
+macro chord (pit1 pit2 pit3 pit4) "pitch @pit1; pitch @pit2; pitch @pit3; pitch @pit4;"
+macro chord (pit1 pit2 pit3 pit4 pit5) "pitch @pit1; pitch @pit2; pitch @pit3; pitch @pit4; pitch @pit5;"
+// this macro shows how to handle string arguments
+macro textmark (text) "[x \"@text\"]"
+
+// redundant `;'s are ignored by fomus (i.e., it's okay for the chord macros to end with ';' and
+// to be followed by an extra `;' here)
+time = 20 dur = 2 chord = (60 62) ;
+time = 22 dur = 2 chord = (64 66 68) ;
+time = 24 dur = 2 pitch 72 textmark ";)" ;

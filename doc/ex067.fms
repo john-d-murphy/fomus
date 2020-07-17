@@ -1,0 +1,22 @@
+// parts
+part <id pno, inst piano>
+
+// events
+part pno
+
+time 0 dur 3+1/2 ||
+dur 1/2
+time 0 pitch 60 ;
+time 1/2 pitch 57 ;
+time 1 pitch 60 ;
+
+time 3 pitch 60 ;
+time 3+1/2 pitch 61 ;
+
+time 8 pitch 60 ;
+time 8+1/2 pitch 59 ;
+time 9 pitch 56 ;
+
+time 14+1/2 pitch 60 ;
+time 15 pitch 60 ;
+time 15+1/2 pitch 61 ;

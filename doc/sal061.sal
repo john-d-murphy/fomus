@@ -1,0 +1,15 @@
+define process myproc ()
+  for i from 0 below 24
+  fms:note(dur: 1/3, pitch: between(60, 73))
+  wait 1/3
+end
+
+define process meass ()
+  with sets = make-cycle({:min-tupletdur :max-tupletdur}),
+       vals = make-cycle({2               1})
+  for i from 0 below 2
+  fms:meas(dur: 4, sets: list(next(sets), next(vals)))
+  wait 4
+end
+
+sprout(list(myproc(), meass()), *filename*)

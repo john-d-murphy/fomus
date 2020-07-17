@@ -1,0 +1,16 @@
+time 0 dur 1 pitch c4 [* Twin--];
+time + pitch c [* kle];
+time + pitch g4 [* twin--];
+time + pitch g4 [* kle];
+time + pitch a [* lit--];
+time + pitch a [* tle];
+time + dur 2 pitch g [* star,];
+time + dur 1 pitch f; // [* how];
+time + pitch f [* I];
+time + pitch e [* won--];
+time + pitch e [* der--];
+time + pitch d [* what];
+time + pitch d [* you];
+time + dur 2 pitch c [* are.];
+
+// FIXME: check for proper position on a grand staff

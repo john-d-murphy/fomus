@@ -1,0 +1,13 @@
+process myproc ()
+  for v from 1 to 2
+  loop for off from 0 to 10 by 1/2
+    fms:note(time: off, dur: #?(off < 10, 1/2 , 1),
+             pitch: #?(v = 2, between(35, 60), between(60, 85)),
+             voice: v, marks: odds(.5, {"(.."}, {}))
+  end
+end
+
+begin
+  with parts = {{:id "apart" :inst "piano"}}
+  sprout(myproc(), *filename*, parts: parts)
+end

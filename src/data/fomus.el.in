@@ -1,0 +1,263 @@
+;;   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+;;   This file is part of FOMUS.
+
+;;   FOMUS is free software: you can redistribute it and/or modify
+;;   it under the terms of the GNU General Public License as published by
+;;   the Free Software Foundation, either version 3 of the License, or
+;;   (at your option) any later version.
+
+;;   FOMUS is distributed in the hope that it will be useful,
+;;   but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;   GNU General Public License for more details.
+
+;;   You should have received a copy of the GNU General Public License
+;;   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;; Major mode (sort of) for emacs
+;; (require 'cl)
+(require 'compile)
+
+;; Create the syntax table for this mode.
+(defvar fomus-mode-syntax-table
+  (let ((st (make-syntax-table)))
+    ;; everything else
+    (modify-syntax-entry ?\` "." st)
+    (modify-syntax-entry ?~ "_" st)
+    (modify-syntax-entry ?! "_" st)
+    (modify-syntax-entry ?@ "_" st)
+    (modify-syntax-entry ?\# "_" st)
+    (modify-syntax-entry ?$ "_" st)
+    (modify-syntax-entry ?% "_" st)
+    (modify-syntax-entry ?^ "_" st)
+    (modify-syntax-entry ?& "_" st)
+    (modify-syntax-entry ?* "_" st)
+    (modify-syntax-entry ?_ "_" st)
+    (modify-syntax-entry ?+ "_" st)
+    (modify-syntax-entry ?\| "." st)
+    (modify-syntax-entry ?\; "." st) ;; used for note input
+    (modify-syntax-entry ?\. "_" st)
+    (modify-syntax-entry ?? "_" st)
+    ;; whitespace
+    (modify-syntax-entry ?\s " " st)
+    (modify-syntax-entry ?\t " " st)
+    (modify-syntax-entry ?\v " " st)
+    (modify-syntax-entry ?\f " " st)
+    ;; comments
+    (modify-syntax-entry ?/ "_ 124b" st)
+    (modify-syntax-entry ?\n "> b" st)
+    (modify-syntax-entry ?\r "> b" st)
+    (modify-syntax-entry ?- "_ 23" st)
+    ;; words
+    (let ((i ?a)) (while (<= i ?z) (modify-syntax-entry i "w" st) (setq i (1+ i))))
+    (let ((i ?A)) (while (<= i ?Z) (modify-syntax-entry i "w" st) (setq i (1+ i))))
+    (let ((i ?0)) (while (<= i ?9) (modify-syntax-entry i "w" st) (setq i (1+ i))))
+    ;; equals: punctuation
+    (modify-syntax-entry ?= "." st)
+    (modify-syntax-entry ?: "." st)
+    (modify-syntax-entry ?\, "." st)
+    ;; strings
+    (modify-syntax-entry ?\" "\"" st)
+    (modify-syntax-entry ?\' "\"" st)
+    ;; escape
+    (modify-syntax-entry ?\\ "\\" st)
+    ;; parens
+    (modify-syntax-entry ?\( "()" st)
+    (modify-syntax-entry ?\) ")(" st)
+    (modify-syntax-entry ?[ "|" st) ; "|"
+    (modify-syntax-entry ?] "|" st) ; "|"
+    (modify-syntax-entry ?< "(>" st)
+    (modify-syntax-entry ?> ")<" st)    
+    (modify-syntax-entry ?{ "." st)
+    (modify-syntax-entry ?} "." st)    
+    st)
+  "Syntax table for `fomus-mode'.")
+
+(defgroup fomus nil "Mode for FOMUS input files." :group 'applications)
+(defcustom fomus-pathname _FOMUS_BIN_ "Path to FOMUS binary." :type 'string :group 'fomus)
+(defcustom fomus-default-args "" "Default arguments for `fomus-run' function." :type 'string :group 'fomus)
+(defface fomus-time-face '((((class mono)) ) (t :foreground "blue4" :box (:line-width 1 :color "light gray") :underline t)) "Face for highlighting FOMUS times." :group 'fomus)
+(defface fomus-voice-face '((((class mono)) ) (t :foreground "purple4" :underline t)) "Face for highlighting FOMUS voices." :group 'fomus)
+(defface fomus-duration-face '((((class mono)) ) (t :foreground "green4" :underline t)) "Face for highlighting FOMUS durations." :group 'fomus)
+(defface fomus-pitch-face '((((class mono)) ) (t :foreground "orange4" :underline t)) "Face for highlighting FOMUS pitches." :group 'fomus)
+(defface fomus-dynamic-face '((((class mono)) ) (t :foreground "yellow4" :underline t)) "Face for highlighting FOMUS dynamics." :group 'fomus)
+(defface fomus-mark-face '((((class mono)) ) (t :foreground "red4" :underline t)) "Face for highlighting FOMUS marks." :group 'fomus)
+(defface fomus-noteenter-face '((((class mono)) ) (t :foreground "plum4" :bold t :underline t)) "Face for highlighting FOMUS semicolons (the \"note enter\" symbol)." :group 'fomus)
+(defface fomus-part-face '((((class mono)) ) (t :foreground "turquoise4" :inverse-video t)) "Face for highlighting FOMUS parts." :group 'fomus)
+
+;; (get-byte 1 "\"'")
+(defun fomus-font-lock-syntactic-face-function (state)
+  "Replacement `font-lock-syntactic-face-function' for `fomus-mode'."
+  (let ((x (cdddr state)))
+    (cond ((member (first x) '(34 39)) 'font-lock-string-face)
+	  ((second x) 'font-lock-comment-face))))
+
+(defvar fomus-font-lock-keywords
+  (let* ((k "\\(?:\\\\.\\|[[:alnum:]`~!@#$%^&*_=+|;:,./?-]\\)\\(?:/?\\\\.\\|/?[][:alnum:]`~!@#$%^&*()_=+[{}|;:'\",<.>?-]\\)*")
+	 (s "\\(?:[[:alnum:]`~!@#$%^&*_=+:,.?-]\\|/[[:alnum:]`~!@#$%^&*_=+:,.?]\\)*")
+	 (rx (lambda (a)
+	       (regexp-opt
+		(let ((l (make-list 0 nil))
+		      (s (shell-command-to-string (concat fomus-pathname a)))
+		      (i1 0) (i2 0))
+		  (while (< i2 (length s))
+		    (when (= (elt s i2) ?\n)
+		      (let ((u (substring s i1 i2)))
+			(setq l (cons u l)))
+		      (setq i1 (1+ i2)))
+		    (setq i2 (1+ i2)))
+		  l)))))
+    (list 
+     (cons (concat "\\_<\\(" (funcall rx " -S --brief") "\\)\\_>[[:space:]]*\\([+:=]*[[:space:]]*\\(?:" k "\\)?\\)") '((1 font-lock-variable-name-face) (2 fomus-default-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("template" "id" "imports" "export" "parts" "metapart" "percinsts" "percinst" "inst" "clefs" "staves" "staff" "measdef")) "\\)\\_>[[:space:]]*\\([+:=]*[[:space:]]*\\(?:" k "\\)?\\)") '((1 font-lock-keyword-face) (2 fomus-default-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("v" "vo" "voi" "voice")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\([-+]?(\\(?:" s "[[:space:]]*\\)*)\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-voice-face))) ; voice (special case w/ parens)
+     (cons (concat "\\_<\\(" (regexp-opt '("macro")) "\\)[[:space:]]*\\(" s "\\)[[:space:]]*\\((\\(?:" s "[[:space:]]*\\)*)\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-default-face)))
+     (cons ; at this point, prevent further fontification inside parens
+      (lambda (lim)
+	(let ((ins nil))
+	  (while (and (< (point) lim) (setq ins (<= (first (syntax-ppss)) 0))) (forward-char))
+	  (unless ins
+	    (set-match-data (list (point) (1+ (point))))
+	    (forward-char)
+	    t)))
+      'fomus-default-face)
+     (cons (concat "\\([-+]?\\s|\\)[[:space:]]*\\(\\(?:" (funcall rx " -M --brief") "\\)?\\)\\([^]]*\\)\\(\\s|\\)") '((1 font-lock-keyword-face) (2 fomus-mark-face) (3 fomus-default-face) (4 font-lock-keyword-face)))
+     
+     (cons (concat "\\_<\\(" (regexp-opt '("include")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-default-face)))
+
+     (cons (concat "\\_<\\(" (regexp-opt '("voice")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-voice-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("time")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-time-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("grace")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-time-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("dynamic")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-dynamic-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("duration")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-duration-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("part")) "\\)[[:space:]]*\\([:=]+\\|[[:space:]]\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-part-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("pitch")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-pitch-face)))
+     (cons (concat "\\_<" (regexp-opt '("note"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("mark"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("rest"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("measure" "meas"))) 'font-lock-keyword-face)
+     
+     (cons (concat "\\_<\\(" (regexp-opt '("voi")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-voice-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("tim")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-time-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("gra")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-time-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("dyn")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-dynamic-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("dur")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-duration-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("par")) "\\)[[:space:]]*\\([:=]+\\|[[:space:]]\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-part-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("pit")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-pitch-face)))
+     (cons (concat "\\_<" (regexp-opt '("not"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("mar"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("res"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("mea"))) 'font-lock-keyword-face)
+     
+     (cons (concat "\\_<\\(" (regexp-opt '("vo")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-voice-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("ti")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-time-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("gr")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-time-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("dy")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-dynamic-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("du")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-duration-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("pa")) "\\)[[:space:]]*\\([:=]+\\|[[:space:]]\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-part-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("pi")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-pitch-face)))
+     (cons (concat "\\_<" (regexp-opt '("no"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("ma"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("re"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("me"))) 'font-lock-keyword-face)
+     
+     (cons (concat "\\_<\\(" (regexp-opt '("v")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-voice-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("t")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-time-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("g")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-time-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("y")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-dynamic-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("d")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-duration-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("a")) "\\)[[:space:]]*\\([:=]+\\|[[:space:]]\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-part-face)))
+     (cons (concat "\\_<\\(" (regexp-opt '("p")) "\\)[[:space:]]*\\([:=]*\\)[[:space:]]*\\(" s "\\)") '((1 font-lock-keyword-face) (2 fomus-default-face) (3 fomus-pitch-face)))
+     (cons (concat "\\_<" (regexp-opt '("n"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("m"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("r"))) 'font-lock-keyword-face)
+     (cons (concat "\\_<" (regexp-opt '("e"))) 'font-lock-keyword-face)
+     
+     (cons ";" 'fomus-noteenter-face)
+     (cons (concat "\\_<" s "{") 'fomus-default-face)
+     (cons (concat "}" s) 'fomus-default-face)
+     (cons "\\(\\.\\.\\.?\\)" 'fomus-default-face)
+     ;; (cons s 'fomus-part-face)
+     ))
+  "Font-lock highlighting for `fomus-mode'.")
+
+(defvar fomus-args ""
+  "Arguments for `fomus-run' command.")
+(defun fomus-run ()
+  "Run FOMUS executable on file in current buffer."
+  (interactive)
+  (save-some-buffers)
+  (let ((c (concat fomus-pathname " ")))
+    (if (> (length fomus-args) 0) (setq c (concat c fomus-args " ")))
+    (let ((compilation-scroll-output t)) 
+      (compilation-start (concat c (shell-quote-argument (buffer-file-name)))
+                        'compilation-mode
+                        (lambda (mode) "*FOMUS Output*")))))
+(defun fomus-run-args ()
+  "Run FOMUS on file in current buffer, prompting for additional arguments."
+  (interactive)
+  (setq fomus-args (read-from-minibuffer "FOMUS arguments: " fomus-args))
+  (fomus-run))
+   
+;; Create the keymap for this mode.
+(defvar fomus-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "\C-c\C-c" 'fomus-run)
+    (define-key map "\C-c\C-a" 'fomus-run-args)
+    map)
+  "Keymap for `fomus-mode'.")
+
+(defun fomus-indent-line ()
+  "Indent current line in `fomus-mode'."
+  (interactive)
+  (let ((i (save-excursion
+	     (beginning-of-line)
+	     (condition-case nil (progn (up-list -1) (1+ (current-column))) (error 0)))))
+    (if (> (current-column) (current-indentation))
+	(save-excursion (indent-line-to i))
+      (indent-line-to i))))
+
+(defvar fomus-time-face 'fomus-time-face)
+(defvar fomus-voice-face 'fomus-voice-face)
+(defvar fomus-duration-face 'fomus-duration-face)
+(defvar fomus-pitch-face 'fomus-pitch-face)
+(defvar fomus-dynamic-face 'fomus-dynamic-face)
+(defvar fomus-noteenter-face 'fomus-noteenter-face)
+(defvar fomus-part-face 'fomus-part-face)
+(defvar fomus-default-face 'default)
+(defvar fomus-mark-face 'fomus-mark-face)
+
+(define-derived-mode fomus-mode nil "FOMUS"
+  "Major mode for editing FOMUS input files.
+
+\\{fomus-mode-map}
+Turning on FOMUS mode runs the value of `fomus-mode-hook' if it is non-nil."
+  :syntax-table fomus-mode-syntax-table
+  ;; (interactive)
+  (set (make-local-variable 'comment-start) "// ")
+  (set (make-local-variable 'comment-start-skip) "/-+ *\\|//+ *")
+  (set (make-local-variable 'font-lock-defaults) 
+       '(fomus-font-lock-keywords nil t nil nil (font-lock-syntactic-face-function . fomus-font-lock-syntactic-face-function)))
+  (set (make-local-variable 'indent-line-function) 'fomus-indent-line)
+  (set (make-local-variable 'parse-sexp-ignore-comments) t)
+  (make-local-variable 'fomus-time-face)
+  (make-local-variable 'fomus-voice-face)
+  (make-local-variable 'fomus-duration-face)
+  (make-local-variable 'fomus-pitch-face)
+  (make-local-variable 'fomus-dynamic-face)
+  (make-local-variable 'fomus-noteenter-face)
+  (make-local-variable 'fomus-part-face)
+  (make-local-variable 'fomus-default-face)
+  (make-local-variable 'fomus-mark-face)
+  (setq fomus-args fomus-default-args)
+  )
+
+(add-to-list 'auto-mode-alist '("\\.[fF][mM][sS]\\'" . fomus-mode))
+(add-to-list 'auto-mode-alist '("\\.[fF][pP][rR]\\'" . fomus-mode))
+(add-to-list 'auto-mode-alist '("\\.fomus\\'" . fomus-mode))
+(add-to-list 'auto-mode-alist '("fomus.conf\\'" . fomus-mode))
+
+(add-to-list 'compilation-error-regexp-alist-alist '(fomus "line \\([0-9]+\\).*col\\. \\([0-9]+\\).*`\\([[:print:]]*\\)'" 3 1 2))
+(add-to-list 'compilation-error-regexp-alist 'fomus)
+
+(provide 'fomus)

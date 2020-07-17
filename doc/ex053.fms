@@ -1,0 +1,16 @@
+transpose-keysigs = no
+wedges-canspanone = yes
+wedges-cantouch = yes
+
+// parts
+part <id tpt, inst bflat-trumpet>
+
+// events
+part tpt
+time 0 dur 4 ||
+time 0 dur 2 pitch 74 [<..] ;
+time 2 dur 2 pitch 74 ;
+time 4 dur 2 pitch 70 ;
+time 6 dur 2 pitch 74 [>..] ;
+time 8 dur 2 pitch 73 ;
+time 10 dur 2 pitch 70 [<..] ;

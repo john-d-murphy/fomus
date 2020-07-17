@@ -1,0 +1,17 @@
+process myproc ()
+  for n from 0 below 20
+  fms:note(dur: 1/3,
+           pitch: 55 + (11 * sin(elapsed())),
+           staff: #?(n < 10, 2, 1),
+           acc: #?(n < 10, {n f}, {n s}))
+    wait 1/3
+end
+
+process mymeas ()
+  repeat 1
+  fms:meas(dur: 2, comp: #t, keysig: "gmaj")
+end
+
+begin
+  sprout( list(mymeas(), myproc()), *filename*)
+end

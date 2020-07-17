@@ -1,0 +1,304 @@
+@c   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+@c   This file is part of FOMUS.
+
+@c   FOMUS is free software: you can redistribute it and/or modify
+@c   it under the terms of the GNU General Public License as published by
+@c   the Free Software Foundation, either version 3 of the License, or
+@c   (at your option) any later version.
+
+@c   FOMUS is distributed in the hope that it will be useful,
+@c   but WITHOUT ANY WARRANTY; without even the implied warranty of
+@c   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+@c   GNU General Public License for more details.
+
+@c   You should have received a copy of the GNU General Public License
+@c   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+@node Installing, Usage, Introduction, Top
+@chapter Installing
+
+@menu
+* Binary Installers::           
+* Installing from a Source Tarball::  
+* Installing from the SVN Repository::  
+* Regression Tests::            
+@end menu
+
+@node Binary Installers, Installing from a Source Tarball, Installing, Installing
+@section Binary Installers
+
+Binary installers are available for OS X and Windows.  64-bit binaries aren't available yet but will be available soon
+(the 32-bit version will run on a 64-bit machine, though programs compiled in 64-bit mode won't be able to use it.)
+
+Windows binaries are currently being built on a Windows XP platform.  
+So far it's known that they run in both XP and Vista.
+
+@node Installing from a Source Tarball, Installing from the SVN Repository, Binary Installers, Installing
+@section Installing from a Source Tarball
+
+@subsection Source Install Requirements
+
+To install from a source tarball, your computer must have a C++ compiler such as GCC or Apple's Xcode and recent versions of the following:
+
+@itemize
+@item
+Boost C++ Libraries (@uref{http://www.boost.org/})
+
+@item
+LilyPond (optional but recommended, @uref{http://lilypond.org/})
+@end itemize
+
+To install these, follow the instructions for each individual package or use a package manager such as Fink, MacPorts or Cygwin.
+
+@subsection Downloading
+
+Download the latest source tarball at @uref{http://fomus.sourceforge.net/} and unpack it with an archive manager application or type the following at a command prompt:
+
+@example
+cd @var{path/to/installfrom/directory}
+tar -xzf @var{path/to/fomus/tarball}.tar.gz
+@end example
+
+@subsection Compiling and Installing from Source
+
+Type the following at a command prompt:
+
+@example
+cd @var{path/to/fomus/source/directory}
+./configure
+make
+make install
+@end example
+
+By default, FOMUS is installed to @file{/usr/local/}.  To change this, add @option{--prefix=@var{/path/to/base/install/directory}} to the
+@command{./configure} line.  If you install to a nonstandard directory, you might need to add the path to FOMUS's executable to your @env{PATH} variable.
+If you have more than one core or processor, you can speed up the build process by adding @option{-j2} (or a higher number) to the
+@command{make} command.  
+
+If you are updating to a newer version, make sure you uninstall the previous version first.  See the section below on uninstalling.
+
+To install documentation, type:
+
+@example
+cd @var{path/to/fomus/source/directory}
+make html
+make install-html
+@end example
+
+@c @subsection Building and Installing Boost
+
+@c If you build and install the boost libraries yourself, you might need to do the following.  First make sure the libraries
+@c install to @file{/usr/local/lib} (or whatever prefix you're using).  If they don't, you need to move them from 
+@c the @file{stage/lib} directory in the Boost source tree.  Second, the headers install to the directory
+@c @file{/usr/local/include/boost_1_39_0/boost} (or a similar directory with a version number in it).  Either move the
+@c @file{boost} directory or create a symlink so that the directory @file{/usr/local/include/boost} contains the root
+@c directory for the headers.  
+
+@subsection Installing on Cygwin
+
+You must compile and install Boost version 1.40 or greater before building FOMUS (the version of Boost that Cygwin offers is too old).
+After untarring the Boost sources and before building anything, edit the @file{boost/config/user.hpp} file in the Boost source directory and
+add the following line anywhere in the file:
+
+@example
+#define BOOST_CYGWIN_PATH
+@end example
+
+Setting this macro causes FOMUS to run properly using both Cygwin UNIX-style and
+Windows pathnames.
+
+@subsection Updating
+
+Update the software by repeating the download and @command{make} instructions above.  Before you do so, make sure you uninstall the application first
+to insure that any old modules are deleted and won't get in the way of the new install.
+See the next section for instructions on uninstalling.
+
+@subsection Uninstalling
+
+Uninstall FOMUS with the following commands:
+
+@example
+cd @var{path/to/fomus/source/directory}
+make uninstall
+@end example
+
+@node Installing from the SVN Repository, Regression Tests, Installing from a Source Tarball, Installing
+@section Installing from the SVN Repository
+
+The SVN install is a bit more complicated to compile and install than the source tarball.
+
+@subsection SVN Install Requirements
+
+This SVN source code is much more complicated than the source install described above.
+You should only try to build this if you want to build everything completely from scratch.
+Be prepared to run into a few glitches, especially when building the documentation.
+
+The development build requires that several more dependencies be installed first.
+You must download the source using Subversion as described above.
+Your computer must also have a C++ compiler such as GCC or Apple's Xcode and recent versions of the following:
+
+@itemize
+@item
+Autoconf, Automake, Libtool and Texinfo (@uref{http://www.gnu.org/software/})
+
+@item
+The Autoconf Archive (@uref{http://www.nongnu.org/autoconf-archive/})
+
+@item
+Boost C++ Libraries (@uref{http://www.boost.org/})
+
+@item
+SWIG (@uref{http://www.swig.org/})
+
+@item
+ImageMagick (for documentation build, @uref{http://www.imagemagick.org/})
+
+@item
+Graphviz (for documentation build, @uref{http://www.graphviz.org/})
+
+@item
+SBCL (with CFFI, for documentation build, @uref{http://sbcl.sourceforge.net/}, @uref{http://common-lisp.net/project/cffi/})
+
+@item
+Grace (with cm, for documentation build, @uref{http://commonmusic.sourceforge.net/})
+
+@item
+LilyPond (optional but recommended, for documentation build and regression test, @uref{http://lilypond.org/})
+
+@item
+libxml2 (with xmllint, for regression test, @uref{http://www.xmlsoft.org/})
+@end itemize
+
+To install these, follow the instructions for each individual package or use a package manager such as Fink, MacPorts or Cygwin.
+@c The SVN build is much easier if you don't build the documentation or run the regression test.  
+The following commands must be in your path and executable from the command line: @command{lilypond}, @command{swig}, @command{convert}, @command{dot},
+@command{sbcl}, @command{cm} and @command{xmllint} as well as all of the autoconf and texinfo tools and the C compiler.  
+Many of these dependencies are required by the documentation build and regression test.  If you don't plan on building these, then
+only @command{swig}, the autoconf tools and C compiler needs to be in your path.
+
+@c If you are building documentation or running tests you must also
+@c run SBCL and make sure the command @code{(asdf:operate 'asdf:load-op :cffi)} runs without any errors (certain versions of either CFFI or SBCL
+@c give package lock warnings which must be bypassed with the ``unlock all'' option the first time you load CFFI).
+
+@subsection Repository Checkout
+
+To checkout the sources from the SVN repository type the following at a command prompt:
+
+@example
+cd @var{path/to/installfrom/directory}
+svn co https://fomus.svn.sourceforge.net/svnroot/fomus/trunk fomus
+@end example
+
+This creates a @file{fomus} directory and downloads the latest development source tree into it.  
+
+You can also checkout releases snapshots, which are much more stable and reliable than the trunk.
+The following command lists all of the releases currently stored in the repository:
+
+@example
+svn ls https://fomus.svn.sourceforge.net/svnroot/fomus/tags
+@end example
+
+After you've selected the version you want, the command to check it out is then:
+
+@example
+cd @var{path/to/installfrom/directory}
+svn co https://fomus.svn.sourceforge.net/svnroot/fomus/tags/@var{releaseversion} fomus
+@end example
+
+@subsection Compiling and Installing from the SVN Repository
+
+Before compiling, you must run Autoconf and related tools first.  There is a shell script called @file{bootstrap} that does this for you and reports
+whether or not it succeeded.  
+
+@example
+cd @var{path/to/fomus/source/directory}
+./bootstrap
+@end example
+
+If the Autoconf Archive doesn't come with your system or distribution then download/unpack it somewhere and add the path to the @file{m4} directory 
+(located inside the archive) to the @command{./bootstrap} command.  
+If you've unpacked the archive in @file{/usr/local/src}, for example, you should then type something like this in
+place of what is shown above:
+
+@example
+./bootstrap /usr/local/src/autoconf-archive-2008-11-07/m4
+@end example
+
+If that doesn't work, use the following commands at a command prompt:
+
+@example
+cd @var{path/to/fomus/source/directory}
+aclocal
+libtoolize
+automake -a
+autoreconf
+@end example
+
+If you've untarred the Autoconf Archive somewhere then type something similar to the following instead:
+
+@example
+cd @var{path/to/fomus/source/directory}
+aclocal -I /usr/local/src/autoconf-archive-2008-11-07/m4
+libtoolize
+automake -a
+ACLOCAL="aclocal -I /usr/local/src/autoconf-archive-2008-11-07/m4" autoreconf
+@end example
+
+It is okay if @command{aclocal}, @command{libtoolize} and @command{automake} complain about missing files, etc..  The final @command{autoreconf}
+command should run cleanly without any output.  On Mac OS X, libtool is prefixed with the 
+letter @kbd{g} (e.g., type @command{glibtoolize} instead of @command{libtoolize}).
+After this you will only need to type @command{autoreconf} to repeat this step (including the @env{ACLOCAL} environment variable if necessary).
+However, this probably won't be necessary since @command{make} should take care of any necessary autoreconfing.
+
+At this point, follow the instructions for the compiling and installing from the source tarball above. 
+
+@subsection Updating SVN Installation
+
+To update the source tree, type:
+
+@example
+cd @var{path/to/fomus/source/directory}
+make uninstall
+svn up
+@end example
+
+It is important to uninstall FOMUS first to insure that any old modules are deleted and won't get in the way of the new install.
+After updating the source files type @command{make} and @command{make install} to compile and reinstall the updated sources.
+
+@node Regression Tests,  , Installing from the SVN Repository, Installing
+@section Regression Tests
+
+To run the regression test suite you must have FOMUS, SBCL,
+LilyPond and libxml2 installed and the @command{fomus}, @command{sbcl}, @command{lilypond} and @command{xmllint} commands 
+in your path.  For @command{xmllint} to work, you must either be connected to the internet or must download the MusicXML DTDs and 
+set up a catalog file that points @command{xmllint} to your local @file{partwise.dtd} file.  
+
+The command is:
+
+@example
+cd @var{path/to/fomus/source/directory}
+make installcheck
+@end example
+
+If successful, this will create two HTML files named @file{check.html} and @file{checkdocs.html} in the source directory.  Open these in a 
+web browser to compare test files to their outputs and verify that FOMUS is running correctly.
+The install check also prints out a summary of the results, which includes several other test suites in addition to the two mentioned above.
+
+On my machine, I have the MusicXML DTD files stored in @file{/home/david/local/share/musicxml/} and
+a catalog file in the same directory simply called @file{catalog.xml}.  The contents of @file{catalog.xml} are:
+
+@example
+<?xml version="1.0"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN"
+  "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <public publicId="-//Recordare//DTD MusicXML 2.0 Partwise//EN"
+    uri="/home/david/local/share/musicxml/partwise.dtd"/>
+</catalog>
+@end example
+
+Then in my @file{.profile} file I have
+
+@example
+export XML_CATALOG_FILES="/etc/xml/catalog /home/david/local/share/musicxml/catalog.xml"
+@end example

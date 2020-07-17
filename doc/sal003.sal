@@ -1,0 +1,12 @@
+process myproc ()
+  repeat 21
+  fms:note(dur: #?(elapsed() < 10, 1/2, 1),
+           pitch: 70 + (random(4) / 2))
+  wait 1/2
+end
+
+begin
+  with parts = {{:id "apart" :inst "piano"}},
+       sets = {:quartertones #t}
+  sprout(myproc(), *filename*, parts: parts, sets: sets)
+end

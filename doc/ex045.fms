@@ -1,0 +1,28 @@
+quartertones = yes
+
+part <id pno, inst piano>
+
+part pno
+dur 1/2
+time 0 pitch 71+1/2 ;
+time + pitch 70 ;
+time + pitch 71 ;
+time + pitch 70 ;
+time + pitch 71+1/2 ;
+time + pitch 70+1/2 ;
+time + pitch 70+1/2 ;
+time + pitch 71 ;
+time + pitch 70 ;
+time + pitch 70 ;
+time + pitch 70 ;
+time + pitch 70 ;
+time + pitch 70 ;
+time + pitch 70 ;
+time + pitch 71 ;
+time + pitch 71 ;
+time + pitch 70+1/2 ;
+time + pitch 70+1/2 ;
+time + pitch 70 ;
+time + pitch 71 ;
+dur 1
+time + pitch 70+1/2 ;

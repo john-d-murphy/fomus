@@ -1,0 +1,27 @@
+time 0 duration 1/2 pitch 56;
+duration 1
+time + pitch 55 [>];
+time + pitch 56 [.];
+time + pitch 57 [^];
+time + pitch 56 [-];
+
+duration 1/4
+time 6 pitch 55 [(..];
+time + pitch 56;
+time + pitch 57;
+time + pitch 56;
+time + pitch 55 [(..];
+time + pitch 56;
+time + pitch 57;
+time + pitch 56 [(..];
+time + pitch 55;
+time + pitch 56 [(..];
+time + pitch 57 [(..];
+time + pitch 56;
+time + pitch 55;
+time + pitch 56;
+time + pitch 57 [..)];
+time +
+time + pitch 56 [x ":)"]; // (text) mark with argument
+time + pitch 55 [x ":("];
+time + pitch 56 [x, ":|"]; // (optional comma)

@@ -1,0 +1,50 @@
+// parts with inlined instruments and percussion instruments
+part <id perc,
+      inst <template percussion,
+            percinsts (<id "wb1" perc-note a3, perc-voice 2>
+                       <id "wb2" perc-note e4, perc-voice 1>)>>
+
+// events
+part perc
+duration 1/2
+time 0 pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb1 ;
+time + pitch wb1 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;
+time + pitch wb2 ;

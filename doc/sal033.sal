@@ -1,0 +1,9 @@
+process myproc ()
+  with h = make-heap({0 3 4 6 8})
+  while elapsed() < 12
+  fms:note(dur: 1/2, pitch: 67 + next(h), voice: 1)
+  fms:note(dur: 1/2, pitch: 55 + next(h), voice: 2)
+  wait 1/2
+end
+
+sprout(myproc(), *filename*)

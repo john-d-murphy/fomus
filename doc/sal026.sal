@@ -1,0 +1,14 @@
+function myproc (n, r)
+  loop repeat n
+    for tim from 0 by r
+    fms:note(part: "mypart", time: tim, dur: r, pitch: between(48, 73))
+  end
+end
+
+fms:new-score(*filename*) ; define a new score object
+
+fms:part(id: "mypart", inst: "piano") ; create a part
+
+myproc(16, 1/2) ; send the notes
+
+fms:run() ; run FOMUS

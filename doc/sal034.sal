@@ -1,0 +1,12 @@
+process myproc (n, r)
+  repeat n
+    fms:note(dur: r, pitch: between(48.0, 73.0))
+    wait r
+end
+
+begin
+  with sets = {:title "Random"
+               :author "David Psenicka"
+               :quartertones #t}
+  sprout(myproc(20, 1/2), *filename*)
+end

@@ -1,0 +1,4 @@
+// weeds out errors in presets files
+presets = (common draft contemp nottonal quality tonal)
+
+time 0 dur 1 pitch 60;

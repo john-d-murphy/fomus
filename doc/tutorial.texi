@@ -1,0 +1,287 @@
+@c   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+@c   This file is part of FOMUS.
+
+@c   FOMUS is free software: you can redistribute it and/or modify
+@c   it under the terms of the GNU General Public License as published by
+@c   the Free Software Foundation, either version 3 of the License, or
+@c   (at your option) any later version.
+
+@c   FOMUS is distributed in the hope that it will be useful,
+@c   but WITHOUT ANY WARRANTY; without even the implied warranty of
+@c   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+@c   GNU General Public License for more details.
+
+@c   You should have received a copy of the GNU General Public License
+@c   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+@node Tutorial, Reference, Usage, Top
+@chapter Tutorial
+
+This is an introduction to FOMUS using @file{.fms} files to input data.
+Read through this section to learn some of FOMUS's basic features and get an overall sense of how it works.
+
+@menu
+* Setup::                       
+* Tutorial of Basic Features::  
+* Further Information::         
+@end menu
+
+@node Setup, Tutorial of Basic Features, Tutorial, Tutorial
+@section Setup
+
+If you want to try processing any of the tutorial examples, it's recommended that you install LilyPond and put the following lines 
+in a file named @file{.fomus} in your home directory.  
+Also make sure that you have LilyPond installed, and a PDF viewer if you are using Windows (FOMUS tries to use Adobe Acrobat by default on Windows).
+You must create the @file{.fomus} file yourself using a text editor.  
+
+If your machine is running Linux or you find that FOMUS isn't automatically invoking LilyPond to compile output files, uncomment the line that reads
+@samp{//lily-exe-path =} by removing the @samp{//} at the beginning and change @samp{/usr/bin/lilypond} to the correct path of the @file{lilypond} executable.
+On OS X this is probably buried deep inside the @file{Applications} directory somewhere and in Windows its probably somewhere inside @file{Program Files}.
+On Linux the command @command{which lilypond} should show you the correct path.
+If FOMUS is compiling LilyPond files but isn't automatically displaying them (or you are running Linux), then uncomment the line that reads @samp{//lily-view-exe-path =}
+(remove the @samp{//}) and change @samp{open} to the path of a PDF viewer (the viewer app must be able to take the name of a @file{.pdf} file as its first argument).
+
+Also, if you are running Windows, change @samp{/tmp/} in the bottom line to a directory that can be used as a temporary directory
+(for example, the line might read @samp{filename = "C:\\Documents and Settings\\@var{your_user_name}\\Local Settings\\Temp\\out.ly"}).
+
+@example
+/-
+  Set the path to the LilyPond executable, so FOMUS automatically
+  processes LilyPond output files.  On Linux, the path is probably
+  "/usr/bin/lilypond" or "/usr/local/bin/lilypond".  On OS X the path is
+  probably "/Applications/LilyPond.app/Contents/Resources/bin/lilypond".
+  In Windows it's probably 
+  "C:\\Program Files\\LilyPond\\usr\\bin\\lilypond.exe".  These defaults
+  should already be set on OS X and Windows, so FOMUS should work out of
+  the box and you can most likely omit this line.
+-/
+
+//lily-exe-path = "/usr/bin/lilypond"
+
+/-
+  Set the path to a .pdf viewer application, so FOMUS automatically
+  displays the results.  On Linux insert the path to your favorite PDF
+  viewer.  On OS X, the command "open" works.  On Windows, "C:\\Program
+  Files\\Adobe\\Reader 9.0\\Reader\\AcroRd32.exe" works if Acrobat
+  Reader is installed in the default location.  These defaults should
+  already be set on OS X and Windows, so FOMUS should work out of the
+  box and you can most likely omit this line.
+-/
+
+//lily-view-exe-path = "open"
+
+/-
+  If you don't specify an output filename anywhere, this is the default.
+  Windows users should choose a different directory here for temporary
+  files.
+-/
+
+filename = "/tmp/out.ly"
+@end example
+
+You should now only need to type @command{fomus @var{filename}} at the command prompt to run each example.
+If the @code{lily-exe-path} and @code{lily-view-exe-path} paths are correct, a score should automatically appear at the end of each run.
+
+@node Tutorial of Basic Features, Further Information, Setup, Tutorial
+@section Tutorial of Basic Features
+
+Welcome to the tutorial.
+
+@subsection Entering Notes
+
+To start out with, here is a single line of a FOMUS input file.  It specifies a single note:
+
+@fomusex{Single Note, Tut, tut, fms, 001}
+
+There are four parts to this note entry or ``event.''  First the keyword @code{time} followed by a @samp{0} indicates that 
+the time for the event being defined is 0.  0 is always the downbeat of the first measure in the score.
+@code{dur} followed by @samp{1} indicates that the duration for the event is 1.  
+The time and duration units are in ``beats,'' which by default is equivalent to a quarter note
+(this can easily be changed).  @code{pitch} followed by @samp{60} indicates that the event 
+has a pitch of 60, which is defined to be middle C or C4.  The final @code{;} at the end of the line functions as an enter command,
+telling FOMUS to take all of the values just specified and create a note event.
+
+Let's add a few more notes:
+
+@fomusex{More Notes, Tut, tut, fms, 002}
+
+This is the most straightforward way of entering note events.  Simply list each one, giving all of their attributes followed by @code{;}.
+Two different ways of entering comments are also shown---either prefix a single line with double slashes (@samp{//}) 
+to tell FOMUS to skip the rest of the line or surround a block of text with @samp{/-} and @samp{-/} to tell FOMUS to skip that block.
+In each of these examples FOMUS assumes a default meter signature of 4/4 and a key signature of C major.  Later on we will look at how to change these.
+
+@fomusex{Shortcut, Tut, tut, fms, 003}
+
+In this example, the duration was only given once at the top of the file.  There is no @code{;} following it, so no note event is entered
+after FOMUS reads the first line.  The second line specifies the time and pitch and ``inputs'' the note with a @code{;}.  The rest of the note
+events are entered this way also.  When @code{dur} is set, then, it behaves as a variable or ``placeholder'' that retains its value until the next
+time it occurs in the file.  As FOMUS reads the file from top to bottom, it keeps track of @code{dur} and uses the last value it read
+whenever it encounters a @code{;}.  A more visual way of understanding this is that @code{dur} at the top modifies everything that appears below it
+(up to the next appearance of @code{dur}).  
+
+The pitches are also specified as symbols and should be significantly easier to read than the previous example.  
+After specifying C4 (middle C), each of the following note symbols
+represent the pitch in the octave that is as close as possible to the previous note symbol.  Although these don't appear until later,
+flat alterations are specified with @samp{-} or @samp{f}s and sharps are specified with @samp{+} or @samp{s} (these are @emph{alterations} in pitch and not
+actual spellings).
+
+The following example contains a chord and an alternate way of specifying @code{time}:
+
+@fomusex{Chord, Tut, tut, fms, 004}
+
+In the first four lines, time and duration remain the same as three pitches are entered.  This forms a chord at time 0.  The @samp{1/2}'s are 
+rational numbers and the @samp{1+1/2} is a mixed number (1/2 is added to 1).  The @samp{+} after the @code{time}s is a shortcut symbol that means ``increment
+the time by as much as the previous duration.''  The time in line 5, then is 1, since the duration of the first event is 1.
+The next event has a time of 1+1/2, etc..
+
+There are many more shortcuts like this designed to make editing note events easier.
+See @ref{`.fms' File Features} for more information. 
+
+@subsection Parts and Instruments
+
+FOMUS always needs at least one part to be defined to process a score.  If none is specified, then FOMUS provides a default part for you.
+The examples above all have default parts.  In the next example, we'll create a part for an oboe and make a little oboe piece.
+
+@fomusex{Part, Tut, tut, fms, 005}
+
+In @file{.fms} files the @samp{<} and @samp{>} signs are used to define ``objects.''
+Anything inside the @samp{<} and @samp{>} is part of the definition of that object and the keyword preceding the @samp{<} specifies the type of object
+(in this case a @code{part} object). 
+In FOMUS, parts, instruments, notes, measures, staves, clefs and the score itself are all objects (for a complete list, see @ref{Reference}),
+the majority of which can be defined using this syntax.
+
+In the part being created here there are two ``settings,'' (@code{id})
+and (@code{inst}).  @code{id} followed by @samp{:} and then @samp{mypart} specifies that this part is to be
+referred to as @samp{mypart}.  The colon is optional, but it helps to distinuish between pairs of keywords and values when there are 
+many of them (colons can also be placed after parameters like @code{time}, @code{dur} or @code{pitch}).
+@code{inst} followed by a another string chooses one of FOMUS's built-in instruments and bases the part on that instrument.
+
+After the part is declared the notes are listed as before.  There's a new parameter now, @code{part}, which chooses the part that events belongs to by its ID string. 
+Setting @code{part} to @samp{mypart} at the top of the file causes all of the following note events to belong to that part (i.e., @code{part} is another parameter
+that behaves like @code{time} or @code{pitch}).
+
+The next example contains a few more definitions:
+
+@fomusex{Instrument Definition, Tut, tut, fms, 006}
+
+Some strings are now enclosed in quotes.  This is necessary when they contain spaces or characters that might be confused with the surrounding context
+(like @samp{:} or @samp{>}).
+
+Some score settings, @code{title}, @code{author} and @code{quartertones}, are being defined in the example above.  
+The strings following @code{title} and @code{author}, for example,
+should appear at the top of the first page of the score.  @code{quartertones} activates quartertones for the
+entire piece, meaning any pitch values entered will be quantized to the nearest half of a semitone.  The pitch numbers now all have decimal points
+to demonstrate this.  FOMUS quantizes @samp{70.1} to 70 and @samp{65.6} to 65.5, which is a quartertone sharp from note 65.
+@code{title}, @code{author} and @code{quartertones} are part of the definition of the entire score (or score object)---in a @file{.fms} file 
+score settings like these always must appear at the top of the file before anything else is defined.
+
+In this example a new instrument is defined on which our part is based.  @code{template} specifies that the definition
+is to be based on FOMUS's built-in viola instrument.  
+@code{name} and @code{abbr} override the name and abreviated name of the built-in instrument, respectively.
+These are the texts that appear in the score to the left of the staff systems.
+Also, since we've set the ID to @samp{elvla}, the @code{inst} setting in the part definition is now @samp{elvla}, referencing the new instrument.
+
+The time values are also different this time because they are floating point numbers with decimal points. 
+FOMUS quantizes these to the closest rhythmic representation it can find, searching through all combinations of metrical divisions and tuplets
+that it considers valid and choosing the one that provides the closest fit.  This allows FOMUS to handle a certain amount of imprecision in its input
+and find reasonable rhythmic spellings for times durations that aren't obvious as in the example above.
+
+In the next example, equals signs are used instead of the colons of the previous example 
+(you can actually use @samp{=}, @samp{:} or nothing for any assignment, depending on your visual preference).
+
+@fomusex{Instruments with Layout, Tut, tut, fms, 007}
+
+@code{layout-def} is defines a score ``layout'' and is set to a list of instrument IDs (denoted with @samp{(} and @samp{)}) specifying
+the order in which instruments should appear in the score.
+@code{tuplets} defines the highest tuplet that FOMUS is allowed to use (a triplet) and @code{min-tupletdur} defines 
+the smallest duration a tuplet allowed is allowed to span (in this case no less than a quarter note in duration).
+This time the @samp{name} and @samp{abbr} settings appear in the parts, overriding the settings defined in the instruments.
+That enables us to assign separate names and abbrievated names to two different parts based on the same instrument.
+
+A new note parameter, @code{voice} is also being used here.  Note events in a part may belong to one of several different voices.  
+Since @code{voice} wasn't specified up until now, the default value was always @samp{1}.
+The voice in part @samp{acomp}
+is set to @samp{(1 2)}, which specifies a choice.  This indicates that the following note events can be in either voice 1 or 2 and that it's up to FOMUS
+to figure out which one is appropriate.  This option of specifying a choice only works with the @code{voice} parameter and is most useful when 
+importing data from a file where seperate voices might be mixed together in one track.
+
+The double pipe @samp{||} above the first part signifies the downmbeat of a measure.  @samp{||} is just a shortcut for @samp{meas <>}, 
+a definition of a measure object with the same basic syntax as the @code{part} and @code{inst} definitions above.  
+Settings for the measure go in between the two @samp{|}'s (examples of this will follow).  Measures use two of the same attributes that notes do, time and duration, which
+is why both appear before the @samp{||}.
+@code{time} specifies where the downbeat of the measure falls and @code{dur} is simply the duration of the measure.  
+Although it is possible to specify one, there is no time signature given---FOMUS's figures out what the time signature from the duration and several other settings.
+
+Also, only one measure is specified here.  FOMUS automatically fills in areas of the score where measures aren't explicitly defined by repeating
+the measures you've defined.  In the example above, FOMUS generates a measure at time 3 by repeating the measure given to it at time 0.  You only need to
+define measures when a significant change occurs---for example, a change in key signature (an example of this appears later).
+
+@subsection Marks
+
+Articulations, special techniques, text markings, vocal texts, tremolos, trills and harmonics, and many other score items are created using ``marks.''
+In @code{.fms} files, the syntax for a mark is to enclose a symbol within two brackets @samp{[]} and to place this anywhere before the ``enter'' semicolon.  
+The following example shows how to add a few simple articulation marks.
+
+@fomusex{Articulation Marks, Tut, tut, fms, 009}
+
+Marks don't ``stick'' or retain their values like time, duration or other parameter values.  They must be placed in every note entry where they are to appear in the score.
+
+Some marks come in pairs, and are referred to in the documentation as ``spanners.''  Spanners represent markings that are attached to more than one
+note or extend over a section the score.  Examples of such marks are slurs and crescendo wedges, shown here:
+
+@fomusex{Spanner Marks, Tut, tut, fms, 010}
+
+Mark symbols that begin a spanner have a @samp{..} appended to them, while symbols ending a spanner have a @samp{..} prepended to them.
+It is not always necessary to include both.
+For example, the first slur above is defined with both the begin and end marks, but the second slur is defined with only one begin mark.  
+The end is placed right before the
+next begin mark on the eighth sixteenth note of the measure.  The slur over the tenth note into the measure doesn't appear at all, since 
+it must span a single note and therefore wouldn't make any sense.
+
+The following illustrates several special notations that can be defined using marks:
+
+@fomusex{Special Marks, Tut, tut, fms, 011}
+
+The @code{trem} marks are examples of marks that take arguments.  Mark arguments always appear inside the brackets and after the mark symbol.
+The 1/2 argument represents the duration of a tremolo repetition (an eighth note in this case)
+and determines the number of slashes that appear across the note stem.
+The @code{trem2} mark is used along with @code{trem} to denote 
+multiple-note or multiple-chord tremolos.  @code{longtr} and @code{longtr2} function in a similar fashion to notate trills.  
+@code{natharm-sounding} and @code{artharm-sounding} denote the sounding pitch of a natural and artificial harmonic, respectively.
+Although there are other marks for specifying touched, played and open string pitches, in the absence of any other information FOMUS finds the easiest
+method of playing the harmonic and notates it accordingly.
+
+@subsection Settings
+
+Parameters such as @code{name}, @code{abbr}, @code{title}, @code{tuplets}, etc.@: so far have been referred to as ``settings.''
+Besides defining objects and specifying note events, FOMUS's behavior is completely controlled by changing the values of these settings.  
+Where settings appear determine the scope in which they are effective.  For example, the @code{tuplets} and @code{min-tupletdur} settings
+in the last tutorial section were defined at the score level and are effectively default values for the entire score.  The same settings
+could also appear in a part definition or a measure, overriding the score-level values.  By placing settings in different object definitions like this
+you can control FOMUS's behavior in different sections of the score.
+
+So far settings have been defined in scores (at the top of the file), parts and instruments.
+The following example shows a few more places where settings can be set:
+
+@fomusex{Settings in Various Locations, Tut, tut, fms, 012}
+
+The measures in this example contain
+@code{keysig} settings which have the effect of changing the key signature at that measure.  
+@samp{dmaj} and @samp{b-maj} signify D major and B-flat major.
+Also attached to some of the notes is the @code{staff} setting which
+forces FOMUS to choose one staff over another (staff 1 is on top and staff two is on the bottom). 
+FOMUS places the notes with @code{staff} settings in the requested staff and does its best to make the remaining staff choices fit.
+Even though @samp{staff: 2} looks like any of the other parameters for note events (i.e., time, dur, pitch, part or voice), it 
+behaves differently.  The value doesn't ``stick'' and must be repeated for every note entry (like a mark).
+
+The global setting @code{beat} at the top of the file is extremely useful.  It defines 1 beat (i.e., a duration of 1) to be equivalent to an 
+eighth note.  @code{timesig-den} specifies that all time signatures should have a base denominator of 8.  
+
+@node Further Information,  , Tutorial of Basic Features, Tutorial
+@section Further Information
+
+That's all there is to the tutorial (more sections will be added in the future).  After reading through this you
+should have a feel for how FOMUS works and 
+be able to browse through the examples sections (@ref{`.fms' File Examples}, @ref{Lisp Examples}, @ref{SAL Examples} and @ref{MIDI Import Examples})
+to find out how to control different aspects of the program.
+Also, see the @ref{Reference} section for more precise information on FOMUS's objects and settings and how the program is structured.

@@ -1,0 +1,18 @@
+process myproc-notes (n)
+  repeat n
+  fms:note(dur: 1, pitch: between(48, 73))
+  wait 1
+end
+
+process myproc-gracenotes (n)
+  repeat n
+  loop repeat random(3)
+    for g from 0 by 1/4
+    loop repeat between(1, 3)
+      fms:note(grace: g, dur: 1/4, pitch: between(48, 73))
+    end
+  end
+  wait 1
+end
+
+sprout(list(myproc-notes(20), myproc-gracenotes(16)), *filename*)

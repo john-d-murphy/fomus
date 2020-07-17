@@ -1,0 +1,85 @@
+// tuplets
+duration 2/3
+
+time 0 pitch 60;
+time + pitch 61;
+time + pitch 62;
+time + pitch 63;
+
+time 4 {
+  duration 3/5
+
+  time 0 pitch 60;
+  time + pitch 61;
+  time + pitch 62;
+  time + pitch 63;
+}
+
+time 8 {
+  duration 4/7
+
+  time 0 pitch 60;
+  time + pitch 61;
+  time + pitch 62;
+  time + pitch 63;
+}
+
+// septuplets is the maximum by default
+time 12 dur 4 |min-tupletdur 1/2|
+time 12 {
+  duration 2/9
+
+  time 0 pitch 60;
+  time + pitch 61;
+  time + pitch 62;
+  time + pitch 60;
+  time + pitch 61;
+  time + pitch 62;
+  time + pitch 60;
+  time + pitch 61;
+  time + pitch 62;
+}
+
+time 16 dur 4 |tuplets (7 3)|
+time 16 {
+  duration 2/9
+
+  time 0 pitch 60;
+  time + pitch 61;
+  time + pitch 62;
+  time + pitch 60;
+  time + pitch 61;
+  time + pitch 62;
+  time + pitch 60;
+  time + pitch 61;
+  time + pitch 62;
+}
+
+time 20 dur 3 ||
+time 20 {
+  time 0 dur 1/3 pitch 60 ;
+  time + dur 1/3 pitch 59 ;
+  time + dur 1 pitch 58 ;
+  time + dur 1/2 pitch 55 ;
+  time + dur 1/2 pitch 56 ;
+  time + dur 1/2 pitch 58 ;
+
+  time 4 dur 1/3 pitch 60 ;
+  time + // dur 1/3 pitch 59 ;
+  time + dur 2/3 pitch 58 ;
+  time + dur 1 pitch 55 ;
+  time + dur 1/2 pitch 56 ;
+  time + dur 1/3 pitch 58 ;
+}
+
+time 29 dur 3 ||
+time 29 {
+  time 0 dur 3/2 pitch 66 ;
+  time + dur 3/2 pitch 66 ;
+}
+
+time 32 dur 5 ||
+time 32 {
+  time 0 dur 5/2 pitch 66 ;
+  time + dur 5/2 pitch 66 ;
+}

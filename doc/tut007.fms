@@ -1,0 +1,49 @@
+title = "Electric Canon"
+layout-def = (elvla piano)
+
+tuplets = 3
+min-tupletdur = 1
+
+inst <id = elvla template = viola>
+
+part <id = p1 inst = elvla
+      name = "Electric Viola 1" abbr = "evla 1">
+part <id = p2 inst = elvla
+      name = "Electric Viola 2" abbr = "evla 2">
+part <id = acomp inst = piano>
+
+time = 0 dur = 3 ||
+
+part = p1
+voice = 1
+time = 0 dur = 1/3 pitch = 60 ;
+time = + dur = 1/3 pitch = 59 ;
+time = + dur = 1 pitch = 58 ;
+time = + dur = 1/2 pitch = 55 ;
+time = + dur = 1/2 pitch = 56 ;
+time = + dur = 1/2 pitch = 58 ;
+
+part = p2
+voice = 1
+time = 2 dur = 1/3 pitch = 60 ;
+time = + dur = 1/3 pitch = 59 ;
+time = + dur = 1 pitch = 58 ;
+time = + dur = 1/2 pitch = 55 ;
+time = + dur = 1/2 pitch = 56 ;
+time = + dur = 1/2 pitch = 58 ;
+
+part = acomp
+voice = (1 2)
+time = 1 dur = 1/3 pitch = 72 ;
+time = + dur = 1/3 pitch = 71 ;
+time = + dur = 1 pitch = 70 ;
+time = + dur = 1/2 pitch = 67 ;
+time = + dur = 1/2 pitch = 68 ;
+time = + dur = 1/2 pitch = 70 ;
+
+time = 3 dur = 1/3 pitch = 48 ;
+time = + dur = 1/3 pitch = 47 ;
+time = + dur = 1 pitch = 46 ;
+time = + dur = 1/2 pitch = 43 ;
+time = + dur = 1/2 pitch = 44 ;
+time = + dur = 1/2 pitch = 46 ;

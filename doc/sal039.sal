@@ -1,0 +1,14 @@
+process myproc ()
+  with marks = {"vib" "moltovib" {} {}}
+  repeat 21
+  fms:note(dur: #?(elapsed() < 10, 1/2, 1),
+           pitch: between(48, 50),
+           marks: nth(marks, floor(elapsed() / 3)))
+  wait 1/2
+end
+
+begin
+  with sets = {:mark-texts {"vib" "vibrato" "moltovib" "molto vibrato"}},
+       parts = {{:id "ce" :inst "cello"}}
+  sprout(myproc(), *filename*, sets: sets, parts: parts)
+end

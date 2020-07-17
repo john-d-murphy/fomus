@@ -1,0 +1,28 @@
+// these settings are all "mappings" from strings to numbers
+note-symbols = (do = 0, re = 2, mi = 4, fa = 5, sol = 7, la = 9, ti = 11)
+note-accs = (flat = -1, sharp = 1, natural = 0)
+note-microtones = (flat = -1/2, sharp = 1/2, natural = 0)
+note-octaves = (",,," = 12, ",," = 24, "," = 36, "." = 48, "'" = 60,
+        	"''" = 72, "'''" = 84, "''''" = 96, "'''''" = 108)
+
+dur-symbols = (whole = 4, half = 2, quarter = 1, eighth = 1/2, sixteenth = 1/4)
+dur-dots = (dotted = 1+1/2, doubledotted = 1+3/4)
+dur-tie = ("-")
+tuplet-symbols = (quint = 4/5, triplet = 2/3)
+
+quartertones = yes
+
+time 0 duration sixteenth pitch do.;
+time + duration eighth pitch renatural;
+time + duration quarter pitch miflat;
+time + duration half pitch fasharp;
+time + duration whole pitch solflat;
+time + duration eighthdotted pitch fasharp; // dot modifiers
+time + duration quarterdotted pitch miflat;
+time + duration halfdotted pitch resharp;
+// tuplet modifiers
+time 20 duration quartertriplet pitch donaturalsharp'; // one quartertone sharp (natural-sharp)
+time + duration quartertriplet pitch donaturalflat;
+time + duration quartertriplet pitch tiflatflat; // three quartertones flat (flat-flat)
+
+time 24 duration quarter-sixteenth pitch dosharpsharp;

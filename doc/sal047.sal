@@ -1,0 +1,18 @@
+process myproc-notes ()
+  repeat 41
+  fms:note(dur: 1/2, pitch: 72, voice: 1)
+  fms:note(dur: 1/2, pitch: 48, voice: 2)
+  wait 1/2
+end
+
+process myproc-marks ()
+  repeat 8
+  fms:mark(dur: 1/2, voice: odds(.5, 1, 2),
+           time: random(40) / 2, marks: {"^"})
+end
+
+begin
+  with parts = {{:id "p1" :inst "piano"}}
+  sprout(list(myproc-notes(), myproc-marks()), *filename*,
+         parts: parts)
+end

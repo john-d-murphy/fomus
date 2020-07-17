@@ -1,0 +1,38 @@
+part <id xxx inst piano>
+
+// text marks
+duration 1/2
+time 0 pitch 60;
+time + pitch 60 [x "text1"];
+time + pitch 60;
+time + pitch 60 [x_.. "text2"];
+time + pitch 60; time + pitch 60; time + pitch 60; time + pitch 60;
+
+time + pitch 60 [..x_];
+time + pitch 60;
+time + pitch 60;
+time + pitch 60;
+time + pitch 60; time + pitch 60; time + pitch 60; time + pitch 60;
+
+time + pitch 60; time + pitch 60; time + pitch 60; time + pitch 60;
+time + pitch 60; time + pitch 60; time + pitch 60; time + pitch 60;
+
+time + pitch 60; time + pitch 60; time + pitch 60; time + pitch 60;
+time + pitch 60; time + pitch 60; time + pitch 60; time + pitch 60;
+
+time + pitch 60; time + pitch 60; time + pitch 60; time + pitch 60;
+time + pitch 60; time + pitch 60; time + pitch 60; time + pitch 60;
+
+time + pitch 60; time + pitch 60; time + pitch 60; time + pitch 60; 
+time + pitch 60; time + pitch 60; time + pitch 60;
+
+time 8 dur 2 
+  mark [(..][..)];
+  mark [ped..][..ped];
+
+time 13 dur 3
+  mark [ped..][..ped];
+time +
+  mark [ped..][..ped];
+
+// FIXME: pedal marks aren't in right places in XML (might not be possible to fix)

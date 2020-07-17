@@ -1,0 +1,14 @@
+time 1/2 dur 1/4
+  grace 0   pitch 59;
+  grace 1/4 pitch 62;
+  grace 1/2 pitch 54;
+            pitch 65;
+
+time 1/2 dur 1/2 pitch 40;
+time +   dur 1/2 pitch 49;
+
+time 1+1/2 dur 1/4
+  grace 0   pitch 70;
+  grace 1/4 pitch 76;
+  grace 2/4 pitch 73;
+  grace 3/4 pitch 74;

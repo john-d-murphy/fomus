@@ -1,0 +1,18 @@
+process myproc-notes ()
+  for o from 0 to 20 by 1/2
+  fms:note(time: o, dur: 1/2, pitch: 72, part: "0")
+  fms:note(time: o, dur: 1/2, pitch: 48, part: "1")
+end
+
+process myproc-marks ()
+  repeat 8
+  send("fms:mark", dur: 0, part: odds(.5, "0", "1"),
+       time: random(40) / 2, marks: {"^"})
+end
+
+begin
+  with parts = {{:inst "flute" :id "0"}
+                {:inst "tuba" :id "1"}}
+  sprout(list(myproc-notes(), myproc-marks()), *filename*,
+         parts: parts)
+end

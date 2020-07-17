@@ -1,0 +1,9 @@
+   ))
+
+;; #+fomus-usepackage
+;; (eval-when (:compile-toplevel :load-toplevel :execute)
+;;   (use-package 'fomus 'common-lisp-user))
+(provide :fomusmod)
+(in-package #:fomusmod)
+
+;; ------------------------------------------------------------------------------------------------------------------------

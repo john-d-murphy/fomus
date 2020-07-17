@@ -1,0 +1,15 @@
+time 0 duration + pitch 60;
+time 1 duration + pitch 66;
+time 1+1/2 duration + pitch 59;
+time 3 duration + pitch 62;
+time 3+1/2 duration + pitch 64;
+time 5 duration + pitch 61;
+time 6 duration 1/2 pitch 69;
+
+time 8 duration 1/2 pitch 60;
+time 9 duration - pitch 66;
+time 9+1/2 duration - pitch 59;
+time 11 duration - pitch 62;
+time 11+1/2 duration - pitch 64;
+time 13 duration - pitch 61;
+time 14 duration - pitch 69;

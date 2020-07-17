@@ -1,0 +1,17 @@
+part <id prt1, vertmax 1, inst piano>
+
+prt1
+
+voice (1 2)
+duration 1/2
+
+time 0 pitch 61 ; pitch 67 ;
+time 1/2 pitch 56 ; pitch 50 ;
+time 1 pitch 61 ; pitch 67 ;
+time 1+1/2 pitch 56 ; pitch 50 ;
+time 2 pitch 56 ; pitch 61 ;
+time 2+1/2 pitch 50 ; pitch 67 ;
+time 3 pitch 50 ; pitch 56 ;
+time 3+1/2 pitch 67 ; pitch 61 ;
+time 4 pitch 61 ; pitch 56 ;
+time 4+1/2 pitch 50 ; pitch 67 ;

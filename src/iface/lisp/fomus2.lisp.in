@@ -1,0 +1,505 @@
+;; ------------------------------------------------------------------------------------------------------------------------
+;; low-level stuff
+
+(declaim (type boolean *init*))
+(defvar *init* nil) ; initialized?
+(declaim (type (or null cffi:foreign-pointer) *fomus*))
+(defvar *fomus* nil) ; pointer to fomus instance
+
+#+sbcl (defmacro wo-ints (&body forms) `(sb-sys:without-interrupts ,@forms))
+#+clozure (defmacro wo-ints (&body forms) `(ccl:without-interrupts ,@forms))
+#+cmu (defmacro wo-ints (&body forms) `(system:without-interrupts ,@forms))
+#+lispworks (defmacro wo-ints (&body forms) `(mp:with-interrupts-blocked ,@forms))
+#+allegro (defmacro wo-ints (&body forms) `(excl:with-delayed-interrupts ,@forms))
+;; clisp and gcl don't seem to have it
+#+(or gcl clisp) (defmacro wo-ints (&body forms) `(progn ,@forms))
+
+(defmacro errwrap (form)
+  `(prog1
+       ,form
+     (when (/= (fomus_err) 0) (error "error in FOMUS"))))
+
+(cffi:defcallback output :void ((str :string))
+  (format t ";; ~A~%" str))
+(cffi:defcallback error :void ((str :string))
+  (format *error-output* ";; ~A~%" str))
+
+(defun init ()
+  (unless *init*
+    (fomus_set_outputs (cffi:callback output) (cffi:callback error) 0)
+    (errwrap (fomus_init))
+    (setf *init* t)))
+(defun ready ()
+  (init)
+  (unless *fomus* (errwrap (wo-ints (setf *fomus* (fomus_new)))))
+  #+sbcl (errwrap (fomus_sval *fomus* (cffi:foreign-enum-value 'fomus_param :fomus_par_setting) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) "n-threads"))
+  #+sbcl (errwrap (fomus_ival *fomus* (cffi:foreign-enum-value 'fomus_param :fomus_par_settingval) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) 0)))
+
+(defun filter (sets &rest keys) ; filter out keywords
+  (declare (type list sets))
+  (loop
+     for s of-type symbol = (if sets (pop sets) (return r))
+     for v = (if sets (pop sets) (error "missing value in SETS argument"))
+     unless (member s keys) collect s into r and collect v into r))
+
+;; fomus objects
+(defstruct (fmsimport (:constructor make-import-aux (sets)))
+  (sets nil :type list))
+(defun make-import (&rest sets &key &allow-other-keys)
+  (make-import-aux sets))
+
+(defstruct (fmsexport (:constructor make-export-aux (sets)))
+  (sets nil :type list))
+(defun make-export (&rest sets &key &allow-other-keys)
+  (make-export-aux sets))
+
+(defstruct (fmsclef (:constructor make-clef-aux (sets)))
+  (sets nil :type list))
+(defun make-clef (&rest sets &key &allow-other-keys)
+  (make-clef-aux sets))
+
+(defstruct (fmsstaff (:constructor make-staff-aux (clefs sets)))
+  (clefs nil :type list)
+  (sets nil :type list))
+(defun make-staff (&rest sets &key clefs &allow-other-keys)
+  (declare (type list clefs))
+  (make-staff-aux
+   (mapcar (lambda (x) (declare (type list x)) (apply #'make-clef x)) clefs)
+   (filter sets :clefs)))
+
+(defstruct (fmsmeasdef (:constructor make-measdef-aux (id sets)))
+  (id nil :type (or symbol string integer))
+  (sets nil :type list))
+(defun make-measdef (&rest sets &key id &allow-other-keys)
+  (declare (type (or symbol string integer) id))
+  (make-measdef-aux
+   id
+   (filter sets :id)))
+
+(defstruct (fmspercinst (:constructor make-percinst-aux (template id imports export sets)))
+  (template nil :type (or symbol string integer))
+  (id nil :type (or symbol string integer))
+  (imports nil :type list)
+  (export nil :type (or null fmsexport))
+  (sets nil :type list))
+(defun make-percinst (&rest sets &key template id imports export &allow-other-keys)
+  (declare (type (or symbol string integer) template) (type (or symbol string integer) id) (type list imports) (type (or list fmsexport)))
+  (make-percinst-aux
+   template
+   id
+   (mapcar (lambda (x) (declare (type list x)) (apply #'make-import x)) imports)
+   (if (consp export) (apply #'make-export export) export)
+   (filter sets :template :id :imports :export)))
+
+(defstruct (fmsinst (:constructor make-inst-aux (template id staves imports export percinsts sets)))
+  (template nil :type (or symbol string integer))
+  (id nil :type (or symbol string integer))
+  (staves nil :type list)
+  (imports nil :type list)
+  (export nil :type (or null fmsexport))
+  (percinsts nil :type list)
+  (sets nil :type list))
+(defun make-inst (&rest sets &key template id staves imports export percinsts &allow-other-keys)
+  (declare (type (or symbol string integer) template) (type (or symbol string integer) id) (type list staves imports) (type (or list fmsexport) export) (type list percinsts))
+  (make-inst-aux
+   template
+   id
+   (mapcar (lambda (x) (declare (type list x)) (apply #'make-staff x)) staves) 
+   (mapcar (lambda (x) (declare (type list x)) (apply #'make-import x)) imports)
+   (if (consp export) (apply #'make-export export) export)
+   (mapcar (lambda (x) (declare (type (or symbol string list fmspercinst) x)) (if (consp x) (apply #'make-percinst x) x)) percinsts)
+   (filter sets :template :id :staves :imports :export :percinsts)))
+
+(defstruct (fmspart (:constructor make-part-aux (id inst sets)))
+  (id nil :type (or symbol string integer))
+  (inst nil :type (or symbol string fmsinst))
+  (sets nil :type list))
+(defun make-part (&rest sets &key id inst &allow-other-keys)
+  (declare (type (or symbol string integer) id) (type (or symbol string list fmsinst) inst))
+  (make-part-aux
+   id
+   (if (consp inst) (apply #'make-inst inst) inst)
+   (filter sets :id :inst)))
+
+(defstruct (fmsmetapart (:constructor make-metapart-aux (id parts sets)))
+  (id nil :type (or symbol string integer))
+  (parts nil :type list)
+  (sets nil :type list))
+(defun make-metapart (&rest sets &key id parts &allow-other-keys)
+  (declare (type (or symbol string integer) id) (type list parts))
+  (make-metapart-aux
+   id
+   (mapcar (lambda (x) (declare (type (or symbol string list fmspart) x)) (if (consp x) (apply #'make-partmap x) x)) parts)
+   (filter sets :id :parts)))
+
+(defstruct (fmspartmap (:constructor make-partmap-aux (part metapart sets)))
+  (part nil :type (or symbol string fmspart))
+  (metapart nil :type (or symbol string fmsmetapart))
+  (sets nil :type list))
+(defun make-partmap (&rest sets &key part metapart &allow-other-keys)
+  (declare (type (or symbol string list fmspart) part) (type (or symbol string list fmsmetapart) metapart))
+  (make-partmap-aux
+   (if (consp part) (apply #'make-part part) part)
+   (if (consp metapart) (apply #'make-metapart metapart) metapart)
+   (filter sets :part :metapart)))
+
+;; the main send-data-to-fomus function
+(defun send (par act &optional (val 'none))
+  (declare (type (integer 0) par act))
+  (flet ((sendmult (lpar lact lval) ; if a list, "send" everything IN the list without actually sending a list
+	   (declare (type (integer 0) lpar lact))
+	   (loop for e in (if (listp lval) lval (list lval)) do (send lpar lact e)))
+	 (sendstr (strval valpar)
+	   (declare (type list strval) (type (integer 0) valpar))
+	   (loop for (a b) on strval by #'cddr
+	      do
+		(send (cffi:foreign-enum-value 'fomus_param :fomus_par_setting) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) a)
+		(send valpar (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (case b ((nil) "no") ((t) "yes") (otherwise b))))))
+    (if (eq val 'none) (errwrap (fomus_act *fomus* par act))
+	(etypecase val
+	  (integer (errwrap (fomus_ival *fomus* par act val)))
+	  (rational (errwrap (fomus_rval *fomus* par act (numerator val) (denominator val))))
+	  (float (errwrap (fomus_fval *fomus* par act (coerce val 'double-float))))
+	  (list (loop
+		   initially (errwrap (fomus_act *fomus* (cffi:foreign-enum-value 'fomus_param :fomus_par_list) (cffi:foreign-enum-value 'fomus_action :fomus_act_start)))
+		   for e in val
+		   do (send (cffi:foreign-enum-value 'fomus_param :fomus_par_list) (cffi:foreign-enum-value 'fomus_action :fomus_act_add) e)
+		   finally
+		     (errwrap (fomus_act *fomus* (cffi:foreign-enum-value 'fomus_param :fomus_par_list) (cffi:foreign-enum-value 'fomus_action :fomus_act_end)))
+		     (errwrap (fomus_act *fomus* par act))))
+	  (symbol (errwrap (fomus_sval *fomus* par act (string-downcase val))))
+	  (string (errwrap (fomus_sval *fomus* par act val)))
+	  (pathname (errwrap (fomus_sval *fomus* par act (namestring (translate-logical-pathname val)))))
+	  (fmsmeasdef ; ids, names, and other things are sent separately because they don't behave like normal settings
+	   (when (fmsmeasdef-id val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_measdef_id) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmsmeasdef-id val)))
+	   (sendstr (fmsmeasdef-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_measdef_settingval))
+	   (errwrap (fomus_act *fomus* par act)))
+	  (fmspart
+	   (when (fmspart-id val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_part_id) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmspart-id val)))
+	   (when (fmspart-inst val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_part_inst) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmspart-inst val)))
+	   (sendstr (fmspart-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_part_settingval))
+	   (errwrap (fomus_act *fomus* par act)))
+	  (fmsmetapart
+	   (when (fmsmetapart-id val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_metapart_id) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmsmetapart-id val)))
+	   (when (fmsmetapart-parts val) (sendmult (cffi:foreign-enum-value 'fomus_param :fomus_par_metapart_partmaps) (cffi:foreign-enum-value 'fomus_action :fomus_act_add) (fmsmetapart-parts val)))
+	   (sendstr (fmsmetapart-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_metapart_settingval))
+	   (errwrap (fomus_act *fomus* par act)))
+	  (fmsinst
+	   (when (fmsinst-template val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_inst_template) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmsinst-template val)))
+	   (when (fmsinst-id val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_inst_id) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmsinst-id val)))
+	   (when (fmsinst-staves val) (sendmult (cffi:foreign-enum-value 'fomus_param :fomus_par_inst_staves) (cffi:foreign-enum-value 'fomus_action :fomus_act_add) (fmsinst-staves val)))
+	   (when (fmsinst-imports val) (sendmult (cffi:foreign-enum-value 'fomus_param :fomus_par_inst_imports) (cffi:foreign-enum-value 'fomus_action :fomus_act_add) (fmsinst-imports val)))
+	   (when (fmsinst-export val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_inst_export) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmsinst-export val)))
+	   (when (fmsinst-percinsts val) (sendmult (cffi:foreign-enum-value 'fomus_param :fomus_par_inst_percinsts) (cffi:foreign-enum-value 'fomus_action :fomus_act_add) (fmsinst-percinsts val)))
+	   (sendstr (fmsinst-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_inst_settingval))
+	   (errwrap (fomus_act *fomus* par act)))
+	  (fmspercinst
+	   (when (fmspercinst-template val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_percinst_template) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmspercinst-template val)))
+	   (when (fmspercinst-id val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_percinst_id) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmspercinst-id val)))
+	   (when (fmspercinst-imports val) (sendmult (cffi:foreign-enum-value 'fomus_param :fomus_par_percinst_imports) (cffi:foreign-enum-value 'fomus_action :fomus_act_add) (fmspercinst-imports val)))
+	   (when (fmspercinst-export val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_percinst_export) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmspercinst-export val)))
+	   (sendstr (fmspercinst-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_percinst_settingval))
+	   (errwrap (fomus_act *fomus* par act)))
+	  (fmspartmap
+	   (errwrap (fomus_act *fomus* (cffi:foreign-enum-value 'fomus_param :fomus_par_partmap) (cffi:foreign-enum-value 'fomus_action :fomus_act_start)))
+	   (when (fmspartmap-part val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_partmap_part) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmspartmap-part val)))
+	   (when (fmspartmap-metapart val) (send (cffi:foreign-enum-value 'fomus_param :fomus_par_partmap_metapart) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (fmspartmap-metapart val)))
+	   (sendstr (fmspartmap-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_partmap_settingval))
+	   (errwrap (fomus_act *fomus* par act)))
+	  (fmsclef
+	   (sendstr (fmsclef-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_clef_settingval))
+	   (errwrap (fomus_act *fomus* par act)))
+	  (fmsstaff
+	   (when (fmsstaff-clefs val) (sendmult (cffi:foreign-enum-value 'fomus_param :fomus_par_staff_clefs) (cffi:foreign-enum-value 'fomus_action :fomus_act_add) (fmsstaff-clefs val)))
+	   (sendstr (fmsstaff-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_staff_settingval))
+	   (errwrap (fomus_act *fomus* par act)))
+	  (fmsimport
+	   (sendstr (fmsimport-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_import_settingval))
+	   (errwrap (fomus_act *fomus* par act)))
+	  (fmsexport
+	   (sendstr (fmsexport-sets val) (cffi:foreign-enum-value 'fomus_param :fomus_par_export_settingval))
+	   (errwrap (fomus_act *fomus* par act)))))))
+
+;; ------------------------------------------------------------------------------------------------------------------------
+;; aux
+
+(defun entry (time dur part voice grace marks sets)
+  (declare (type real time dur)
+	   (type (or symbol string) part)
+	   (type (or real cons) voice)
+	   (type (or real null) grace)
+	   (type list marks)
+	   (type list sets))
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_time) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) time)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_duration) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) dur)
+  (when part (send (cffi:foreign-enum-value 'fomus_param :fomus_par_part) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) part))
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_voice) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) voice)
+  (when grace (send (cffi:foreign-enum-value 'fomus_param :fomus_par_gracetime) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) grace))
+  (loop for e of-type (or list symbol string) in marks
+     do (destructuring-bind (mark &optional arg1 arg2) (if (listp e) e (list e))
+	  (declare (type (or symbol string) mark) (type (or symbol string real) arg1 arg2))
+	  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_markid) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) mark)
+	  (when arg1 (send (cffi:foreign-enum-value 'fomus_param :fomus_par_markval) (cffi:foreign-enum-value 'fomus_action :fomus_act_add) arg1))
+	  (when arg2 (send (cffi:foreign-enum-value 'fomus_param :fomus_par_markval) (cffi:foreign-enum-value 'fomus_action :fomus_act_add) arg2))
+	  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_mark) (cffi:foreign-enum-value 'fomus_action :fomus_act_add))))
+  (flet ((aux (set val)
+	   (declare (type (or symbol string) set))
+	   (send (cffi:foreign-enum-value 'fomus_param :fomus_par_setting) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) set)
+	   (send (cffi:foreign-enum-value 'fomus_param :fomus_par_note_settingval) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) val)))
+    (loop
+       for s of-type (or cons symbol string) = (if sets (pop sets) (return))
+       if (consp s)
+       do (apply #'aux s)
+       else do (funcall #'aux s (if sets (pop sets) (error "missing value in SETS argument"))))))
+
+;; ------------------------------------------------------------------------------------------------------------------------
+;; user functions
+
+(defun load (filename)
+  "Loads a file into the current score object.  The format can be any one that
+FOMUS recognizes as an input file."
+  (declare (type (or pathname string) filename))
+  (ready)
+  (errwrap (fomus_load *fomus* (namestring (translate-logical-pathname filename)))))
+
+;; invalidates the instance, so set it to nil
+(defun run ()
+  "Processes the current score and creates all necessary output files."
+  (ready)
+  (errwrap (fomus_run (errwrap (fomus_copy *fomus*)))))
+
+(defun version ()
+  "Returns a version string."
+  (errwrap (fomus_version)))
+
+;; event entry
+(defun note (&rest insets &key time dur pitch part (voice 1) (dyn 0) grace marks sets &allow-other-keys)
+  "Creates a rest event.  INSETS is a set of keyword/argument pairs defining the
+rest.  TIME, DUR, PITCH, PART, VOICE, DYN, GRACE and MARKS are event parameters.
+Settings may be specified as additional keyword/argument pairs or separately in
+a list following the SETS keyword."
+  (declare (type real time dur)
+	   (type (or real symbol string) pitch)
+	   (type (or symbol string) part)
+	   (type (or real cons) voice)
+	   (type real dyn)
+	   (type (or real null) grace)
+	   (type list marks)
+	   (type list sets))
+  (ready)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_pitch) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) pitch)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_dynlevel) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) dyn)
+  (entry time dur part voice grace marks (nconc (filter insets :time :dur :pitch :part :voice :dyn :grace :marks :sets) sets))
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_noteevent) (cffi:foreign-enum-value 'fomus_action :fomus_act_add)))
+
+(defun rest (&rest insets &key time dur part (voice 1) grace marks sets &allow-other-keys)
+  "Creates a rest event.  INSETS is a set of keyword/argument pairs defining the
+rest.  TIME, DUR, PART, VOICE, GRACE and MARKS are event parameters.  Settings
+may be specified as additional keyword/argument pairs or separately in a list
+following the SETS keyword."
+  (declare (type real time dur)
+	   (type (or symbol string) part)
+	   (type (or real cons) voice)
+	   (type (or real null) grace)
+	   (type list marks)
+	   (type list sets))
+  (ready)
+  (entry time dur part voice grace marks (nconc (filter insets :time :dur :part :voice :grace :marks :sets) sets))
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_restevent) (cffi:foreign-enum-value 'fomus_action :fomus_act_add)))
+
+(defun mark (&rest insets &key time (dur 0) part (voice 1) grace marks sets &allow-other-keys)
+  "Creates a mark event.  INSETS is a set of keyword/argument pairs defining the
+mark.  TIME, DUR, PART, VOICE, GRACE and MARKS are event parameters.  Settings
+may be specified as additional keyword/argument pairs or separately in a list
+following the SETS keyword."
+  (declare (type real time dur)
+	   (type (or symbol string) part)
+	   (type (or real cons) voice)
+	   (type (or real null) grace)
+	   (type list marks)
+	   (type list sets))
+  (ready)
+  (entry time dur part voice grace marks (nconc (filter insets :time :dur :part :voice :grace :marks :sets) sets))
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_markevent) (cffi:foreign-enum-value 'fomus_action :fomus_act_add)))
+
+(defun meas (&rest insets &key time (dur 0) measdef sets &allow-other-keys)
+  "Creates a measure event.  INSETS is a set of keyword/argument pairs defining the
+measure.  TIME and DUR are event parameters.  Settings may be specified as
+additional keyword/argument pairs or separately in a list following the SETS
+keyword.  If MEASDEF is given, specifies the id of a measdef object to be
+associated with this measure (any settings given are then ignored)."
+  (declare (type real time)
+	   (type real dur)
+	   (type (or symbol string) measdef)
+	   (type list sets))
+  (ready)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_time) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) time)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_duration) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) dur)
+  (if measdef
+      (send (cffi:foreign-enum-value 'fomus_param :fomus_par_meas_measdef) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) measdef)
+      (let ((s (nconc (filter insets :time :dur :sets) sets)))
+	(when s (send (cffi:foreign-enum-value 'fomus_param :fomus_par_meas_measdef) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) (apply #'make-measdef s)))))
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_meas) (cffi:foreign-enum-value 'fomus_action :fomus_act_add)))
+
+;; functions for defining global structs
+(defun measdef (&rest insets &key sets &allow-other-keys)
+  "Defines a measure definition for the current score.  INSETS is a set of
+keyword/argument pairs defining the measure definition.  Settings may be
+specified as additional keyword/argument pairs or separately in a list following
+the SETS keyword."
+  (declare (type list sets))
+  (ready)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_measdef)
+	(cffi:foreign-enum-value 'fomus_action :fomus_act_add)
+	(apply #'make-measdef (nconc (filter insets :sets) sets))))
+
+(defun part (&rest insets &key sets &allow-other-keys)
+  "Defines a part for the current score.  INSETS is a set of keyword/argument pairs
+defining the part.  Settings may be specified as additional keyword/argument
+pairs or separately in a list following the SETS keyword."
+  (declare (type list sets))
+  (ready)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_part)
+	(cffi:foreign-enum-value 'fomus_action :fomus_act_add)
+	(apply #'make-part (nconc (filter insets :sets) sets))))
+
+(defun metapart (&rest insets &key sets &allow-other-keys)
+  "Defines a metapart for the current score.  INSETS is a set of keyword/argument
+pairs defining the metapart.  Settings may be specified as additional
+keyword/argument pairs or separately in a list following the SETS keyword."
+  (declare (type list sets))
+  (ready)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_metapart)
+	(cffi:foreign-enum-value 'fomus_action :fomus_act_add)
+	(apply #'make-metapart (nconc (filter insets :sets) sets))))
+
+(defun inst (&rest insets &key sets &allow-other-keys)
+  "Defines an instrument for the current score.  INSETS is a set of
+keyword/argument pairs defining the instrument.  Settings may be specified as
+additional keyword/argument pairs or separately in a list following the SETS
+keyword."
+  (declare (type list sets))
+  (ready)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_inst)
+	(cffi:foreign-enum-value 'fomus_action :fomus_act_add)
+	(apply #'make-inst (nconc (filter insets :sets) sets))))
+
+(defun percinst (&rest insets &key sets &allow-other-keys)
+  "Defines a percussion instrument for the current score.  INSETS is a set of
+keyword/argument pairs defining the percussion instrument.  Settings may be
+specified as additional keyword/argument pairs or separately in a list following
+the SETS keyword."
+  (declare (type list sets))
+  (ready)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_percinst)
+	(cffi:foreign-enum-value 'fomus_action :fomus_act_add)
+	(apply #'make-percinst (nconc (filter insets :sets) sets))))
+
+;; global settings
+(defun setting (set val &optional append)
+  "Changes the value of a setting in the current score object.  SET is the id of
+the setting while VAL is the setting value.  APPEND, if non-nil, indicates that
+the contents of VAL should be appended to the current value (in that case VAL
+must be a list)."
+  (declare (type (or symbol string) set))
+  (ready)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_setting) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) set)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_settingval)
+	(if append (cffi:foreign-enum-value 'fomus_action :fomus_act_append) (cffi:foreign-enum-value 'fomus_action :fomus_act_set))
+	(case val ((nil) 0) ((t) 1) (otherwise val))))
+
+;; misc
+(defun clear ()
+  "Clears the current score of all measures and note events (but not parts,
+instruments, or other score-level objects)."
+  (ready)
+  (send (cffi:foreign-enum-value 'fomus_param :fomus_par_events) (cffi:foreign-enum-value 'fomus_action :fomus_act_clear)))
+(defun free ()
+  "Destroys the current score object.  Any subsequent attempt to operate on a score
+object automatically creates a new one."
+  (when *fomus* (errwrap (wo-ints (fomus_free *fomus*) (setf *fomus* nil)))))
+(defun new ()
+  "Creates a fresh new score object and makes it the current one."
+  (when *fomus* (errwrap (wo-ints (fomus_free *fomus*) (setf *fomus* nil))))
+  (ready))
+
+(defun with-score-aux (l)
+  (declare (type list l))
+  (loop
+     for s of-type (or cons symbol string) = (if l (pop l) (return))
+     if (consp s)
+     do (apply #'setting s)
+     else do (funcall #'setting s (if l (pop l) (error "missing value in SETS argument")))))
+
+;; with-score
+(declaim (type hash-table *scores*))
+(defvar *scores* (make-hash-table))
+(defmacro with-score (args &body forms)
+  "Creates a FOMUS score object and executes FORMS on it.  ARGS is either a list or
+symbol.  If it is a list then it contains one or more of the following
+keyword/argument pairs: PERCINSTS, INSTS, PARTS, METAPARTS, MEASDEFS, SETS,
+FILENAME, RUN and NAME.  PERCINSTS, INSTS, PARTS, METAPARTS, MEASDEFS and SETS
+are all score-level object definitions that are passed to FOMUS before FORMS is
+evaluated.  FILENAME specifies the output filename.  RUN, if non-nil, indicates
+that FOMUS should process the score after FORMS is evaluated (it's T by
+default).  NAME is a symbol which may be used to refer to the score if multiple
+WITH-SCORE macros are being used.  If ARGS is a symbol, then instead of creating
+a new score object an existing one with a matching NAME argument becomes the
+current one within the macro's scope."
+  (typecase args
+    (list (destructuring-bind (&key percinsts insts parts metaparts measdefs sets filename (run t) name) args
+	    (let ((n (gensym)) (r (gensym)) (s (gensym)))
+	      `(progn
+		 (init)
+		 (let ((*fomus* nil)
+		       ,@(when name `((,n ,name)))
+		       (,r ,run))
+		   ,@(when name `((declare (type symbol ,n))))
+		   (unwind-protect
+			(progn
+			  (errwrap (wo-ints (setf *fomus* (fomus_new))))
+			  ,@(when sets `((with-score-aux ,sets)))
+			  ,@(when filename `((setting :filename (translate-logical-pathname (the (or pathname string) ,filename)))))
+			  ,@(when percinsts `((loop for ,s in (the list ,percinsts) do (apply #'percinst ,s))))
+			  ,@(when insts `((loop for ,s in (the list ,insts) do (apply #'inst ,s))))
+			  ,@(when parts `((loop for ,s in (the list ,parts) do (apply #'part ,s))))
+			  ,@(when metaparts `((loop for ,s in (the list ,metaparts) do (apply #'metapart ,s))))
+			  ,@(when measdefs `((loop for ,s in (the list ,measdefs) do (apply #'measdef ,s))))
+			  ,@(when name `((setf (gethash ,n *scores*) *fomus*)))
+			  ,@forms
+			  (when ,r (fms:run)))
+		     (when *fomus* (errwrap (fomus_free *fomus*)))
+		     ,@(when name `((remhash ,n *scores*)))))))))
+    (symbol `(let ((*fomus* (or (gethash (quote ,args) *scores*)
+				(error "~A is not a named score" (quote ,args)))))
+	       ,@forms))
+    (otherwise (error "expected a list or symbol for ARGS argument"))))
+
+(defmacro with-scores (args &body forms)
+  "Wraps multiple WITH-SCORE macros into one macro.  ARGS in this case is a list of
+lists, each inner list specifying a score object."
+  (typecase args
+    (cons (if (cdr args)
+	      `(with-score ,(car args) (with-scores ,(cdr args) ,@forms))
+	      `(with-score ,(car args) ,@forms)))
+    (otherwise (error "expected a list for ARGS argument"))))
+  
+(defun merge (&key to from time)
+  "Merge the contents of the score named FROM into the score named TO.  If FROM or
+TO isn't given, the current score is assumed.  Contents include note events,
+measures any parts that don't exist already.  The optional time argument
+indicates that the contents are to be shifted in time by that amount."
+  (declare (type symbol from to) (type (or null real) time))
+  (unless (or from to) (error "expected a FROM and/or TO argument"))
+  (ready)
+  (let ((a (if to (or (gethash to *scores*)
+		      (error "~A is not a named score" to))
+	       *fomus*))
+	(b (if from (or (gethash from *scores*)
+			(error "~A is not a named score" from))
+	       *fomus*)))
+    (declare (type (or null cffi:foreign-pointer) a b))
+    (when time
+      (let ((*fomus* b))
+	(send (cffi:foreign-enum-value 'fomus_param :fomus_par_events) (cffi:foreign-enum-value 'fomus_action :fomus_act_set) time)))
+    (errwrap (fomus_merge a b))))

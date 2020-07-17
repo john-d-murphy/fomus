@@ -1,0 +1,17 @@
+// key signatures
+time 0 dur 3 |keysig = dmaj|
+
+dur 1/2 
+time 0 pitch d4;
+time + pitch e;
+time + pitch f+;
+time + pitch g;
+time + pitch f+;
+time + pitch e;
+time + pitch d;
+time + pitch c+;
+time + pitch d;
+time + pitch c;
+time + pitch b;
+time + pitch g;
+time + pitch f;

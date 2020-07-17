@@ -1,0 +1,10 @@
+process myproc ()
+  for p from 0 by 1/2
+  while (elapsed() < 3)
+  fms:note(part: :prt1, dur: 1/2, pitch: 65 + p)
+  wait 1/2
+end
+
+sprout(myproc(), *filename*,
+       sets: {:quartertones #t :double-accs #f}, ; boolean values
+       parts: {{:id "prt1" :inst "guitar"}})

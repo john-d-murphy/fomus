@@ -1,0 +1,21 @@
+// note and rhythmic symbols
+time 0 duration s pitch c3;
+time + duration e pitch d;
+time + duration q pitch e;
+time + duration h pitch f;
+time + duration w pitch g;
+time + duration b pitch a;
+time + duration w pitch b;
+time + duration h pitch c;
+time + duration q pitch b-;
+time + duration e pitch a-;
+time + duration s pitch g;
+time + duration e. pitch f;
+time + duration q. pitch e-;
+time + duration h. pitch d;
+time + duration w. pitch c;
+
+// FIXME: 1st beat should be 16th/8th/16th
+
+// FIXME: must modify rules to allow dotted half in 2nd to last measure
+// (exceptions for dotted notes at top/sig level)

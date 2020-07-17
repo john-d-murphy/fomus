@@ -1,0 +1,66 @@
+// these are compound meters!!!
+// results should reflect compound meter regardless of time signatures specified
+// (except 9/16 ans 21/16 meters, which are "irregular" compound meters 4+1/2 / 8 and 10+1/2 / 8)
+
+clip = (0 20)
+comp = yes
+timesig = (6 8)
+midiin-timescale = 1
+
+part <id flt, 
+      inst <name Flute, min-pitch c4, max-pitch c7, 
+	    staves <clefs <instclef treble>>, 
+	    imports <midiin-track 1>, 
+	    export <midiout-prog 73, midiout-artenv yes>>>
+
+part flt
+time 0.0
+        duration 4 |keysig cmaj|
+        voice 1 duration 1.33333 pitch 70.0 dynamic 0.7874 ;
+time 1.33333
+        voice 1 duration 0.66667 pitch 78.0 dynamic 0.7874 ;
+time 1+1/2
+        duration 0 |timesig (3 4)|
+time 2.0
+        voice 1 duration 1.66667 pitch 65.0 dynamic 0.7874 ;
+time 4+1/2
+        duration 0 |timesig (7 8)|
+time 4.5
+        voice 1 duration 0.5 pitch 67.0 dynamic 0.7874 ;
+time 5.0
+        voice 1 duration 1.0 pitch 78.0 dynamic 0.7874 ;
+time 6.0
+        voice 1 duration 0.66667 pitch 67.0 dynamic 0.7874 ;
+time 6.66667
+        voice 1 duration 0.66667 pitch 65.0 dynamic 0.7874 ;
+time 7.5
+        voice 1 duration 0.83333 pitch 78.0 dynamic 0.7874 ;
+time 8
+        duration 0 |timesig (2 4)|
+time 8.33333
+        voice 1 duration 0.66667 pitch 70.0 dynamic 0.7874 ;
+time 9.0
+        voice 1 duration 1.33333 pitch 62.0 dynamic 0.7874 ;
+time 10.33333
+        voice 1 duration 0.66667 pitch 75.0 dynamic 0.7874 ;
+time 11.0
+        voice 1 duration 1.66667 pitch 73.0 dynamic 0.7874 ;
+time 13.5
+        voice 1 duration 0.5 pitch 62.0 dynamic 0.7874 ;
+time 14.0
+        voice 1 duration 1.0 pitch 73.0 dynamic 0.7874 ;
+time 15.0
+        voice 1 duration 0.66667 pitch 75.0 dynamic 0.7874 ;
+time 15.66667
+        voice 1 duration 0.66667 pitch 62.0 dynamic 0.7874 ;
+time 16.5
+        voice 1 duration 0.83333 pitch 70.0 dynamic 0.7874 ;
+time 17.33333
+        voice 1 duration 0.66667 pitch 78.0 dynamic 0.7874 ;
+time 18.0
+        voice 1 duration 1.33333 pitch 65.0 dynamic 0.7874 ;
+time 19.33333
+        voice 1 duration 0.66667 pitch 67.0 dynamic 0.7874 ;
+time 20.0
+        voice 1 duration 1.66667 pitch 78.0 dynamic 0.7874 ;
+

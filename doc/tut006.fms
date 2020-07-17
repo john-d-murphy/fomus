@@ -1,0 +1,12 @@
+title: "Piece for Electric Viola"
+author: "David Psenicka"
+quartertones: yes
+
+inst <id: elvla template: viola
+      name: "Electric Viola" abbr: "evla">
+part <id: mypart inst: elvla>
+
+part: mypart
+time: 0.0 dur: 0.333 pitch: 70.1 ;
+time: 0.333 dur: 0.666 pitch: 65.6 ;
+time: 1.0 dur: 2.0 pitch: 68.4 ;

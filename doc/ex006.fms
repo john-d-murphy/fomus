@@ -1,0 +1,37 @@
+time 0 duration 1/2
+pitch 60;
+time + pitch 61;
+time + pitch 62;
+[.] {
+time + pitch 63;
+time + pitch 64;
+time + pitch 65;
+[>] {
+time + pitch 66;
+time + pitch 67;
+time + pitch 68;
+}
+time + pitch 69;
+time + pitch 70;
+time + pitch 71;
+}
+
+time +8 ...  // the space is necessary so that fomus sees `8' and not `8.'
+
+time 0 duration 1/2
+pitch 60;
+time + pitch 61;
+time + pitch 62;
+[.] s{
+time + pitch 63;
+time + pitch 64;
+time + pitch 65;
+[>] a{
+time + pitch 66;
+time + pitch 67;
+time + pitch 68;
+}s
+time + pitch 69;
+time + pitch 70;
+time + pitch 71;
+}a

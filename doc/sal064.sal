@@ -1,0 +1,13 @@
+process myproc ()
+  repeat 1
+  fms:note(dur: 2, pitch: 70)
+end
+
+begin
+  with parts = {{:id "mypart"
+                 :inst {:template "viola"
+                        :name "Electric Viola" :abbr "evla"
+                        :min-pitch 48 :max-pitch 108
+                        :open-strings {48 55 62 69}}}}
+  sprout(myproc(), *filename*, parts: parts)
+end

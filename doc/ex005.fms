@@ -1,0 +1,73 @@
+time 0 duration 1
+pitch 60; pitch 67; pitch 72;
+
+time +1 {
+time 0 duration 1
+pitch 60; pitch 67; pitch 72;
+}
+
+pitch +7 { // transpose up a fifth
+time 3 duration 1
+pitch 60; pitch 67; pitch 72;
+}
+
+time +4 { // everything inside is offset by +4
+time /2 { // scale time and duration by 1/2
+dur /2 {
+
+time 0 duration 1 // the actual time is (0 / 2) + 4 = 4
+pitch 60; pitch 67; pitch 72;
+
+time 1 duration 1 // the actual time is (1 / 2) + 4 = 4+1/2
+pitch 60; pitch 67; pitch 72;
+
+time 2 duration 1
+pitch 60; pitch 67; pitch 72;
+
+} } }
+
+voice (1 2)
+time 8 duration 1 pitch 67; pitch 73;
+time + duration 1 pitch 69; pitch 75;
+time + duration 1 pitch 71; pitch 77;
+
+voice -2 { // remove voice 2
+time + duration 1 pitch 67; pitch 73;
+time + duration 1 pitch 69; pitch 75;
+time + duration 1 pitch 71; pitch 77;
+}
+
+voice -(1) { // remove voice 1
+time + duration 1 pitch 67; pitch 73;
+time + duration 1 pitch 69; pitch 75;
+time + duration 1 pitch 71; pitch 77;
+}
+
+voice 1
+time + duration 1 pitch 67; pitch 73;
+time + duration 1 pitch 69; pitch 75;
+time + duration 1 pitch 71; pitch 77;
+
+voice 2 { // set voices to 2
+time + duration 1 pitch 67; pitch 73;
+time + duration 1 pitch 69; pitch 75;
+time + duration 1 pitch 71; pitch 77;
+}
+
+time 24 duration 1/2
+pitch 60;
+time + pitch 61;
+time + pitch 62;
++[.] { // `+' is optional and doesn't make any difference in this case
+time + pitch 63;
+time + pitch 64;
+time + pitch 65;
+[>][x "$"] { // both marks are added
+time + pitch 66;
+time + pitch 67;
+time + pitch 68;
+-[>] { // remove the accent
+time + pitch 69;
+time + pitch 70;
+time + pitch 71;
+} } }

@@ -1,0 +1,26 @@
+time 0 duration 2 |comp yes, keysig gmaj| // `|...|' is a shortcut for `meas <...>'
+
+duration 1/3
+time 0 pitch 66 staff 2 acc (n f) ;
+time 1/3 pitch 54 staff 2 acc (n f) ;
+time 2/3 pitch 66 staff 2 acc (n f) ;
+time 1 pitch 54 staff 2 acc (n f) ;
+time 1+1/3 pitch 66 staff 2 acc (n f) ;
+time 1+2/3 pitch 54 staff 2 acc (n f) ;
+time 2 pitch 66 staff 2 acc (n f) ;
+time 2+1/3 pitch 54 staff 2 acc (n f) ;
+time 2+2/3 pitch 66 staff 2 acc (n f) ;
+time 3 pitch 54 staff 2 acc (n f) ;
+
+staff 1 acc (n s) {
+ time 3+1/3 pitch 66 ;
+ time 3+2/3 pitch 54 ;
+ time 4 pitch 66 ;
+ time 4+1/3 pitch 54 ;
+ time 4+2/3 pitch 66 ;
+ time 5 pitch 54 ;
+ time 5+1/3 pitch 66 ;
+ time 5+2/3 pitch 54 ;
+ time 6 pitch 66 ;
+ time 6+1/3 pitch 54 ;
+}

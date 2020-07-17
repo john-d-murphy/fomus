@@ -1,0 +1,63 @@
+// metaparts
+part <id vln1 inst violin>
+part <id vln2 inst violin>
+part <id vla inst viola>
+part <id cel inst cello>
+
+metapart <id mvln
+	  parts (<part vln1 from-voice 1 to-voice 1> 
+		 <part vln2 from-voice 2 to-voice 1>)>
+metapart <id mvcl
+	  parts (<part vla from-voice 1 to-voice 1>
+		 <part cel from-voice 2 to-voice 1>)>
+metapart <id mqt
+	  parts (<part mvln from-voice (1 2) to-voice (1 2)>
+		 <part mvcl from-voice (3 4) to-voice (1 2)>)>
+
+part mvln
+
+voice 1
+duration 1
+time 0 pitch c5;
+time 1 pitch d;
+time 2 pitch e;
+time 3 duration 3 pitch f;
+
+voice 2
+duration 1
+time 0 pitch c4;
+time 1 pitch d;
+time 2 pitch e;
+time 3 duration 3 pitch f;
+
+part mqt
+
+time +8 {
+  voice 1
+  duration 1
+  time 0 pitch c5;
+  time 1 pitch d;
+  time 2 pitch e;
+  time 3 duration 3 pitch f;
+
+  voice 2
+  duration 1
+  time 0 pitch c4;
+  time 1 pitch d;
+  time 2 pitch e;
+  time 3 duration 3 pitch f;
+
+  voice 3
+  duration 1
+  time 0 pitch c3;
+  time 1 pitch d;
+  time 2 pitch e;
+  time 3 duration 3 pitch f;
+
+  voice 4
+  duration 1
+  time 0 pitch c2;
+  time 1 pitch d;
+  time 2 pitch e;
+  time 3 duration 3 pitch f;
+}

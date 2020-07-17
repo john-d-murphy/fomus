@@ -1,0 +1,23 @@
+process myproc-notes ()
+  repeat 33
+  fms:note(dur: 1/2, pitch: 72, part: "0")
+  fms:note(dur: 1/2, pitch: 48, part: "1")
+  wait 1/2
+end
+
+process myproc-marks ()
+  with mode = make-cycle({"touch" "overlap" "include"}),
+       dur = make-cycle({ 2       2         5/4}),
+       part = make-cycle({"0" "1"})
+  repeat 6
+  fms:mark(dur: next(dur), part: next(part),
+           marks: {"^"}, right: next(mode))
+  wait 5/2
+end
+
+begin
+  with parts = {{:inst "flute" :id "0"}
+                {:inst "tuba" :id "1"}}
+  sprout(list(myproc-notes(), myproc-marks()), *filename*,
+         parts: parts)
+end

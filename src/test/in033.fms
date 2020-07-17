@@ -1,0 +1,27 @@
+untie = true
+untie-dur-range = (0 4)
+
+note time:1.5 dur:0.25 pitch C;
+note time:1.75 dur:0.2 ;
+note time:1.95 dur:0.2 ;
+note time:2.15 dur:0.2 ;
+note time:2.35 dur:0.2 ;
+note time:2.55 dur:0.2 ;
+note time:2.75 dur:0.25 ;
+note time:3.0 dur:0.25 ;
+note time:3.5833 dur:0.33333 ;
+note time:3.9167 dur:0.33333 ;
+note time:4.25 dur:0.5 ;
+note time:4.75 dur:0.25 ;
+note time:5.0 dur:0.5 ;
+note time:5.5 dur:0.25 ;
+note time:5.75 dur:0.25 ;
+note time:6.0 dur:0.5  ;
+note time:6.5 dur:0.2 ;
+note time:6.7 dur:0.2 ;
+note time:6.9 dur:0.2 ;
+note time:7.1 dur:0.2 ;
+note time:7.3 dur:0.2 ;
+note time:7.5 dur:0.25 ;
+note time:7.75 dur:1.0 ;
+note time:8.75 dur:1.0 ;

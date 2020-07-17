@@ -1,0 +1,226 @@
+	* pdin: fixed build problem caused by restrictions in new version
+	  of automake
+	* repdyns: changed default value of `dyn-repeat-maxrestdur'
+	* xmlout: added settings to automatically launch an XML viewer
+	  application
+	* lilyout: viewer process is no longer a child process (so emacs
+	  doesn't kill it immediately when it launches)
+	* fomus.el: fixed emacs erroneously setting the default major-mode
+	  (Anders Vinjar)
+
+0.1.18-alpha
+
+	* libfomus: fixed erroneous measure integrity check
+	* libfomus: improvements in module scheduling
+	* untie: new module that removes ties from notes, resulting in
+	  unconventional but easier-to-read notation
+	* libfomus: added main library support needed for `untie' module
+	  (module still needs to be written)
+	* markgrps: fixed bug causing mark groups (e.g., `pizz' and
+	  `arco') to appear incorrectly in tied notes across measure
+	  boundaries
+	* grslurs: fixed bug causing mysterious slurs to appear over notes
+	  when FOMUS determines note durations
+	* libfomus: fixed bug causing rests in invisible voices (created
+	  by mark events, for example) to be notated incorrectly when
+	  there are tuplets in other voices (and causing LilyPond output
+	  to crash with an error)
+	* lilyout: actual accidentals are output when `lily-autoaccs' is
+	  set to a non-empty value (letting LilyPond decide how to notate
+	  them)
+	* libfomus: fixed a bug that caused inconsistencies in octave
+	  change signs (and other potential problems)
+	* fomus.el: fixed a few annoying warnings that pop up in new
+	  version of emacs
+	* cm/grace: fixed measures not receiving proper time values (fix
+	  is in cm/grace package)
+
+0.1.17-alpha
+
+	* libfomus: fixed bugs involving mark events
+	* libfomus: fixed barlines appearing incorrectly or missing
+	* libfomus: fixed type checking for objects other than notes
+	* libfomus: added `fp', `fzp', `sfp' and `sfzp' marks
+	* libfomus: fixed `*' character not being recognized in tempo
+	  string when it's the first character
+	* libfomus: added settings `init-tempo' and `init-tempo-text'
+	* prune: added setting `mono' to force notes in the same voice to
+	  monophonic line
+	* libfomus: new built-in metapart `all'--things like tempo marks
+	  can now be easily sent to all parts
+	* libfomus: fixed obscure bug that caused copied FOMUS data
+	  instances to use the default part of the copied instance
+	* libfomus: added FOMUS_BUILTIN_PRESETS_PATH environment variable
+	  to make library completely relocatable
+	* libfomus: fixed compilation issues with Boost 1.46
+	* libfomus: added `fill' setting
+
+0.1.16-alpha
+
+	* libfomus: fixed undefined symbol error when compiling with Boost
+	  1.44 in Fedora 14
+	* divrules: tweaked short-long-short syncopation (appears a lot in
+	  the Milhaud example)
+
+0.1.15-alpha
+
+	* xmlout: option to suppress <accidental> tag (setting
+	  `xml-suppress-acctag'), also option to map accidentals to
+	  arbitrary strings for <alter> tag
+	* libfomus: accidentals larger than double sharps/flats allowed
+	  now (output module needs to know what to do with non-standard
+	  accidentals)
+	* lilyout: fixed protection of DOS command-line arguments with
+	  quotes when starting a process in windows and using one of DOS's
+	  command-line delimiters (why should I have to do this?)
+	* libfomus: incorrect nested lists in Lisp/SAL caused segfault
+	  instead of an error message (not any more)
+	* divrules: now prevents user from specifying single "whole"
+	  metrical division, causing FOMUS to search infinitely for a
+	  valid division
+	* libfomus: `clip' accepts rationals like it should
+	* divrules: fixed user-specified tuplets (didn't work in certain
+	  situations)
+	* divrules: fixed an issue having to do with how `meas-divs'
+	  setting is used to divide up measures
+	* libfomus: `clip' setting now clips measures as it should
+	* fmsin: fixed minor parsing error
+
+0.1.14-alpha
+
+	* lilyout: fixed LilyPond-specific error involving incorrect clef
+	  signatures in output
+	* beams: some notation corrections
+	* libfomus: fixed bug in how FOMUS calculates time signatures in
+	  compound meter (caused by an earlier bug fix)
+	* percchs: eliminated redundant `perc-change' setting
+
+0.1.13-alpha
+
+	* lilyout: fixed compile error caused by change in Boost API
+
+0.1.12-alpha
+
+	* markevs2: fixed voices being ignored in mark events
+	* doc: more documentation additions, corrections
+	* markevs2: fixed bug that occurs when mark objects extend past
+	  the end of the score, and straightened out a few other minor
+	  things
+	* libfomus: detached marks no longer depend on settings that
+	  determine whether or not they span/end on rests, span one note
+	  or can touch (prevents the marks from appearing in strange
+	  places or disappearing)
+	* libfomus: detached mark objects in invisible voices with
+	  floating point times/durations are now quantized properly
+	* mparts: fixed bug involving rests in metaparts causing error
+	  messages
+	* divrules: fixed errors with compound meter
+	* libfomus: fixed errors in how time signatures are calculated and
+	  other errors involving explicit time signatures and compound
+	  meter
+	* meas: fixed minor issues
+	* fmsin: fixed error loading UTF-8 encoded files saved by certain
+	  text editors (that write a BOM at the beginning)
+	* vmarks, smarks: fixed bug that that causes crash when there are
+	  certain arrangements of begin/end marks that touch on same note
+	* doc: added more examples, updated old and incorrect information
+	* libfomus: some spanner mark flags didn't work (fixed them)
+	* markgrps: minor fix
+	* divide: divide algorithm wasn't recognizing user-specified
+	  tuplets either (fixed)
+	* tquant: quantizing algorithm wasn't properly recognizing
+	  locations of user-specified tuplets (fixed)
+	* beams: option to not connect groups of 16ths w/ a secondary 8th
+	  beam
+	* libfomus: ability to merge scores
+	* fomus: etc., many small fixes
+	* fomus.el, fomus.lisp: fixed on windows
+	* libfomus: issue with begin/end spanners that can touch over tied
+	  notes fixed
+	* libfomus: probably fixed trouble finding libfomus.so in
+	  /usr/local/lib on some machines (not sure)
+	* lilyout: added control over default paper and font sizes
+	* trems: fixed crash that occurs with trills and tremolos
+	* libfomus: memory leak tests done again (no leaks or memory
+	  corruption found)
+	* libfomus: errors caused by repeated `fomus_init' calls fixed
+	* libfomus: support for callback functions in
+	  languages/environments (such as Lisp)
+	* libfomus: multithreading finished (increases speed with parallel
+	  processing on separate voices/measures/etc.)
+	* libfomus: code cleanup
+	* libfomus: `tempo' mark much more flexible now
+	* libfomus: text mark aliases
+	* libfomus: cleaned up API and header files
+	* fmsin: reads UTF-8 strings
+	* libfomus: added some more text marks
+	* libfomus: "continuation marks" that signify a continuing slur or
+	  something
+	* libfomus: `default-marktexts' and `marktexts' settings
+	* pdin: Pd binaries available
+	* midiout: rewrote a lot of code, fixed many bugs
+	* xmlout: fixed title inserted in author field
+	* libfomus: added `break<' and `break>' marks for system breaks
+	* grtquant: fixed error with grace note chords
+	* fmsin: macros with no arguments don't need to be called with
+	  parentheses
+	* divide: fixed problem involving notes with very small durations
+	* divide: tuplets no longer created when they aren't needed
+	* libfomus: `extensions' has been changed (again) to `output'
+	* libfomus: note spelling wasn't affected by key signatures
+	* beams: fixes for various incorrect beamings
+	* xmlout: various fixes (more are needed)
+	* vmarks: bugs involving detached spanners were squashed
+	* lilyout: fixed full measure rests for non-power-of-two-numerator
+	  time signatures
+	* libfomus: changes to text marks and fixes to proper mark
+	  positioning
+	* fmsin: measures can now be entered in like note events
+	* lilyout: `lily-insert' setting replaces four other insert
+	  settings
+	* libfomus: fixed several issues with text marks, added italics
+	  text mark/spanners
+	* meas: 0 duration measures supported
+	* grdiv: divides grace notes that are in the same voice so that
+	  they may be notated properly
+	* libfomus: fixed pruning of overlapping grace notes
+	* libfomus: fixed missing key of gmin
+	* tpose: if `transpose-part' is set to no, key signatures aren't
+	  transposed either, regardless of value of `transpose-keysigs'
+	* divide: got rid of `tuplet-prefdur', added new rules
+	* libfomus: fixed issues regarding polymeters
+	* libfomus: fixed regression involving nested metaparts
+	* libfomus: finished gliss, port and breath marks
+	* lilyout: `lily-exe-args' works
+	* divide: tuplets can be forced now (finished `tuplet..' and
+	  `..tuplet' marks)
+	* dyns: replaced `mindyn', `maxdyn', `min-dynsym' and `max-dynsym'
+	  with `dyn-range' and `dynsym-range'
+	* fmsin: slight change to how strings are parsed (eliminates some
+	  confusions when parsing `.fms' files), also other parsing fixes
+	* divide: made tweaks to tuplet decisions
+	* libfomus, fmsin: fixed reading a string value followed
+	  immediately by a `>' at the end of an object definition when the
+	  string is actually a list of strings of length 1
+	* fmsin: fixed appending to lists
+	* grtquant: 0 duration grace notes don't wreak havoc anymore
+	* markevs: mark events with duration 0 now work with default
+	  "overlap" behavior
+	* fmsout: writes percussion notes properly now, also fixed a few
+	  other bugs causing crashes and improper output
+	* fomus.el: emacs no longer kills FOMUS before PDF shows up
+	* fomus.lisp: minor fix involving entry of empty lists
+	* tpose: key signatures in meausures w/ full measure rests now
+	  transpose
+	* libfomus: fixed an error that causes a segfault when outputting
+	  a `.fms' file (and does other nasty things)
+	* lilyout: accidentals in key signature that follow a natural in
+	  the same measure didn't show properly--fixed it
+	* fmsin: macros are fixed, plus other small fixes
+	* divrules: `meas-divs' setting had the wrong type
+	* libfomus: errors involving changing note symbols and key
+	  signature definitions fixed
+	* fmsin: fixed parse error
+	* fomus.lisp: many fixes
+	* libfomus: fixed inputting nested metaparts
+	* doc: documentation proofreading/edits/additions

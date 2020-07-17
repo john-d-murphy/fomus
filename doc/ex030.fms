@@ -1,0 +1,14 @@
+dur 1/2
+time 0 pitch 60 staff 1 ;
+time 1/2 pitch 60 staff 2 ;
+time 1 pitch 60 staff 1 ;
+time 1+1/2 pitch 60 staff 2 ;
+time 2 pitch 60 staff 1 ;
+time 2+1/2 pitch 60 staff 2 ;
+staff 1 {
+time 3 pitch 60 ;
+time 3+1/2 pitch 60 ;
+}
+
+dur 1
+time 4 pitch 60 staff (1 2) ;

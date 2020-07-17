@@ -1,0 +1,12 @@
+time 0 dur 1
+  pitch c4 ;
+  pitch e ;
+  pitch g ;
+time + dur 1/2 pitch d ;
+time + dur 1 pitch e ;
+time + dur 1/2 pitch f ;
+time + dur 1/2 pitch g ;
+time + dur 1 pitch f ;
+time + dur 1/2 pitch e ;
+time + dur 1/2 pitch d ;
+time + dur 1+1/2 pitch c ;

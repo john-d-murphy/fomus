@@ -1,0 +1,23 @@
+// automatic dynamics and wedges
+dyns = yes
+
+duration 1
+time 0 pitch 60 dynamic 0;
+time 1 pitch 62 dynamic 0;
+time 2 pitch 64 dynamic 0.5;
+time 3 pitch 62 dynamic 0.5;
+time 4 pitch 60 dynamic 1;
+time 5 pitch 62 dynamic 1;
+time 6 pitch 64 dynamic 0;
+time 7 pitch 62 dynamic 0.2;
+time 8 pitch 60 dynamic 0.4;
+time 9 pitch 62 dynamic 0.6;
+time 10 pitch 64 dynamic 0.8;
+time 11 pitch 62 dynamic 1;
+time 12 pitch 60 dynamic 0.8;
+time 13 pitch 62 dynamic 0.6;
+time 14 pitch 64 dynamic 0.4;
+time 15 pitch 62 dynamic 0.2;
+time 16 pitch 60 dynamic 0;
+
+time 28 pitch 67 dynamic 0;

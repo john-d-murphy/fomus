@@ -1,0 +1,78 @@
+// Milhaud Saudades do Brazil, No. 6, Gavea
+
+// -------- MACROS --------
+macro majchd(base) "pi @base; pi +4{pi @base;} pi +7{pi @base;}"
+macro minchd(base) "pi @base; pi +3{pi @base;} pi +7{pi @base;}"
+macro dimchd(base) "pi @base; pi +3{pi @base;} pi +6{pi @base;}"
+
+macro rh-rhythm1(time chd1 bas1 chd2 bas2 chd3 bas3 chd4 bas4 chd5 bas5) "
+ti +@time{
+ti 1/4 du 1/2 @chd1 @bas1;
+ti + du 1/4 @chd2 @bas2;
+ti + du 1/4 @chd3 @bas3;
+ti + du 1/2 @chd4 @bas4;
+ti + du 1/4 @chd5 @bas5;
+}"
+
+macro rh-rhythm2(time chd1 bas1 chd2 bas2 chd3 bas3 chd4 bas4 chd5 bas5 chd6 bas6) "
+ti +@time{
+ti 0 du 1/4 [(..] @chd1 @bas1;
+ti + du 1/2 [..)] @chd2 @bas2;
+ti + du 1/4 @chd3 @bas3;
+ti + du 1/4 @chd4 @bas4;
+ti + du 1/2 @chd5 @bas5;
+ti + du 1/4 @chd6 @bas6;
+}"
+
+macro rh-rhythm3(time chd1 bas1 chd2 bas2 chd3 bas3 chd4 bas4 chd5 bas5) "
+ti +@time{
+ti 0 du 1/4 [(..] @chd1 @bas1;
+ti + du 1/2 @chd2 @bas2;
+ti + du 1/2 @chd3 @bas3;
+ti + du 1/2 @chd4 @bas4;
+ti + du 1/4 [..)] @chd5 @bas5;
+}"
+
+macro lh-rhythm(time pit1 pit2 pit3 pit4 pit5 pit6 pit7 pit8) "
+ti +@time{
+ti 0 du 2 pi @pit1; pi @pit2;
+ti 3/4 du 1/4 [(..] pi @pit3; pi @pit4;
+ti + du 1/2 [..)] pi @pit5;
+ti + du 1/2 pi @pit6; pi @pit7; pi @pit8;
+}"
+
+// -------- SCORE --------
+part <id: pno inst: piano>
+
+part pno
+time 0 dur 2 ||
+
+// tempo
+ti 0 dur 1/4
+mark [tempo "Vivement * = #" 120];
+mark [f];
+
+// -------- RIGHT HAND --------
+voice 1
+rh-rhythm1(0  majchd c5 dimchd b4 minchd a4 majchd g4 minchd a4)
+rh-rhythm2(2  dimchd b4 minchd a4 majchd g4 majchd f4 minchd e4 majchd f4)
+rh-rhythm2(4  majchd g4 majchd f4 minchd e4 minchd d4 majchd c4 minchd d4)
+ti 6 dur 2 majchd c4;
+rh-rhythm3(8  majchd c4 minchd d4 minchd e4 majchd f4 minchd d4)
+ti 10 du 2 minchd e4;
+rh-rhythm3(12  majchd c4 minchd d4 minchd e4 majchd f4 minchd d4)
+ti 14 du 2+1/4 majchd c4;
+voice 2{[.]{du 1/4 ti 15 pi f4; ti + pi a4; ti + pi d5; ti + pi a5;}}
+rh-rhythm1(16  majchd c5 dimchd b4 minchd a4 majchd g4 minchd a4)
+
+// -------- LEFT HAND --------
+voice (3 4)
+lh-rhythm(0  c2 g2  a3 d4  g4  g3 a3 d4)
+lh-rhythm(2  d2 g2  g3 c4  f4  f3 g3 c4)
+lh-rhythm(4  d2 g2  f3 b3  e4  e3 f3 b3)
+lh-rhythm(6  c2 g2  e3 a3  d4  d3 e3 a3)
+lh-rhythm(8  c2 g2  d3 g3  c4  c3 d3 g3)
+lh-rhythm(10  d2 g2  e3 a3  d4  d3 e3 a3)
+lh-rhythm(12  d2 g2  f3 b3  e4  e3 f3 b3)
+lh-rhythm(14  c2 g2  g3 c4  f4  f3 g3 c4)
+lh-rhythm(16  c2 g2  a3 d4  g4  g3 a3 d4)

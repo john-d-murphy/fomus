@@ -1,0 +1,19 @@
+process myproc ()
+  with marks = {{}
+                {{"x" "text"}} {} {} {}
+                {{"x^" "text above"}} {} {} {}
+                {{"x_" "text below"}} {} {} {}
+                {{"x!" "text text"}} {} {} {}
+                {} {} {} {}}
+  repeat 21
+  for m in marks
+  fms:note(dur: #?(elapsed() < 10, 1/2, 1),
+           pitch: between(48, 51),
+           marks: m)
+  wait 1/2
+end
+
+begin
+  with parts = {{:id "ce" :inst "cello"}}
+  sprout(myproc(), *filename*, parts: parts)
+end

@@ -1,0 +1,28 @@
+part <id apart, inst cello>
+
+part apart
+
+duration 1/2
+
+time 0     pitch c3  ;
+time 1/2   pitch d [x text] ;
+time 1     pitch c ;
+time 1+1/2 pitch d ;
+time 2     pitch e ;
+time 2+1/2 pitch d [x^ "text above"] ;
+time 3     pitch c ;
+time 3+1/2 pitch d ;
+time 4     pitch e ;
+time 4+1/2 pitch f [x_ "text below"] ;
+time 5     pitch e ;
+time 5+1/2 pitch d ;
+time 6     pitch c ;
+time 6+1/2 pitch d [x! "staff text"] ;
+time 7     pitch e ;
+time 7+1/2 pitch f ;
+time 8     pitch g ;
+time 8+1/2 pitch f ;
+time 9     pitch e ;
+time 9+1/2 pitch d ;
+
+time 10 dur 1 pitch c ;

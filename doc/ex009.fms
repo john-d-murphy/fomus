@@ -1,0 +1,7 @@
+title "Settings"
+author "David Psenicka"
+quartertones yes
+
+// score-level settings end here
+time 0 dur 2 pitch 59.5 staff 1 ; // `staff' is a note event setting
+time 3 dur 2 pitch 60.5 staff 2 ;

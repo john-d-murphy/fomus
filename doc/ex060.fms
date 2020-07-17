@@ -1,0 +1,18 @@
+wedges-cantouch = yes
+wedges-canspanone = yes
+
+part <id 0, inst flute>
+
+part 0
+time 0 dur 4 pitch 72 ;
+time 4 dur 4 pitch 72 ;
+time 8 dur 4 pitch 72 ;
+time 12 dur 4 pitch 72 ;
+time 16 dur 4 pitch 72 ;
+
+mark time 4 dur 2 [<..][..<] ; // these marks are "detached" from note events
+mark time 6 dur 2 [>..][..>] ;
+detach = no {
+ mark time 12 dur 4 [<..][..<] ; // these marks must be attached to note events
+ mark time 16 dur 4 [>..][..>] ;
+}

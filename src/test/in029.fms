@@ -1,0 +1,59 @@
+// polymeters not implemented in LilyPond yet because LilyPond shifts measures by 1 note
+// see: http://lilypond.org/doc/v2.12/Documentation/user/lilypond/Modifying-context-plug_002dins#index-polymetric-scores
+part <id: prt1 inst: oboe>
+part <id: prt2 inst: oboe>
+
+measdef <id: meas1 measparts: (prt1)>
+measdef <id: meas2 measparts: (prt2)>
+
+part prt1
+time 0 dur 3 |meas1|
+dur 1/2
+time 0 pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;
+
+part prt2
+time 0 dur 4 |meas2|
+dur 1/2
+time 0 pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;
+time + pitch c5;
+time + pitch e5;
+time + pitch c5;
+time + pitch d5;

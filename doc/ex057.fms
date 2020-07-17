@@ -1,0 +1,24 @@
+part <id pno, inst piano>
+
+part pno
+
+duration 1/2
+time 0 voice 1 pitch 76 ;
+time 1/2 voice 1 pitch 74 [(..][.(.] ;
+time 1 voice 1 pitch 71 [.(.] ;
+time 1+1/2 voice 1 pitch 79 [.(.] ;
+time 2 voice 1 pitch 70 [.(.] ;
+time 2+1/2 voice 1 pitch 67 ;
+time 3 voice 1 pitch 71 ;
+time 3+1/2 voice 1 pitch 80 [(..][.(.] ;
+time 4 voice 1 pitch 69 [.(.] ;
+time 4+1/2 voice 1 pitch 67 [.(.] ;
+time 5 voice 1 pitch 71 [.(.] ;
+time 5+1/2 voice 1 pitch 82 [(..][.(.] ;
+time 6 voice 1 pitch 75 [.(.] ;
+time 6+1/2 voice 1 pitch 80 [.(.] ;
+time 7 voice 1 pitch 68 ;
+time 7+1/2 voice 1 pitch 64 [(..] ;
+
+duration 1
+time 8 voice 1 pitch 68 [.(.] ;

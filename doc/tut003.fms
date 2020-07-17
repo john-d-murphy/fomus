@@ -1,0 +1,10 @@
+dur 1
+time 0 pitch c4 ;
+time 1 pitch d ;
+time 2 pitch e ;
+time 3 pitch f ;
+time 4 pitch g ;
+time 5 pitch f ;
+time 6 pitch e ;
+time 7 pitch d ;
+time 8 pitch c ;

@@ -1,0 +1,34 @@
+duration 1/2
+time 0     pitch 55; // melody
+time 1/2   pitch 56;
+time 1     pitch 57;
+time 1+1/2 pitch 58;
+time 2     pitch 59;
+time 2+1/2 pitch 60;
+
+duration 1
+time 3     pitch 55; // chords
+           pitch 60;
+           pitch 66;
+time 4     pitch 56;
+           pitch 61;
+           pitch 67;
+time 5     pitch 56;
+           pitch 61;
+           pitch 67;
+
+voice 1
+time 6      dur 1/4 pitch 72; // separate voices
+time 6+1/4  dur 1/4 pitch 73;
+time 6+1/2  dur 1/2 pitch 74;
+time 7      dur 1   pitch 75;
+time 8      dur 2   pitch 76;
+time 10     dur 4   pitch 77;
+
+voice 2
+time 6      dur 4   pitch 60;
+time 10     dur 2   pitch 59;
+time 12     dur 1   pitch 58;
+time 13     dur 1/2 pitch 57;
+time 13+1/2 dur 1/4 pitch 56;
+time 13+3/4 dur 1/4 pitch 55;

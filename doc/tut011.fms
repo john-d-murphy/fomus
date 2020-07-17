@@ -1,0 +1,37 @@
+part <id: vln inst: violin>
+
+dur 1
+time 0 pitch 60 [trem] ;
+time + pitch 60 [trem 1/2] ;
+time + pitch 60 [trem 1/4] ;
+
+dur 1
+time 4
+  pitch 60 [trem] ;
+  pitch 63 [trem2] ;
+time +
+  pitch 60 [trem 1/2] ;
+  pitch 63 [trem2] ;
+time +
+  pitch 60 [trem 1/4] ;
+  pitch 63 [trem2] ;
+
+dur 2
+time 8 pitch 60 [longtr] ;
+time +
+  pitch 62 [longtr] ;
+  pitch 64 [longtr2] ;
+time +
+  pitch 61 [longtr] ;
+  pitch 63 [longtr2] ;
+time +
+  pitch 60 [longtr] ;
+  pitch 62 [longtr2] ;
+
+dur 2
+time 16
+  pitch a5 [natharm-sounding] ;
+time +
+  pitch b5 [natharm-sounding] ;
+time +
+  pitch b5 [artharm-sounding] ;

@@ -1,0 +1,13 @@
+time 0 dur 1/2 pitch 60;
+time + dur 1/2 pitch 62;
+time + dur 1/2 pitch 64;
+time + dur 1/2 pitch 65;
+time + dur 1/2 pitch 67;
+time + dur 1/2 rest [ferm];
+
+time + dur 1/2 pitch 65 ;
+time + dur 1/2 pitch 64 ;
+time + dur 1/2 pitch 62 ;
+time + dur 1/2 pitch 60 ;
+
+mark time 3 dur 2 [.];

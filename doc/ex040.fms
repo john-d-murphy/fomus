@@ -1,0 +1,45 @@
+// parts
+part <id pno, inst piano>
+
+// events
+part pno
+time 0 |timesig (2 2)|
+dur 1/2
+time 0 pitch 60 ;
+time 1/2 pitch 57 ;
+time 1 pitch 55 ;
+time 1+1/2 pitch 53 ;
+time 2 pitch 52 ;
+time 2+1/2 pitch 52 ;
+time 3 pitch 54 ;
+time 3+1/2 pitch 52 ;
+
+time 4 |timesig (4 4)|
+dur 1/2
+time 4 pitch 53 ;
+time 4+1/2 pitch 55 ;
+time 5 pitch 56 ;
+time 5+1/2 pitch 56 ;
+time 6 pitch 56 ;
+time 6+1/2 pitch 57 ;
+time 7 pitch 59 ;
+time 7+1/2 pitch 60 ;
+
+time 8 |timesig (8 8)|
+dur 1/2
+time 8 pitch 60 ;
+time 8+1/2 pitch 58 ;
+time 9 pitch 57 ;
+time 9+1/2 pitch 57 ;
+time 10 pitch 60 ;
+time 10+1/2 pitch 59 ;
+time 11 pitch 60 ;
+time 11+1/2 pitch 59 ;
+
+time 12 |timesig (5 8)|
+dur 1/2
+time 12 pitch 59 ;
+time 12+1/2 pitch 60 ;
+time 13 pitch 62 ;
+time 13+1/2 pitch 65 ;
+time 14 pitch 67 ;

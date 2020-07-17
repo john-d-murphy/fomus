@@ -1,0 +1,19 @@
+// forcing choices
+
+acc = (n f) // use only naturals and flats
+
+time 0 duration 1 pitch 60;
+
+time 1 duration 1 pitch 61;
+time 2 duration 1 pitch 60;
+time 3 duration 1 pitch 59;
+time 4 duration 1 pitch 60;
+
+time 5 duration 1 pitch 61;
+time 6 duration 1 pitch 62;
+time 7 duration 1 pitch 61;
+time 8 duration 1 pitch 60;
+time 9 duration 1 pitch 59;
+time 10 duration 1 pitch 58;
+time 11 duration 1 pitch 59;
+time 12 duration 1 pitch 60;

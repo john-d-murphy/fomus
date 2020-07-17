@@ -1,0 +1,18 @@
+process notes ()
+  with pit = make-cycle({60 62 64 65 64 62 60 59})
+  while ( elapsed() < 16 )
+  fms:note(dur: 1/2, pitch: next(pit))
+  wait 1/2
+end
+
+process meass ()
+  while ( elapsed() <= 12 )
+  if ( elapsed() != 9 )
+    fms:meas(dur: 4)
+  end
+  wait 3
+end
+
+begin
+  sprout(list(notes(), meass()), *filename*, sets: {:min-measdur 3})
+end

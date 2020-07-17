@@ -1,0 +1,20 @@
+process myproc-notes (n)
+  repeat n
+  for p = 60 then drunk(p, 3)
+  fms:note(part: "pno", dur: 1/2, pitch: p)
+  wait 1/2
+end
+
+process myproc-meass ()
+  with tim = 0
+  for dur in list(2, 3 + 1/2, 4 + 1/4)
+  fms:meas(dur: dur)
+  wait dur
+end
+
+begin
+  with sets = {:timesig-den 8},
+       parts = {{:id "pno" :inst "piano"}}
+  sprout(list(myproc-notes(18), myproc-meass()),
+         *filename*, sets: sets, parts: parts)
+end

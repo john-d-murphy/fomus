@@ -1,0 +1,27 @@
+time 0 dur 5/2 |meas-divs ((3 2))|
+time 5 dur 5/2 |meas-divs ((2 3))|
+
+dur 1/2
+time 0 pitch 60 ;
+time + pitch 61 ;
+time + pitch 62 ;
+time + pitch 63 ;
+time + pitch 64 ;
+
+time + pitch 65 ;
+time + pitch 64 ;
+time + pitch 63 ;
+time + pitch 62 ;
+time + pitch 61 ;
+
+time + pitch 60 ;
+time + pitch 61 ;
+time + pitch 62 ;
+time + pitch 63 ;
+time + pitch 64 ;
+
+time + pitch 65 ;
+time + pitch 64 ;
+time + pitch 63 ;
+time + pitch 62 ;
+time + pitch 61 ;

@@ -1,0 +1,11 @@
+process myproc-notes (n)
+  repeat n
+  for p = 60 then drunk(p, 3)
+  fms:note(part: "pno", dur: 1, pitch: p)
+  wait 1
+end
+
+begin
+  with sets = {:beat 1/8}, parts = {{:id "pno" :inst "piano"}}
+  sprout(myproc-notes(16), *filename*, sets: sets, parts: parts)
+end

@@ -1,0 +1,28 @@
+time 0
+  grace 1 duration 1/4 pitch 48 [/] ;
+  grace 2 duration 1/4 pitch 51 [/] ;
+time 0 duration 1 pitch 48 ; // `grace' is reset to no grace note
+
+time 1
+  grace 0 duration 1/4 pitch 51 [/] ;
+time 1 duration 1 pitch 63 ; // `grace' is reset to no grace note
+
+time 2
+  grace 2 duration 1/4 pitch 51 [/] ;
+  grace 3 duration 1/4 pitch 53 [/] ;
+  grace 4 duration 1/4 pitch 55 [/] ;
+time 2 duration 1 pitch 61 ;
+
+time 3
+  grace 0 duration 1/4 pitch 70 [/] ;
+time 3 duration 1 pitch 71 ;
+
+time 4 duration 1 pitch 56 ;
+
+time 5
+  grace 0 duration 1/4 pitch 56 [/] ;
+time 5 duration 1 pitch 52 ;
+
+time 6
+  grace 0 duration 1/4 pitch 53 [/] ;
+time 6 duration 1 pitch 72 ;

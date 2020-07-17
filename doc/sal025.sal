@@ -1,0 +1,26 @@
+process myproc (maxtim, parts, perc, pnotes)
+  while elapsed() < maxtim
+  if ( odds(0.666) )
+    send("fms:note", part: pick(parts), ; woodwind note
+         dur: 1/2,
+         pitch: between(72, 79))
+  else
+    send("fms:note", part: perc, ; percussion note
+         dur: 1/2,
+         pitch: pick(pnotes))
+  end
+  wait pick(1/2, 1)
+end
+
+begin
+  with sets = {:layout "orchestra"},
+       percinsts = {{:id "wb1" :template "low-woodblock" :perc-note 57 :perc-name "woodblocks"}
+                    {:id "wb2" :template "high-woodblock" :perc-note 64 :perc-name "woodblocks"}},
+       insts = {{:id "prcdef" :template "percussion" :percinsts {"wb1" "wb2"}}},
+       parts = {{:id "cl1" :name "Bf Clarinet 1" :abbr "cl 1" :inst "bflat-clarinet" :transpose-part #f}
+                {:id "cl2" :name "Bf Clarinet 2" :abbr "cl 2" :inst "bflat-clarinet" :transpose-part #f}
+                {:id "ob" :name "Oboe" :abbr "ob" :inst "oboe"}
+                {:id "prc" :name "Percussion" :abbr "perc" :inst "prcdef"}}
+  sprout(myproc(16, {"cl1" "cl2" "ob"}, "prc", {"wb1" "wb2"}), *filename*,
+         percinsts: percinsts, insts: insts, parts: parts, sets: sets)
+end

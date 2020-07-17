@@ -1,0 +1,14 @@
+part <id: mypart inst: violin>
+
+part mypart
+dur 1/2
+time 1 pitch 67 [.] ;
+time + pitch 67 [.] ;
+time + pitch 67 [.] ;
+time + pitch 67 [.] ;
+time +
+time + pitch 67 [>] ;
+time + pitch 67 [>] ;
+time +
+time + pitch 67 [/.] ;
+time + pitch 67 [/.] ;

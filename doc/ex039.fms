@@ -1,0 +1,43 @@
+part <id pno, inst piano>
+
+part pno
+time 0 dur 4 |timesig-den 2|
+dur 1/2
+time 0 pitch 60 ;
+time 1/2 pitch 63 ;
+time 1 pitch 62 ;
+time 1+1/2 pitch 59 ;
+time 2 pitch 57 ;
+time 2+1/2 pitch 56 ;
+time 3 pitch 54 ;
+time 3+1/2 pitch 51 ;
+
+time 4 dur 4 |timesig-den 4|
+dur 1/2
+time 4 pitch 49 ;
+time 4+1/2 pitch 52 ;
+time 5 pitch 54 ;
+time 5+1/2 pitch 52 ;
+time 6 pitch 52 ;
+time 6+1/2 pitch 52 ;
+time 7 pitch 54 ;
+time 7+1/2 pitch 52 ;
+
+time 8 dur 4 |timesig-den 8|
+dur 1/2
+time 8 pitch 53 ;
+time 8+1/2 pitch 55 ;
+time 9 pitch 53 ;
+time 9+1/2 pitch 50 ;
+time 10 pitch 51 ;
+time 10+1/2 pitch 50 ;
+time 11 pitch 47 ;
+time 11+1/2 pitch 44 ;
+
+time 12 dur 3+1/2 |timesig-den 4|
+dur 1/2
+time 12 pitch 47 ;
+time 12+1/2 pitch 49 ;
+time 13 pitch 47 ;
+time 13+1/2 pitch 49 ;
+time 14 pitch 48 ;

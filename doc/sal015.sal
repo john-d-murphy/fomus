@@ -1,0 +1,18 @@
+process myproc-notes (n)
+  repeat n
+  for p = 60 then drunk(p, 3)
+  fms:note(part: "pno", dur: 1/2, pitch: p)
+  wait 1/2
+end
+
+process myproc-chunk ()
+  repeat 5
+  fms:meas(dur: 3)
+  sprout(myproc-notes(ran(8) + 1))
+  wait ran(8) + 1
+end
+
+begin
+  with parts = {{:id "pno" :inst "piano"}}
+  sprout(myproc-chunk(), *filename*, parts: parts)
+end

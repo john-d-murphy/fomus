@@ -1,0 +1,52 @@
+// percussion changes
+part: <id: perc
+       inst: <template: percussion
+	      percinsts: (<id: low-woodblock template: low-woodblock perc-note: 57 perc-name: "woodblocks">
+			  <id: high-woodblock template: high-woodblock perc-note: 64 perc-name: "woodblocks">
+			  <id: low-tom template: low-tom perc-note: 57 perc-name: "toms">
+			  <id: high-tom template: high-tom perc-note: 64 perc-name: "toms">)>>
+
+part perc
+duration 1/2
+time 0 pitch low-woodblock;
+time + pitch high-woodblock;
+time + pitch low-woodblock;
+time + pitch high-woodblock;
+time + pitch low-woodblock;
+time + pitch low-woodblock;
+time + pitch high-woodblock;
+time + pitch high-woodblock;
+time + pitch low-woodblock;
+time + pitch low-woodblock;
+time + pitch high-woodblock;
+time + pitch high-woodblock;
+
+time +8 {
+  time 0 pitch low-tom;
+  time + pitch high-tom;
+  time + pitch low-tom;
+  time + pitch high-tom;
+  time + pitch low-tom;
+  time + pitch low-tom;
+  time + pitch high-tom;
+  time + pitch high-tom;
+  time + pitch low-tom;
+  time + pitch low-tom;
+  time + pitch high-tom;
+  time + pitch high-tom;
+}
+
+time +16 {
+  time 0 pitch low-woodblock;
+  time + pitch high-woodblock;
+  time + pitch low-woodblock;
+  time + pitch high-woodblock;
+  time + pitch low-woodblock;
+  time + pitch low-woodblock;
+  time + pitch high-woodblock;
+  time + pitch high-woodblock;
+  time + pitch low-woodblock;
+  time + pitch low-woodblock;
+  time + pitch high-woodblock;
+  time + pitch high-woodblock;
+}

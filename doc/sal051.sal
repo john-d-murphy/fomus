@@ -1,0 +1,24 @@
+process myproc-notes ()
+  repeat 4
+  fms:note(dur: 4, pitch: 72, part: "0")
+  fms:note(dur: 4, pitch: 48, part: "1")
+  wait 4
+end
+
+process myproc-marks (part)
+  until elapsed(#t) >= 10
+  send("fms:mark", time: elapsed(), dur: 2, part: part,
+       marks: {"<.." "..<"})
+  send("fms:mark", time: elapsed() + 2, dur: 2, part: part,
+       marks: {">.." "..>"})
+  wait 4 + 1/2
+end
+
+begin
+  with sets = {:wedge-canspanone #t :wedge-cantouch #t},
+       parts = {{:inst "flute" :id "0"}
+                {:inst "tuba" :id "1"}}
+  sprout(list(myproc-notes(), myproc-marks("0"), myproc-marks("1")),
+         {0 1 3},
+         *filename*, parts: parts)
+end

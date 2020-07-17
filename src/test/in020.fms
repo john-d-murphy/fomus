@@ -1,0 +1,29 @@
+// grace notes
+time 1/2 grace 0 dur 1/4 pitch 59;
+time 1/2 grace 1/4 dur 1/4 pitch 62;
+time 1/2 grace 1/2 dur 1/4 pitch 64;
+time 1/2 dur 1/2 pitch 65;
+
+time 2 grace 0 dur 1/2 pitch 30 [/];
+time 2 dur 1/2 pitch 39;
+
+// FIXME: LilyPond output seems to ignore grace note staves
+
+time 3+1/2 grace 0 dur 1/4 pitch 70;
+time 3+1/2 grace 1 dur 1/4 pitch 76;
+time 3+1/2 grace 2 dur 1/4 pitch 73;
+time 3+1/2 grace 3 dur 1/4 pitch 74;
+time 3+1/2 dur 1/2 pitch 80;
+
+time 4+1/2 grace 10 dur 1/4 pitch 59 [/];
+time 4+1/2 grace 11 dur 1/4 pitch 62 [/];
+time 4+1/2 grace 12 dur 1/4 pitch 64 [/];
+time 4+1/2 dur 1/2 pitch 65;
+
+time 6 grace 1 dur 1/2 pitch 30;
+time 6 dur 1/2 pitch 39;
+
+time 7 grace 1 dur 1/2 pitch 30 [/];
+time 7 dur 1/2 pitch 39;
+
+// FIXME: F in second measure is in staff I in LilyPond and staff II in XML

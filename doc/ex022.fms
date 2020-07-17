@@ -1,0 +1,25 @@
+duration 1/2
+time 0      voice 1 pitch 73 ; voice 2 pitch 63 ;
+time 1/2    voice 1 pitch 67 ; voice 2 pitch 59 ;
+time 1      voice 1 pitch 70 ; voice 2 pitch 61 ;
+time 1+1/2  voice 1 pitch 71 ; voice 2 pitch 63 ;
+time 2      voice 1 pitch 67 ; voice 2 pitch 58 ;
+time 2+1/2  voice 1 pitch 73 ; voice 2 pitch 59 ;
+time 3      voice 1 pitch 70 ; voice 2 pitch 55 ;
+time 3+1/2  voice 1 pitch 75 ; voice 2 pitch 59 ;
+time 4      voice 1 pitch 70 ; voice 2 pitch 63 ;
+time 4+1/2  voice 1 pitch 73 ; voice 2 pitch 55 ;
+time 5      voice 1 pitch 70 ; voice 2 pitch 63 ;
+time 5+1/2  voice 1 pitch 67 ; voice 2 pitch 61 ;
+time 6      voice 1 pitch 71 ; voice 2 pitch 58 ;
+time 6+1/2  voice 1 pitch 67 ; voice 2 pitch 63 ;
+time 7      voice 1 pitch 71 ; voice 2 pitch 61 ;
+time 7+1/2  voice 1 pitch 67 ; voice 2 pitch 63 ;
+time 8      voice 1 pitch 73 ; voice 2 pitch 58 ;
+time 8+1/2  voice 1 pitch 71 ; voice 2 pitch 63 ;
+time 9      voice 1 pitch 67 ; voice 2 pitch 58 ;
+time 9+1/2  voice 1 pitch 73 ; voice 2 pitch 59 ;
+time 10     voice 1 pitch 75 ; voice 2 pitch 61 ;
+time 10+1/2 voice 1 pitch 71 ; voice 2 pitch 58 ;
+time 11     voice 1 pitch 67 ; voice 2 pitch 63 ;
+time 11+1/2 voice 1 pitch 71 ; voice 2 pitch 58 ;

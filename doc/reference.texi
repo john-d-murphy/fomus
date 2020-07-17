@@ -1,0 +1,629 @@
+@c   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+@c   This file is part of FOMUS.
+
+@c   FOMUS is free software: you can redistribute it and/or modify
+@c   it under the terms of the GNU General Public License as published by
+@c   the Free Software Foundation, either version 3 of the License, or
+@c   (at your option) any later version.
+
+@c   FOMUS is distributed in the hope that it will be useful,
+@c   but WITHOUT ANY WARRANTY; without even the implied warranty of
+@c   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+@c   GNU General Public License for more details.
+
+@c   You should have received a copy of the GNU General Public License
+@c   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+@node Reference, `.fms' File Examples, Tutorial, Top
+@chapter Reference
+
+This section contains information on FOMUS's objects, events, settings, and data types.
+
+@menu
+* Objects::                     
+* Events::                      
+* Modules::                     
+* Data Types::                  
+* Settings::                    
+* Marks::                       
+* Instruments::                 
+* Percussion Instruments::      
+@end menu
+
+@node Objects, Events, Reference, Reference
+@section Objects
+
+Information is communicated to FOMUS through the definition of ``objects'' (i.e., in a @file{.fms} file or in a programming environment like Lisp or SAL).
+Examples of objects are parts, instruments, notes, measures and the score itself, which must all be defined to give FOMUS a complete set of instructions for notating a score.
+Object definitions may contain one or more ``settings'' which directly affect how the objects are processed or interpreted.
+Examples of settings are @code{beat}, which determines how note events are spelled rhythmically, and @code{keysig}, which
+determines what key signature appears in a measure.  Object definitions may also contain parameters (e.g., @code{id} and @code{template})
+that aren't actually settings (settings have a specially defined behavior, as explained below) 
+but are instead part of the structural makeup of the object itself.  
+
+One of the most important of these parameters is @code{id}.
+If an object is defined with a unique ID, other objects can then use that ID to refer to it.
+If two objects of the same class are defined with the same ID, the later definition replaces the earlier one
+(more specifically, the old one still exists but can't be referred to anymore since it's ID has been moved to another object).
+
+FOMUS's objects are arranged hierarchically and ``contain'' other objects or refer to other objects in some way 
+(e.g., parts refer to instruments via the @code{inst} parameter or
+instruments can optionally contain one or more percussion instruments using the @code{percinsts} parameter).
+When one object contains or refers to another, you must either use an ID or define the sub-object inline inside the parent object.
+@c See @ref{Tutorial} and the examples sections for examples of defining and referencing objects.
+Also, the @code{id} parameter is mandatory when defining an object at the ``top level'' (i.e., when an object is not part of or embedded in another object).  
+
+Settings in ``container'' objects (like parts or measures) generally affect everything that's contained in that object.
+If you set the @code{keysig} setting in a measure, for example, it only affects that measure.  If you set @code{keysig}
+in a part, though, it affects all measures in that part (unless overriden by another @code{keysig} setting in an individual measure).
+In the same way, setting @code{keysig} in the score object affects all parts and measures in the entire score.
+Setting values are thus inherited in smaller objects from larger ones.
+Many settings can be set in any object class while some can only be set in specific places (e.g., the score).
+The @ref{Settings} section of the reference contains information on how individual settings may be used and which objects they may 
+appear in.
+
+Following is a complete list of FOMUS's object classes and their parameters:
+
+@table @bullet
+@item The Score Object
+  @itemize
+  @item name: @code{global}
+  @item parameters:
+    @table @code
+    @item (settings)
+Since the score object contains all other objects, all settings defined here are effectively default settings for the entire score.
+    @end table
+  @end itemize
+You must create a single instance of this to generate a score.
+In most of the frontends there is a special way of doing this.  In CM, for example, the command is @samp{fms:create-score}.  In Lisp there
+is a macro called @samp{fms:with-score}.  In Pd a score object is created whenever a @code{fomus} external is created.
+
+@item Parts
+  @itemize
+  @item name: @code{part}
+  @item parameters:
+    @table @code
+    @item id
+@c This is not the part name that appears in the score (see the @code{name} and @code{abbr} settings for that).
+    @item inst
+A part must be associated with an instrument.  If an instrument isn't given FOMUS assigns a default one (a generic keyboard instrument with a grand staff).
+    @item (+ settings)
+Settings defined in a part affect all @code{measdefs} and events in that part including measures, notes, rests and marks.
+Settings in the @code{inst} object it is associated with also affect the part and everything inside it.
+    @end table
+  @end itemize
+All scores must contain at least one part.  If one isn't given, a default one is supplied (with ID @samp{default}).
+A part represents a staff (or grandstaff) in the score and contains measures
+(which themselves contain notes, rests and marks).
+
+Parts generally appear in the score in the same order that they are defined in.  If the @code{layout-def} or @code{layout} setting is defined, 
+the order and grouping changes according to the layout
+(though parts based on the same instrument still appear in their defined order).
+
+@item Instruments
+  @itemize
+  @item name: @code{inst}
+  @item parameters:
+    @table @code
+    @item id
+    @item template
+An instrument may be based on one that is already predefined by supplying an ID here.
+The instrument then automatically contains all of the parameters and settings of the template instrument.
+Parameters and settings defined in the new instrument override settings in the template one.
+    @item percinsts
+An instrument may contain a list of one or more percussion instruments.  If it does, the percussion instruments
+influence how the instrument (and part) is notated.  For example, pitches in instruments containing percussion instruments 
+may be percussion IDs rather than numbers or note symbols.  The percussion instrument settings then determine
+how the events are interpretted and notated.
+
+If percussion instruments are used, the clef for the instrument should be set to @samp{percussion}.  A pre-defined instrument with ID @samp{percussion}
+exists with appropriate settings for use as a template.
+    @item staves
+An instrument must contain at least one staff object.
+    @item imports
+One or more import objects may be defined.
+Import objects give FOMUS information on how to extract note data from MIDI and other types of files.
+    @item export
+One export object may be defined.
+Export objects give FOMUS information on how to export data to some types of files (such as MIDI).
+    @item (+ settings)
+    @end table
+  @end itemize
+Instruments contain all of the settings necessary for properly notating a part.  
+Most of the time, you'll use a preexisting one either as is or as a template in a score.
+If you find yourself defining an instrument from scratch over and over, it might be useful to add your definition to @code{inst-defs} so that you can reuse it.
+The setting @code{inst-defs} functions as a library of predefined instruments.  
+Add your own instruments to this library by placing a line like @samp{inst-defs += (<id: inst1 ...> <id: inst2 ...> ...)}
+in your @code{.fomus} file.
+
+@item Percussion Instruments
+  @itemize
+  @item name: @code{percinst}
+  @item parameters:
+    @table @code
+    @item id
+The ID can be used in place of a pitch value in percussion note events.
+    @item template
+A percussion instrument may be based on a predefined one by supplying an ID here.
+The object being defined then includes all of the parameters and settings of the template object.
+Parameters and settings defined in the new object override settings in the template one.
+    @item imports
+One or more import objects may be defined.
+    @item export
+One export object may be defined.
+    @item (+ settings)
+Settings in instruments affect all of the percussion instruments in that instrument.
+    @end table
+  @end itemize
+When percussion instruments are contained or defined inside instrument objects, they modify the instrument in several ways.
+Note events that are sent to a part that contains percussion instruments may specify a percussion instrument ID in place of a numeric 
+pitch value.  The settings in the percussion instrument then determine which voice the note event is assigned to and
+where the note appears on the staff.  A percussion instrument's name (defined with the @code{name} setting) can also appear in the score
+wherever a change occurs.  By changing the settings in percussion instruments and moving them around
+between different instruments, it is easy to change how percussion parts appear in the score and how they are divided up among
+players.
+
+If you find yourself defining a percussion instrument from scratch over and over, it might be useful to add your definition to @code{percinst-defs} so that you can reuse it.
+The setting @code{percinst-defs} functions as a library of predefined percussion instruments.  
+Add your own instruments to this library by placing a line like @samp{percinst-defs += (<id: percinst1 ...> <id: percinst2 ...> ...)}
+in your @code{.fomus} file.
+
+@item Metaparts
+  @itemize
+  @item name: @code{metapart}
+  @item parameters:
+    @table @code
+    @item id
+    @item parts
+This is a list of @code{partmaps}, each of which contains a reference to a part or metapart.  Partmaps
+contain instructions for copying events from metaparts to actual parts.
+    @item (+ settings)
+    @end table
+  @end itemize
+Metaparts differ from parts in that they don't appear in the score.  Instead, they contain other parts (or other metaparts) and 
+treat them all as one single part.  This allows you to group together the parts in a string quartet and treat the quartet as one part, for example.
+Each actual part would be a single voice in the whole metapart.  An entire orchestra could also be represented as a hierarchy of metaparts with instructions
+for doubling voices and grouping instruments in various ways.
+
+At a certain point in FOMUS's processing, metapart events are copied into their proper parts and the metaparts themselves are destroyed.
+The instructions for copying events are contained in the metapart and partmap settings.  Each partmap basically contains a reference to one
+part/metapart and describes how note events are distributed (and possibly transposed or doubled).
+
+Metaparts currently don't have instruments associated with them (this might change in future releases).  
+Metapart settings only affect measures and note events up until when they are copied
+to their new locations, at which point the settings of the new part/instrument take effect.
+
+@item Measure Definitions
+  @itemize
+  @item name: @code{measdef}
+  @item parameters:
+    @table @code
+    @item id
+    @item (+ settings)
+    @end table
+  @end itemize
+A @code{measdef} is a definition for a measure event or group of measure events.
+The difference between a measure definition and a measure event is that the latter has a time and duration, appears in the score and may inherit settings from the former,
+while the former is just a collection of settings and values.
+When you create a measure event, you may refer to a @code{measdef} which contains all of the settings for that measure.
+@c This prevents having to repeat the same list of settings over and over again every time you want to create a new measure.
+
+Measure definitions are mostly useful in @file{.fms} files where they are used to avoid redundancy when defining measure events.
+The typical usage is to define a few @code{measdef}s at the top of the file and refer to them by ID when creating new measures.
+
+In most other environments it's easier to include all of the settings inside the measure itself rather than bother with defining measure definitions separately.  
+
+@item Staves
+  @itemize
+  @item name: @code{staff}
+  @item parameters:
+    @table @code
+    @item clefs
+Staves contain one or more clef objects.
+    @item (+ settings)
+Settings in staves affect all clefs and note events in that staff (once 
+it's been determined which notes are in which staves).
+    @end table
+  @end itemize
+Staves are defined as part of an instrument definition.
+Each instrument must contain at least one staff.  Each definition represents an actual staff in the score and also contain one or more @code{clef} objects. 
+
+@item Clefs
+  @itemize
+  @item name: @code{clefs}
+  @item parameters:
+    @table @code
+    @item (+ settings)
+Settings in clefs affect all note events using it (once it's been determined which notes use which clefs).
+    @end table
+  @end itemize
+A clef object represents a clef choice within a staff.  A staff must therefore contain at least one clef definition.
+Most of an instruments layout settings are defined in clefs, including
+how many ledger lines are allowed
+before a staff switch or octave change sign occurs, how often the clef itself should be chosen over the other clefs,
+and whether or not octave change signs are allowed.
+
+A keyboard instrument might, for example, contain two @code{staff} objects, each of which
+contain two @code{clef} objects, one treble and one bass.  The settings in the four clef objects
+would then influence how they are chosen and how notes should be laid out on either staff.
+
+@item Import Definitions
+  @itemize
+  @item name: @code{import}
+  @item parameters:
+    @table @code
+    @item (+ settings)
+    @end table
+  @end itemize
+Import objects contain the necessary information for reading file formats other than @file{.fms} files (e.g., MIDI files).
+Incoming data is matched against import objects (using the settings defined in them).  When a match is found, the data is sent
+to the part that contains the instrument/percussion instrument with the matching import object.  Settings in the import object
+might also modify the incoming data in some way.
+
+See @ref{MIDI Import Examples} for examples of using import objects.
+
+@item Export Definitions
+  @itemize
+  @item name: @code{export}
+  @item parameters:
+    @table @code
+    @item (+ settings)
+    @end table
+  @end itemize
+Export objects contain the necessary information for writing file formats other than @file{.fms} files (e.g., MIDI files).
+FOMUS looks up the export definitions in each part when necessary to determine how to output data.
+
+See TODO for examples of using export objects.
+
+@item Partmaps
+  @itemize
+  @item name: @code{partmap}
+  @item parameters:
+    @table @code
+    @item part
+    @item metapart
+    @item (+ settings)
+    @end table
+  @end itemize
+Partmaps are used to map events from metaparts to actual parts.  
+The part being mapped to is defined with the @code{part} parameter.
+Typical @code{partmap} settings are @code{from-voice}, which designates the voice or voices events are being
+copied from and @code{to-voice}, which designates the voice or voices events are being copied to.  Multiple partmaps can copy the same events to multiple places.  They can also
+transpose note events and do other simple modifications as they are being copied.
+
+@end table
+
+@node Events, Modules, Objects, Reference
+@section Events
+
+Objects with times and durations are referred to in this documentation as ``events.''
+There are four types of events in FOMUS: notes, rests, marks and measures.
+Note and rest events represent notes that appear in the score while mark events represent articulations, dynamics and other markings.
+A measure event specifically represent the first measure in which some change occurs at the metrical level
+(e.g., a key signature change, time signature change, or double barline).
+
+All events have @code{time} and @code{duration} parameters. 
+Times and durations are expressed in what is referred to in this documentation as ``beats,'' a unit which is (mostly) unassociated with 
+rhythmic spelling until after FOMUS has finished processing everything.
+One beat represents a consistent unit of time irrespective of time signature, metronome markings or any other notational convention.
+The first time point in a score is always 0 (i.e., there are no negative time values). 
+
+Measures have a time and duration like any other event type and aren't defined using time signatures.
+A measure defined with a duration of 2, for example, occupies 2 beats regardless of whether it's a 2/4 or 4/8 measure or whether
+a beat is notated as a quarter note or an eighth note.  It is possible to specify time signatures if desired, though this is slightly less flexible.
+By defining measures in terms of duration you can easily change time signatures, rhythmic spellings, and even
+manipulate the layout of measures in the score while leaving the essential musical information (the relative times and durations) intact.
+
+Each frontend has a unique way of defining events along with their arguments.
+In @file{.fms} files all of the arguments are given as lists of parameters and values (see @ref{Tutorial}).
+In CM, they can appear in processes and are sent to FOMUS like other scheduled events (a floating point time stamp is added automatically).  
+In Pure Data, note events are sent by creating a @code{fomus} instance, passing parameters to the appropriate inlets and passing a 
+@code{bang} message to the leftmost inlet to send the note event.
+
+A complete list of FOMUS's events are given here:
+
+@table @bullet
+@item Measure Events
+  @itemize
+  @item name: @code{meas}
+  @item parameters:
+    @table @code
+    @item time
+Time offsets for measures are quantized to the nearest value determined by the @code{meas-beatdiv} setting.
+    @item duration
+Durations for measures are quantized to the nearest value determined by the @code{meas-beatdiv} setting.  If the measure 
+contains the @code{measdur} setting, then the duration is ignored and the value for @code{measdur} is used instead 
+(this allows you to fix the measure's duration in a @code{measdef} definition).
+The time signature is determined either by lists of time signatures that you provide (FOMUS chooses the first valid time signature it finds from the @code{timesigs} setting)
+or by calculating it from the @code{timesig-den} setting.  If a time signature is explicitly specified using the @code{timesig} setting then the duration 
+is ignored (and recalculated according to @code{timesig} and the value of @code{beat}).
+    @item (+ settings)
+A measure either contains its own settings or gets them from a @code{measdef} object that it is associated with.
+Due to the way @code{meas} and @code{measdef} objects are implemented, you cannot define a measure that contains a @code{measdef} and add additional settings on top of that.
+    @end table
+  @end itemize
+In FOMUS you only need to define a measure at points in the piece where a change occurs (e.g., the time signature, key signature, or some setting that
+changes the behavior for a whole section).  FOMUS fills in all of the areas where measures aren't explicitly defined by repeating the ones that are.
+FOMUS also adjusts durations (and time signatures) to resolve conflicts.  
+This means you can place measures wherever you want without regard to whether or not they cause overlaps.
+FOMUS automatically truncates or expands them as necessary.
+
+By default, measures are assigned to all parts when they are created.  
+To assign a measure to only a subset of parts (to create polymeters, for example), use the @code{measparts} setting.
+
+@item Note Events
+  @itemize
+  @item name: @code{note}
+  @item parameters:
+    @table @code
+    @item part
+This is the ID of a part defined in the score.  A note event must belong to a part.  If none is given, the note is assigned
+to a default part (which has an ID of @samp{default}).
+    @item voice
+This can be a single integer (greater to or equal to one) or a list of integers specifying several voices for FOMUS to choose from.
+If none is given the default is 1.
+    @item time
+This can be a floating point or rational number (i.e., any numeric data type).
+Times and durations for note events are quantized using an algorithm  
+that finds the nearest fit by searching through combinations of metrical divisions and
+tuplets.  
+    @item grace
+Grace notes exist in a subset of time called ``grace time.''  To define a grace note, you must give both a time and a grace time in addition
+to a duration (which is interpretted as a ``grace duration'').  The grace note is placed before any regular (non-grace) events at the given @emph{time}.
+The @emph{grace time} (given by the grace parameter) and @emph{grace duration} 
+(which is given by the duration parameter) determine where the grace note appears relative to other grace notes at that location, and is
+notated as if the grace time and grace duration were real time and duration values.  (A grace time of 0 and grace duration of 1/4
+with default settings creates a sixteenth grace note in the same way that a regular note with duration 1/4 creates a regular sixteenth note.  Another
+grace note with grace time 1/4 and duration 1/4 would immediately follow the first grace note.)  Grace time, like regular time, must be 0 or greater.
+    @item duration
+Duration is usually specified as a number greater than zero.  It can optionally be a string (e.g., ``q'' or ``e.'') which is mapped to a
+number according to the settings @code{dur-symbols}, @code{dur-dots}, @code{dur-tie} and @code{tuplet-symbols}.  These symbols are there for convenience
+but can also be misleading since they are mapped directly to numbers and don't necessarily reflect what appears in the output.
+Changing the value of the setting @code{beat}, for example, would cause a discrepancy between the symbols and the rhythmic spellings that result.
+
+If the duration is equal to zero, then FOMUS chooses a duration that is easy to read and doesn't involve a tie.
+This is appropriate for percussion attacks and certain techniques like pizzicato strings where the release occurs immediately after the attack.
+In @file{.fms} files there are also @code{+} (``fill forward'') and @code{-} (``fill backwards'') symbols that are instructions for FOMUS to extend the 
+duration up to the next (or previous)
+event in the same voice.
+    @item pitch
+The pitch can either be a number, a string (e.g., ``cs4'') or the ID of a percussion instrument.  
+Note symbols can be customized with the @code{note-symbols}, 
+@code{note-accs}, @code{note-microtones} and @code{note-octaves} settings.
+Percussion instrument IDs only have meaning when used in parts with instruments that contain @code{percinst} objects.  
+
+Floating point and non-integers are quantized according to the value of the @code{quartertones} setting.
+    @item dyn
+This is a dynamic level specified as a number, the range of which is given by the @code{dyn-range} settings.
+If the @code{dyns} setting is set to @samp{yes}, dynamic values are translated to dynamic text symbols and crescendo/diminuendo wedges.
+If @code{dyns} is @samp{no}, this value is ignored.
+    @item marks
+This is a list of marks to be associated with the note.
+Marks can be articulations, technique indications, text strings, octave change signs, phrase markings, 
+dynamic markings, dynamic wedges, tremolos, harmonics, etc..  A list of valid marks is given in @ref{Marks}.
+
+Some marks come in begin/end pairs and are referred to as spanners.  If a begin spanner mark is given but no end mark is given, FOMUS assumes that the end is at the 
+beginning of the next spanner mark (or the end of the score).  The opposite is also true---if an end mark is missing a begin mark, FOMUS assumes the beginning occurs right
+after the last end.  
+
+Many marks take an optional string or number parameter that alters how the mark is processed or specifies some text to appear in the score.
+Some marks also come in pairs (like @code{pizz} and @code{arco}) or in groups (like @code{pp}, @code{mp}, @code{mf}, etc.) so that FOMUS
+can sort them out and make sure they appear correctly in the score.
+    @item (+ settings)
+    @end table
+  @end itemize
+
+@item Rest Events
+  @itemize
+  @item name: @code{rest}
+  @item parameters:
+    @table @code
+    @item part
+    @item voice
+A list of voices doesn't represent a choice in this case---instead it specifies all of the voices the rest belongs to.
+    @item time
+    @item grace
+Rests can also have a grace value, though FOMUS currently ignores grace note rests.
+    @item duration
+    @item marks
+    @item (+ settings)
+    @end table
+  @end itemize
+@c The parameters for rest events are similar to the parameters for note events.
+You should almost never need to create rest events---FOMUS creates all of the rests for you.
+One reason for defining one is to include a fermata in the score at some location.
+Rests can also have effects on some calculations such as the fill-forward and fill-backward durations mentioned above 
+or the pruning of overlapping notes.
+
+@item Mark Events
+  @itemize
+  @item name: @code{mark}
+  @item parameters:
+    @table @code
+    @item part
+    @item voice
+This is the voice or voices that the mark event affects.  A mark event with slur begin/end marks and a voice list of @samp{(1 2)}, for example, applies two
+separate slur marks to voices 1 and 2.
+    @item time
+    @item grace
+    @item duration
+    @item marks
+The marks in this list are applied to note events that fall within the mark event's time range.
+A few spanner marks (like crescendo/decrescendo wedges), however, are unattached to any note events if @code{detach} is set to @samp{yes}.
+    @item (+ settings)
+    @end table
+  @end itemize
+A mark event represent a mark or a group of marks that exists separately from note or rest events.
+This allows you to generate patterns of articulations separately or attach spanner marks without having to calculate exactly which notes the begin/end
+marks belong to.  The marks are applied to note events at a point in FOMUS's processing after voices have been sorted out.
+Two settings, @code{left} and @code{right} offer precise control over which note events are affected.  
+
+If a mark event contains a begin mark, this
+is only applied to a note or notes at the beginning of the mark event.  End marks are similarly applied only to notes at the end time of the mark event.  
+All other marks (i.e., non-spanner marks) are applied to every note that falls within the range of the mark event.
+
+As mentioned above, a few spanner marks (like crescendo/decrescendo wedges) are unattached to any note events if @code{detach} is set to @samp{yes}.
+This is accomplished by creating an invisible voice full of rests in the score and placing the marks in this voice.
+@end table
+
+@subsection Object Hierarchy
+
+A diagram of how FOMUS's objects contain or reference each other is shown below.
+
+@float Figure,figHie
+@center @image{hierarchy,,,,png}
+@caption{FOMUS Object Hierarchy}
+@end float
+
+This shows, for example, that a part ``contains'' an instrument (or references one) while a measure contains 
+notes, rests and marks.  
+
+@node Modules, Data Types, Events, Reference
+@section Modules
+
+FOMUS is made up of a main library and a collection of a dozen or so modules that function like notation plug-ins.
+These modules are responsible for all of the complex processing and decision-making.
+FOMUS's main library schedules them, runs integrity checks, and provides an interface for manipulating and storing FOMUS's data structures.
+New modules can either replace existing ones or work alongside them.
+Users can also pick and choose different modules or sets of modules for different sections of a score.
+Future versions of FOMUS will include a description of the API (once it is stable)
+for writing additional modules and extending FOMUS's functionality.
+
+@node Data Types, Settings, Modules, Reference
+@section Data Types
+
+@subsection Numbers
+
+Numbers in FOMUS can be one of several types:
+
+@itemize
+@item
+Floating point (e.g., @samp{1.0}, @samp{3.141596}, @samp{0.0})
+
+@item
+Integer (e.g., @samp{1}, @samp{-5})
+
+@item
+Rational (e.g., @samp{1/2}, @samp{-3/4}, @samp{0/1})
+
+@item
+Mixed (e.g., @samp{1+1/2}, @samp{-3-3/4})
+@end itemize
+
+The important distinction is between floating point numbers and everything else (which all fall under the class of rational numbers).  
+In @file{.fms} files, floating point numbers always have a decimal point in them while integers, rationals and mixed numbers don't.
+@c Some settings require rational numbers and won't accept floating point values.
+@c Times, durations and pitches in events can be of any numerical type.
+@c Part of FOMUS's functionality is to quantize these to rational numbers early in the processing stage.
+@c However, if it's possible to express a number as a rational type, then this is usually the best representation.
+
+Mixed numbers are simply a convenient and more readable way of representing rational numbers.  They 
+are only used in @file{.fms} files.
+
+@subsection Strings
+
+Strings are sequences of characters (letters, numbers, spaces, punctuation, etc.).  In @file{.fms} files, they must be quoted if they contain
+spaces or other characters that could be confused with other important characters in the surrounding context.  For example, strings in lists
+must be quoted if they contain @samp{(}, @samp{)}, @samp{,} or space characters, since lists are delimited with these.  
+Single or double quotes may be used.
+
+Anything referred to as a string in the documentation can be expressed as a string or a symbol in Lisp, Scheme or SAL.  A symbol
+is converted to a lowercase string before being sent to FOMUS.
+
+@subsection Lists
+
+Some of FOMUS's settings require lists of items.  In @file{.fms} files lists begin with @samp{(} and end with @samp{)}.
+The items (numbers, strings or other lists) in the list may be separated by spaces or delimited with commas.  
+Examples of @file{.fms} file lists are @samp{(a b c)}, @samp{(1, 2, 3)} and @samp{(a b c "," ")")} (the comma and parenthesis strings must be quoted to avoid confusion).
+Some lists are described by the documentation as ``maps'' or ``mappings,'' in which case each pair of items in the list is a mapping
+from a string value to some other value.  In @file{.fms} files, such lists may optionally contain @samp{=} or @samp{:} characters
+between each pair to make them easier to read. 
+Examples of mappings are @samp{(a 1 b 2 c 3)}, @samp{(a 1, b 2, c 3)}, @samp{(a = 1 b = 2 c = 3)} and @samp{(a: 1, b: 2, c: 3)}.
+
+@node Settings, Marks, Data Types, Reference
+@section Settings
+
+This is a listing of all of FOMUS's built-in settings.  Each entry contains a type description, the default value and locations specifying
+in which objects the setting may appear.
+
+Types descriptions in the documentation contain symbols that specify one or more of the data types described in @ref{Data Types}.
+Many of the symbols contain ranges---for example, @code{rational0..10} means a rational number between 0 and 10 is acceptable and
+@code{real>0} means a real number greater than 0 is allowed.  Lists are described with @samp{(}, @samp{)} and @samp{...}.  
+@samp{(string string ...)}, for example, indicates the value can be a list of strings.
+@samp{((string string ...) (string string ...) ...)} describes a nested list of strings.
+Also, type descriptions like @samp{(symbol integer, symbol integer, ...)} are used to indicate lists that contain mappings from strings to some value
+(the documentation should also describe it as a mapping).
+A @samp{|} character denotes a choice amoung several strings or types.
+For example, @samp{integer | (integer integer ...)} indicates the value can either be an integer or a list of integers and
+@samp{begin|middle|end} indicates that the value is a choice between three strings, @samp{begin}, @samp{middle} and @samp{end}.
+
+Locations indicate the objects in which a setting value may be set.
+For example, @code{score} means that the only place where the setting may appear is at the score level,
+while @code{note} means that the setting may appear in a note, rest or mark event and anything that can contain a note (e.g.,
+a measure, staff, clef, part or the score).  The complete list of objects that a setting may appear in is given in parentheses.
+
+All of FOMUS's settings can appear at the score level as default settings.
+Initialzation files (e.g., the @file{.fomus} initialization file in your home directory) may also contain default values for any setting.
+Settings that appear in lower-level objects (such as notes) always override settings in higher-level objects (like parts or scores).
+The same hierarchical relationship exists between parts, metaparts, instruments and percussion instruments.
+Settings in staves or clefs only take effect when FOMUS decides which note or clef an event belongs to.
+
+The diagram below shows how settings in objects affect other objects.
+The arrows show the direction of influence (e.g., settings in @code{inst} objects affect @code{part}, @code{measdef}, @code{meas}, @code{note},
+@code{rest} and @code{mark} objects that are associated with that instrument).
+
+@float Figure,figInh
+@center @image{inheritance,,,,png}
+@caption{FOMUS Setting Graph}
+@end float
+
+It might also be more convenient to use FOMUS's built-in documentation rather than browse through this list.
+@command{fomus -S verbose}, for example, retrieves documentation for the setting @code{verbose}.
+Typing @command{fomus -u2 -S -n5 verbose} sets the use-level to 2 (advanced) and searches for the top 5 settings with IDs
+similar to ``verbose.''  @command{fomus -u2 -Sd -n5 verbose} does the same thing but also searches documentation texts.
+See FIXME or type @command{fomus --help} for more information on FOMUS's command-line options.
+
+@subsection Settings by Category
+
+@include sets_list1.texi
+
+@subsection Complete List of Settings
+
+This is a complete listing of FOMUS's built-in settings in alphabetical order.
+
+@include sets_list2.texi
+
+@node Marks, Instruments, Settings, Reference
+@section Marks
+
+This is a listing of FOMUS's marks.
+Some marks accept an optional string or numerical argument (or both).
+The arguments are given in a syntax similar to how they appear in a @file{.fms} file, enclosed by brackets.
+To create marks in languages such as Lisp or SAL, use a symbol or string to specify the mark and
+if the mark has arguments, enclose the mark ID and arguments in a list (parentheses in Lisp and braces in SAL).
+For example, a text mark would be specified as @samp{[x "my text"]} in a @file{.fms} file, @samp{@{"x"  "my text"@}} in SAL and @samp{'("x" "my text")} in Lisp.
+An accent would be @samp{[>]} in a @file{.fms} file and @samp{">"} in SAL or Lisp.
+
+@c Most of the time arguments are optional.  
+@c See FIXME for a description of numerical types.
+@c @samp{integer0..128} denotes an integer between the numbers 0 and 128 (inclusive), while
+@c @samp{rational>0} denotes a rational number greater than 0.
+@c @code{string_text} denotes a string to be inserted directly into the score.
+
+@include marks_list.texi
+
+@node Instruments, Percussion Instruments, Marks, Reference
+@section Instruments
+
+This is a listing of all of FOMUS's built-in instruments, along with their IDs.
+The definitions of these instruments are all contained in the @code{inst-defs} setting.
+
+@include insts_list.texi
+
+@node Percussion Instruments,  , Instruments, Reference
+@section Percussion Instruments
+
+This is a listing of all of FOMUS's built-in percussion instruments, along with their IDs.
+The definitions of these percussion instruments are all contained in the @code{percinst-defs} setting.
+
+@include percs_list.texi

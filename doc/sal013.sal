@@ -1,0 +1,12 @@
+process myproc (len, minp, maxp)
+  repeat len
+  fms:note(voice: {1 2},
+           pitch: between(minp, maxp),
+           dur: 1/4)
+  wait 1/4
+end
+
+begin
+  sprout(list(myproc(40, 50, 80),
+              myproc(40, 40, 70)), *filename*)
+end

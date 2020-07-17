@@ -1,0 +1,16 @@
+process myproc ()
+    for off from 0 to 10 by 2
+    for switch = odds(.5)
+    for cresc = switch then #?(switch, not(cresc), cresc)
+    fms:note(time: off, dur: 2,
+             pitch: between(70, 75),
+             marks: #?(switch, #?(cresc, {"<.."}, {">.."}), {}))
+end
+
+begin
+  with sets = {:transpose-keysigs #f
+               :wedges-canspanone #t
+               :wedges-cantouch #t},
+       parts = {{:id "tpt" :inst "bflat-trumpet"}}
+  sprout(myproc(), *filename*, sets: sets, parts: parts)
+end

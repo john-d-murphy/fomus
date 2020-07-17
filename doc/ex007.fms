@@ -1,0 +1,9 @@
+// this is a comment
+
+time 0 dur 1 pitch 60; // comments can follow lines
+
+/-
+    this is a multiline comment
+-/
+
+time 1 dur 1 /- another comment -/ pitch 60;

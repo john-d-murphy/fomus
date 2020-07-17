@@ -1,0 +1,27 @@
+// mark pairs and groups
+part <id vla inst viola>
+
+part vla
+duration 1 pitch 60
+time 0;
+time + [pizz];
+time + [pizz];
+time + [pizz];
+time +;
+time +;
+time + [pizz];
+time + [pizz];
+time + [pizz];
+time +;
+time +;
+time + [ff];
+time + [ff];
+time + [ff];
+time +;
+time +;
+time + [pp];
+time + [pp];
+time +;
+time + [pp];
+time +;
+time + [mf];

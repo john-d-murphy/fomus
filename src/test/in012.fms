@@ -1,0 +1,56 @@
+// mark objects
+duration 1/4
+pitch 60
+time 0;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+time +;
+
+duration 1/4
+mark time 1/4 [.];
+mark time 3/4 [.];
+mark time 5/4 [>];
+duration 3/4
+mark time 7/4 [>];
+
+duration 2
+mark time 4 [(..][..)];
+
+time 0
+mark dur 1/4 [tempo "Fast, * = #" 120] detach yes;
+
+time 8
+dur 4 |comp yes|
+mark dur 1/4 [tempo "Slow, * = #" 40] detach yes;
+dur 1 pitch 62;
+
+// FIXME: XML doesn't show the tempo note (even though the output follows the specs)
+// (probably Finale/Sibelius's fault)

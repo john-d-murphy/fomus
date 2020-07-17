@@ -1,0 +1,10 @@
+process myproc ()
+  with h = make-heap({50 56 61 67})
+  while (elapsed() < 12)
+  fms:note(part: :prt1, dur: 1/2, pitch: next(h), voice: {1 2})
+  fms:note(part: :prt1, dur: 1/2, pitch: next(h), voice: {1 2})
+  wait 1/2
+end
+
+sprout(myproc(), *filename*,
+       parts: {{:id "prt1" :inst "piano" :vertmax 1}}) ; overrides `vertmax' in piano instrument

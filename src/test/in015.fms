@@ -1,0 +1,29 @@
+// parts
+part <id apart, inst piano>
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// events
+part apart
+time 0
+        duration 4 ||
+time 1.80281
+        voice 1 duration 2.19477 pitch 73 dynamic 0 ;
+time 5.35464
+        voice 1 duration 3.00279 pitch 66 dynamic 0 ;
+time 7.27412
+        voice 1 duration 3.93176 pitch 73 dynamic 0 ;
+time 12.82632
+        voice 1 duration 1.25951 pitch 70 dynamic 0 ;
+time 12.8632
+        voice 1 duration 3.70793 pitch 74 dynamic 0 ;
+time 15.29992
+        voice 1 duration 1.02497 pitch 72 dynamic 0 ;
+time 17.18305
+        voice 1 duration 1.26748 pitch 61 dynamic 0 ;
+time 20.36411
+        voice 1 duration 3.5298 pitch 62 dynamic 0 ;
+time 23.73262
+        voice 1 duration 3.10524 pitch 84 dynamic 0 ;
+time 24.64364
+        voice 1 duration 2.31291 pitch 77 dynamic 0 ;

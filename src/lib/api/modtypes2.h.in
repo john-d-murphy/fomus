@@ -1,0 +1,66 @@
+  };
+
+  enum parts_grouptype {
+    parts_nogroup,
+    parts_group,
+    parts_choirgroup,
+    parts_grandstaff
+  };
+
+  enum module_clefids {
+    clef_subbass_8down,
+    clef_bass_8down,
+    clef_c_baritone_8down,
+    clef_f_baritone_8down,
+    clef_tenor_8down,
+    clef_subbass,
+    clef_alto_8down,
+    clef_bass,
+    clef_mezzosoprano_8down,
+    clef_c_baritone,
+    clef_f_baritone,
+    clef_soprano_8down,
+    clef_tenor,
+    clef_subbass_8up,
+    clef_treble_8down,
+    clef_alto,
+    clef_bass_8up,
+    clef_mezzosoprano,
+    clef_c_baritone_8up,
+    clef_f_baritone_8up,
+    clef_soprano,
+    clef_tenor_8up,
+    clef_treble,
+    clef_alto_8up,
+    clef_mezzosoprano_8up,
+    clef_soprano_8up,
+    clef_treble_8up,
+    clef_percussion,
+    clef_nclefs
+  };
+
+  enum module_barlines {
+    barline_normal,
+    barline_dotted,
+    barline_dashed,
+    barline_double,
+    barline_initial,
+    barline_final,
+    barline_initfinal,
+    barline_repeatleft,
+    barline_repeatright,
+    barline_repeatleftright
+  };
+
+  enum module_markpos {
+    markpos_notehead, // most common default
+    markpos_above,
+    markpos_below,
+    // the rest are converted to one of the above three by marks.cc
+    markpos_prefabove, // 2nd most common default
+    markpos_prefbelow,
+    markpos_prefmiddleorabove, // above if there is one staff only
+    markpos_prefmiddleorbelow
+  };
+  
+  enum module_markids {

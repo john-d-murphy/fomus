@@ -1,0 +1,30 @@
+@c   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+@c   This file is part of FOMUS.
+
+@c   FOMUS is free software: you can redistribute it and/or modify
+@c   it under the terms of the GNU General Public License as published by
+@c   the Free Software Foundation, either version 3 of the License, or
+@c   (at your option) any later version.
+
+@c   FOMUS is distributed in the hope that it will be useful,
+@c   but WITHOUT ANY WARRANTY; without even the implied warranty of
+@c   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+@c   GNU General Public License for more details.
+
+@c   You should have received a copy of the GNU General Public License
+@c   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+@node Sample Module Code, Examples Index, Sample Scores, Top
+@chapter Sample Module Code
+
+The following C++ files show the code for several of FOMUS's modules.
+The module API is still unstable and subject to change before the software's initial release.
+
+@menu
+* untie.cc::                    
+@end menu
+
+@node untie.cc,  , Sample Module Code, Sample Module Code
+@section untie.cc
+
+@ccmoduleex{untie, cc}

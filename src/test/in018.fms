@@ -1,0 +1,35 @@
+// regions
+voice 1
+
+time 0 dur 1 pitch c4;
+time 1 dur 1 pitch d4;
+
+voice (1 2) {
+  time 0 dur 1 pitch c2;
+  time 1 dur 1 pitch d2;
+  voice -1 {
+    time 2 dur 1 pitch c2;
+    time 3 dur 1 pitch d2;
+  }
+}
+
+time 2 dur 1 pitch c4;
+time 3 dur 1 pitch d4;
+
+voice 1
+
+dur 1
+time 4 pitch c4;
+time + pitch d4;
+[.] {
+  time + pitch c4;
+  time + pitch d4;
+  -[.] {
+    time + pitch c4;
+    time + pitch d4;
+  }
+  time + pitch c4;
+  time + pitch d4;
+}
+time + pitch c4;
+time + pitch d4;

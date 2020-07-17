@@ -1,0 +1,8 @@
+clip = (0 20)
+midiin-timescale = 1/4
+
+part <id kbd
+      inst <template: piano
+            imports: (<midiin-track: 1 midiin-setvoice: 1>
+                      <midiin-track: 2 midiin-setvoice: 2>
+                      <midiin-track: 3 midiin-setvoice: 3>)>>

@@ -1,0 +1,12 @@
+define process myproc ()
+  repeat 8 * 5
+  for tupcnt from 0
+  fms:note(dur: 1/5,
+           pitch: between(60, 73),
+           marks: append(#?((tupcnt % 10) = 0, {"tup.."}, {}),
+                         #?((tupcnt % 10) = 9, {"..tup"}, {})),
+           sets: {:tupletdur 2 :tupletrat 5/4})
+  wait 1/5
+end
+
+sprout(myproc(), *filename*)

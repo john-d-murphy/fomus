@@ -1,0 +1,14 @@
+process myproc ()
+  for off from 0 to 10 by 1/2
+  for slurend = odds(.333)
+  for sluron = #?(slurend, odds(.5), sluron)
+  fms:note(time: off, dur: #?(off < 10, 1/2 , 1),
+           pitch: between(60, 85),
+           marks: append(#?(slurend & sluron, {{"(.."}}, {}),
+                         #?(sluron, {{".(."}}, {})))
+end
+
+begin
+  with parts = {{:id "apart" :inst "piano"}}
+  sprout(myproc(), *filename*, parts: parts)
+end

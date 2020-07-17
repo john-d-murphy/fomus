@@ -1,0 +1,70 @@
+// parts layout
+layout = orchestra
+
+part <id piccolo inst piccolo>
+part <id flute inst flute>
+part <id oboe inst oboe>
+part <id clar inst bflat-clarinet>
+part <id horn1 inst horn name "Horn 1">
+part <id horn2 inst horn name "Horn 2">
+part <id tromb inst tenor-trombone>
+part <id piano inst piano>
+
+// metapart <id all> - `all' is now built-in
+
+time 0 dur 3 ||
+
+part all
+mark time 0 [tempo "Presto con fuoco"] detach yes;
+
+dur 1
+
+part piccolo
+pitch +12 {
+time 0 pitch 70;
+time + pitch 72;
+time + pitch 74;
+}
+
+part flute
+time 0 pitch 70;
+time + pitch 72;
+time + pitch 74;
+
+part oboe
+time 0 pitch 70;
+time + pitch 72;
+time + pitch 74;
+
+part clar
+time 0 pitch 70;
+time + pitch 72;
+time + pitch 74;
+
+part horn1
+pitch -12 {
+time 0 pitch 70;
+time + pitch 72;
+time + pitch 74;
+}
+
+part horn2
+pitch -12 {
+time 0 pitch 70;
+time + pitch 72;
+time + pitch 74;
+}
+
+part tromb
+pitch -24 {
+time 0 pitch 70;
+time + pitch 72;
+time + pitch 74;
+}
+
+part piano
+pitch -12 {
+time 0 pitch 70;
+time + pitch 72;
+time + pitch 74;
+}

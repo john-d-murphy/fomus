@@ -1,0 +1,53 @@
+// 3-staff piano instrument
+inst <id piano, template piano,
+      // a list of staff objects, each containing a list of clef objects
+      // the first clef object in the list is the default for that staff
+      staves (<clefs (<instclef treble, // defines a treble clef
+                       octs-down 0, // no 8vb octave signs allowed
+                       ledgers-down 2> // approx. 2 ledger lines allowed below staff
+                      <instclef bass, // defines a bass clef
+                       octs-up 0, // no 8va octave signs allowed
+                       ledgers-up 2, // approx. 2 ledger lines allowed above staff
+                       clef-preference 1/2>)> // clef is 1/2 as likely to be chosen
+              <clefs (<instclef treble, // clef choices for middle staff...
+                       octs-up 0,
+                       octs-down 0,
+                       ledgers-down 2>
+                      <instclef bass,
+                       octs-up 0,
+                       octs-down 0,
+                       ledgers-up 2>)>
+              <clefs (<instclef bass, // bass clef is the default for bottom staff
+                       octs-up 0,
+                       ledgers-up 2>
+                      <instclef treble,
+                       octs-down 0,
+                       ledgers-down 2,
+                       clef-preference 1/2>)>)>
+
+// parts
+part <id prt, inst piano>
+
+// events
+part prt
+duration 1
+time 0 pitch 49 ;
+time 1 pitch 65 ;
+time 2 pitch 40 ;
+time 3 pitch 67 ;
+time 4 pitch 66 ;
+time 5 pitch 68 ;
+time 6 pitch 59 ;
+time 7 pitch 78 ;
+time 8 pitch 78 ;
+time 9 pitch 59 ;
+time 10 pitch 54 ;
+time 11 pitch 38 ;
+time 12 pitch 78 ;
+time 13 pitch 69 ;
+time 14 pitch 51 ;
+time 15 pitch 35 ;
+time 16 pitch 90 ;
+time 17 pitch 94 ;
+time 18 pitch 70 ;
+time 19 pitch 49 ;

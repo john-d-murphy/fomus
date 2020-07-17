@@ -1,0 +1,19 @@
+process myproc-notes (n)
+  repeat n
+  for p = 60 then drunk(p, 3)
+  fms:note(part: "pno", dur: 1/2, pitch: p)
+  wait 1/2
+end
+
+process myproc-timesigs (n)
+  with m = make-cycle({{2 2} {4 4} {8 8}})
+  repeat n
+  fms:meas(timesig: next(m))
+  wait 4
+end
+
+begin
+  with parts = {{:id "pno" :inst "piano"}}
+  sprout(list(myproc-notes(29), myproc-timesigs(4)),
+         *filename*, parts: parts)
+end

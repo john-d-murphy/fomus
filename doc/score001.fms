@@ -1,0 +1,192 @@
+// Bach Fugue 2 in C Minor from The Well Tempered Clavier, Book I
+
+keysig cmin
+
+part <id: kbd inst: piano name: "Keyboard">
+
+part kbd
+voice (1 2 3)
+
+// measure 1
+voice 2 // give FOMUS a hint
+time 0+1/2 dur 1/4 pitch c5;
+voice (1 2 3)
+time 0+3/4 dur 1/4 pitch b4;
+time 1 dur 1/2 pitch c5;
+time 1+1/2 dur 1/2 pitch g4;
+time 2 dur 1/2 pitch a-4;
+time 2+1/2 dur 1/4 pitch c5;
+time 2+3/4 dur 1/4 pitch b4;
+time 3 dur 1/2 pitch c5;
+time 3+1/2 dur 1/2 pitch d5;
+// measure 2
+time 4 dur 1/2 pitch g4;
+time 4+1/2 dur 1/4 pitch c5;
+time 4+3/4 dur 1/4 pitch b4;
+time 5 dur 1/2 pitch c5;
+time 5+1/2 dur 1/2 pitch d5;
+time 6 dur 1/4 pitch f4;
+time 6+1/4 dur 1/4 pitch g4;
+time 6+1/2 dur 1 pitch a-4;
+time 7+1/2 dur 1/4 pitch g4;
+time 7+3/4 dur 1/4 pitch f4;
+// measure 3
+time 8 dur 1/4 pitch e-4;
+time 8+1/4 dur 1/4 pitch c5;
+time 8+1/2 dur 1/4 pitch b4;
+time 8+3/4 dur 1/4 pitch a4;
+time 9 dur 1/4 pitch g4;
+time 9+1/4 dur 1/4 pitch f4;
+time 9+1/2 dur 1/4 pitch e-4;
+time 9+3/4 dur 1/4 pitch d4;
+time 10 dur 1/2 pitch c4;
+time 10+1/2 dur 1/2 pitch e-5;
+time 11 dur 1/2 pitch d5;
+time 11+1/2 dur 1/2 pitch c5;
+// measure 4
+time 12 dur 1/2 pitch b-4;
+time 12+1/2 dur 1/2 pitch a4;
+time 13 dur 1/2 pitch b-4;
+time 13+1/2 dur 1/2 pitch c5;
+time 14 dur 1/2 pitch f+4;
+time 14+1/2 dur 1/2 pitch g4;
+time 15 dur 1/2 pitch a4;
+time 15+1/2 dur 1/2 pitch f+4;
+// measure 5
+time 16 dur 1 pitch g4;
+time 17+1/4 dur 1/4 pitch c4;
+time 17+1/2 dur 1/4 pitch d4;
+time 17+3/4 dur 1/4 pitch e-4;
+time 18 dur 1/4 pitch f4;
+time 18+1/4 dur 1/4 pitch g4;
+time 18+1/2 dur 3/4 pitch a-4;
+time 19+1/4 dur 1/4 pitch d4;
+time 19+1/2 dur 1/4 pitch e-4;
+time 19+3/4 dur 1/4 pitch f4;
+// measure 6
+time 20 dur 1/4 pitch g4;
+time 20+1/4 dur 1/4 pitch a4;
+time 20+1/2 dur 3/4 pitch b-4;
+time 21+1/4 dur 1/4 pitch e-4;
+time 21+1/2 dur 1/4 pitch f4;
+time 21+3/4 dur 1/4 pitch g4;
+time 22 dur 1/4 pitch a-4;
+time 22+1/4 dur 1/4 pitch g4;
+time 22+1/2 dur 1/4 pitch f4;
+time 22+3/4 dur 1/4 pitch e-4;
+time 23 dur 1/2 pitch d4;
+time 23+1/2 dur 1/4 pitch c5;
+time 23+3/4 dur 1/4 pitch b4;
+// measure 7
+time 24 dur 1 pitch c5;
+time 26+1/2 dur 1/2 pitch f5;
+time 27 dur 1/2 pitch e-5;
+time 27+1/2 dur 1/2 pitch d;
+// measure 8
+time 28+1/2 dur 1/2 pitch a-4;
+time 29 dur 1/2 pitch g4;
+time 29+1/2 dur 1/2 pitch f4;
+time 30 dur 1/2 pitch g4;
+time 30+1/2 dur 1/4 pitch f4;
+time 30+3/4 dur 1/4 pitch e-4;
+time 31 dur 1/2 pitch f4;
+time 31+1/2 dur 1/2 pitch d4;
+// measure 9
+time 32 dur 1 pitch g4;
+
+// measure 3
+voice 1
+time 8+1/2 dur 1/4 pitch g5;
+voice (1 2 3)
+time 8+3/4 dur 1/4 pitch f+5;
+time 9 dur 1/2 pitch g5;
+time 9+1/2 dur 1/2 pitch c5;
+time 10 dur 1/2 pitch e-5;
+time 10+1/2 dur 1/4 pitch g5;
+time 10+3/4 dur 1/4 pitch f+5;
+time 11 dur 1/2 pitch g5;
+time 11+1/2 dur 1/2 pitch a5;
+// measure 4
+time 12 dur 1/2 pitch d5;
+time 12+1/2 dur 1/4 pitch g5;
+time 12+3/4 dur 1/4 pitch f+5;
+time 13 dur 1/2 pitch g5;
+time 13+1/2 dur 1/2 pitch a5;
+time 14 dur 1/4 pitch c5;
+time 14+1/4 dur 1/4 pitch d5;
+time 14+1/2 dur 1 pitch e-5;
+time 15+1/2 dur 1/4 pitch d5;
+time 15+3/4 dur 1/4 pitch c5;
+// measure 5
+time 16 dur 1/2 pitch b-4;
+time 16+1/2 dur 1/4 pitch e-5;
+time 16+3/4 dur 1/4 pitch d5;
+time 17 dur 1/2 pitch e-5;
+time 17+1/2 dur 1/2 pitch g4;
+time 18 dur 1/2 pitch a-4;
+time 18+1/2 dur 1/4 pitch f5;
+time 18+3/4 dur 1/4 pitch e-5;
+time 19 dur 1/2 pitch f5;
+time 19+1/2 dur 1/2 pitch a4;
+// measure 6
+time 20 dur 1/2 pitch b-4;
+time 20+1/2 dur 1/4 pitch g5;
+time 20+3/4 dur 1/4 pitch f5;
+time 21 dur 1/2 pitch g5;
+time 21+1/2 dur 1/2 pitch b4;
+time 22 dur 1/2 pitch c5;
+time 22+1/2 dur 1/4 pitch d5;
+time 22+3/4 dur 1/4 pitch e-5;
+time 23 dur 1+1/2 pitch f5;
+// measure 7
+time 24+1/2 dur 1/4 pitch e-5;
+time 24+3/4 dur 1/4 pitch d5;
+time 25 dur 1/4 pitch c5;
+time 25+1/4 dur 1/4 pitch b-4;
+time 25+1/2 dur 1/4 pitch a-4;
+time 25+3/4 dur 1/4 pitch g4;
+time 26 dur 1/2 pitch f4;
+time 26+1/2 dur 1/2 pitch a-5;
+time 27 dur 1/2 pitch g5;
+time 27+1/2 dur 1/2 pitch f5;
+// measure 8
+time 28 dur 1/2 pitch e-5;
+time 28+1/2 dur 1/2 pitch d5;
+time 29 dur 1/2 pitch e-5;
+time 29+1/2 dur 1/2 pitch f5;
+time 30 dur 1/2 pitch b4;
+time 30+1/2 dur 1/2 pitch c5;
+time 31 dur 1/2 pitch d5;
+time 31+1/2 dur 1/2 pitch b4;
+// measure 9
+time 32 dur 1/2 pitch c5;
+
+time 24 {
+pitch -12 {
+// measure 7
+voice 3
+time 0+1/2 dur 1/4 pitch c5;
+voice (1 2 3)
+time 0+3/4 dur 1/4 pitch b4;
+time 1 dur 1/2 pitch c5;
+time 1+1/2 dur 1/2 pitch g4;
+time 2 dur 1/2 pitch a-4;
+time 2+1/2 dur 1/4 pitch c5;
+time 2+3/4 dur 1/4 pitch b4;
+time 3 dur 1/2 pitch c5;
+time 3+1/2 dur 1/2 pitch d5;
+// measure 8
+time 4 dur 1/2 pitch g4;
+time 4+1/2 dur 1/4 pitch c5;
+time 4+3/4 dur 1/4 pitch b4;
+time 5 dur 1/2 pitch c5;
+time 5+1/2 dur 1/2 pitch d5;
+time 6 dur 1/4 pitch f4;
+time 6+1/4 dur 1/4 pitch g4;
+time 6+1/2 dur 1 pitch a-4;
+time 7+1/2 dur 1/4 pitch g4;
+time 7+3/4 dur 1/4 pitch f4;
+// measure 9
+time 8 dur 1/4 pitch e-4;
+}
+}

@@ -1,0 +1,16 @@
+function myproc (n, r)
+  loop repeat n
+    for tim from 0 by r
+    fms:note(time: tim, dur: r, pitch: between(48.0, 73.0))
+  end
+end
+
+fms:new-score(*filename*)
+
+fms:setting(title: "Random")
+fms:setting(author: "David Psenicka")
+fms:setting(quartertones: #t)
+
+myproc(20, 1/2)
+
+fms:run()

@@ -1,0 +1,33 @@
+layout = orchestra
+
+percinst <id wb1, template low-woodblock, perc-name woodblocks, perc-note a3>
+percinst <id wb2, template high-woodblock, perc-name woodblocks, perc-note e4>
+inst <id prcdef, template percussion, percinsts (wb1 wb2)>
+
+part <id cl1, name "Bf Clarinet 1", abbr "cl 1", transpose-part no, inst bflat-clarinet>
+part <id cl2, name "Bf Clarinet 2", abbr "cl 2", transpose-part no, inst bflat-clarinet>
+part <id ob, name Oboe, abbr ob, inst oboe>
+part <id prc, name Percussion, abbr perc, inst prcdef>
+
+part cl1
+time 0 duration 4 ||
+time 5 voice 1 duration 1/2 pitch 76 ;
+
+part cl2
+time 0 duration 4 ||
+voice 1 duration 1/2 pitch 75 ;
+time 1+1/2 voice 1 duration 1/2 pitch 75 ;
+
+part ob
+time 0 duration 4 ||
+time 2+1/2 voice 1 duration 1/2 pitch 72 ;
+time 8+1/2 voice 1 duration 1/2 pitch 73 ;
+
+part prc
+time 0 duration 4 ||
+time 1/2 voice 1 duration 1/2 pitch wb2 ;
+time 3 voice 1 duration 1/2 pitch wb1 ;
+time 4 voice 1 duration 1/2 pitch wb1 ;
+time 7 voice 1 duration 1/2 pitch wb1 ;
+time 7+1/2 voice 1 duration 1/2 pitch wb2 ;
+time 9 voice 1 duration 1/2 pitch wb1 ;

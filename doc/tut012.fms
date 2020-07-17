@@ -1,0 +1,19 @@
+beat: 1/8
+timesig-den: 8
+
+part <id: apart inst: piano>
+
+time: 0 dur: 4 |keysig: dmaj|
+  time: 0 dur: 1 pitch: d4 staff: 1 ;
+  time: + dur: 1 pitch: e4 staff: 2 ;
+  time: + dur: 1 pitch: f+4 ;
+  time: + dur: 1 pitch: g4 ;
+  time: + dur: 1 pitch: a4 ;
+  time: + dur: 1 pitch: b4 ;
+time: 8 dur: 4 |keysig: b-maj|
+  time: 8 dur: 1 pitch: d4 staff: 1 ;
+  time: + dur: 1 pitch: e4 staff: 2 ;
+  time: + dur: 1 pitch: f+4 ;
+  time: + dur: 1 pitch: g4 ;
+  time: + dur: 1 pitch: a4 ;
+  time: + dur: 1 pitch: b4 ;

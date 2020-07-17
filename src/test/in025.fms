@@ -1,0 +1,24 @@
+// cautionary accidentals
+cautaccs = yes
+cautaccs-range = 5
+acc = (n f)
+
+dur 1
+
+time 0 pitch 60;
+time + pitch 63;
+time + pitch 60;
+time + pitch 61;
+time + pitch 60;
+time + pitch 64;
+time + pitch 60;
+time + pitch 74;
+
+time + pitch 60;
+time + pitch 63;
+time + pitch 60;
+time + pitch 61;
+time + pitch 60;
+time + pitch 64;
+time + pitch 60;
+time + pitch 74 cautaccs-octs = one;

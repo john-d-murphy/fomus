@@ -1,0 +1,160 @@
+// wedge-canspanone = yes
+// wedge-canspanrests = yes
+// wedge-cantouch = yes
+// mod-dyns = ("phrdyns" "dyns")
+//mod-marks = ("markgrps" /-"grslurs"-/ /-"repdyns"-/)
+lily-file-topheader = "#(set-global-staff-size 18)"
+dyns = yes
+
+// FIXME: groups of 5 are beamed wrongly
+
+time -4 {
+time 6 dur 0.25 dynamic 0.8 pitch 71 ;
+time 6.25 dur 0.25 dynamic 0.75 pitch 72 ;
+time 6.5 dur 0.25 dynamic 0.7 pitch 74 ;
+time 6.75 dur 0.25 dynamic 0.65 pitch 76 ;
+time 7 dur 0.25 dynamic 0.6 pitch 77 ;
+time 7.25 dur 0.25 dynamic 0.55 pitch 79 ;
+time 7.5 dur 0.25 dynamic 0.5 pitch 81 ;
+time 7.75 dur 0.25 dynamic 0.45 pitch 83 ;
+
+time 10 dur 0.25 dynamic 0.8 pitch 69 ;
+time 10.25 dur 0.25 dynamic 0.75 pitch 71 ;
+time 10.5 dur 0.25 dynamic 0.7 pitch 72 ;
+time 10.75 dur 0.25 dynamic 0.65 pitch 74 ;
+time 11 dur 0.25 dynamic 0.6 pitch 76 ;
+time 11.25 dur 0.25 dynamic 0.55 pitch 77 ;
+time 11.5 dur 0.25 dynamic 0.5 pitch 79 ;
+
+time 15.75 dur 0.25 dynamic 0.8 pitch 71 ;
+time 16 dur 0.25 dynamic 0.75 pitch 72 ;
+time 16.25 dur 0.25 dynamic 0.7 pitch 74 ;
+time 16.5 dur 0.25 dynamic 0.65 pitch 76 ;
+time 16.75 dur 0.25 dynamic 0.6 pitch 77 ;
+time 17 dur 0.25 dynamic 0.55 pitch 79 ;
+time 17.25 dur 0.25 dynamic 0.5 pitch 81 ;
+
+time 19.5 dur 0.25 dynamic 0.8 pitch 65 ;
+time 19.75 dur 0.25 dynamic 0.75 pitch 67 ;
+time 20 dur 0.25 dynamic 0.7 pitch 69 ;
+time 20.25 dur 0.25 dynamic 0.65 pitch 71 ;
+time 20.5 dur 0.25 dynamic 0.6 pitch 72 ;
+time 20.75 dur 0.25 dynamic 0.55 pitch 74 ;
+time 21 dur 0.25 dynamic 0.5 pitch 76 ;
+
+time 25.25 dur 0.25 dynamic 0.8 pitch 69 ;
+time 25.5 dur 0.25 dynamic 0.75 pitch 71 ;
+time 25.75 dur 0.25 dynamic 0.7 pitch 72 ;
+time 26 dur 0.25 dynamic 0.65 pitch 74 ;
+time 26.25 dur 0.25 dynamic 0.6 pitch 76 ;
+time 26.5 dur 0.25 dynamic 0.55 pitch 77 ;
+time 26.75 dur 0.25 dynamic 0.5 pitch 79 ;
+
+time 29 dur 0.25 dynamic 0.8 pitch 71 ;
+time 29.25 dur 0.25 dynamic 0.75 pitch 72 ;
+time 29.5 dur 0.25 dynamic 0.7 pitch 74 ;
+time 29.75 dur 0.25 dynamic 0.65 pitch 76 ;
+time 30 dur 0.25 dynamic 0.6 pitch 77 ;
+time 30.25 dur 0.25 dynamic 0.55 pitch 79 ;
+
+time 34.5 dur 0.25 dynamic 0.8 pitch 62 ;
+time 34.75 dur 0.25 dynamic 0.75 pitch 64 ;
+time 35 dur 0.25 dynamic 0.7 pitch 65 ;
+time 35.25 dur 0.25 dynamic 0.65 pitch 67 ;
+time 35.5 dur 0.25 dynamic 0.6 pitch 69 ;
+time 35.75 dur 0.25 dynamic 0.55 pitch 71 ;
+time 36 dur 0.25 dynamic 0.5 pitch 72 ;
+time 36.25 dur 0.25 dynamic 0.45 pitch 74 ;
+
+time 42.5 dur 0.25 dynamic 0.8 pitch 60 ;
+time 42.75 dur 0.25 dynamic 0.75 pitch 62 ;
+time 43 dur 0.25 dynamic 0.7 pitch 64 ;
+time 43.25 dur 0.25 dynamic 0.65 pitch 65 ;
+time 43.5 dur 0.25 dynamic 0.6 pitch 67 ;
+time 43.75 dur 0.25 dynamic 0.55 pitch 69 ;
+time 44 dur 0.25 dynamic 0.5 pitch 71 ;
+time 44.25 dur 0.25 dynamic 0.45 pitch 72 ;
+time 44.5 dur 0.25 dynamic 0.4 pitch 74 ;
+
+time 46.75 dur 0.25 dynamic 0.8 pitch 69 ;
+time 47 dur 0.25 dynamic 0.75 pitch 71 ;
+time 47.25 dur 0.25 dynamic 0.7 pitch 72 ;
+time 47.5 dur 0.25 dynamic 0.65 pitch 74 ;
+time 47.75 dur 0.25 dynamic 0.6 pitch 76 ;
+time 48 dur 0.25 dynamic 0.55 pitch 77 ;
+time 48.25 dur 0.25 dynamic 0.5 pitch 79 ;
+
+time 52.5 dur 0.25 dynamic 0.8 pitch 72 ;
+time 52.75 dur 0.25 dynamic 0.75 pitch 74 ;
+time 53 dur 0.25 dynamic 0.7 pitch 76 ;
+time 53.25 dur 0.25 dynamic 0.65 pitch 77 ;
+time 53.5 dur 0.25 dynamic 0.6 pitch 79 ;
+time 53.75 dur 0.25 dynamic 0.55 pitch 81 ;
+time 54 dur 0.25 dynamic 0.5 pitch 83 ;
+
+time 58.25 dur 0.25 dynamic 0.8 pitch 64 ;
+time 58.5 dur 0.25 dynamic 0.75 pitch 65 ;
+time 58.75 dur 0.25 dynamic 0.7 pitch 67 ;
+time 59 dur 0.25 dynamic 0.65 pitch 69 ;
+time 59.25 dur 0.25 dynamic 0.6 pitch 71 ;
+time 59.5 dur 0.25 dynamic 0.55 pitch 72 ;
+time 59.75 dur 0.25 dynamic 0.5 pitch 74 ;
+time 60 dur 0.25 dynamic 0.45 pitch 76 ;
+time 60.25 dur 0.25 dynamic 0.4 pitch 77 ;
+
+time 66.5 dur 0.25 dynamic 0.8 pitch 67 ;
+time 66.75 dur 0.25 dynamic 0.75 pitch 69 ;
+time 67 dur 0.25 dynamic 0.7 pitch 71 ;
+time 67.25 dur 0.25 dynamic 0.65 pitch 72 ;
+time 67.5 dur 0.25 dynamic 0.6 pitch 74 ;
+time 67.75 dur 0.25 dynamic 0.55 pitch 76 ;
+time 68 dur 0.25 dynamic 0.5 pitch 77 ;
+time 68.25 dur 0.25 dynamic 0.45 pitch 79 ;
+time 68.5 dur 0.25 dynamic 0.4 pitch 81 ;
+time 68.75 dur 0.25 dynamic 0.35 pitch 83 ;
+
+time 73 dur 0.25 dynamic 0.8 pitch 64 ;
+time 73.25 dur 0.25 dynamic 0.75 pitch 65 ;
+time 73.5 dur 0.25 dynamic 0.7 pitch 67 ;
+time 73.75 dur 0.25 dynamic 0.65 pitch 69 ;
+time 74 dur 0.25 dynamic 0.6 pitch 71 ;
+time 74.25 dur 0.25 dynamic 0.55 pitch 72 ;
+
+time 80.5 dur 0.25 dynamic 0.8 pitch 72 ;
+time 80.75 dur 0.25 dynamic 0.75 pitch 74 ;
+time 81 dur 0.25 dynamic 0.7 pitch 76 ;
+time 81.25 dur 0.25 dynamic 0.65 pitch 77 ;
+time 81.5 dur 0.25 dynamic 0.6 pitch 79 ;
+time 81.75 dur 0.25 dynamic 0.55 pitch 81 ;
+time 82 dur 0.25 dynamic 0.5 pitch 83 ;
+time 82.25 dur 0.25 dynamic 0.45 pitch 84 ;
+time 82.5 dur 0.25 dynamic 0.4 pitch 86 ;
+time 82.75 dur 0.25 dynamic 0.35 pitch 88 ;
+
+time 89 dur 0.25 dynamic 0.8 pitch 64 ;
+time 89.25 dur 0.25 dynamic 0.75 pitch 65 ;
+time 89.5 dur 0.25 dynamic 0.7 pitch 67 ;
+time 89.75 dur 0.25 dynamic 0.65 pitch 69 ;
+time 90 dur 0.25 dynamic 0.6 pitch 71 ;
+time 90.25 dur 0.25 dynamic 0.55 pitch 72 ;
+time 90.5 dur 0.25 dynamic 0.5 pitch 74 ;
+time 90.75 dur 0.25 dynamic 0.45 pitch 76 ;
+time 91 dur 0.25 dynamic 0.4 pitch 77 ;
+
+time 95.25 dur 0.25 dynamic 0.8 pitch 62 ;
+time 95.5 dur 0.25 dynamic 0.75 pitch 64 ;
+time 95.75 dur 0.25 dynamic 0.7 pitch 65 ;
+time 96 dur 0.25 dynamic 0.65 pitch 67 ;
+time 96.25 dur 0.25 dynamic 0.6 pitch 69 ;
+time 96.5 dur 0.25 dynamic 0.55 pitch 71 ;
+
+time 98.75 dur 0.25 dynamic 0.8 pitch 71 ;
+time 99 dur 0.25 dynamic 0.75 pitch 72 ;
+time 99.25 dur 0.25 dynamic 0.7 pitch 74 ;
+time 99.5 dur 0.25 dynamic 0.65 pitch 76 ;
+time 99.75 dur 0.25 dynamic 0.6 pitch 77 ;
+time 100 dur 0.25 dynamic 0.55 pitch 79 ;
+time 100.25 dur 0.25 dynamic 0.5 pitch 81 ;
+time 100.5 dur 0.25 dynamic 0.45 pitch 83 ;
+time 100.75 dur 0.25 dynamic 0.4 pitch 84 ;
+}
