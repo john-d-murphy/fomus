@@ -87,7 +87,7 @@
 #include <boost/lambda/construct.hpp>
 /* #include <boost/lambda/loops.hpp> */
 
-#include <boost/math/common_factor.hpp>
+#include <boost/integer/common_factor.hpp>
 
 //#include <boost/iostreams/device/null.hpp>
 //#include <boost/scoped_array.hpp>

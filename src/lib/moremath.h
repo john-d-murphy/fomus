@@ -36,7 +36,7 @@ namespace fomus {
 
   // rational
   inline rat ratmod(const rat& x, const rat& y) {
-    fint m = boost::math::lcm(x.denominator(), y.denominator());
+    fint m = boost::integer::lcm(x.denominator(), y.denominator());
     return rat(mod(x.numerator() * (m / x.denominator()),
                    y.numerator() * (m / y.denominator())),
                m);

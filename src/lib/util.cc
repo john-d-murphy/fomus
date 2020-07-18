@@ -121,7 +121,7 @@ fomus_float mod_float(
 
 fomus_rat mod_rat(fomus_rat x, fomus_rat y) {
   ENTER_API;
-  fomus_int m = boost::math::lcm(x.den, y.den);
+  fomus_int m = boost::integer::lcm(x.den, y.den);
   return fomus::tofrat(
       fomus::rat(mod(x.num * (m / x.den), y.num * (m / y.den)), m));
   EXIT_API_RAT0;

@@ -49,7 +49,7 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 
-#include <boost/math/common_factor_rt.hpp>
+#include <boost/integer/common_factor_rt.hpp>
 
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -1714,7 +1714,7 @@ public:
       nos.push_back(n);
       fomus_rat dq(module_dur(n) * wrm4); // duration in # of quarter notes
       if (dq > (fomus_int) 0)
-        divs = boost::math::lcm(divs, dq.den);
+        divs = boost::integer::lcm(divs, dq.den);
       module_skipassign(n);
       n = module_nextnote();
     }
