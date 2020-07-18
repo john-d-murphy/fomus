@@ -29,7 +29,8 @@
 #include <string>
 #include <vector>
 
-#include <boost/utility.hpp>
+//#include <boost/utility.hpp>
+#include <boost/next_prior.hpp>
 
 #include "ifacedumb.h"
 #include "module.h"

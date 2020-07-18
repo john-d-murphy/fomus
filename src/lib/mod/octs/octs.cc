@@ -33,7 +33,7 @@
 #include <string>
 #include <vector>
 
-#include <boost/utility.hpp> // next & prior
+#include <boost/next_prior.hpp>
 
 #include "ifacedist.h"
 #include "ifacesearch.h"
