@@ -20,70 +20,70 @@
 
 #include "numbers.h"
 #include "moremath.h" // mod
-#include "vars.h" // deletemodvals
+#include "vars.h"     // deletemodvals
 
 namespace fomus {
 
-  // highest long number that is divisible by all integers up to 28
+// highest long number that is divisible by all integers up to 28
 #define RAT_CONVERT_NUM 223092870
-  
-  //const number NUMBER_MAX(DBL_MAX);
-  
+
+  // const number NUMBER_MAX(DBL_MAX);
+
   rat floattorat(const ffloat x) {
     if (x >= 1) {
       ffloat df = RAT_CONVERT_NUM / x;
-      fint d = (fint)df;
+      fint d = (fint) df;
       if (d == df) {
-	return rat(RAT_CONVERT_NUM, d);
+        return rat(RAT_CONVERT_NUM, d);
       } else {
-	rat r1(RAT_CONVERT_NUM, d);
-	rat r2(RAT_CONVERT_NUM, d + 1);
-	return r1.denominator() <= r2.denominator() ? r1 : r2;
+        rat r1(RAT_CONVERT_NUM, d);
+        rat r2(RAT_CONVERT_NUM, d + 1);
+        return r1.denominator() <= r2.denominator() ? r1 : r2;
       }
     } else if (x <= -1) {
       ffloat df = RAT_CONVERT_NUM / x;
-      fint d = (fint)df;
+      fint d = (fint) df;
       if (d == df) {
-	return rat(RAT_CONVERT_NUM, d);
+        return rat(RAT_CONVERT_NUM, d);
       } else {
-	rat r1(RAT_CONVERT_NUM, d);
-	rat r2(RAT_CONVERT_NUM, d - 1);
-	return r1.denominator() <= r2.denominator() ? r1 : r2;
+        rat r1(RAT_CONVERT_NUM, d);
+        rat r2(RAT_CONVERT_NUM, d - 1);
+        return r1.denominator() <= r2.denominator() ? r1 : r2;
       }
     } else if (x >= 0) {
       ffloat df = RAT_CONVERT_NUM * x;
-      fint d = (fint)df;
+      fint d = (fint) df;
       if (d == df) {
-	return rat(RAT_CONVERT_NUM, d);
+        return rat(RAT_CONVERT_NUM, d);
       } else {
-	rat r1(d, RAT_CONVERT_NUM);
-	rat r2(d + 1, RAT_CONVERT_NUM);
-	return r1.denominator() <= r2.denominator() ? r1 : r2;
+        rat r1(d, RAT_CONVERT_NUM);
+        rat r2(d + 1, RAT_CONVERT_NUM);
+        return r1.denominator() <= r2.denominator() ? r1 : r2;
       }
     } else {
       ffloat df = RAT_CONVERT_NUM * x;
-      fint d = (fint)df;
+      fint d = (fint) df;
       if (d == df) {
-	return rat(RAT_CONVERT_NUM, d);
+        return rat(RAT_CONVERT_NUM, d);
       } else {
-	rat r1(d, RAT_CONVERT_NUM);
-	rat r2(d - 1, RAT_CONVERT_NUM);
-	return r1.denominator() <= r2.denominator() ? r1 : r2;
+        rat r1(d, RAT_CONVERT_NUM);
+        rat r2(d - 1, RAT_CONVERT_NUM);
+        return r1.denominator() <= r2.denominator() ? r1 : r2;
       }
     }
   }
-  
+
 #ifdef BUILD_LIBFOMUS
-  void freevalue(module_value &val) {
+  void freevalue(module_value& val) {
     if (val.type >= module_list) {
       struct module_list& arr(val.val.l);
       if (arr.vals) {
-	std::for_each(arr.vals, arr.vals + arr.n, freevalue);
-	deletemodvals(arr.vals);
-	arr.vals = 0;
+        std::for_each(arr.vals, arr.vals + arr.n, freevalue);
+        deletemodvals(arr.vals);
+        arr.vals = 0;
       }
     }
   }
 #endif
-  
-}
+
+} // namespace fomus

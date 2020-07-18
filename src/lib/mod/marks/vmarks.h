@@ -22,23 +22,45 @@
 #define FOMUSMOD_VMARKS_H
 
 namespace vmarks {
-  
-  inline const char* name() {return "vmarks";};
-  inline const char* prettyname() {return "Voice Marks";}
-  inline const char* author() {return "(built-in)";}
-  inline const char* doc() {return "Sorts and matches spanner begin/end marks in voices.";}
-  inline void* newdata(FOMUS f) {return 0;}
+
+  inline const char* name() {
+    return "vmarks";
+  };
+  inline const char* prettyname() {
+    return "Voice Marks";
+  }
+  inline const char* author() {
+    return "(built-in)";
+  }
+  inline const char* doc() {
+    return "Sorts and matches spanner begin/end marks in voices.";
+  }
+  inline void* newdata(FOMUS f) {
+    return 0;
+  }
   inline void freedata(void* dat) {}
-  inline const char* err(void* dat) {return 0;}
-  inline int priority() {return 0;}
-  inline enum module_type modtype() {return module_modvmarks;}
-  inline const char* initerr() {return 0;}
+  inline const char* err(void* dat) {
+    return 0;
+  }
+  inline int priority() {
+    return 0;
+  }
+  inline enum module_type modtype() {
+    return module_modvmarks;
+  }
+  inline const char* initerr() {
+    return 0;
+  }
   inline void init() {}
   inline void free() {}
-  inline int itertype() {return module_bypart | module_byvoice /*| module_norests*/;}
+  inline int itertype() {
+    return module_bypart | module_byvoice /*| module_norests*/;
+  }
   void fill_iface(void* moddata, void* iface);
   int get_setting(int n, module_setting* set, int id);
-  inline bool sameinst() {return true;}
-}
+  inline bool sameinst() {
+    return true;
+  }
+} // namespace vmarks
 
 #endif

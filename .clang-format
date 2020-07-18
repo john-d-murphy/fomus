@@ -1,0 +1,13 @@
+BasedOnStyle : LLVM
+DerivePointerAlignment: false
+PointerAlignment: Left
+AccessModifierOffset : -4
+AllowShortIfStatementsOnASingleLine : false
+AllowShortBlocksOnASingleLine : Empty
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: All
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakTemplateDeclarations : true
+SpaceAfterCStyleCast : true
+NamespaceIndentation: All
+Standard : C++11

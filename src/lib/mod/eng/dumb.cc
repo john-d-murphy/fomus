@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include <string>
-#include <sstream>
 #include <cassert>
+#include <sstream>
+#include <string>
 
-#include "module.h"
 #include "ifacedumb.h"
+#include "module.h"
 
 #include "dumb.h"
 
@@ -35,48 +35,64 @@ namespace dumb {
 
   struct dumberr {
     const char* err;
-    dumberr(const char* err):err(err) {}
-  };  
+    dumberr(const char* err) : err(err) {}
+  };
   inline void checkerr(const dumb_iface& iface) {
     const char* err = iface.err(iface.moddata);
-    if (err) throw dumberr(err);
+    if (err)
+      throw dumberr(err);
   }
-  
+
   class data _NONCOPYABLE {
-  public:
+public:
     dumb_iface iface;
-  private:
+
+private:
     bool cerr;
     std::stringstream CERR;
     std::string errstr;
     FOMUS fom;
-  public:
-    dumb_iface* getiface() {return &iface;}
-    data(FOMUS fom):cerr(false), fom(fom) {}
+
+public:
+    dumb_iface* getiface() {
+      return &iface;
+    }
+    data(FOMUS fom) : cerr(false), fom(fom) {}
     const char* module_err() {
-      if (!cerr) return 0;
+      if (!cerr)
+        return 0;
       std::getline(CERR, errstr);
       return errstr.c_str();
     }
     void run() {
       try {
-	iface.run(fom, iface.moddata);
-	checkerr(iface);
+        iface.run(fom, iface.moddata);
+        checkerr(iface);
       } catch (const dumberr& e) {
-	if (e.err) {
-	  CERR << e.err << std::endl;
-	} else {
-	  CERR << "unknown" << std::endl;
-	}
-	cerr = true;
+        if (e.err) {
+          CERR << e.err << std::endl;
+        } else {
+          CERR << "unknown" << std::endl;
+        }
+        cerr = true;
       }
     }
   };
-  
-  void* newdata(FOMUS f) {return new data(f);}
-  void freedata(void* dat) {delete (data*)dat;}
-  const char* err(void* dat) {return ((data*)dat)->module_err();}
-  void* get_iface(void* dat) {return ((data*)dat)->getiface();}
-  void run(void* dat) {((data*)dat)->run();}
-  
-}
+
+  void* newdata(FOMUS f) {
+    return new data(f);
+  }
+  void freedata(void* dat) {
+    delete (data*) dat;
+  }
+  const char* err(void* dat) {
+    return ((data*) dat)->module_err();
+  }
+  void* get_iface(void* dat) {
+    return ((data*) dat)->getiface();
+  }
+  void run(void* dat) {
+    ((data*) dat)->run();
+  }
+
+} // namespace dumb

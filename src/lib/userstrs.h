@@ -25,15 +25,15 @@
 #error "userstrs.h shouldn't be included"
 #endif
 
-#include "heads.h"
-#include "error.h"
 #include "algext.h"
-#include "modtypes.h"
+#include "error.h"
 #include "fomusapi.h"
+#include "heads.h"
+#include "modtypes.h"
 
 namespace fomus {
 
-  class badstr:public errbase {}; // ***** SAVE THIS
+  class badstr : public errbase {}; // ***** SAVE THIS
 
   typedef std::map<const std::string, int, isiless> strtoclefmap;
   typedef strtoclefmap::value_type strtoclefmap_val;
@@ -44,12 +44,19 @@ namespace fomus {
 
   inline int strtoclef(const std::string& str) {
     strtoclefmap_constit i(strstoclefs.find(str));
-    if (i == strstoclefs.end()) throw badstr(); // need badstr()
+    if (i == strstoclefs.end())
+      throw badstr(); // need badstr()
     return i->second;
   };
-  inline bool isvalidclef(const std::string& str) {return strstoclefs.find(str) != strstoclefs.end();}
-  inline const std::string& cleftostr(const int en) {return clefstostrs[en];}
-  inline int clefmidpitch(const int en) {return clefmidpitches[en];}
+  inline bool isvalidclef(const std::string& str) {
+    return strstoclefs.find(str) != strstoclefs.end();
+  }
+  inline const std::string& cleftostr(const int en) {
+    return clefstostrs[en];
+  }
+  inline int clefmidpitch(const int en) {
+    return clefmidpitches[en];
+  }
 
   extern std::string clefstypestr;
 
@@ -61,11 +68,16 @@ namespace fomus {
   extern modtypemap strtomodtypes;
   extern const std::string modtypestostrs[];
 
-  inline bool isvalidmodtype(const std::string& str) {return strtomodtypes.find(str) != strtomodtypes.end();}
-  inline const std::string& modtypetostr(const enum module_type en) {return modtypestostrs[en];}
+  inline bool isvalidmodtype(const std::string& str) {
+    return strtomodtypes.find(str) != strtomodtypes.end();
+  }
+  inline const std::string& modtypetostr(const enum module_type en) {
+    return modtypestostrs[en];
+  }
   inline enum module_type strtomodtype(const std::string& str) {
     modtypemap_constit i(strtomodtypes.find(str));
-    if (i == strtomodtypes.end()) throw badstr();
+    if (i == strtomodtypes.end())
+      throw badstr();
     return i->second;
   }
 
@@ -77,15 +89,20 @@ namespace fomus {
   extern setlocmap strtosetlocs;
   extern const std::string setlocstostrs[];
 
-  inline bool isvalidsetloc(const std::string& str) {return strtosetlocs.find(str) != strtosetlocs.end();}
-  inline const std::string& setloctostr(const module_setting_loc en) {return setlocstostrs[en];}
+  inline bool isvalidsetloc(const std::string& str) {
+    return strtosetlocs.find(str) != strtosetlocs.end();
+  }
+  inline const std::string& setloctostr(const module_setting_loc en) {
+    return setlocstostrs[en];
+  }
   inline module_setting_loc strtosetloc(const std::string& str) {
     setlocmap_constit i(strtosetlocs.find(str));
-    if (i == strtosetlocs.end()) throw badstr();
+    if (i == strtosetlocs.end())
+      throw badstr();
     return i->second;
   }
   std::string setloctostrex(const module_setting_loc en);
 
-}
+} // namespace fomus
 
 #endif

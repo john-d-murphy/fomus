@@ -24,25 +24,46 @@
 namespace meas {
 
   extern const char* ierr;
-  
+
   extern int nbeatsid, tsigid, beatid;
 
-  inline const char* name() {return "meas";};
-  inline const char* prettyname() {return "Measures";}
-  inline const char* author() {return "(built-in)";}
-  inline const char* doc() {return "Fills the score with measures based on a few generating ones provided by the user.";}
-  inline void* newdata(FOMUS f) {return 0;}
+  inline const char* name() {
+    return "meas";
+  };
+  inline const char* prettyname() {
+    return "Measures";
+  }
+  inline const char* author() {
+    return "(built-in)";
+  }
+  inline const char* doc() {
+    return "Fills the score with measures based on a few generating ones "
+           "provided by the user.";
+  }
+  inline void* newdata(FOMUS f) {
+    return 0;
+  }
   inline void freedata(void* dat) {}
-  inline int priority() {return 0;}
-  inline enum module_type modtype() {return module_modmeas;}
-  inline const char* initerr() {return ierr;}
+  inline int priority() {
+    return 0;
+  }
+  inline enum module_type modtype() {
+    return module_modmeas;
+  }
+  inline const char* initerr() {
+    return ierr;
+  }
   inline void init() {}
   inline void free() {}
   int get_setting(int n, module_setting* set, int id);
-  inline int itertype() {return module_all;}
+  inline int itertype() {
+    return module_all;
+  }
   void fill_iface(void* moddata, void* iface);
   void ready();
-  inline bool sameinst() {return true;}
-}
+  inline bool sameinst() {
+    return true;
+  }
+} // namespace meas
 
 #endif

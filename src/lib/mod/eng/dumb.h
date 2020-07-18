@@ -23,28 +23,46 @@
 
 namespace dumb {
 
-  inline const char* name() {return "dumb";};
-  inline const char* prettyname() {return "Dumb Engine";}
-  inline const char* author() {return "(built-in)";}
-  inline const char* doc() {return "Drives modules that don't need to conduct a search.";}
+  inline const char* name() {
+    return "dumb";
+  };
+  inline const char* prettyname() {
+    return "Dumb Engine";
+  }
+  inline const char* author() {
+    return "(built-in)";
+  }
+  inline const char* doc() {
+    return "Drives modules that don't need to conduct a search.";
+  }
   void* newdata(FOMUS f);
   void freedata(void* dat);
-  //inline void* newdata(FOMUS f) {return 0;}
-  //inline void freedata(void* dat) {}
-  //inline int priority() {return 0;}
+  // inline void* newdata(FOMUS f) {return 0;}
+  // inline void freedata(void* dat) {}
+  // inline int priority() {return 0;}
   const char* err(void* dat);
-  inline enum module_type modtype() {return module_modengine;}
-  inline const char* initerr() {return 0;}
+  inline enum module_type modtype() {
+    return module_modengine;
+  }
+  inline const char* initerr() {
+    return 0;
+  }
   inline void init() {}
   inline void free() {}
-  inline int get_setting(int n, module_setting* set, int id) {return 0;}
-  //inline int itertype() {return module_bypart | module_byvoice;}
-  //void fill_iface(void* moddata, void* iface);
-  inline const char* engine() {return "dumb";}
-  inline bool sameinst() {return true;}
-  //inline void ready() {}
+  inline int get_setting(int n, module_setting* set, int id) {
+    return 0;
+  }
+  // inline int itertype() {return module_bypart | module_byvoice;}
+  // void fill_iface(void* moddata, void* iface);
+  inline const char* engine() {
+    return "dumb";
+  }
+  inline bool sameinst() {
+    return true;
+  }
+  // inline void ready() {}
   void* get_iface(void* dat);
   void run(void* dat);
-}
+} // namespace dumb
 
 #endif

@@ -31,15 +31,15 @@
 extern "C" {
 #endif
 
-  typedef double fomus_float;
-  typedef long fomus_int;
-  typedef int fomus_bool;
-  struct fomus_rat {
-    fomus_int num, den;
-  };
-  
-  typedef void* FOMUS;
-  
+typedef double fomus_float;
+typedef long fomus_int;
+typedef int fomus_bool;
+struct fomus_rat {
+  fomus_int num, den;
+};
+
+typedef void* FOMUS;
+
 #ifdef __cplusplus
 }
 #endif

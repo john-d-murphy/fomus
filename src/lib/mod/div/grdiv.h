@@ -23,22 +23,46 @@
 
 namespace grdiv {
 
-  inline const char* name() {return "grdiv";};
-  inline const char* prettyname() {return "Grace Note Divider";}
-  inline const char* author() {return "(built-in)";}
-  inline const char* doc() {return "Splits and ties grace notes if necessary.";}
-  inline void* newdata(FOMUS f) {return 0;}
+  inline const char* name() {
+    return "grdiv";
+  };
+  inline const char* prettyname() {
+    return "Grace Note Divider";
+  }
+  inline const char* author() {
+    return "(built-in)";
+  }
+  inline const char* doc() {
+    return "Splits and ties grace notes if necessary.";
+  }
+  inline void* newdata(FOMUS f) {
+    return 0;
+  }
   inline void freedata(void* dat) {}
-  inline int priority() {return 0;}
-  inline enum module_type modtype() {return module_moddivide;}
-  inline const char* initerr() {return 0;}
+  inline int priority() {
+    return 0;
+  }
+  inline enum module_type modtype() {
+    return module_moddivide;
+  }
+  inline const char* initerr() {
+    return 0;
+  }
   inline void init() {}
   inline void free() {}
-  inline int get_setting(int n, module_setting* set, int id) {return 0;}
-  inline int itertype() {return module_bymeas | module_byvoice | module_graceonly;}
+  inline int get_setting(int n, module_setting* set, int id) {
+    return 0;
+  }
+  inline int itertype() {
+    return module_bymeas | module_byvoice | module_graceonly;
+  }
   void fill_iface(void* moddata, void* iface);
-  inline const char* engine() {return "dumb";}
-  inline bool sameinst() {return true;}
-}
+  inline const char* engine() {
+    return "dumb";
+  }
+  inline bool sameinst() {
+    return true;
+  }
+} // namespace grdiv
 
 #endif

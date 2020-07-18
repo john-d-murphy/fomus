@@ -19,26 +19,27 @@
 */
 
 #include "parse.h"
+#include "error.h"   // CERR
 #include "modutil.h" // mod
-#include "error.h" // CERR
 
 namespace fomus {
 
   boostspirit::symbols<fint> boolsyms;
   void initboolsyms() {
-    boolsyms.add
-      ("yes", 1) ("y", 1) ("true", 1) ("t", 1) ("1", 1) ("on", 1)
-      ("no", 0) ("n", 0) ("false", 0) ("f", 0) ("0", 0) ("off", 0);
+    boolsyms.add("yes", 1)("y", 1)("true", 1)("t", 1)("1", 1)("on", 1)("no", 0)(
+        "n", 0)("false", 0)("f", 0)("0", 0)("off", 0);
   }
 
-  void nearestpitch::operator()(const parse_it &s1, const parse_it &s2) const {
-    //assert(val >= (fint)0 && val < (fint)12);
-    val = val + roundto_int(prval.modval() - val, (fint)12);
+  void nearestpitch::operator()(const parse_it& s1, const parse_it& s2) const {
+    // assert(val >= (fint)0 && val < (fint)12);
+    val = val + roundto_int(prval.modval() - val, (fint) 12);
     numb d(val - prval.modval());
     if (gup) {
-      if (d == (fint)-6) val = val + (fint)12;
+      if (d == (fint) -6)
+        val = val + (fint) 12;
     } else {
-      if (d == (fint)6) val = val - (fint)12;
+      if (d == (fint) 6)
+        val = val - (fint) 12;
     }
     gup = (val > prval.modval());
     prval = val;
@@ -48,21 +49,24 @@ namespace fomus {
   fomsymbols<numb> acc_parse;
   fomsymbols<numb> mic_parse;
   fomsymbols<numb> oct_parse;
-  //fomsymbols<int> ksig_parse;
+  // fomsymbols<int> ksig_parse;
 
   fomsymbols<numb> durdot_parse;
   fomsymbols<numb> dursyms_parse;
   fomsymbols<numb> durtie_parse;
   fomsymbols<numb> tupsyms_parse;
-  
+
   bool boolfalse = false;
-  
+
   void filepos::printerr0(std::ostream& ou) const {
-    if (line >= 0) { 
+    if (line >= 0) {
       ou << " in " << linestr << ' ' << line;
-      if (col >= 0) ou << ", " << colstr << ' ' << col;
-      if (!file.empty()) ou << " of `" << file << '\'';
-    } else if (!file.empty()) ou << " in `" << file << '\'';
-    //ou << std::endl;
+      if (col >= 0)
+        ou << ", " << colstr << ' ' << col;
+      if (!file.empty())
+        ou << " of `" << file << '\'';
+    } else if (!file.empty())
+      ou << " in `" << file << '\'';
+    // ou << std::endl;
   }
-}
+} // namespace fomus

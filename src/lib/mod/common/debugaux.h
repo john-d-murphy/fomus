@@ -23,14 +23,14 @@
 
 #include "config.h"
 #ifndef NDEBUG
-#include <iostream>
-#include <cassert>
 #include "module.h"
+#include <cassert>
+#include <iostream>
 #endif
 
 #include "boost/utility.hpp"
 
-#ifndef NDEBUG 
+#ifndef NDEBUG
 #define NONCOPYABLE , boost::noncopyable
 #define _NONCOPYABLE :boost::noncopyable
 #else
@@ -45,26 +45,29 @@
 #endif
 
 #ifndef NDEBUGOUT
-  inline std::ostream& operator<<(std::ostream& ou, const module_value& x) {
-    switch (x.type) {
-    case module_int:
-    case module_rat:
-    case module_float:
-      {
-	ou << module_valuetostr(x);
-	break;
-      }
-      break;
-    case module_string: ou << x.val.s; break;
-    case module_none: ou << "NIL"; break;
-    default: assert(false);
-    }
-    return ou;
+inline std::ostream& operator<<(std::ostream& ou, const module_value& x) {
+  switch (x.type) {
+  case module_int:
+  case module_rat:
+  case module_float: {
+    ou << module_valuetostr(x);
+    break;
+  } break;
+  case module_string:
+    ou << x.val.s;
+    break;
+  case module_none:
+    ou << "NIL";
+    break;
+  default:
+    assert(false);
   }
-  inline std::ostream& operator<<(std::ostream& o, const fomus_rat& x) {
-    o << module_rattostr(x);
-    return o;
-  }
-#endif  
+  return ou;
+}
+inline std::ostream& operator<<(std::ostream& o, const fomus_rat& x) {
+  o << module_rattostr(x);
+  return o;
+}
+#endif
 
 #endif

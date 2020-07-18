@@ -32,43 +32,43 @@
 #include <fenv.h>
 #endif
 
-#include <new>
-#include <cstdlib> // getenv, exit
-#include <climits>
-#include <cfloat>
 #include <cassert>
+#include <cfloat>
+#include <climits>
 #include <cmath>
 #include <cstdio>
+#include <cstdlib> // getenv, exit
+#include <new>
 /* #include <cerrno> */
 //#include <cstring> // strcasecmp
 #include <cctype> // used in parse.h
 
-#include <list>
-#include <stack>
-#include <map>
-#include <set>
-#include <queue>
-#include <string>
 #include <algorithm>
-#include <numeric>
-#include <memory>
 #include <functional>
 #include <iterator>
+#include <list>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
 
 #ifndef NDEBUG
 #include <iostream>
 #endif
 #include <fstream>
-#include <sstream>
 #include <iomanip>
 #include <ios>
+#include <sstream>
 
 #include <boost/integer.hpp>
 
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
-#include <boost/ptr_container/ptr_set.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
+#include <boost/ptr_container/ptr_set.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 /* #include <boost/ptr_container/ptr_deque.hpp> */
 
 /* #include <boost/bind.hpp> */
@@ -79,9 +79,9 @@
 /* #include <boost/variant.hpp> // used in parse.h */
 #include <boost/tuple/tuple.hpp> // used in algext.h
 
-#include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
+#include <boost/lambda/lambda.hpp>
 /* #include <boost/lambda/switch.hpp> */
 #include <boost/lambda/algorithm.hpp>
 #include <boost/lambda/construct.hpp>
@@ -106,34 +106,34 @@ namespace boostspirit = boost::spirit;
 #else
 #include <boost/spirit/include/classic_core.hpp>
 #include <boost/spirit/include/classic_dynamic.hpp>
+#include <boost/spirit/include/classic_rule_parser.hpp>
 #include <boost/spirit/include/classic_symbols.hpp>
 #include <boost/spirit/include/classic_utility.hpp>
-#include <boost/spirit/include/classic_rule_parser.hpp>
 //#include <boost/spirit/include/classic_exceptions.hpp>
+#include <boost/spirit/include/classic_confix.hpp>
 #include <boost/spirit/include/classic_error_handling.hpp>
 #include <boost/spirit/include/classic_position_iterator.hpp>
-#include <boost/spirit/include/classic_confix.hpp>
 namespace boostspirit = boost::spirit::classic;
 #endif
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
 #define BOOST_SPIRIT__NAMESPACE -
 
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/exception.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/convenience.hpp>
+#include <boost/filesystem/exception.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 
 #include <boost/utility.hpp>
 
+#include <boost/algorithm/string/case_conv.hpp>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/trim.hpp>
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/replace.hpp>
-#include <boost/algorithm/string/case_conv.hpp>
-#include <boost/algorithm/string/predicate.hpp>
 
-#include <boost/iostreams/concepts.hpp>  // sink
+#include <boost/iostreams/concepts.hpp> // sink
 #include <boost/iostreams/stream.hpp>
 
 #include <boost/shared_ptr.hpp>
@@ -148,7 +148,7 @@ namespace boostspirit = boost::spirit::classic;
 #define CMD_MACRO_STRINGIFY(xxx) #xxx
 #define CMD_MACRO(xxx) CMD_MACRO_STRINGIFY(xxx)
 
-#ifndef NDEBUG 
+#ifndef NDEBUG
 #define NONCOPYABLE , boost::noncopyable
 #define _NONCOPYABLE :boost::noncopyable
 #else
@@ -175,7 +175,8 @@ namespace boostspirit = boost::spirit::classic;
 #define FS_FILE_STRING file_string
 #define FS_DIRECTORY_STRING directory_string
 #define FS_BASENAME(xxx) boost::filesystem::basename(xxx)
-#define FS_CHANGE_EXTENSION(xxx, yyy) boost::filesystem::change_extension(xxx, yyy)
+#define FS_CHANGE_EXTENSION(xxx, yyy)                                          \
+  boost::filesystem::change_extension(xxx, yyy)
 #define FS_IS_COMPLETE is_complete
 #define FS_EXTENSION(xxx) boost::filesystem::extension(xxx)
 #define FS_BRANCH_PATH branch_path
@@ -191,5 +192,3 @@ namespace boostspirit = boost::spirit::classic;
 #endif
 
 #endif
-
-

@@ -27,8 +27,8 @@
 
 #include "heads.h"
 
-#include "modtypes.h"
 #include "mods.h"
+#include "modtypes.h"
 
 #include "ifacedumb.h"
 
@@ -37,7 +37,7 @@ namespace fomus {
   void dopostmeas(const module_partobj p);
 
   extern "C" {
-    const char* internalerr_fun(void* moddata);
+  const char* internalerr_fun(void* moddata);
   }
 
   void postmeasdoit(FOMUS fom, void* moddata);
@@ -55,11 +55,11 @@ namespace fomus {
   void posttiedoit(FOMUS fom, void* moddata);
   void postbeamsdoit(FOMUS fom, void* moddata);
   void fillholesdoit(FOMUS fom, void* moddata);
-  //void fillholesadoit(FOMUS fom, void* moddata);
+  // void fillholesadoit(FOMUS fom, void* moddata);
   void postmergedoit(FOMUS fom, void* moddata);
-  //void postpartsdoit(FOMUS fom, void* moddata);
+  // void postpartsdoit(FOMUS fom, void* moddata);
   void spreadmarksdoit(FOMUS fom, void* moddata);
-  //void mpartsdoit(FOMUS fom, void* moddata);
+  // void mpartsdoit(FOMUS fom, void* moddata);
   void pnotesdoit(FOMUS fom, void* moddata);
   void fillnotes1doit(FOMUS fom, void* moddata);
   void fillnotes2doit(FOMUS fom, void* moddata);
@@ -75,169 +75,226 @@ namespace fomus {
   void sysbreakdoit(FOMUS fom, void* moddata);
   void contmarksdoit(FOMUS fom, void* moddata);
   // void eatnotesdoit(FOMUS fom, void* moddata);
-  //void fillnotes1adoit(FOMUS fom, void* moddata);
+  // void fillnotes1adoit(FOMUS fom, void* moddata);
   void tremtiesdoit(FOMUS fom, void* moddata);
-  
-  struct intmodbase:public modbase {
-    void* getdata(FOMUS f) const {return 0;}
+
+  struct intmodbase : public modbase {
+    void* getdata(FOMUS f) const {
+      return 0;
+    }
     void freedata(void* dat) const {}
-    enum module_type gettype() const {return module_modinternal;}
-    const char* getiniterr() const {return 0;}
-    int getsetting(int n, struct module_setting* set, int id) const {return 0;}
-    int getifaceid() const {return ENGINE_INTERFACEID;}
-    const char* whicheng(void* data) const {return "dumb";}
-    bool getsameinst(void* a, void* b) const {return true;}
-  };
-  struct intmod_postmeas:public intmodbase {
-    void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = postmeasdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+    enum module_type gettype() const {
+      return module_modinternal;
     }
-    int getitertype() const {return module_bypart;}
-  };
-  struct intmod_posttquant:public intmodbase {
-    void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = posttquantdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+    const char* getiniterr() const {
+      return 0;
     }
-    int getitertype() const {return module_all;}
-  };
-  struct intmod_posttquantinv:public intmodbase {
-    void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = posttquantinvdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+    int getsetting(int n, struct module_setting* set, int id) const {
+      return 0;
     }
-    int getitertype() const {return module_all;}
-  };
-  struct intmod_postpquant:public intmodbase {
-    void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = postpquantdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+    int getifaceid() const {
+      return ENGINE_INTERFACEID;
     }
-    int getitertype() const {return module_bymeas | module_norests | module_noperc | module_firsttied;}
-  };
-  struct intmod_postvoices:public intmodbase {
-    void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = postvoicesdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+    const char* whicheng(void* data) const {
+      return "dumb";
     }
-    int getitertype() const {return module_bypart /*| module_noperc | module_firsttied | module_norests*/;}
-  };
-  struct intmod_poststaves:public intmodbase {
-    void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = poststavesdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+    bool getsameinst(void* a, void* b) const {
+      return true;
     }
-    int getitertype() const {return module_bypart /*| module_norests | module_firsttied*/;}
   };
-  struct intmod_poststaves2:public intmodbase {
+  struct intmod_postmeas : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = poststavesdoit2;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postmeasdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas /*| module_restsonly | module_noperc*/;}
+    int getitertype() const {
+      return module_bypart;
+    }
   };
-  struct intmod_postprune:public intmodbase {
+  struct intmod_posttquant : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = postprunedoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = posttquantdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas /*| module_norests | module_noperc | module_firsttied*/;}
+    int getitertype() const {
+      return module_all;
+    }
   };
-  
-  struct intmod_fixlyrs:public intmodbase {
+  struct intmod_posttquantinv : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = fixlyrsdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = posttquantinvdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice;}
+    int getitertype() const {
+      return module_all;
+    }
   };
-  struct intmod_prevspan:public intmodbase {
+  struct intmod_postpquant : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = prevspandoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postpquantdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice;}
+    int getitertype() const {
+      return module_bymeas | module_norests | module_noperc | module_firsttied;
+    }
   };
-  struct intmod_postvspan:public intmodbase {
+  struct intmod_postvoices : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = postspandoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postvoicesdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice;}
+    int getitertype() const {
+      return module_bypart /*| module_noperc | module_firsttied |
+                              module_norests*/
+          ;
+    }
   };
-  struct intmod_postsspan:public intmodbase {
-    void* getdata(FOMUS f) const {return (void*)1;}
+  struct intmod_poststaves : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = (void*)1; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = postspandoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = poststavesdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_bystaff;}
+    int getitertype() const {
+      return module_bypart /*| module_norests | module_firsttied*/;
+    }
   };
-  struct intmod_postoct:public intmodbase {
+  struct intmod_poststaves2 : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = postoctdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = poststavesdoit2;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas;}
+    int getitertype() const {
+      return module_bymeas /*| module_restsonly | module_noperc*/;
+    }
+  };
+  struct intmod_postprune : public intmodbase {
+    void fillinterface(void* moddata, void* iface) const {
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postprunedoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
+    }
+    int getitertype() const {
+      return module_bymeas /*| module_norests | module_noperc |
+                              module_firsttied*/
+          ;
+    }
   };
 
-  struct intmod_postacc1:public intmodbase {
+  struct intmod_fixlyrs : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0; 
-      ((dumb_iface*)iface)->run = postacc1doit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = fixlyrsdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas | module_norests | module_firsttied;}
+    int getitertype() const {
+      return module_bypart | module_byvoice;
+    }
+  };
+  struct intmod_prevspan : public intmodbase {
+    void fillinterface(void* moddata, void* iface) const {
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = prevspandoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
+    }
+    int getitertype() const {
+      return module_bypart | module_byvoice;
+    }
+  };
+  struct intmod_postvspan : public intmodbase {
+    void fillinterface(void* moddata, void* iface) const {
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postspandoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
+    }
+    int getitertype() const {
+      return module_bypart | module_byvoice;
+    }
+  };
+  struct intmod_postsspan : public intmodbase {
+    void* getdata(FOMUS f) const {
+      return (void*) 1;
+    }
+    void fillinterface(void* moddata, void* iface) const {
+      ((dumb_iface*) iface)->moddata =
+          (void*) 1; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = postspandoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
+    }
+    int getitertype() const {
+      return module_bypart | module_bystaff;
+    }
+  };
+  struct intmod_postoct : public intmodbase {
+    void fillinterface(void* moddata, void* iface) const {
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postoctdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
+    }
+    int getitertype() const {
+      return module_bymeas;
+    }
   };
 
-  struct intmod_posttie:public intmodbase {
+  struct intmod_postacc1 : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = posttiedoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postacc1doit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas;}
+    int getitertype() const {
+      return module_bymeas | module_norests | module_firsttied;
+    }
   };
 
-  struct intmod_postbeams:public intmodbase {
+  struct intmod_posttie : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = postbeamsdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = posttiedoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas | module_byvoice;}
-  };
-  
-  struct intmod_fillholes:public intmodbase {
-    void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = fillholesdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+    int getitertype() const {
+      return module_bymeas;
     }
-    int getitertype() const {return module_bymeas | module_byvoice;}
   };
 
-  struct intmod_postmerge:public intmodbase {
+  struct intmod_postbeams : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = postmergedoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postbeamsdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas;}
+    int getitertype() const {
+      return module_bymeas | module_byvoice;
+    }
+  };
+
+  struct intmod_fillholes : public intmodbase {
+    void fillinterface(void* moddata, void* iface) const {
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = fillholesdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
+    }
+    int getitertype() const {
+      return module_bymeas | module_byvoice;
+    }
+  };
+
+  struct intmod_postmerge : public intmodbase {
+    void fillinterface(void* moddata, void* iface) const {
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postmergedoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
+    }
+    int getitertype() const {
+      return module_bymeas;
+    }
   };
 
   // struct intmod_postparts:public intmodbase {
@@ -249,13 +306,15 @@ namespace fomus {
   //   int getitertype() const {return module_all;}
   // };
 
-  struct intmod_spreadmarks:public intmodbase {
+  struct intmod_spreadmarks : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = spreadmarksdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = spreadmarksdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas | module_byvoice;}
+    int getitertype() const {
+      return module_bymeas | module_byvoice;
+    }
   };
 
   // struct intmod_mparts:public intmodbase {
@@ -266,21 +325,25 @@ namespace fomus {
   //   }
   //   int getitertype() const {return module_all;}
   // };
-  struct intmod_pnotes:public intmodbase {
+  struct intmod_pnotes : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = pnotesdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = pnotesdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas;}
+    int getitertype() const {
+      return module_bymeas;
+    }
   };
-  struct intmod_fillnotes1:public intmodbase {
+  struct intmod_fillnotes1 : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = fillnotes1doit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = fillnotes1doit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice;}
+    int getitertype() const {
+      return module_bypart | module_byvoice;
+    }
   };
   // struct intmod_fillnotes1a:public intmodbase {
   //   void fillinterface(void* moddata, void* iface) const {
@@ -290,111 +353,148 @@ namespace fomus {
   //   }
   //   int getitertype() const {return module_bypart;}
   // };
-  struct intmod_fillnotes2:public intmodbase {
+  struct intmod_fillnotes2 : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = fillnotes2doit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = fillnotes2doit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas | module_byvoice;}
+    int getitertype() const {
+      return module_bymeas | module_byvoice;
+    }
   };
-  struct intmod_postmarkevs:public intmodbase {
+  struct intmod_postmarkevs : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = postmarkevsdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = postmarkevsdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas;}
+    int getitertype() const {
+      return module_bymeas;
+    }
   };
-  struct intmod_redoties:public intmodbase {
+  struct intmod_redoties : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = redotiesdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = redotiesdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice | module_norests;}
+    int getitertype() const {
+      return module_bypart | module_byvoice | module_norests;
+    }
   };
 
-  struct intmod_finalmarksv:public intmodbase {
+  struct intmod_finalmarksv : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0;
-      ((dumb_iface*)iface)->run = finalmarksdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata = 0;
+      ((dumb_iface*) iface)->run = finalmarksdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice;}
+    int getitertype() const {
+      return module_bypart | module_byvoice;
+    }
   };
-  struct intmod_finalmarkss:public intmodbase {
-    void* getdata(FOMUS f) const {return (void*)1;}
-    void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = (void*)1; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = finalmarksdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+  struct intmod_finalmarkss : public intmodbase {
+    void* getdata(FOMUS f) const {
+      return (void*) 1;
     }
-    int getitertype() const {return module_bypart | module_bystaff;}
+    void fillinterface(void* moddata, void* iface) const {
+      ((dumb_iface*) iface)->moddata =
+          (void*) 1; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = finalmarksdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
+    }
+    int getitertype() const {
+      return module_bypart | module_bystaff;
+    }
   };
-  struct intmod_postspecial:public intmodbase {
+  struct intmod_postspecial : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = postspecialdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata =
+          0; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = postspecialdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart;}
+    int getitertype() const {
+      return module_bypart;
+    }
   };
-  struct intmod_barlines:public intmodbase {
+  struct intmod_barlines : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = barlinesdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata =
+          0; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = barlinesdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice;}
+    int getitertype() const {
+      return module_bypart | module_byvoice;
+    }
   };
-  struct intmod_splittrems:public intmodbase {
+  struct intmod_splittrems : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = splittremsdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata =
+          0; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = splittremsdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart;}
+    int getitertype() const {
+      return module_bypart;
+    }
   };
-  struct intmod_markhelpers:public intmodbase {
+  struct intmod_markhelpers : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = markhelpersdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata =
+          0; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = markhelpersdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bymeas;}
+    int getitertype() const {
+      return module_bymeas;
+    }
   };
-  struct intmod_inbetweenmarks:public intmodbase {
+  struct intmod_inbetweenmarks : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = inbetweenmarksdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata =
+          0; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = inbetweenmarksdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice;}
+    int getitertype() const {
+      return module_bypart | module_byvoice;
+    }
   };
-  struct intmod_sysbreak:public intmodbase {
+  struct intmod_sysbreak : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = sysbreakdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata =
+          0; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = sysbreakdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_all;}
+    int getitertype() const {
+      return module_all;
+    }
   };
-  struct intmod_contmarksv:public intmodbase {
+  struct intmod_contmarksv : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = contmarksdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata =
+          0; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = contmarksdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice;}
+    int getitertype() const {
+      return module_bypart | module_byvoice;
+    }
   };
-  struct intmod_contmarkss:public intmodbase {
+  struct intmod_contmarkss : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = (void*)1; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = contmarksdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata =
+          (void*) 1; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = contmarksdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_bystaff;}
+    int getitertype() const {
+      return module_bypart | module_bystaff;
+    }
   };
   // struct intmod_eatnotes_bymeas:public intmodbase {
   //   void fillinterface(void* moddata, void* iface) const {
@@ -404,13 +504,16 @@ namespace fomus {
   //   }
   //   int getitertype() const {return module_bymeas;}
   // };
-  struct intmod_tremties:public intmodbase {
+  struct intmod_tremties : public intmodbase {
     void fillinterface(void* moddata, void* iface) const {
-      ((dumb_iface*)iface)->moddata = 0; // same function, 1 = collect staff spanners instead
-      ((dumb_iface*)iface)->run = tremtiesdoit;
-      ((dumb_iface*)iface)->err = internalerr_fun;
+      ((dumb_iface*) iface)->moddata =
+          0; // same function, 1 = collect staff spanners instead
+      ((dumb_iface*) iface)->run = tremtiesdoit;
+      ((dumb_iface*) iface)->err = internalerr_fun;
     }
-    int getitertype() const {return module_bypart | module_byvoice | module_norests;}
+    int getitertype() const {
+      return module_bypart | module_byvoice | module_norests;
+    }
   };
 
   extern intmod_postmeas imod_postmeas_destr;
@@ -429,14 +532,14 @@ namespace fomus {
   extern intmod_posttie imod_posttie_destr;
   extern intmod_postbeams imod_postbeams;
   extern intmod_fillholes imod_fillholes_destr;
-  //extern intmod_fillholesa imod_fillholesa_destr;
+  // extern intmod_fillholesa imod_fillholesa_destr;
   extern intmod_postmerge imod_postmerge_destr;
-  //extern intmod_postparts imod_postparts_destr;
+  // extern intmod_postparts imod_postparts_destr;
   extern intmod_spreadmarks imod_spreadmarks;
-  //extern intmod_mparts imod_mparts_destr;
+  // extern intmod_mparts imod_mparts_destr;
   extern intmod_pnotes imod_pnotes_destr;
   extern intmod_fillnotes1 imod_fillnotes1_destr;
-  //extern intmod_fillnotes1a imod_fillnotes1a_destr;
+  // extern intmod_fillnotes1a imod_fillnotes1a_destr;
   extern intmod_fillnotes2 imod_fillnotes2_destr;
   extern intmod_postmarkevs imod_postmarkevs_destr;
   extern intmod_redoties imod_redoties_destr;
@@ -451,9 +554,9 @@ namespace fomus {
   extern intmod_sysbreak imod_sysbreak;
   extern intmod_contmarksv imod_contmarksv;
   extern intmod_contmarkss imod_contmarkss;
-  //extern intmod_eatnotes_bymeas imod_eatnotes_bymeas;
+  // extern intmod_eatnotes_bymeas imod_eatnotes_bymeas;
   extern intmod_tremties imod_tremties;
-  
-}
+
+} // namespace fomus
 
 #endif

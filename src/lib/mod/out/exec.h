@@ -35,76 +35,98 @@
 
 // ------------------------------------------------------------------------------------------------------------------------
 // UNIX PLATFORMS
+#include <boost/iostreams/device/file_descriptor.hpp>
+#include <boost/iostreams/stream.hpp>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <boost/iostreams/stream.hpp>
-#include <boost/iostreams/device/file_descriptor.hpp>
 
 namespace execout {
-  
+
   class execerr {};
-  
-  typedef boost::iostreams::stream<boost::iostreams::file_descriptor_source> execout;
+
+  typedef boost::iostreams::stream<boost::iostreams::file_descriptor_source>
+      execout;
   typedef pid_t execpid;
   inline void waituntildone(const execpid pid) {
     int st;
-    if (waitpid(pid, &st, 0) < 0) throw execerr();
-    if ((WIFEXITED(st) && WEXITSTATUS(st)) || WIFSIGNALED(st)) throw execerr();
+    if (waitpid(pid, &st, 0) < 0)
+      throw execerr();
+    if ((WIFEXITED(st) && WEXITSTATUS(st)) || WIFSIGNALED(st))
+      throw execerr();
   }
-  execpid exec(execout* out, const char* path, const std::vector<std::string>& args0, const struct module_list& args, const char* fn);
-  void outputcmd(std::ostream& f, const char* path, const std::vector<std::string>& args0, const struct module_list& args1, const char* fn);  
-}
+  execpid exec(execout* out, const char* path,
+               const std::vector<std::string>& args0,
+               const struct module_list& args, const char* fn);
+  void outputcmd(std::ostream& f, const char* path,
+                 const std::vector<std::string>& args0,
+                 const struct module_list& args1, const char* fn);
+} // namespace execout
 
 #else
 
 // ------------------------------------------------------------------------------------------------------------------------
 // MINGW PLATFORM
 #define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#include <boost/iostreams/concepts.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
-#include <boost/iostreams/stream.hpp>
-#include <boost/iostreams/concepts.hpp>
+#include <windows.h>
 
 namespace execout {
-  
+
   class execerr {};
-  
-  struct pipesrc:public boost::iostreams::source {
+
+  struct pipesrc : public boost::iostreams::source {
     HANDLE pip;
-  public:
-    pipesrc(const HANDLE& pip):boost::iostreams::source(), pip(pip) {} // gets the read end of the pipe
+
+public:
+    pipesrc(const HANDLE& pip)
+        : boost::iostreams::source(), pip(pip) {
+    } // gets the read end of the pipe
     std::streamsize read(char* s, std::streamsize n) {
       DWORD red;
-      if (!ReadFile(pip, s, n, &red, NULL)) return -1;
-      //if (!red) return -1; MSDN says other end can write 0 bytes to a pipe
+      if (!ReadFile(pip, s, n, &red, NULL))
+        return -1;
+      // if (!red) return -1; MSDN says other end can write 0 bytes to a pipe
       return red;
     }
   };
   typedef boost::iostreams::stream<pipesrc> execout;
-  struct procinfo:public PROCESS_INFORMATION {
+  struct procinfo : public PROCESS_INFORMATION {
     HANDLE choutr, choutw;
-    procinfo():choutr(NULL), choutw(NULL) {
-      ZeroMemory((PROCESS_INFORMATION*)this, sizeof(PROCESS_INFORMATION));
+    procinfo() : choutr(NULL), choutw(NULL) {
+      ZeroMemory((PROCESS_INFORMATION*) this, sizeof(PROCESS_INFORMATION));
     }
     ~procinfo() {
-      if (choutr) CloseHandle(choutr);
-      if (choutw) CloseHandle(choutw);
-      if (hProcess) CloseHandle(hProcess);
-      if (hThread) CloseHandle(hThread); 
+      if (choutr)
+        CloseHandle(choutr);
+      if (choutw)
+        CloseHandle(choutw);
+      if (hProcess)
+        CloseHandle(hProcess);
+      if (hThread)
+        CloseHandle(hThread);
     }
   };
   typedef std::auto_ptr<procinfo> execpid;
   inline void waituntildone(execpid& pid) {
-    if (WaitForSingleObject(pid->hProcess, INFINITE) != WAIT_OBJECT_0) throw execerr();
+    if (WaitForSingleObject(pid->hProcess, INFINITE) != WAIT_OBJECT_0)
+      throw execerr();
     DWORD x;
-    if (!GetExitCodeProcess(pid->hProcess, &x)) throw execerr();
-    if (x) throw execerr();
+    if (!GetExitCodeProcess(pid->hProcess, &x))
+      throw execerr();
+    if (x)
+      throw execerr();
   }
-  execpid exec(execout* out, const char* path, const std::vector<std::string>& args0, const struct module_list& args, const char* fn);
-  void outputcmd(std::ostream& f, const char* path, const std::vector<std::string>& args0, const struct module_list& args1, const char* fn);  
-}
+  execpid exec(execout* out, const char* path,
+               const std::vector<std::string>& args0,
+               const struct module_list& args, const char* fn);
+  void outputcmd(std::ostream& f, const char* path,
+                 const std::vector<std::string>& args0,
+                 const struct module_list& args1, const char* fn);
+} // namespace execout
 
 // ------------------------------------------------------------------------------------------------------------------------
 // UNKNOWN PLATFORMS
@@ -112,25 +134,28 @@ namespace execout {
 // #include <string>
 
 // namespace execout {
-  
+
 //   class execerr {};
-  
+
 //   typedef boost::iostreams::stream<boost::iostreams::null_source> execout;
 //   typedef pid_t execpid;
 //   inline void waituntildone(const execpid pid) {}
-//   inline execpid exec(execout* out, const char* path, const std::vector<std::string>& args0, const struct module_list& args, const char* fn) {
+//   inline execpid exec(execout* out, const char* path, const
+//   std::vector<std::string>& args0, const struct module_list& args, const
+//   char* fn) {
 //     if (out) {
 //       out->exceptions(boost::iostreams::stream<boost::iostreams::null_source>::eofbit
-// 		      | boost::iostreams::stream<boost::iostreams::null_source>::failbit
-// 		      | boost::iostreams::stream<boost::iostreams::null_source>::badbit);
+// 		      |
+// boost::iostreams::stream<boost::iostreams::null_source>::failbit |
+// boost::iostreams::stream<boost::iostreams::null_source>::badbit);
 //       out->open(boost::iostreams::null_source());
 //     }
 //     return 0;
 //   }
-  
+
 // }
 // ------------------------------------------------------------------------------------------------------------------------
 
 #endif
-  
+
 #endif

@@ -23,22 +23,44 @@
 
 namespace pnotes {
 
-  inline const char* name() {return "pnotes";};
-  inline const char* prettyname() {return "Percussion Notes";}
-  inline const char* author() {return "(built-in)";}
-  inline const char* doc() {return "Determines pitches, voices, and other attributes based on percussion instrument settings.";}
+  inline const char* name() {
+    return "pnotes";
+  };
+  inline const char* prettyname() {
+    return "Percussion Notes";
+  }
+  inline const char* author() {
+    return "(built-in)";
+  }
+  inline const char* doc() {
+    return "Determines pitches, voices, and other attributes based on "
+           "percussion "
+           "instrument settings.";
+  }
   void* newdata(FOMUS f);
   void freedata(void* dat);
-  inline int priority() {return 0;}
-  inline enum module_type modtype() {return module_modpercnotes;}
-  inline const char* initerr() {return 0;}
+  inline int priority() {
+    return 0;
+  }
+  inline enum module_type modtype() {
+    return module_modpercnotes;
+  }
+  inline const char* initerr() {
+    return 0;
+  }
   inline void init() {}
   inline void free() {}
   int get_setting(int n, module_setting* set, int id);
-  inline int itertype() {return module_bymeas | module_perconly;}
+  inline int itertype() {
+    return module_bymeas | module_perconly;
+  }
   void fill_iface(void* moddata, void* iface);
-  inline const char* engine() {return "dumb";}
-  inline bool sameinst() {return true;}
-}
+  inline const char* engine() {
+    return "dumb";
+  }
+  inline bool sameinst() {
+    return true;
+  }
+} // namespace pnotes
 
 #endif

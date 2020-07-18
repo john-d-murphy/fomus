@@ -23,18 +23,22 @@
 
 #include "config.h"
 
-#include <boost/iostreams/concepts.hpp>  // sink
+#include <boost/iostreams/concepts.hpp> // sink
 #include <boost/iostreams/stream.hpp>
 
 #include "module.h"
 
 namespace foutaux {
-  
-  struct mymodout:public boost::iostreams::sink {mymodout(int) {}
-    std::streamsize write(const char* s, std::streamsize n) {module_stdout(s, n); return n;}
+
+  struct mymodout : public boost::iostreams::sink {
+    mymodout(int) {}
+    std::streamsize write(const char* s, std::streamsize n) {
+      module_stdout(s, n);
+      return n;
+    }
   };
   boost::iostreams::stream<mymodout> fout(mymodout(0));
-  
-}
+
+} // namespace foutaux
 
 #endif

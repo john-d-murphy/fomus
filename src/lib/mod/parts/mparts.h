@@ -23,22 +23,44 @@
 
 namespace mparts {
 
-  inline const char* name() {return "mparts";};
-  inline const char* prettyname() {return "Metaparts";}
-  inline const char* author() {return "(built-in)";}
-  inline const char* doc() {return "Distributes note events from metaparts to parts.";}
-  inline void* newdata(FOMUS f) {return 0;}
+  inline const char* name() {
+    return "mparts";
+  };
+  inline const char* prettyname() {
+    return "Metaparts";
+  }
+  inline const char* author() {
+    return "(built-in)";
+  }
+  inline const char* doc() {
+    return "Distributes note events from metaparts to parts.";
+  }
+  inline void* newdata(FOMUS f) {
+    return 0;
+  }
   inline void freedata(void* dat) {}
-  inline int priority() {return 0;}
-  inline enum module_type modtype() {return module_modmetaparts;}
-  inline const char* initerr() {return 0;}
+  inline int priority() {
+    return 0;
+  }
+  inline enum module_type modtype() {
+    return module_modmetaparts;
+  }
+  inline const char* initerr() {
+    return 0;
+  }
   inline void init() {}
   inline void free() {}
   int get_setting(int n, module_setting* set, int id);
-  inline int itertype() {return module_all;}
+  inline int itertype() {
+    return module_all;
+  }
   void fill_iface(void* moddata, void* iface);
-  inline const char* engine() {return "dumb";}
-  inline bool sameinst() {return true;}
-}
+  inline const char* engine() {
+    return "dumb";
+  }
+  inline bool sameinst() {
+    return true;
+  }
+} // namespace mparts
 
 #endif

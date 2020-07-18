@@ -23,21 +23,25 @@
 
 #include "config.h"
 
-#include <boost/iostreams/concepts.hpp>  // sink
+#include <boost/iostreams/concepts.hpp> // sink
 #include <boost/iostreams/stream.hpp>
 
 #include "module.h"
 
 namespace ferraux {
-  
+
 #define CERR ferraux::ferr
   //<< "fomus: "
-  
-  struct mymodout:public boost::iostreams::sink {mymodout(int) {}
-    std::streamsize write(const char* s, std::streamsize n) {module_stderr(s, n); return n;}
+
+  struct mymodout : public boost::iostreams::sink {
+    mymodout(int) {}
+    std::streamsize write(const char* s, std::streamsize n) {
+      module_stderr(s, n);
+      return n;
+    }
   };
   boost::iostreams::stream<mymodout> ferr(mymodout(0));
-  
-}
+
+} // namespace ferraux
 
 #endif

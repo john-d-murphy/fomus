@@ -27,23 +27,26 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-  
+
 #define ENGINE_INTERFACEID 1
 
-  typedef void* dumb_data;
+typedef void* dumb_data;
 
-  typedef void (*dumb_run_fun)(FOMUS f, void* moddata); // return true when done
-  typedef const char* (*dumb_err_fun)(void* moddata);
-  //typedef void (*dumb_free_moddata_fun)(void* moddata); // free up mod_data structure and choices vector when finished
-  
-  struct dumb_iface {
-    void* moddata; // module specific data storage--should probably return the same pointer as module_newdata, but can be different
-    
-    dumb_run_fun run;
-    dumb_err_fun err; // should probably be the same as module's module_err function, but can be different
-    //dumb_free_moddata_fun free_moddata;
-  };
-  
+typedef void (*dumb_run_fun)(FOMUS f, void* moddata); // return true when done
+typedef const char* (*dumb_err_fun)(void* moddata);
+// typedef void (*dumb_free_moddata_fun)(void* moddata); // free up mod_data
+// structure and choices vector when finished
+
+struct dumb_iface {
+  void* moddata; // module specific data storage--should probably return the
+                 // same pointer as module_newdata, but can be different
+
+  dumb_run_fun run;
+  dumb_err_fun err; // should probably be the same as module's module_err
+                    // function, but can be different
+  // dumb_free_moddata_fun free_moddata;
+};
+
 #ifdef __cplusplus
 }
 #endif

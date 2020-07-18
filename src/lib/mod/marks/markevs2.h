@@ -24,24 +24,46 @@
 namespace markevs2 {
 
   extern const char* ierr;
-  
-  inline const char* name() {return "markevs2";};
-  inline const char* prettyname() {return "Mark Events 2";}
-  inline const char* author() {return "(built-in)";}
-  inline const char* doc() {return "Applies mark events to notes that fall within their ranges.";}
-  inline void* newdata(FOMUS f) {return 0;}
+
+  inline const char* name() {
+    return "markevs2";
+  };
+  inline const char* prettyname() {
+    return "Mark Events 2";
+  }
+  inline const char* author() {
+    return "(built-in)";
+  }
+  inline const char* doc() {
+    return "Applies mark events to notes that fall within their ranges.";
+  }
+  inline void* newdata(FOMUS f) {
+    return 0;
+  }
   inline void freedata(void* dat) {}
-  inline int priority() {return 0;}
-  inline enum module_type modtype() {return module_modmarkevs;}
-  inline const char* initerr() {return ierr;}
+  inline int priority() {
+    return 0;
+  }
+  inline enum module_type modtype() {
+    return module_modmarkevs;
+  }
+  inline const char* initerr() {
+    return ierr;
+  }
   void init();
   inline void free() {}
   int get_setting(int n, module_setting* set, int id);
-  inline int itertype() {return module_bypart | module_byvoice;}
+  inline int itertype() {
+    return module_bypart | module_byvoice;
+  }
   void fill_iface(void* moddata, void* iface);
-  inline const char* engine() {return "dumb";}
-  inline bool sameinst() {return true;}
+  inline const char* engine() {
+    return "dumb";
+  }
+  inline bool sameinst() {
+    return true;
+  }
   void ready();
-}
+} // namespace markevs2
 
 #endif

@@ -23,18 +23,23 @@
 
 #include "config.h"
 
-#include <string>
 #include <boost/algorithm/string/predicate.hpp>
+#include <string>
 
 namespace ilessaux {
 
-  struct isiless:std::binary_function<const std::string&, const std::string&, bool> {
-    bool operator()(const std::string& x, const std::string& y) const {return boost::algorithm::ilexicographical_compare(x, y);}
-  };  
-  struct charisiless:std::binary_function<const char*, const char*, bool> {
-    bool operator()(const char* x, const char* y) const {return boost::algorithm::ilexicographical_compare(x, y);}
-  };  
-  
-}
+  struct isiless
+      : std::binary_function<const std::string&, const std::string&, bool> {
+    bool operator()(const std::string& x, const std::string& y) const {
+      return boost::algorithm::ilexicographical_compare(x, y);
+    }
+  };
+  struct charisiless : std::binary_function<const char*, const char*, bool> {
+    bool operator()(const char* x, const char* y) const {
+      return boost::algorithm::ilexicographical_compare(x, y);
+    }
+  };
+
+} // namespace ilessaux
 
 #endif
