@@ -4,7 +4,7 @@ This is a build that should work with modern versions of boost with uniform code
 If you are building on gentoo, you may need to put in a -ltinfo next to the -lcurses/-lncurses in the src/exe Makefile when building.
 Otherwise, a simple ./configure --prefix /home/user && make && make install should do the trick.
 
-THe below is kept for posterity. 
+The below is kept for posterity. 
 
 Huge thanks go to Virtualdog on the SCSynth forums for helping me get this up and running.
 
