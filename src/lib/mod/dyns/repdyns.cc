@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -85,8 +85,7 @@ namespace repdyns {
     GOTIT1: // dy is updated--no symbol here
       if (ti - lastoff >
           module_setting_rval(
-              n,
-              maxrestdurid)) { // module_setting_rval(n, repeatid)
+              n, maxrestdurid)) { // module_setting_rval(n, repeatid)
         // bool skp = false;
         // for (const module_markobj *m(ml.marks), *me(ml.marks + ml.n); m < me;
         // ++m) { // delete anything else
@@ -207,7 +206,7 @@ int module_get_setting(int n, struct module_setting* set, int id) {
                    "improved readability.";
     set->typedoc = maxrestdurtype;
 
-    module_setval_int(&set->val, 12);
+    module_setval_int(&set->val, 4);
 
     set->loc = module_locnote;
     set->valid = valid_maxrestdurtype;

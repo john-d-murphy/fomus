@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -359,8 +359,7 @@ namespace beams {
              !module_isrest(boost::next(i)->note) &&
              module_endtime(i->note) >= module_time(boost::next(i)->note));
         // bms0 = bms; //int bms0 = iat ? bms + 1 : bms; // int bms0 = iat ?
-        // bms0
-        // + 1 : bms;    compare with rev. 696
+        // bms0 + 1 : bms;    compare with rev. 696
       AGAIN:
         if (i > li0 && resl &&
             module_adjdur(boost::prior(i)->note, tuplvl) * wrm <
@@ -538,7 +537,7 @@ namespace beams {
         if (i0 >= p2)
           goto ALLDONE;
         //} else if (i > li0 && module_graceendtime(boost::prior(i)->note) !=
-        // module_gracetime(i->note)) { i0 = grbeam(i0, i, bms + 1, bms2 * 2,
+        //module_gracetime(i->note)) { i0 = grbeam(i0, i, bms + 1, bms2 * 2,
         // tuplvl, wrm /*, st0*/); assert(i0 == i);
       } else if (module_isnote(i->note) &&
                  module_adjgracedur(i->note, tuplvl) * wrm < td) {

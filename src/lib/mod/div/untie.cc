@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -52,8 +52,8 @@ namespace untie // tuck away things that don't need to be exported
        object then `module_skipassign()' must be called on it.  once an
        assignment has been made, the note object is free for access by other
        threads.  at this point it cannot be used in calls to
-       `module_peeknextnote()', though it can
-       be passed to other functions such as `module_time()'. */
+       `module_peeknextnote()', though it can be passed to other functions such
+       as `module_time()'. */
     void assign() {
       /* `divide_assign_unsplit()' removes the note object that is passed to it
          and adjusts the duration of the note that is tied to its left.  actions
@@ -112,15 +112,14 @@ namespace untie // tuck away things that don't need to be exported
         if (isexpof2(
                 dur)) { // only untie chords that span a valid note duration
           /* found a group of two or more chords that can be untied.  iterate
-             through all note objects to the
-             right of the first tied chord and set their `remove' flags to true.
-           */
+             through all note objects to the right of the first tied chord and
+             set their `remove' flags to true. */
           for (chords_deque::iterator k(i + 1), ke(j + 1); k != ke; ++k) {
             notes_vector& chord = *k;
             for (notes_vector::iterator l(chord.begin()); l != chord.end(); ++l)
               l->remove = true; // set `remove' flag
           }
-          i = j; // jump to last chord before continuing with next i iteration
+          i = j; // jump to next chord before continuing with next i iteration
           break;
         }
       }
@@ -163,9 +162,9 @@ namespace untie // tuck away things that don't need to be exported
      "group" and sent to the `process()' function above for processing.  `fom'
      is a handle to the entire score instance created by the user (and is rarely
      needed).  `moddata' is a pointer to a data structure created by
-     `module_newdata()' below. modules instances should only read/write to their
-     own data structures and not use
-     global variables since multiple threads may be running concurrently. */
+     `module_newdata()' below.  modules should only read/write to their own data
+     structures and not use global variables since multiple threads may be
+     running concurrently. */
   extern "C" void run(FOMUS fom, void* moddata) {
     fomus_rat t1 = {
         -1,
@@ -185,9 +184,9 @@ namespace untie // tuck away things that don't need to be exported
         return;
       }
       /* if note skips over a rest then we have a point where all the notes
-         we've collected can be grouped and processed.  so process everything up
-         to this point and continue looping.
-       */
+         we've collected can be grouped and
+         processed.  so process everything up to this point and continue
+         looping. */
       if (module_time(n) > t2) {
         process(chords, chords.end());
         ready = norighttie = false; // reset flags
@@ -210,8 +209,8 @@ namespace untie // tuck away things that don't need to be exported
                .empty()); // chords should have at least one chord at this point
       chords.back().push_back(note(n)); // insert note into chord
       /* if this note has no right tie or is at a tuplet boundary on the right
-         side, then soon we're ready to process.
-         set `norighttie' so that we know this when we get to the next chord. */
+         side, then soon we're ready to process. set `norighttie' so that we
+         know this when we get to the next chord. */
       if (!module_istiedright(n) || tupbound_right(n))
         norighttie = true;
       /* if we're ready to process (or have no left tie or are at a tuplet
@@ -225,9 +224,9 @@ namespace untie // tuck away things that don't need to be exported
   }
 
   /* this callback function must return an error string if an error has
-     occurred. the string is printed as part of an error message to the user and
-     indicates to FOMUS that this module has failed.  since this module should
-     never fail doesn't need to report errors, it always returns NULL. */
+     occurred.  the string is printed as part of an error message to the user
+     and indicates to FOMUS that this module has failed.  since this module
+     should never fail doesn't need to report errors, it always returns NULL. */
   extern "C" const char* err(void* moddata) {
     return 0; // this module doesn't report errors
   }
@@ -253,7 +252,7 @@ using namespace untie;
 /* FOMUS expects to find these callback functions in every module that it loads.
  * the declarations are in module.h. */
 
-// --- info
+// info
 /* these return the long name, author and documentation strings.  the short name
    is the filename of the module itself. */
 const char* module_longname() {
@@ -266,7 +265,7 @@ const char* module_doc() {
   return "Unties notes to make complex notation easier to read.";
 }
 
-// --- initialization
+// initialization
 /* `module_init()' is called once when the module is first loaded.
    `module_free()' is called once when it is unloaded. */
 void module_init() {}
@@ -293,16 +292,17 @@ const char* module_err(void* data) {
    user decides to activates different modules in different sections of the
    score.  two instances might not be equivalent, for example, if the user
    specifies the `bfsearch' engine in one instance and the `dynprog' engine in
-   the other or the user has specified a different module for determining the
-   distance between notes (in either of these cases, the algorithm changes and
-   this module behaves differently).  any of the `module_setting' functions can
-   be called on the module objects passed to this function. */
+   the other or the user has specified a different modules for determining the
+   distance between notes (in any of these cases, the algorithm changes and this
+   module behaves differently).  any of the `module_setting' functions can be
+   called on the module objects passed to this function. */
 int module_sameinst(module_obj a, module_obj b) {
   return true;
 }
 
 /* the module type determines the purpose of the algorithm, when it gets
-   scheduled, and which assign functions it can use. */
+   scheduled, and which other modules it will get grouped with (and run in
+   sequence with). */
 enum module_type module_type() {
   return module_moddivide;
 }
@@ -332,7 +332,7 @@ void* module_newdata(FOMUS f) {
 }
 void module_freedata(void* dat) {}
 
-// --- engine
+// engine
 /* every module has to be driven by an engine.  the default built-in `dumb'
    module simply passes complete control over and waits until the module is
    finished. */
@@ -349,9 +349,9 @@ int module_engine_iface() {
 /* the module must fill a data structure (defined in the engine's header file)
    with information the engine needs to drive the module.  for the `dumb'
    interface not much information is required.  the engine needs a pointer to
-   data created by `module_newdata()', the address of the function called to
-   pass control over to the module, and the address
-   of an error function called once after the module has finished. */
+   data created by `module_newdata()', the address of the function it calls to
+   pass control over to the module, and the address of an error function it
+   calls once after the module has finished. */
 void module_fill_iface(void* moddata, void* iface) {
   ((dumb_iface*) iface)->moddata = moddata;
   ((dumb_iface*) iface)->run = run;
@@ -362,7 +362,7 @@ void module_fill_iface(void* moddata, void* iface) {
   ((dumb_iface*) iface)->err = err;
 }
 
-// --- settings
+// ---------------------------------------- settings
 /* this callback is used to query for all settings that this module uses.  the
    module might want to use settings from other modules, in which case it should
    use `module_ready()' to look for them and find their ids.  FOMUS calls the

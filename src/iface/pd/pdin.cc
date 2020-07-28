@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -68,8 +68,8 @@ static t_class* fomus_class;
 
 typedef struct _fomus {
   t_object x_obj; // must be first
-  int xxxxx;      // when compiling in mingw32, need to put an int between x_obj
-                  // and fom, probably some kind of alignment issue?
+  int xxxxx; // when compiling in mingw32, need to put an int between x_obj and
+             // fom, probably some kind of alignment issue?
   FOMUS fom;
   t_clock* clock;
 } t_fomus;

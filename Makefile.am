@@ -1,4 +1,4 @@
-#   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+#   Copyright (C) 2009, 2010, 2011  David Psenicka
 #   This file is part of FOMUS.
 
 #   FOMUS is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ uninstall-local:
 
 # download bjam.exe and put in /usr/local/bin
 # ./bootstrap.sh --with-bjam=/usr/local/bin/bjam.exe --prefix=/usr/local --with-toolset=gcc
-# bjam --build-type=complete --prefix=/usr/local --variant=release --layout=tagged --buildid=fomus --link=shared --threading=multi --runtime-link=shared --with-system --with-program_options --with-filesystem --with-iostreams --with-thread install
+# bjam --build-type=complete --prefix=/usr/local --variant=release --link=shared --threading=multi --runtime-link=shared --with-system --with-program_options --with-filesystem --with-iostreams --with-thread install
 # go to /usr/local/lib and put .dll files in /bin removing lib prefixes
 # remove everything except -mt- libraries
 # move boost headers directory from include/boost-?.?? directory into includes directory
@@ -45,4 +45,4 @@ uninstall-local:
 # to build boost in OS X:
 
 # ./bootstrap.sh
-# ./bjam --variant=release --layout=versioned --link=shared --threading=multi --runtime-link=shared architecture=x86 address-model=32_64 --with-system --with-program_options --with-filesystem --with-iostreams --with-thread cflags='-mmacosx-version-min=10.4' cxxflags='-mmacosx-version-min=10.4' linkflags='-mmacosx-version-min=10.4' install
+# ./bjam --variant=release --layout=versioned --link=shared --threading=multi --runtime-link=shared architecture=x86 address-model=32_64 --with-system --with-program_options --with-filesystem --with-iostreams --with-thread install

@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -1262,8 +1262,8 @@ namespace split {
     assert(li.n > 0);
     divrules_ornode exp(rliface.get_root(
         rliface.moddata, module_time(meas->m),
-        li)); // send get_root an initial div list--only need to
-              // free the nodes, not the containers in ornode
+        li)); // send get_root an initial div list--only need to free the nodes,
+              // not the containers in ornode
     for (divrules_andnode *i = exp.ands, *ie = exp.ands + exp.n; i != ie;
          ++i) { // *i is an andnode of the rules
       std::vector<boost::shared_ptr<scoped_div>> ds;
@@ -1923,10 +1923,10 @@ int module_get_setting(int n, module_setting* set, int id) {
   // 	"Specifies the preferred duration of a tuplet at each tuplet level (the
   // first list item represents the largest/outermost tuplet level)." 	"  Set
   // each item in the list to a value representing the tuplet duration that
-  // should be used most often." 	"  A single value (equivalent to a list of
-  // size one) represents the outermost tuplet duration and is probably all that
-  // is necessary." 	"  An empty list or zero in any list position specifies
-  // no preferrence in tuplet size."
+  // should be used most often." 	"  A single value (equivalent to a list of size
+  // one) represents the outermost tuplet duration and is probably all that is
+  // necessary." 	"  An empty list or zero in any list position specifies no
+  // preferrence in tuplet size."
   // 	//"  Size is measured in whatever unit is specified by
   // `mod-div-tupletdur-dist' (TODO: this isn't implemented yet--duration is
   // currently measured in beats)."

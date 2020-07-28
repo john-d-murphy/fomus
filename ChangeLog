@@ -1,13 +1,3 @@
-	* pdin: fixed build problem caused by restrictions in new version
-	  of automake
-	* repdyns: changed default value of `dyn-repeat-maxrestdur'
-	* xmlout: added settings to automatically launch an XML viewer
-	  application
-	* lilyout: viewer process is no longer a child process (so emacs
-	  doesn't kill it immediately when it launches)
-	* fomus.el: fixed emacs erroneously setting the default major-mode
-	  (Anders Vinjar)
-
 0.1.18-alpha
 
 	* libfomus: fixed erroneous measure integrity check

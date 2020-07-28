@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -87,8 +87,7 @@ namespace markgrs {
       DBG("a=\"" << a << "\", st=\"" << st << "\", mid=" << module_markid(m)
                  << std::endl);
       if (boost::algorithm::iequals(
-              a,
-              st)) { // don't need this mark, throw it away
+              a, st)) { // don't need this mark, throw it away
         orig.insert(new mark(m));
         fo = true;
         return true;

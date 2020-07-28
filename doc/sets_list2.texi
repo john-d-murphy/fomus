@@ -1,0 +1,3134 @@
+@table @code
+@anchor{setAbbr}
+@item abbr
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{part (initfile score inst part)}
+
+An abbreviated name of an instrument or part.  This string appears to the left of all staff systems except the first.  Set this when defining an instrument, percussion instrument or part.
+@anchor{setAcc}
+@item acc
+type: @code{string_acc | (string_acc string_acc ...)}
+
+default value: @code{()}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies an accidental or choice of accidentals.  Use this in a note event or over a range of events to influence accidental spelling.  The accidental strings are the same as note strings without the base pitch or octave.  Specifying one accidental effectively overrides FOMUS's decision (if the accidental is valid).  An example of a safe way to override whether FOMUS chooses sharps or flats is to specify something like (n s ss) or (n f ff) (you must use whatever the symbols for naturals sharps and flats are as defined in `note-accs').
+@anchor{setAccRule}
+@item acc-rule
+type: @code{measure|note|note-naturals}
+
+default value: @code{measure}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not accidentals carry through to the end of the measure.  The value `measure' indicates that accidentals affect all notes up the end of the measure while a value of `note' indicates that accidentals affect only the note they precede.  `note-naturals' is similar to `note' with the exception that accidentals (including naturals) always appear.
+@anchor{setAccsBeatdist}
+@item accs-beatdist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one beat in a measure.  A larger distance translates to a smaller weight in decisions regarding accidentals and vice versa.
+@anchor{setAccsDiatonicIntervalScore}
+@item accs-diatonic-interval-score
+type: @code{real>=0}
+
+default value: @code{3.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when intervals between notes are diatonic (these are presumably easier to read).  Increasing this score increases the chance of diatonic intervals occurring.
+@anchor{setAccsDiatonicNoteScore}
+@item accs-diatonic-note-score
+type: @code{real>=0}
+
+default value: @code{8.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when notes are typical diatonic spellings (i.e., no F-flats, B-sharps, C-doublesharps, etc.).  Increasing this value increases the chance of diatonic spellings occurring.
+@anchor{setAccsDistmod}
+@item accs-distmod
+type: @code{blockdist|cartdist|notedist}
+
+default value: @code{notedist}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module that is used to calculate the "distance" between notes.  The closer two notes are to each other, the more important their relationship is in terms of note spelling, staff choice, voice assignments, etc..  Set this to change the algorithm used for calculating distance when making decisions regarding accidentals.
+@anchor{setAccsDistmult}
+@item accs-distmult
+type: @code{real>0}
+
+default value: @code{2/3}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+FOMUS calculates the distance between note events so that it can weigh scores and penalties according to how close they are to each other.  An exponential curve is usually applied before actually calculating the weight.  This value is the distance at which a score calculated between two notes is decreased to 1/2 it's full value (at twice this distance the score is decreased to 1/4 it's full value, etc.).
+@anchor{setAccsEngine}
+@item accs-engine
+type: @code{bfsearch|dynprog}
+
+default value: @code{bfsearch}
+
+location: @code{part (initfile score inst part)}
+
+Engines provide different types of search functionality to the rest of FOMUS's modules and are interchangeable.  For example, two of FOMUS's default engines `dynprog' and `bfsearch' execute two different search algorithms, each with different benefits.  Set this to the name of an engine module to change the search algorithm used for finding accidental spellings.
+@anchor{setAccsMaxdist}
+@item accs-maxdist
+type: @code{real>=0}
+
+default value: @code{3.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The maximum distance allowed for accidental spelling calculations.  Notes that are more than this distance apart from each other are considered unrelated to each other and are not included in FOMUS's calculations.
+@anchor{setAccsOctavedist}
+@item accs-octavedist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one octave (i.e., two notes an octave apart have a distance equivalent to this value).  A larger distance translates to a smaller weight in decisions regarding accidentals and vice versa.
+@anchor{setAccsSearchdepth}
+@item accs-searchdepth
+type: @code{integer>=10}
+
+default value: @code{25}
+
+location: @code{part (initfile score inst part)}
+
+The search depth used when an appropriate engine module (such as `bfsearch') is selected.  A larger search depth increases both computation time and quality.
+@anchor{setAccsSimilarQuartoneScore}
+@item accs-similar-quartone-score
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when quartertone accidentals on nearby notes are similar to each other (i.e., modifying the written pitch in the same direction).  Increasing this value increases the chances of similar quartertone adjustments on adjacent notes.
+@anchor{setAccsStepwiseScore}
+@item accs-stepwise-score
+type: @code{real>=0}
+
+default value: @code{13.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when successive stepwise notes contain sharps in upwards motion or flats in downwards motion.  Increasing this value increases the change of stepwise ascending sharps and descending flats.
+@anchor{setAccsWrongdirScore}
+@item accs-wrongdir-score
+type: @code{real>=0}
+
+default value: @code{13.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score for using higher written notes to spell higher pitches and vice versa.  Setting this to a high value insures that notes higher up on the staff are actually higher pitches.
+@anchor{setAuthor}
+@item author
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{score (initfile score)}
+
+The author of the piece.  This appears in the score at the top right corner of the first page.
+@anchor{setBeat}
+@item beat
+type: @code{rational_1/powof2>0 | rational_powof2>0}
+
+default value: @code{1/4}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Specifies what notated rhythmic value is equivalent to 1 beat.  Set this value globally to change how durations are notated in the score.  The default value of 1/4, for example, specifies that a note with a duration of 1 is to be notated using a quarter note.  Like `timesig-den', the number becomes a dotted value when the meter is compound.  The default notation then for a note with duration 1 in compound meter (and a `beat' value of 1/4) is a dotted quarter note.
+@anchor{setBeatdiv}
+@item beatdiv
+type: @code{rational>=1}
+
+default value: @code{16}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The maximum number of divisions allowed in one beat.  Set this to the smallest division that times and durations should be quantized to.  If a beat is equivalent to a quarter note, a `beatdiv' of 4 allows notes to be quantized down to the size of a sixteenth note.  A `quant-max-beatdiv' of 8 would allow thirty-second notes, etc..
+@anchor{setCautaccs}
+@item cautaccs
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not cautionary accidentals should appear in the score.  Set this to `yes' if you want cautionary accidentals.
+@anchor{setCautaccsBeatdist}
+@item cautaccs-beatdist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one beat in a measure.  A larger distance translates to a smaller weight in decisions regarding cautionary accidentals and vice versa.
+@anchor{setCautaccsDistmod}
+@item cautaccs-distmod
+type: @code{blockdist|cartdist|notedist}
+
+default value: @code{notedist}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module that is used to calculate the "distance" between notes.  The closer two notes are to each other, the more important their relationship is in terms of note spelling, staff choice, voice assignments, etc..  Set this to change the algorithm used for calculating distance when making decisions regarding cautionary accidentals.
+@anchor{setCautaccsOctavedist}
+@item cautaccs-octavedist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one octave (i.e., two notes an octave apart have a distance equivalent to this value).  A larger distance translates to a smaller weight in decisions regarding cautionary accidentals and vice versa.
+@anchor{setCautaccsOcts}
+@item cautaccs-octs
+type: @code{none|one|all}
+
+default value: @code{none}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not cautionary accidentals are affected by notes in other octaves.  Set this in the score, a part, a measure definition, or in note events to affect which notes receive cautionary accidentals.  `none' means only notes in the same octave can create a cautionary accidental.  `one' means notes one octave apart can create one while `all' means notes in any octave can cause one.
+@anchor{setCautaccsOctsigns}
+@item cautaccs-octsigns
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not cautionary accidentals are affected by octave signs.Set this in the score, a part, a measure definition, or in note events to affect the impact of octave signs on cautionary accidentals.    `yes' means cautionary accidentals can occur in places where notes appear on the same staff line but are actually different pitches due to octave signs.  `no' means cautionary accidentals occur only when the notes are actually the same pitch (or whatever is specified in `cautaccs-octs').
+@anchor{setCautaccsRange}
+@item cautaccs-range
+type: @code{real>0}
+
+default value: @code{2}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The maximum distance two events are allowed to be from each other to create a cautionary accidental (how distance is calculated depends on the the value of `cautaccs-distmod').  Increase this value to create more cautionary accidentals that are farther apart.
+@anchor{setClef}
+@item clef
+type: @code{string_clef | (string_clef string_clef ...), string_clef = subbass-8down|bass-8down|c-baritone-8down|f-baritone-8down|tenor-8down|subbass|alto-8down|bass|mezzosoprano-8down|c-baritone|f-baritone|soprano-8down|tenor|subbass-8up|treble-8down|alto|bass-8up|mezzosoprano|c-baritone-8up|f-baritone-8up|soprano|tenor-8up|treble|alto-8up|mezzosoprano-8up|soprano-8up|treble-8up|percussion}
+
+default value: @code{()}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies a clef or list of clefs for FOMUS to choose from.  Change the value of this setting for a note or measure definition to influence clef choices.  The clef must be one that is defined for the instrument that the note or measure belongs to.  Setting it to a single clef effectively forces a clef selection while a list of values offers FOMUS a choice.
+@anchor{setClefPreference}
+@item clef-preference
+type: @code{real>0}
+
+default value: @code{1}
+
+location: @code{clef (initfile score inst part staff clef)}
+
+This number affects how often a clef is used in a staff.  1 is the default value for all clefs, which gives them equal probability of being chosen.  Anything less than or greater than 1 decreases or increases the probability of choosing that clef.  Set this in an instrument definition to affect how clefs are chosen for that instrument.
+@anchor{setClip}
+@item clip
+type: @code{(rational>=0 rational>=0)}
+
+default value: @code{(0 0)}
+
+location: @code{score (initfile score)}
+
+A list of two numbers specifying a "clipped" segment of the score to appear in the output.  Useful if you only want to view a small sample of the output (all objects with time offsets outside the clip range are discarded).  Set the first number in the list to the start time of the segment and the second number to the end time.  Set either one to 0 to indicate no start or end time (two zeros indicates no clipping).
+@anchor{setComp}
+@item comp
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Whether or not a measure has a compound meter.  A duration of 1 in a compound meter is equivalent to a dotted note value and is subdivided into 3 smaller rhythmic divisions.  If the value of `timesig-den' is responsible for determining the actual time signature the number is interpretted as a dotted value.  For example, if the meter is compound, `measdur' is 4 and `timesig-den' is 4, the denominator value of 4 is interpretted as a dotted quarter note (a group of three eighths), so altogether these specify a time signature of 12/8 (or 4 dotted quarter notes per measure).
+@anchor{setDefaultGracedur}
+@item default-gracedur
+type: @code{rational>0..128}
+
+default value: @code{1/4}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Default duration of a grace note.  This value is used when a note event has a zero duration (which might happen after it is quantized) and the note is converted to a grace note.  Other situations might also call for the creation of grace notes.  The written result depends on the setting `beat' and is notated the same way as a regular note of the same duration (e.g., if a duration of 1/4 produces a sixteenth note then the same holds true for a grace note).
+@anchor{setDefaultMarkTexts}
+@item default-mark-texts
+type: @code{(string_mark string_text, string_mark string_text, ...)}
+
+default value: @code{(arco arco, bellsup "bells up", breath "breath tone", cuivre cuivr@'e, etouf "sons @'etouffes", flaut flautando, flt flt., leg legato, legno "col legno", lv l.v., moltoleg "molto legato", moltovib "molto vib.", mute "con sord.", nonleg "non legato", nonvib "non vib.", ord ord., pizz pizz., pont "sul pont.", punta "punta d'arco", ric jet@'e, salt saltando, slap "slap tongued", spic spiccato, sul "Sul ", table "pr@`es de la table", tall "al tallone", tasto "sul tasto", unmute "senza sord.", vib vib.)}
+
+location: @code{score (initfile score)}
+
+A mapping from mark IDs to mark texts.  Use this setting to customize the text that appears in the score for marks that are normally represented by text above or below the staff (e.g., `con sord.', `legato', etc.).  `default-mark-texts' contains the default texts for all such marks while `mark-texts' might contain overrides only for a particular score or part.  This setting should appear in your `.fomus' file and should be modified using `+=' to insure that you are only replacing entries in this setting.
+@anchor{setDefaultMeasdivs}
+@item default-measdivs
+type: @code{((rational>0 rational>0 ...) (rational>0 rational>0 ...) ...)}
+
+default value: @code{((1 1) (2 1) (1 2) (1 1 1) (2 2) (3 2) (2 3) (2 2 2) (4 3) (3 4) (3 2 2) (2 3 2) (2 2 3) (4 4) (3 3 2) (3 2 3) (2 3 3) (4 3 2) (4 2 3) (3 2 4) (2 3 4) (3 2 2 2) (2 3 2 2) (2 2 3 2) (2 2 2 3) (4 3 3) (3 4 3) (3 3 4) (5 5) (4 3 3) (3 4 3) (3 3 4) (4 4 3) (4 3 4) (3 4 4) (4 4 4) (8 5) (5 8) (5 4 4) (4 5 4) (4 4 4) (7 7) (5 5 4) (5 4 5) (4 5 5) (5 5 5) (8 8))}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+A list of possible metrical divisions, used to split and tie notes and rests.  An entry of (3 2), for example, indicates that a measure with 5 beats can be subdivided into 3 + 2.  When you want to override these values to change how individual measures are divided, use `meas-divs' instead.
+@anchor{setDefaultTupletdivs}
+@item default-tupletdivs
+type: @code{((rational>0 rational>0 ...) (rational>0 rational>0 ...) ...)}
+
+default value: @code{((1 1) (2 1) (1 2) (1 1 1) (2 2) (3 2) (2 3) (4 2) (2 4) (4 3) (3 4) (4 4) (3 3 2) (3 2 3) (2 3 3) (4 3 2) (4 2 3) (3 2 4) (2 3 4) (8 2) (2 8) (8 3) (3 8) (8 4) (4 8) (8 3 2) (8 2 3) (3 2 8) (2 3 8) (8 4 2) (8 2 4) (4 2 8) (2 4 8) (8 4 3) (8 3 4) (4 3 8) (3 4 8) (8 8))}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+A list of ways tuplets may be divided into smaller units, used to split and tie notes and rests.  An entry of (3 2), for example, indicates that a tuplet with 5 in its numerator may be subdivided into 3 + 2.  If you want to override these values to change the tuplet-dividing behavior of a single measure, use `tuplet-divs' instead.
+@anchor{setDetach}
+@item detach
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Some marks such as crescendo wedges often need to appear detached from notes events.  Setting `detach' to `yes' insures that these marks appear in the location given by the mark event's time attribute, regardless of whether or not any note events are at that location.  Setting `detach' to no forces all marks to be attached to note events.
+@anchor{setDivAvedurScore}
+@item div-avedur-score
+type: @code{real>=0}
+
+default value: @code{0.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+TODO
+@anchor{setDivBigtupletnumScore}
+@item div-bigtupletnum-score
+type: @code{real>=0}
+
+default value: @code{0.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The penalty for producing tuplets at the top or "metrical division" level of a measure (i.e., greater than a beat in duration) that have reducible ratios (e.g., 6:4, 10:8).  Increasing this prevents creating, for example, large 6:4 sextuplets that would look better if they were a pair triplets instead.
+@anchor{setDivDotScore}
+@item div-dot-score
+type: @code{real>=0}
+
+default value: @code{0.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The penalty for avoiding augmentation dots on notes (increasing this value encourages FOMUS not to use augmentation dots).
+@anchor{setDivDoubledotScore}
+@item div-doubledot-score
+type: @code{real>=0}
+
+default value: @code{2.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The penalty for creating a double dot on a note (increasing this value encourages FOMUS not to use double augmentation dots).
+@anchor{setDivEngine}
+@item div-engine
+type: @code{divsearch}
+
+default value: @code{divsearch}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Engines provide different types of search functionality to the rest of FOMUS's modules and are interchangeable.  For example, two of FOMUS's default engines `dynprog' and `bfsearch' execute two different search algorithms, each with different benefits.  Set this to the name of an engine module to change the search algorithm used for dividing and tying notes and rests.
+@anchor{setDivGroupScore}
+@item div-group-score
+type: @code{real>=0}
+
+default value: @code{3.0}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The score for dividing simultaneous measures with similar subdivisions when they are grouped together using `divgroup'.  Increasing this value increases the effort FOMUS makes trying to divide grouped parts similarly.
+@anchor{setDivMeasdivprefScore}
+@item div-measdivpref-score
+type: @code{real>=0}
+
+default value: @code{0.5}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+TODO
+@anchor{setDivMeastupletfitScore}
+@item div-meastupletfit-score
+type: @code{real>=0}
+
+default value: @code{13.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+TODO
+@anchor{setDivNoteScore}
+@item div-note-score
+type: @code{real>=0}
+
+default value: @code{2.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The base penalty for a single note appearing in the score.  Increasing this value discourages notes from being split and tied or too many rests from being created.  Increasing it also encourages the appearance of dotted notes.
+@anchor{setDivSamedurtupletScore}
+@item div-samedurtuplet-score
+type: @code{real>=0}
+
+default value: @code{3.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The score for producing tuplets of the same duration when they have the same ratio.  For example, increasing this might prevent FOMUS from creating two consecutive, unequally sized triplets, one spanning two beats and the other spanning one beat.
+@anchor{setDivSimpletupletScore}
+@item div-simpletuplet-score
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+TODO
+@anchor{setDivSmalltupletScore}
+@item div-smalltuplet-score
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+TODO
+@anchor{setDivTieScore}
+@item div-tie-score
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The score for avoiding excessive note ties (increasing this value encourages FOMUS not to use ties).
+@anchor{setDivTripledotScore}
+@item div-tripledot-score
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The penalty for creating a triple dot on a note (increasing this value encourages FOMUS not to use triple augmentation dots).
+@anchor{setDivTupletScore}
+@item div-tuplet-score
+type: @code{real>=0}
+
+default value: @code{2.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The base penalty for creating a tuplet.  Increasing this makes it less likely for tuplets to appear.
+@anchor{setDivTupletrestScore}
+@item div-tupletrest-score
+type: @code{real>=0}
+
+default value: @code{0.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The penalty for placing a rest underneath a tuplet.  Increasing this encourages tuplets with notes underneath rather than rests.
+@anchor{setDivTupletsizeScore}
+@item div-tupletsize-score
+type: @code{real>=0}
+
+default value: @code{8.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The score for producing tuplets that have approximately the same number of notes under them as the tuplet ratio numerator.  Increasing this prevents creating, for example, a 3:2 triplet over a group of six or more notes (a 6:4 sextuplet would be used instead).  Increasing this also prevents FOMUS from creating two consecutive, unequal triplets in many cases (e.g., one spanning two beats and the other spanning one beat).
+@anchor{setDivgroup}
+@item divgroup
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+An ID used to group together parts or measures that should be divided, beamed or laid out in a similar manner.  Set this in orchestral part definitions or measures/measure definitions to define groups of instruments with similar or identical musical material.  If part `A', for example, has id `grp1' and part `B' also has id `grp1' and both have a 5/8 meter, then both will be divided together into the same 3 + 2 or 2 + 3 subdivisions.  By default, all parts belong to the same group and are thus divided similarly.
+@anchor{setDotNotelevel}
+@item dot-notelevel
+type: @code{all|none|top|div}
+
+default value: @code{all}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The level at which notes are allowed to be dotted.  Set this to a string indicating how dotted notes may appear in the score.  `top' specifies that dotted notes are allowed only when they take up a full measure, `div' specifies that they are allowed when they are more than a beat in duration (i.e., the "metrical division" level), `all' specifies that they are always allowed, and `none' specifies that they are never allowed.
+@anchor{setDoubleAccs}
+@item double-accs
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not double accidentals (i.e., double flats or sharps) are allowed.  Set this to `yes' if you want double flats or sharps.
+@anchor{setDoubledotNotelevel}
+@item doubledot-notelevel
+type: @code{all|none|top|div}
+
+default value: @code{all}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The level at which notes are allowed to be double-dotted.  Set this to a string indicating how double-dotted notes may appear in the score.  `top' specifies that double-dotted notes are allowed only when they take up a full measure, `div' specifies that they are allowed when they are more than a beat in duration (i.e. "metrical division" level), `all' specifies that they are always allowed, and `none' specifies that they are never allowed.
+@anchor{setDoubledots}
+@item doubledots
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not to allow notes with double dots.  Setting this to `yes' allows double-dotted notes to appear in the score while setting this to `no' disallows them.
+@anchor{setDumpApi}
+@item dump-api
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{score (initfile score)}
+
+If set to true, FOMUS dumps API messages when they are received.  This can be used to find the proper messages to send to FOMUS's C API for specifying input events and settings.  To find the proper messages for entering in a list of voices, for example, enter `voice (1 2 3)' into a `.fms' file (or send it via the `fomus_parse' function) and watch what gets printed out.
+@anchor{setDurDots}
+@item dur-dots
+type: @code{(string_dot rational>0..128, string_dot rational>0..128, ...)}
+
+default value: @code{(. 1+1/2, ":" 1+3/4)}
+
+location: @code{score (initfile score)}
+
+A mapping from dot strings to duration multipliers.  Use this to customize the duration symbols used in a `.fms' file.  `dur-symbols', `dur-dots', 'dur-tie' and 'tuplet-symbols' together determine a full duration by concatenating and "tying" them together.  A multipler of 3/2, for example, indicates a typical dotted note modification, though other non-standard multipliers may be added.
+@anchor{setDurSymbols}
+@item dur-symbols
+type: @code{(string_symb rational>0..128, string_symb rational>0..128, ...)}
+
+default value: @code{(m 32, l 16, b 8, w 4, h 2, q 1, e 1/2, s 1/4, t 1/8, x 1/16)}
+
+location: @code{score (initfile score)}
+
+A mapping from duration symbols to duration values.  Use this to customize the duration symbols used in a `.fms' file.  `dur-symbols', `dur-dots', 'dur-tie' and 'tuplet-symbols' together determine a full duration by concatenating and "tying" them together.  Although the symbols might signify notated rhythms, they translate to fomus time values and not necessarily the rhythmic values that appear in the score.
+@anchor{setDurTie}
+@item dur-tie
+type: @code{(string_tie string_tie ...)}
+
+default value: @code{(+ _ ~)}
+
+location: @code{score (initfile score)}
+
+This string can be used to add or "tie" durations together.  Use this to customize the duration symbols used in a `.fms' file.  Complex durations may be constructed by attaching symbol/dut/tuplet constructs together with one of these strings.
+@anchor{setDynRange}
+@item dyn-range
+type: @code{(number number)}
+
+default value: @code{(0 1)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The range of dynamic input values for a note event.  Set this to a list of two numbers representing the minimum and maximum dynamic values expected in note events.  Dynamic values are scaled/translated to dynamic text markings by means of the setting `dynsym-range'.
+@anchor{setDynRepeat}
+@item dyn-repeat
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not to repeat dynamic symbols after a certain rest interval.  Set this to `yes' to help improve score readability.
+@anchor{setDynRepeatMaxrestdur}
+@item dyn-repeat-maxrestdur
+type: @code{rational>0}
+
+default value: @code{4}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The maximum rest duration allowed before a dynamic symbol is redundantly repeated.  Use this to adjust how FOMUS repeats dynamic symbols for improved readability.
+@anchor{setDynSticky}
+@item dyn-sticky
+type: @code{number0..1/2}
+
+default value: @code{1/3}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Affects how dynamic input values are translated into dynamic text symbols.  If `dyn-sticky' is set to 0, dynamic values in the range `mindyn' to `maxdyn' are scaled and translated directly to dynamic marking symbols (the input values are effectively quantized to the given range of symbols).  A potential problem is that if values often change close to the borders between neighboring dynamic symbols, then the score could end up containing dynamic symbols that fluctuate constantly.  Increasing `dyn-stick' to a value like 1/3 or 1/2 effectively increases the amount the dynamic level must change before FOMUS switches to another dynamic symbol.  For example, 1/3 means the dynamic level must move at least one-third of the way into a neighboring dynamic symbol's range before that symbol is displayed.
+@anchor{setDynWedge}
+@item dyn-wedge
+type: @code{number0..1/2}
+
+default value: @code{1/2}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The likelihood of a crescendo/diminuendo wedge being created between two dynamic markings when translating dynamic input values into text symbols.  Increase this value to increase the likelihood of inserting a crescendo/diminuendo wedge between dynamic markings.  For a span of notes to qualify for a wedge, the dynamic levels between them must gradually increase or decrease.  This setting designates the amount of error allowed when comparing the levels to a straight line between two beginning and ending values.  A value of 0 means no wedges are created.
+@anchor{setDynWedgeMaxrestdur}
+@item dyn-wedge-maxrestdur
+type: @code{rational>0}
+
+default value: @code{1/2}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+This is the maximum total rest duration that a wedge is allowed to pass through when creating crescendo/diminuendo wedges from dynamic input values.  Higher values decrease the possibility of wedges being inserted in passages containing rests.  Setting it to 0 prevents wedges from passing through rests at all.
+@anchor{setDynphraseBegin}
+@item dynphrase-begin
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not a dynamic symbol should appear at the beginning of a "dynamics phrase."  A dynamics phrase is calculated using `dynphrase-maxrestdur', `dynphrase-beginmarks' and `dynphrase-endmarks' for the purpose of placing dynamic marks at logical locations in the score.
+@anchor{setDynphraseBeginmarks}
+@item dynphrase-beginmarks
+type: @code{(string_mark string_mark ...)}
+
+default value: @code{()}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Marks that denote the beginning of a phrase calculated for the purpose of attaching dynamic symbols to the beginnings and ends of them.  Set this to influence how dynamics phrases are calculated.  Any mark whose id appears in this list is considered to be the beginning of a phrase.
+@anchor{setDynphraseEnd}
+@item dynphrase-end
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not a dynamic symbol should appear at the end of a "dynamics phrase."  A dynamics phrase is calculated using `dynphrase-maxrestdur', `dynphrase-beginmarks' and `dynphrase-endmarks' for the purpose of placing dynamic marks at logical locations in the score.
+@anchor{setDynphraseEndmarks}
+@item dynphrase-endmarks
+type: @code{(string_mark string_mark ...)}
+
+default value: @code{()}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Marks that denote the end of a phrase calculated for the purpose of attaching dynamic symbols to the beginnings and endings of them.  Set this to influence how dynamics phrases are calculated.  Any mark whose id appears in this list is considered to be the end of a phrase.
+@anchor{setDynphraseMaxrestdur}
+@item dynphrase-maxrestdur
+type: @code{rational>0}
+
+default value: @code{1/2}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The maximum rest duration allowed anywhere in a dynamics phrase, calculated for the purpose of attaching dynamic symbols to the beginnings and ends of them.  Adjust this setting to a value that makes sense for the type of music you are notating.  A rest duration larger than this value causes FOMUS to separate a musical passage into at least two phrases on either side of the rest.
+@anchor{setDyns}
+@item dyns
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not to translate dynamic input values into dynamic text markings.  Set this to `yes' if you want dynamic values that are entered along with other note event parameters to be converted to dynamic text symbols.
+@anchor{setDynsymRange}
+@item dynsym-range
+type: @code{(string_dynsym string_dynsym), string_dynsym = pppppp|ppppp|pppp|ppp|pp|p|mp|mf|f|ff|fff|ffff}
+
+default value: @code{(ppp ff)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The range of dynamic symbols that a dynamic input value translates to.  Set this to a list of two dynamic text symbols representing the minimum and maximum dynamic levels allowed in the score.  Options range from `pppppp' to `ffff'.
+@anchor{setExtralong8thbeams}
+@item extralong-8thbeams
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not to beam together groups of more than four eighth notes.  Set this to `yes' in measures or parts where you want extra-long eighth note beams.
+@anchor{setFilename}
+@item filename
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{score (initfile score)}
+
+Output path/filename.  The extension determines the type of file FOMUS outputs.  If this setting isn't specified, the default is the input base filename minus its extension plus any extensions listed in the `extensions' setting.
+@anchor{setFill}
+@item fill
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If set to true, specifies that the duration of a note extends to the onset of the next note in the same voice.  The duration parameter of the note is ignored and replaced with a new one.
+@anchor{setFinalBarline}
+@item final-barline
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{score (initfile score)}
+
+Whether or not to automatically add a final barline.  Set this at the global level to tell FOMUS whether or not to add one.
+@anchor{setFmsinTabchars}
+@item fmsin-tabchars
+type: @code{integer1..20}
+
+default value: @code{1}
+
+location: @code{score (initfile score)}
+
+Numbers of spaces occupied by a tab character (used to report correct column numbers in input file error messages).
+@anchor{setFromVoice}
+@item from-voice
+type: @code{integer1..128 | (integer1..128 integer1..128 ...)}
+
+default value: @code{()}
+
+location: @code{partmap (initfile score partmap)}
+
+Specifies the voice or voices that note events are copied from in a metapart.  Use in conjunction with `to-voice' to specify a complete distribution rule (i.e., note events must be moved from one voice or group of voices to another).  Can be a single voice or a list of voices.  If both `from-voice' and `to-voice' are lists, then the two lists must be the same size so that the "from" and "to" voices match.
+@anchor{setGraceSlurs}
+@item grace-slurs
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not to automatically slur grace notes.  Set this to `yes' if you want all grace notes to have slurs over them.
+@anchor{setGroupSingle}
+@item group-single
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{part (initfile score inst part)}
+
+Indicates whether or not an instrument or part can be the only one in a group with a bracket around it.  Set this to `yes' in an instrument or part to cause a bracket to always appear, even around a single part (that is, if the parts layout indicates that there should be a bracket).
+@anchor{setHarmsArtificialShow}
+@item harms-artificial-show
+type: @code{(string_show string_show ...), string_show = base|touched|sounding|circle}
+
+default value: @code{(base touched)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+This is a list of strings specifying which notes and symbols of an artificial harmonic are to appear in the score.  Set this to determine how artificial harmonics are notated.  The choices are `base', `touched' and `sounding' and `circle'.  `circle' places a harmonic symbol in the score above the note.
+@anchor{setHarmsMaxartificial}
+@item harms-maxartificial
+type: @code{rational>=3}
+
+default value: @code{5}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The maximum interval (in semitones) allowed between the base and touched pitches of an artificial harmonic.  Set this in the definition of a string instrument to the widest interval a player can be expected to stretch.  Instruments with longer strings might require a smaller value here.
+@anchor{setHarmsMin}
+@item harms-min
+type: @code{rational3..7}
+
+default value: @code{3}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The minimum interval (in semitones) allowed between the base and touched pitches of an artificial harmonic or the open string and touched pitches of a natural harmonic.  Set this to place a limit on how difficult the harmonic is to play.
+@anchor{setHarmsNaturalShow}
+@item harms-natural-show
+type: @code{(string_show string_show ...), string_show = string|touched|sounding|circle|stringtext}
+
+default value: @code{(sounding circle stringtext)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+This is a list of strings specifying which notes and symbols of an natural harmonic are to appear in the score.  Set this to determine how natural harmonics are notated.  The choices are `string', `touched' and `sounding', `circle' and `stringtext'.  `circle' places a harmonic symbol in the score above the note while `stringtext' inserts a "Sul" text mark with the proper string name.
+@anchor{setInitTempo}
+@item init-tempo
+type: @code{real>=0}
+
+default value: @code{0}
+
+location: @code{score (initfile score)}
+
+Together with `init-tempo-text' specifies a tempo mark to insert at the beginning of the score.  If this setting is set to anything other than 0, FOMUS adds tempo marks with this value to every part in the score at time 0.  Use this if you want to quickly add a tempo mark to the beginning of the score without defining a detached `mark' event.  See the documentation for `tempo' marks for an explanation of tempo values.
+@anchor{setInitTempoText}
+@item init-tempo-text
+type: @code{string}
+
+default value: @code{"* = #"}
+
+location: @code{score (initfile score)}
+
+Together with `init-tempo' specifies a tempo mark to insert at the beginning of the score.  FOMUS adds tempo marks with this string to every part in the score at time 0 (provided `init-tempo' is something other than 0).  Use this if you want to quickly add a tempo mark to the beginning of the score without defining a detached `mark' event.  See the documentation for `tempo' marks for an explanation of tempo text strings.
+@anchor{setInstDefs}
+@item inst-defs
+type: @code{(<inst-def> <inst-def> ...)}
+
+default value: @code{(<id a-clarinet, name "A Clarinet", min-pitch d-3, max-pitch f+6, transpose -3, staves <clefs <instclef treble>>, export <midiout-prog 71, midiout-artenv yes>> <id a-piccolo-trumpet, name "A Piccolo Trumpet", min-pitch b-3, max-pitch e6, transpose 9, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id accordion, name Accordion, min-pitch f2, max-pitch a7, staves <clefs <instclef treble>>, imports <midiin-prog (21 23)>, export <midiout-prog 21, midiout-artenv yes>> <id alto-choir, name "Alto Choir", min-pitch f+3, max-pitch f5, staves <clefs <instclef treble>>, export <midiout-prog 52, midiout-artenv yes>> <id alto-clarinet, name "Alto Clarinet", min-pitch g2, max-pitch f5, transpose -9, staves <clefs <instclef treble>>, export <midiout-prog 71, midiout-artenv yes>> <id alto-flute, name "Alto Flute", min-pitch g3, max-pitch d6, transpose -5, staves <clefs <instclef treble>>, export <midiout-prog 73, midiout-artenv yes>> <id alto-saxophone, name "Alto Saxophone", min-pitch d-3, max-pitch a-5, transpose -9, staves <clefs <instclef treble>>, imports <midiin-prog 65>, export <midiout-prog 65, midiout-artenv yes>> <id alto-trombone, name "Alto Trombone", min-pitch a2, max-pitch f5, staves <clefs <instclef alto>>, export <midiout-prog 57, midiout-artenv yes>> <id banjo, name Banjo, open-strings (67 50 55 59 62), min-pitch g4, max-pitch d5, staves <clefs <instclef bass>>, imports <midiin-prog 105>, export <midiout-prog 105>> <id baritone, name Baritone, min-pitch f+2, max-pitch g4, staves <clefs <instclef bass>>, export <midiout-prog 53, midiout-artenv yes>> <id baritone-oboe, name "Baritone Oboe", min-pitch b2, max-pitch f5, transpose -12, staves <clefs <instclef treble>>, export <midiout-prog 69, midiout-artenv yes>> <id baritone-saxophone, name "Baritone Saxophone", min-pitch d-2, max-pitch a-4, transpose -21, staves <clefs <instclef treble>>, imports <midiin-prog 67>, export <midiout-prog 67, midiout-artenv yes>> <id baritone-tuba, name Baritone, min-pitch e2, max-pitch b-4, staves <clefs <instclef bass>>, export <midiout-prog 58, midiout-artenv yes>> <id bass, name Bass, min-pitch b-1, max-pitch f4, staves <clefs <instclef bass>>, export <midiout-prog 53, midiout-artenv yes>> <id bass-choir, name "Bass Choir", min-pitch e2, max-pitch d4, staves <clefs <instclef bass>>, export <midiout-prog 53, midiout-artenv yes>> <id bass-clarinet, name "Bass Clarinet", min-pitch d-2, max-pitch c5, transpose -14, staves <clefs <instclef treble>>, export <midiout-prog 71, midiout-artenv yes>> <id bass-flute, name "Bass Flute", min-pitch c3, max-pitch g5, transpose -12, staves <clefs <instclef treble>>, export <midiout-prog 73, midiout-artenv yes>> <id bass-guitar, name "Bass Guitar", open-strings (28 33 38 43), min-pitch e1, max-pitch c4, transpose -12, staves <clefs <instclef bass>>, imports <midiin-prog (32 33 34 35 36 37 38 39)>, export <midiout-prog 32>> <id bass-saxophone, name "Bass Saxophone", min-pitch a-1, max-pitch e-4, transpose -26, staves <clefs <instclef treble>>, export <midiout-prog 67, midiout-artenv yes>> <id bass-trombone, name "Bass Trombone", min-pitch c2, max-pitch b4, staves <clefs (<instclef bass, octs-up 0> <instclef tenor, octs-down 0>)>, export <midiout-prog 57, midiout-artenv yes>> <id basset-horn, name "Basset Horn", min-pitch f2, max-pitch c6, transpose -7, staves <clefs <instclef treble>>, export <midiout-prog 71, midiout-artenv yes>> <id bassoon, name Bassoon, min-pitch b-1, max-pitch c5, staves <clefs (<instclef bass, octs-up 0> <instclef tenor, octs-down 0>)>, imports <midiin-prog 70>, export <midiout-prog 70, midiout-artenv yes>> <id bflat-bass-trumpet, name "B-flat Bass Trumpet", min-pitch e1, max-pitch b-3, transpose -26, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id bflat-clarinet, name "B-flat Clarinet", min-pitch d3, max-pitch g6, transpose -2, staves <clefs <instclef treble>>, imports <midiin-prog 71>, export <midiout-prog 71, midiout-artenv yes>> <id bflat-cornet, name "B-flat Cornet", min-pitch e3, max-pitch b-5, transpose -2, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id bflat-piccolo-trumpet, name "B-flat Piccolo Trumpet", min-pitch b3, max-pitch f6, transpose 10, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id bflat-trumpet, name "B-flat Trumpet", min-pitch e3, max-pitch b-5, transpose -2, staves <clefs <instclef treble>>, imports <midiin-prog (56 59)>, export <midiout-prog 56, midiout-artenv yes>> <id bflat-wagner-tuba, name "B-flat Wagner Tuba", min-pitch e2, max-pitch f5, transpose -2, staves <clefs (<instclef bass, octs-up 0, octs-down 0> <instclef treble, octs-down 0>)>, export <midiout-prog 60, midiout-artenv yes>> <id c-trumpet, name "C Trumpet", min-pitch e3, max-pitch c6, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id celesta, name Celesta, min-pitch c4, max-pitch e8, transpose 12, vertmax 5, staves <clefs (<instclef treble, octs-down 0> <instclef bass, octs-up 0>)>, imports <midiin-prog 8>, export <midiout-prog 8>> <id cello, name Cello, open-strings (36 43 50 57), min-pitch c2, max-pitch c6, staves <clefs (<instclef bass, octs-up 0> <instclef treble, octs-down 0> <instclef tenor, octs-up 0, octs-down 0>)>, imports <midiin-prog 42>, export <midiout-prog 42, midiout-progchanges (arco* 40, pizz*- 45), midiout-artenv yes>> <id chimes, name Chimes, min-pitch c4, max-pitch f5, staves <clefs <instclef treble>>, imports <midiin-prog 14>, export <midiout-prog 14>> <id contra-alto-clarinet, name "Contra Alto Clarinet", min-pitch f+1, max-pitch f4, transpose -21, staves <clefs <instclef treble>>, export <midiout-prog 71, midiout-artenv yes>> <id contrabass, name Contrabass, open-strings (28 33 38 43), min-pitch e1, max-pitch g4, transpose -12, staves <clefs (<instclef bass, octs-up 0> <instclef tenor, octs-down 0>)>, imports <midiin-prog 43>, export <midiout-prog 43, midiout-progchanges (arco* 40, pizz*- 45), midiout-artenv yes>> <id contrabass-clarinet, name "Contrabass Clarinet", min-pitch b-0, max-pitch c4, transpose -26, staves <clefs <instclef treble>>, export <midiout-prog 71, midiout-artenv yes>> <id contrabass-saxophone, name "Contrabass Saxophone", min-pitch d-1, max-pitch a-3, transpose -33, staves <clefs <instclef treble>>, export <midiout-prog 67, midiout-artenv yes>> <id contrabass-trombone, name "Contrabass Trombone", min-pitch e1, max-pitch b-3, staves <clefs <instclef bass>>, export <midiout-prog 57, midiout-artenv yes>> <id contrabassoon, name Contrabassoon, min-pitch b-0, max-pitch a3, transpose -12, staves <clefs (<instclef bass, octs-up 0> <instclef tenor, octs-down 0>)>, export <midiout-prog 70, midiout-artenv yes>> <id contralto, name Contralto, min-pitch f3, max-pitch f+5, staves <clefs <instclef treble>>, export <midiout-prog 52, midiout-artenv yes>> <id d-clarinet, name "D Clarinet", min-pitch f+3, max-pitch a6, transpose 2, staves <clefs <instclef treble>>, export <midiout-prog 71, midiout-artenv yes>> <id d-trumpet, name "D Trumpet", min-pitch a-3, max-pitch d6, transpose 2, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id default, staves (<clefs (<instclef treble, octs-down 0, ledgers-down 2> <instclef bass, octs-up 0, ledgers-up 2, clef-preference 2/3>)> <clefs (<instclef bass, octs-up 0, ledgers-up 2> <instclef treble, octs-down 0, ledgers-down 2, clef-preference 2/3>)>)> <id eflat-alto-horn, name "E-flat Alto Horn", min-pitch c2, max-pitch f+4, transpose -9, staves <clefs <instclef treble>>, export <midiout-prog 60, midiout-artenv yes>> <id eflat-bass-trumpet, name "E-flat Bass Trumpet", min-pitch a1, max-pitch e-4, transpose -26, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id eflat-clarinet, name "E-flat Clarinet", min-pitch g3, max-pitch b-6, transpose 3, staves <clefs <instclef treble>>, export <midiout-prog 71, midiout-artenv yes>> <id eflat-cornet, name "E-flat Cornet", min-pitch a3, max-pitch e-6, transpose 3, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id eflat-trumpet, name "E-flat Trumpet", min-pitch a3, max-pitch e-6, transpose 3, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id electric-piano, name "Electric Piano", min-pitch a0, max-pitch c8, vertmax 5, staves (<clefs (<instclef treble, octs-down 0, ledgers-down 2> <instclef bass, octs-up 0, ledgers-up 2, clef-preference 2/3>)> <clefs (<instclef bass, octs-up 0, ledgers-up 2> <instclef treble, octs-down 0, ledgers-down 2, clef-preference 2/3>)>), imports <midiin-prog (4 5 7 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95)>, export <midiout-prog 4>> <id english-horn, name "English Horn", min-pitch e3, max-pitch b-5, transpose -7, staves <clefs <instclef treble>>, imports <midiin-prog 69>, export <midiout-prog 69, midiout-artenv yes>> <id euphonium, name Euphonium, min-pitch e2, max-pitch b-4, staves <clefs <instclef bass>>, export <midiout-prog 58, midiout-artenv yes>> <id f-alto-horn, name "F Alto Horn", min-pitch d2, max-pitch a-4, transpose -7, staves <clefs <instclef treble>>, export <midiout-prog 60, midiout-artenv yes>> <id f-wagner-tuba, name "F Wagner Tuba", min-pitch b1, max-pitch f5, transpose -7, staves <clefs (<instclef bass, octs-up 0> <instclef treble, octs-down 0>)>, export <midiout-prog 60, midiout-artenv yes>> <id flugelhorn, name Flugelhorn, min-pitch e3, max-pitch b-5, transpose -2, staves <clefs <instclef treble>>, export <midiout-prog 56, midiout-artenv yes>> <id flute, name Flute, min-pitch c4, max-pitch c7, staves <clefs <instclef treble>>, imports <midiin-prog 73>, export <midiout-prog 73, midiout-artenv yes>> <id glockenspiel, name Glockenspiel, min-pitch g5, max-pitch c8, transpose 24, vertmax 2, staves <clefs <instclef treble>>, imports <midiin-prog 9>, export <midiout-prog 9>> <id guitar, name Guitar, open-strings (40 45 50 55 59 64), min-pitch e2, max-pitch b5, transpose -12, staves <clefs <instclef treble>>, imports <midiin-prog (24 25 26 27 28 29 30 31)>, export <midiout-prog 24>> <id harmonica, name Harmonica, min-pitch e1, max-pitch g7, staves <clefs (<instclef treble, octs-down 0> <instclef bass, octs-up 0>)>, imports <midiin-prog 22>, export <midiout-prog 22, midiout-artenv yes>> <id harmonium, name Harmonium, min-pitch f1, max-pitch f6, vertmax 5, staves (<clefs (<instclef treble, octs-down 0, ledgers-down 2> <instclef bass, octs-up 0, ledgers-up 2, clef-preference 2/3>)> <clefs (<instclef bass, octs-up 0, ledgers-up 2> <instclef treble, octs-down 0, ledgers-down 2, clef-preference 2/3>)>), imports <midiin-prog (16 17 18 20)>, export <midiout-prog 16>> <id harp, name Harp, min-pitch a-0, max-pitch a-7, vertmax 5, staves (<clefs (<instclef treble, octs-down 0, ledgers-down 2> <instclef bass, octs-up 0, ledgers-up 2, clef-preference 2/3>)> <clefs (<instclef bass, octs-up 0, ledgers-up 2> <instclef treble, octs-down 0, ledgers-down 2, clef-preference 2/3>)>), imports <midiin-prog 46>, export <midiout-prog 46>> <id harpsichord, name Harpsichord, min-pitch f1, max-pitch f6, staves (<clefs (<instclef treble, octs-down 0, ledgers-down 2> <instclef bass, octs-up 0, ledgers-up 2, clef-preference 2/3>)> <clefs (<instclef bass, octs-up 0, ledgers-up 2> <instclef treble, octs-down 0, ledgers-down 2, clef-preference 2/3>)>), imports <midiin-prog 6>, export <midiout-prog 6>> <id heckelphone, name Heckelphone, min-pitch a2, max-pitch f5, transpose -12, staves <clefs <instclef treble>>, export <midiout-prog 69, midiout-artenv yes>> <id horn, name Horn, min-pitch b1, max-pitch f5, transpose -7, staves <clefs (<instclef treble, octs-up 0> <instclef bass, octs-down 0>)>, imports <midiin-prog 60>, export <midiout-prog 60, midiout-artenv yes>> <id mandolin, name Mandolin, open-strings (55 55 62 62 69 69 74 74), min-pitch g3, max-pitch d-6, staves <clefs <instclef treble>>, export <midiout-prog 24>> <id marimba, name Marimba, min-pitch a2, max-pitch c7, vertmax 2, staves <clefs (<instclef treble, octs-down 0> <instclef bass, octs-up 0>)>, imports <midiin-prog 12>, export <midiout-prog 12>> <id mezzo-soprano, name "Mezzo Soprano", min-pitch g3, max-pitch b-5, staves <clefs <instclef treble>>, export <midiout-prog 52, midiout-artenv yes>> <id oboe, name Oboe, min-pitch b-3, max-pitch g6, staves <clefs <instclef treble>>, imports <midiin-prog 68>, export <midiout-prog 68, midiout-artenv yes>> <id oboe-damore, name "Oboe D'amore", min-pitch a-3, max-pitch d6, transpose -3, staves <clefs <instclef treble>>, export <midiout-prog 86, midiout-artenv yes>> <id organ-manuals, name "Organ Manuals", min-pitch c2, max-pitch c7, staves (<clefs (<instclef treble, octs-down 0, ledgers-down 2> <instclef bass, octs-up 0, ledgers-up 2, clef-preference 2/3>)> <clefs (<instclef bass, octs-up 0, ledgers-up 2> <instclef treble, octs-down 0, ledgers-down 2, clef-preference 2/3>)>), imports <midiin-prog 19>, export <midiout-prog 19>> <id organ-pedals, name "Organ Pedals", min-pitch c2, max-pitch g4, staves <clefs <instclef bass>>, export <midiout-prog 19>> <id percussion, name Percussion, staves <clefs <instclef percussion, octs-up 0, octs-down 0>>> <id piano, name Piano, min-pitch a0, max-pitch c8, vertmax 5, staves (<clefs (<instclef treble, octs-down 0, ledgers-down 2> <instclef bass, octs-up 0, ledgers-up 2, clef-preference 2/3>)> <clefs (<instclef bass, octs-up 0, ledgers-up 2> <instclef treble, octs-down 0, ledgers-down 2, clef-preference 2/3>)>), imports <midiin-prog (0 1 2 3)>, export <midiout-prog 0>> <id piccolo, name Piccolo, min-pitch d5, max-pitch c8, transpose 12, staves <clefs <instclef treble>>, imports <midiin-prog 72>, export <midiout-prog 72, midiout-artenv yes>> <id sopranino-saxophone, name "Sopranino Saxophone", min-pitch d-4, max-pitch f+6, transpose 3, staves <clefs <instclef treble>>, export <midiout-prog 64, midiout-artenv yes>> <id soprano, name Soprano, min-pitch a-3, max-pitch e-6, staves <clefs <instclef treble>>, export <midiout-prog 52, midiout-artenv yes>> <id soprano-choir, name "Soprano Choir", min-pitch c4, max-pitch a5, staves <clefs <instclef treble>>, export <midiout-prog 52, midiout-artenv yes>> <id soprano-saxophone, name "Soprano Saxophone", min-pitch a-3, max-pitch d-6, transpose -2, staves <clefs <instclef treble>>, imports <midiin-prog 64>, export <midiout-prog 64, midiout-artenv yes>> <id tenor, name Tenor, min-pitch g3, max-pitch f+5, staves <clefs <instclef treble>>, export <midiout-prog 53, midiout-artenv yes>> <id tenor-8down, name Tenor, min-pitch c4, max-pitch c6, staves <clefs <instclef treble>>, export <midiout-prog 53, midiout-artenv yes>> <id tenor-choir, name "Tenor Choir", min-pitch c3, max-pitch a4, staves <clefs <instclef treble>>, export <midiout-prog 53, midiout-artenv yes>> <id tenor-saxophone, name "Tenor Saxophone", min-pitch a-2, max-pitch e-5, transpose -14, staves <clefs <instclef treble>>, imports <midiin-prog 66>, export <midiout-prog 66, midiout-artenv yes>> <id tenor-trombone, name "Tenor Trombone", min-pitch e2, max-pitch c5, staves <clefs (<instclef bass, octs-up 0> <instclef tenor, octs-down 0>)>, imports <midiin-prog 57>, export <midiout-prog 57, midiout-artenv yes>> <id timpani, name Timpani, min-pitch d2, max-pitch c4, staves <clefs <instclef bass>>, imports <midiin-prog 47>, export <midiout-prog 47>> <id troubadour-harp, name "Troubadour Harp", min-pitch c2, max-pitch a-6, vertmax 5, staves (<clefs (<instclef treble, octs-down 0, ledgers-down 2> <instclef bass, octs-up 0, ledgers-up 2, clef-preference 2/3>)> <clefs (<instclef bass, octs-up 0, ledgers-up 2> <instclef treble, octs-down 0, ledgers-down 2, clef-preference 2/3>)>), export <midiout-prog 46>> <id tuba, name Tuba, min-pitch d1, max-pitch g4, staves <clefs <instclef bass>>, imports <midiin-prog 58>, export <midiout-prog 58, midiout-artenv yes>> <id ukulele, name Ukulele, open-strings (67 60 64 69), min-pitch c4, max-pitch a5, staves <clefs <instclef treble>>, export <midiout-prog 24>> <id vibraphone, name Vibraphone, min-pitch f3, max-pitch f6, vertmax 2, staves <clefs <instclef treble>>, imports <midiin-prog 11>, export <midiout-prog 11>> <id viola, name Viola, open-strings (48 55 62 69), min-pitch c3, max-pitch a6, staves <clefs (<instclef alto, octs-up 0> <instclef treble, octs-down 0>)>, imports <midiin-prog 41>, export <midiout-prog 41, midiout-progchanges (arco* 40, pizz*- 45), midiout-artenv yes>> <id violin, name Violin, open-strings (55 62 69 76), min-pitch g3, max-pitch g7, staves <clefs <instclef treble>>, imports <midiin-prog (40 110)>, export <midiout-prog 40, midiout-progchanges (arco* 40, pizz*- 45), midiout-artenv yes>> <id xylophone, name Xylophone, min-pitch a4, max-pitch c8, transpose 12, vertmax 2, staves <clefs <instclef treble>>, imports <midiin-prog 13>, export <midiout-prog 13>>)}
+
+location: @code{score (initfile score)}
+
+This setting is FOMUS's instrument library.  It's a list of default instruments to choose from (or use as templates for new ones).  The base list is defined in the `fomus.conf' file installed with FOMUS, though you can append new definitions in your own `.fomus' file.  Although it is possible, this should not be used in a `.fms' file or when defining instruments in a score.
+@anchor{setInstclef}
+@item instclef
+type: @code{subbass-8down|bass-8down|c-baritone-8down|f-baritone-8down|tenor-8down|subbass|alto-8down|bass|mezzosoprano-8down|c-baritone|f-baritone|soprano-8down|tenor|subbass-8up|treble-8down|alto|bass-8up|mezzosoprano|c-baritone-8up|f-baritone-8up|soprano|tenor-8up|treble|alto-8up|mezzosoprano-8up|soprano-8up|treble-8up|percussion}
+
+default value: @code{treble}
+
+location: @code{clef (initfile score inst part staff clef)}
+
+A clef signature (used for instrument/part definitions and placed inside a clef object to specify what clef signature the object represents).  A clef object should always contain at least this setting.
+@anchor{setKeysig}
+@item keysig
+type: @code{string_keysig}
+
+default value: @code{cmaj}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+A key signature, specified as a string such as "amin" or "bfmaj".  Use this to change the key when defining a measure or measure definition in a score.  The value must be one that is defined in `keysig-defs'.
+@anchor{setKeysigDef}
+@item keysig-def
+type: @code{(string_note/acc string_note/acc ...)}
+
+default value: @code{()}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+A custom key signature definition that overrides the value of `keysig' when used.  Use this instead of `keysig' when you want to specify a key signature that isn't defined in `keysig-defs'.  See `keysig-defs' to see how to define a key signature.
+@anchor{setKeysigDefs}
+@item keysig-defs
+type: @code{(string_keysig (string_note/acc string_note/acc ...), string_keysig (string_note/acc string_note/acc ...), ...)}
+
+default value: @code{(a+min (f+ c+ g+ d+ a+ e+ b+), a-maj (b- e- a- d-), a-min (b- e- a- d- g- c- f-), amaj (f+ c+ g+), amin (), b-maj (b- e-), b-min (b- e- a- d- g-), bmaj (f+ c+ g+ d+ a+), bmin (f+ c+), c+maj (f+ c+ g+ d+ a+ e+ b+), c+min (f+ c+ g+ d+), c-maj (b- e- a- d- g- c- f-), cmaj (), cmin (b- e- a-), d+min (f+ c+ g+ d+ a+ e+), d-maj (b- e- a- d- g-), dmaj (f+ c+), dmin b-, e-maj (b- e- a-), e-min (b- e- a- d- g- c-), emaj (f+ c+ g+ d+), emin f+, f+maj (f+ c+ g+ d+ a+ e+), f+min (f+ c+ g+), fmaj b-, fmin (b- e- a- d-), g+min (f+ c+ g+ d+ a+), g-maj (b- e- a- d- g- c-), gmaj f+, gmin (b- e-))}
+
+location: @code{score (initfile score)}
+
+Defines a mapping from strings to key signature definitions.  A key signature definition is a list of strings each containing a base note name and accidental (e.g., `e-', `f+', etc.).  Microtonal keysignatures are possible, though not all backends support this.  If octaves are specified (e.g., `c4'), these are interpreted as individual exceptions.  If a key signature is also to be interpreted as a major or minor mode, the identifying string must have a suffix that appears in `keysig-major-symbol' or `keysig-minor-symbol'.
+@anchor{setKeysigMajorSymbol}
+@item keysig-major-symbol
+type: @code{string_majsfx | (string_majsfx string_majsfx ...)}
+
+default value: @code{maj}
+
+location: @code{score (initfile score)}
+
+A string or list of suffixes that indicate the name of a major scale.  For example, if you include the string "maj" on this list then any scale in `keysig-defs' with an identifier ending in "maj" is interpretted as a major scale.
+@anchor{setKeysigMinorSymbol}
+@item keysig-minor-symbol
+type: @code{string_minsfx | (string_minsfx string_minsfx ...)}
+
+default value: @code{min}
+
+location: @code{score (initfile score)}
+
+A string or list of suffixes that indicate the name of a minor scale.  For example, if you include the string "min" on this list then any scale in `keysig-defs' with an identifier ending in "min" is interpretted as a minor scale.
+@anchor{setLargeTupletRatiotype}
+@item large-tuplet-ratiotype
+type: @code{pow2|diffsmall|difflarge|rat1small|rat1large}
+
+default value: @code{pow2}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The rule used to calculate tuplet ratios when they are "large."  What a large tuplet is is determined by `large-tuplet-size'.  Use this setting to break the "power of two" rule and avoid unintuitive tuplet ratios (like 31:16 instead of 31:32).  `pow2' indicates that the proper "power of two" rule be used where the denominator of the tuplet equals the highest power of two less than the numerator.  `diffsmall' indicates using a rule that the numerator be as close as possible to the denominator (using a smaller tuplet value if there happens to be a tie) while `difflarge' does the same, using the larger tuplet value if there is a tie.  `rat1small' indicates that the ratio be as close as possible to 1 while `rat1large' does the same, choosing the larger tuplet value if there happens to be a tie.
+@anchor{setLargeTupletSize}
+@item large-tuplet-size
+type: @code{integer>=0}
+
+default value: @code{8}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+When the numerator of a tuplet is at least this value, the tuplet is considered to be "large."  You can specifiy that large tuplets be treated specially when calculating the tuplet ratio.  Specify the type of special treatment you want with the `large-tuplet-ratiotype' setting.
+@anchor{setLayout}
+@item layout
+type: @code{string}
+
+default value: @code{default}
+
+location: @code{score (initfile score)}
+
+A string identifying a part layout.  Set this to affect how parts are ordered and grouped in the score.  The value of this setting must be the ID of one of the part layouts defined in `layout-defs'.
+@anchor{setLayoutDef}
+@item layout-def
+type: @code{(string string ...)}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+A single part layout definition.  Set this to define a layout and override the `layout' setting.  Part layout definitions inform FOMUS on how to order and group the parts in a score.  It consists of a list of instrument IDs specified in the order that they should appear in the score.  "[" and "]" strings should surround instruments that are grouped together (i.e., with a bracket) and can be nested to any depth.  "@{" and "@}" are used to group instruments with a brace (usually this isn't needed--parts with multiple staves automatically get a brace).  "<"  and ">" are used for groups that aren't connected with a vertical bar line at each measure boundary.  A "*" before a top-level group (i.e., before a family of instruments such as woodwinds or strings) indicates a location where system-wide markings such as Tempo should appear.
+@anchor{setLayoutDefs}
+@item layout-defs
+type: @code{(string (string string ...), string (string string ...) ...)}
+
+default value: @code{(orchestra ([ [ piccolo flute alto-flute bass-flute ] [ oboe oboe-damore english-horn baritone-oboe heckelphone ] [ eflat-clarinet d-clarinet bflat-clarinet a-clarinet alto-clarinet basset-horn bass-clarinet contra-alto-clarinet contrabass-clarinet ] [ sopranino-saxophone soprano-saxophone alto-saxophone tenor-saxophone baritone-saxophone bass-saxophone contrabass-saxophone ] [ bassoon contrabassoon ] ] * [ [ f-alto-horn eflat-alto-horn horn bflat-wagner-tuba f-wagner-tuba ] [ eflat-cornet bflat-cornet bflat-piccolo-trumpet a-piccolo-trumpet eflat-trumpet d-trumpet c-trumpet bflat-trumpet flugelhorn eflat-bass-trumpet bflat-bass-trumpet ] [ alto-trombone tenor-trombone bass-trombone contrabass-trombone ] [ baritone-tuba euphonium tuba ] ] * timpani percussion glockenspiel xylophone vibraphone marimba chimes celesta troubadour-harp harp piano electric-piano harpsichord harmonium [ organ-manuals organ-pedals ] accordion harmonica ukulele mandolin guitar bass-guitar * soprano mezzo-soprano contralto tenor tenor-8down baritone bass < soprano-choir alto-choir tenor-choir bass-choir > * [ [ violin ] [ viola ] [ cello ] [ contrabass ] ]), small-ensemble ([ piccolo ] [ sopranino-saxophone ] [ flute ] [ ukulele ] [ bflat-piccolo-trumpet ] [ oboe ] [ a-piccolo-trumpet ] [ eflat-cornet ] [ eflat-trumpet ] [ oboe-damore ] [ soprano-saxophone ] [ d-trumpet ] [ alto-flute ] [ eflat-clarinet ] [ mandolin ] [ violin ] [ d-clarinet ] [ english-horn ] [ bflat-cornet ] [ c-trumpet ] [ bflat-trumpet ] [ flugelhorn ] [ bflat-clarinet ] [ a-clarinet ] [ alto-saxophone ] [ bass-flute ] [ viola ] [ baritone-oboe ] [ heckelphone ] [ alto-trombone ] [ tenor-saxophone ] [ alto-clarinet ] [ basset-horn ] [ accordion ] [ bflat-wagner-tuba ] [ tenor-trombone ] [ euphonium ] [ baritone-tuba ] [ guitar ] [ f-alto-horn ] [ bass-clarinet ] [ baritone-saxophone ] [ eflat-alto-horn ] [ bass-trombone ] [ cello ] [ horn ] [ f-wagner-tuba ] [ bassoon ] [ eflat-bass-trumpet ] [ bass-saxophone ] [ contra-alto-clarinet ] [ bflat-bass-trumpet ] [ contrabass-trombone ] [ harmonica ] [ bass-guitar ] [ contrabass ] [ tuba ] [ contrabass-saxophone ] [ contrabass-clarinet ] [ contrabassoon ] [ timpani ] [ percussion ] [ glockenspiel ] [ xylophone ] [ vibraphone ] [ marimba ] [ chimes ] [ celesta ] * < soprano mezzo-soprano contralto tenor tenor-8down baritone bass > < soprano-choir alto-choir tenor-choir bass-choir > troubadour-harp harp piano electric-piano harpsichord harmonium [ organ-manuals organ-pedals ]))}
+
+location: @code{score (initfile score)}
+
+A mapping from ids to part layout definitions.  Layout definitions inform FOMUS on how to order and group the parts in a score.  Each one consists of instrument IDs specified in the order that they should appear in the score.  "[" and "]" strings should surround instruments that are grouped together (i.e., with a bracket) and can be nested to any depth.  "@{" and "@}" are used to group instruments with a brace (usually this isn't needed--parts with multiple staves automatically get a brace).  "<"  and ">" are used for groups that aren't connected with a vertical bar line at each measure boundary.  A "*" before a top-level group (i.e., before a family of instruments such as woodwinds or strings) indicates a location where system-wide markings such as Tempo should appear.  Layout definitions should contain any instruments that you might use--instruments that appear in the definition but aren't in a score are ignored.  A good place to alter this setting is in your `.fomus' configuration file.  To define a layout specifically for a score, use `layout-def' instead.
+@anchor{setLedgersDown}
+@item ledgers-down
+type: @code{integer>=0}
+
+default value: @code{3}
+
+location: @code{clef (initfile score inst part staff clef)}
+
+Number of ledger lines generally allowed below the staff before a clef, staff or octave sign occurs.  Increasing this increases the number of ledger lines used and decreases the number of octave signs below the staff.
+@anchor{setLedgersUp}
+@item ledgers-up
+type: @code{integer>=0}
+
+default value: @code{3}
+
+location: @code{clef (initfile score inst part staff clef)}
+
+Number of ledger lines generally allowed above the staff before a clef, staff or octave sign occurs.  Increasing this increases the number of ledger lines generally used and decreases the number of octave signs above the staff.
+@anchor{setLeft}
+@item left
+type: @code{touch|overlap|include}
+
+default value: @code{overlap}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Determines along with `right' how the time of a mark event matches against note events to determine which ones receive the marks.  Choices are `touch', `overlap' and `include'.  `touch' specifies that the end time of a note event be greater or equal to the mark event's time to match (the note need only touch the mark event to receive the marks).  `overlap' specifies that the end time of a note event be greater than the mark event's time (the note must overlap with the mark event to receive the marks).  `include' specifies that the time of a note event be greater or equal to to the mark event's time (the note must be completely within the mark event to receive the marks).
+@anchor{setLeftBarline}
+@item left-barline
+type: @code{string_barline}
+
+default value: @code{""}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The barline that appears to the left of the first measure that contains this setting.  Possible values are `' or `!' (normal barline), `!!' (double barline), `|!' (initial barline), `!|' (final bareline), `:' (dotted), `;' (dashed), `|:' (repeat right), `:|:' (repeat left and right), `:|' (repeat left).
+@anchor{setLilyAccidentals}
+@item lily-accidentals
+type: @code{(string_acc string_acc string_acc string_acc string_acc string_acc string_acc string_acc string_acc string_acc string_acc)}
+
+default value: @code{(eses eseh es eh eh "" ih ih is isih isis)}
+
+location: @code{score (initfile score)}
+
+A list of accidental symbols to be used.  It should contain eleven strings corresponding to quartertones ranging from a wholetone flat to a wholetone sharp.  The expected semitone accidental adjustments are: -2, -1-1/2, -1, -1+1/2, -1/2, 0, +1/2, +1-1/2, +1, +1+1/2 and 2.  By using this together with `lily-file-topheader' and `lily-notenames' it is possible to import language settings (e..g, with a statement like `\include "english.ly"') and change how accidentals are displayed and interpreted.
+@anchor{setLilyAutoaccs}
+@item lily-autoaccs
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{score (initfile score)}
+
+Determines whether or not to let LilyPond handle note accidentals.  Setting this to an empty string lets FOMUS write all accidentals explicitly into the output file.  Setting this to anything else tells FOMUS not to handle note accidentals and indicates which style LilyPond should use (see "Automatic Accidentals" in the LilyPond manual).
+@anchor{setLilyAutobeams}
+@item lily-autobeams
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{score (initfile score)}
+
+Determines whether or not to let LilyPond handle all of the beaming.  Setting this to `no' lets FOMUS write all beam information explicitly into the output file, properly reflecting any measure division choices that were made.
+@anchor{setLilyExeArgs}
+@item lily-exe-args
+type: @code{(string string ...)}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+A list of extra arguments to be passed to the LilyPond executable set in `lily-exe-path'.  Each string is a separate command line argument.  In addition, FOMUS adds the input filename and an `-o' argument specifying the output file path.  If you pass options to change the type of file that LilyPond outputs, make sure you also change `lily-view-extension' accordingly.
+@anchor{setLilyExePath}
+@item lily-exe-path
+type: @code{string}
+
+default value: @code{lilypond}
+
+location: @code{score (initfile score)}
+
+Path to the LilyPond command line executable.  If this is specified, FOMUS automatically executes LilyPond to process the output `.ly' file into a `.pdf' file.  If LilyPond is in your path then only the executable filename is necessary.  Set this to an empty string to prevent FOMUS from invoking LilyPond automatically.
+@anchor{setLilyExtraMacros}
+@item lily-extra-macros
+type: @code{(string string, string string, ...)}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+Mapping from macro names to definitions.  These are inserted as macro definitions in a special section at the top of a LilyPond output file.  They are then there for your convenience if you go on to edit the LilyPond file itself.
+@anchor{setLilyFileHeader}
+@item lily-file-header
+type: @code{(string string ...)}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+List of strings to be inserted into the top of a LilyPond output file, after the macro section.  Each string in the list represents a newline-separated line of text.  Use this to insert your own custom LilyPond code into the output file.
+@anchor{setLilyFileTopheader}
+@item lily-file-topheader
+type: @code{(string string ...)}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+List of strings to be inserted into the top of a LilyPond output file before anything else.  Each string in the list represents a newline-separated line of text.  Use this to insert your own custom LilyPond code into the output file.
+@anchor{setLilyFileWidth}
+@item lily-file-width
+type: @code{integer>=79}
+
+default value: @code{119}
+
+location: @code{score (initfile score)}
+
+The number of characters allowed per line in a LilyPond output file.  Used to wrap long lines into a more readable format.
+@anchor{setLilyIndent}
+@item lily-indent
+type: @code{integer>=0}
+
+default value: @code{2}
+
+location: @code{score (initfile score)}
+
+Number of spaces used for indentation in a LilyPond output file.
+@anchor{setLilyInsert}
+@item lily-insert
+type: @code{(string string ...)}
+
+default value: @code{()}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Extra text to insert immediately before or after a note in a LilyPond output file.  Strings are appended in the order that they appear in the list.  Optional prefix characters determine where the text is placed relative to the note text: `<' specifies before when the note is untied to the left, `>' specifies after when the note is untied to the right, `<~' specifies before when the note is tied to the left, `>~' specifies after when the note is tied to the right, `<<' specifies before when the note is inside a chord, and `>>' specifies after when the note is inside a chord.  `>' is assumed if no prefix is given.  If the inserted text must be separate from the note text, you must append a space to the beginning or end of the string.
+@anchor{setLilyLandscape}
+@item lily-landscape
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{score (initfile score)}
+
+Specifies whether the paper orientation should be "landscape" rather than "portrait."  Set this to `yes' to specify landscape paper orientation in a LilyPond output file using LilyPond's `set-default-paper-size' function.
+@anchor{setLilyMacroBeam}
+@item lily-macro-beam
+type: @code{string}
+
+default value: @code{b}
+
+location: @code{score (initfile score)}
+
+Whether or not to replace `\set stemLeftBeamCount = ...' with a more concise macro in a LilyPond output file.  If set to an empty string, no macro is used.  If a string is given, sets the base name of a series of macros (e.g., "beam" creates macros with the names `\beamLi', `\beamRi', `\beamRii', etc..).
+@anchor{setLilyMacroFffz}
+@item lily-macro-fffz
+type: @code{string}
+
+default value: @code{fffz}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `fffz' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroFfz}
+@item lily-macro-ffz
+type: @code{string}
+
+default value: @code{ffz}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `ffz' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroFzp}
+@item lily-macro-fzp
+type: @code{string}
+
+default value: @code{fzp}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `fzp' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroGraceslash}
+@item lily-macro-graceslash
+type: @code{string}
+
+default value: @code{slash}
+
+location: @code{score (initfile score)}
+
+The name of the macro that contains an override command that changes the "stroke style" of a grace note.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroItalictextspan}
+@item lily-macro-italictextspan
+type: @code{string}
+
+default value: @code{italtextspan}
+
+location: @code{score (initfile score)}
+
+Whether or not to replace `\once \override TextSpanner #'(bound-details left text) = ...' with a more concise macro in a LilyPond output file.  This is for texts that usually appear in italics (i.e., created with the `x/' mark).  If set to an empty string, no macro is used and the command is written out every time.  Otherwise, sets the name of the macro.
+@anchor{setLilyMacroPedalbracket}
+@item lily-macro-pedalbracket
+type: @code{string}
+
+default value: @code{pedbracket}
+
+location: @code{score (initfile score)}
+
+Whether or not to replace `\set Staff.pedalSustainStyle = #'bracket' with a more concise macro in a LilyPond output file.  If set to an empty string, no macro is used and the command is written out every time.  Otherwise, sets the name of the macro.
+@anchor{setLilyMacroPedaltext}
+@item lily-macro-pedaltext
+type: @code{string}
+
+default value: @code{pedtext}
+
+location: @code{score (initfile score)}
+
+Whether or not to replace `\set Staff.pedalSustainStyle = #'text' with a more concise macro in a LilyPond output file.  If set to an empty string, no macro is used and the command is written out every time.  Otherwise, sets the name of the macro.
+@anchor{setLilyMacroPppppp}
+@item lily-macro-pppppp
+type: @code{string}
+
+default value: @code{pppppp}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `pppppp' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroRf}
+@item lily-macro-rf
+type: @code{string}
+
+default value: @code{rf}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `rf' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroRfz}
+@item lily-macro-rfz
+type: @code{string}
+
+default value: @code{rfz}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `rfz' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroSfff}
+@item lily-macro-sfff
+type: @code{string}
+
+default value: @code{sfff}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `sfff' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroSfffz}
+@item lily-macro-sfffz
+type: @code{string}
+
+default value: @code{sfffz}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `sfffz' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroSffz}
+@item lily-macro-sffz
+type: @code{string}
+
+default value: @code{sffz}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `sffz' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroSfp}
+@item lily-macro-sfp
+type: @code{string}
+
+default value: @code{sfp}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `sfp' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroSfzp}
+@item lily-macro-sfzp
+type: @code{string}
+
+default value: @code{sfzp}
+
+location: @code{score (initfile score)}
+
+The name of the macro that inserts a `sfzp' dynamic text mark.  If set to an empty string, no macro is used and the command is written out every time.
+@anchor{setLilyMacroStaff}
+@item lily-macro-staff
+type: @code{string}
+
+default value: @code{staff}
+
+location: @code{score (initfile score)}
+
+Whether or not to replace `\change Staff = ...' with a more concise macro in a LilyPond output file.  If set to an empty string, no macro is used.  If a string is given, sets the base name for series of macros (e.g., "staff" creates macros with the names `\staffI', `\staffII', etc..).
+@anchor{setLilyMacroStafftextspan}
+@item lily-macro-stafftextspan
+type: @code{string}
+
+default value: @code{stafftextspan}
+
+location: @code{score (initfile score)}
+
+Whether or not to replace `\once \override TextSpanner #'(bound-details left text) = ...' with a more concise macro in a LilyPond output file.  This is for texts that usually appear above the staff (i.e., created with the `x!' mark).  If set to an empty string, no macro is used and the command is written out every time.  Otherwise, sets the name of the macro.
+@anchor{setLilyMacroTextspan}
+@item lily-macro-textspan
+type: @code{string}
+
+default value: @code{textspan}
+
+location: @code{score (initfile score)}
+
+Whether or not to replace `\once \override TextSpanner #'(bound-details left text) = ...' with a more concise macro in a LilyPond output file.  This is for texts that appear attached to a note or chord (i.e., created with the `x' mark).  If set to an empty string, no macro is used and the command is written out every time.  Otherwise, sets the name of the macro.
+@anchor{setLilyNotenames}
+@item lily-notenames
+type: @code{(string_name string_name string_name string_name string_name string_name string_name)}
+
+default value: @code{(c d e f g a b)}
+
+location: @code{score (initfile score)}
+
+A list of note name symbols to be used in a LilyPond output file.  It should contain seven strings corresponding to the notes `C' through `B'.  By using this together with `lily-file-topheader' and `lily-accidentals' it is possible to import language settings (e.g., with a statement like `\include "english.ly"') and change how notes appear in the file.
+@anchor{setLilyPapersize}
+@item lily-papersize
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{score (initfile score)}
+
+Specifies a string argument for LilyPond's `set-default-paper-size' function.  Set this to a value like "a4", "letter", "legal" or "11x17" to specify a different paper size in a LilyPond output file.  Set it to an empty string to not specify a paper size and use LilyPond's default setting (in LilyPond version 2.12 the default is "a4").
+@anchor{setLilyPartPrefix}
+@item lily-part-prefix
+type: @code{string}
+
+default value: @code{part}
+
+location: @code{score (initfile score)}
+
+A string to be used as a base or prefix for each part name as it appears in the output file.
+@anchor{setLilyPartTopheader}
+@item lily-part-topheader
+type: @code{(string string ...)}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+List of strings to be inserted into the top of a part block in a LilyPond output file.  Each string in the list represents a newline-separated line of text.  Use this to insert your own custom LilyPond code into LilyPond parts.
+@anchor{setLilyStaffsize}
+@item lily-staffsize
+type: @code{integer>=0}
+
+default value: @code{0}
+
+location: @code{score (initfile score)}
+
+Specifies a default staff size.  Set this to change the font size for staves and all notation elements in a LilyPond output file using LilyPond's `set-global-staff-size' function.  Set to 0 to not specify a staff size and use LilyPond's default setting (in LilyPond version 2.12 the default is 20).
+@anchor{setLilyViewExeArgs}
+@item lily-view-exe-args
+type: @code{(string string ...)}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+A list of additional arguments to be passed to the LilyPond output viewer application set in `lily-view-exe-path' (in addition to the input filename).  Each string is a shell command line argument.
+@anchor{setLilyViewExePath}
+@item lily-view-exe-path
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{score (initfile score)}
+
+Path to executable of viewer application to launch for viewing LilyPond output `.pdf' files.  If this is specified, FOMUS automatically displays the output `.pdf' file.  If the viewer executable is in your path then only the filename is necessary.  Set this to an empty string to prevent FOMUS from invoking the viewer automatically.
+@anchor{setLilyViewExtension}
+@item lily-view-extension
+type: @code{string}
+
+default value: @code{pdf}
+
+location: @code{score (initfile score)}
+
+Filename extension expected by the LilyPond output viewer application set in `lily-view-exe-path'.  Change this if you use `lily-exe-args' to override the type of file that LilyPond outputs.
+@anchor{setLong8thbeams}
+@item long-8thbeams
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not to group together four or more eighth notes when 16th (or smaller) notes are beamed with them.  Set this to `yes', for example, if you want a secondary eighth-note beam to connect neighboring groups of sixteenth notes.
+@anchor{setMarkGroupDefs}
+@item mark-group-defs
+type: @code{((string_mark string_mark ...) (string_mark string_mark ...) ...)}
+
+default value: @code{((pizz -arco) (mute -unmute) (vib moltovib -nonvib) (leg moltoleg -nonleg) (spic tall punta pont tasto legno flaut etouf table cuivre bellsup -ord) (pppppp ppppp pppp ppp pp p mp ffff fff ff f mf))}
+
+location: @code{part (initfile score inst part)}
+
+Groups of marks that cancel each other when they appear in one voice.  Examples are dynamic markings and "on/off" mark pairs such as `pizz' and `arco'.  The strings in each inner list should match either a mark id (a single mark, not a spanner) or the string of a text mark.  Strings prefixed with a `-' indicate the mark that should appear in the absence of the other marks (i.e., the mark that indicates a return to a "normal" state).  (pizz -arco) would make sense for a string instrument, for example.  You would then use `pizz' marks on all pizzicato notes and never `arco' since FOMUS would add these automatically.
+@anchor{setMarkGroups}
+@item mark-groups
+type: @code{(string_mark string_mark ...)}
+
+default value: @code{(mf pizz mute vib leg pont)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+A list of IDs that indicate which mark groups defined in `mark-group-defs' are to take effect.  An ID in this case is simply one of the marks or strings that are in a group (e.g., "mp" specifies the group containing all of the dynamic symbols including "mp").  Use this setting to switch mark groups on and off at any place in the score.
+@anchor{setMarkTexts}
+@item mark-texts
+type: @code{(string_mark string_text, string_mark string_text, ...)}
+
+default value: @code{()}
+
+location: @code{part (initfile score inst part)}
+
+A mapping from mark IDs to mark texts.  Use this setting to customize the text that appears in the score for marks that are normally represented by text above or below the staff (e.g., `con sord.', `legato', etc.).  `mark-texts' might contain overrides only for a particular score or part while `default-mark-texts' contains the default texts for all such marks.  This setting should be used in a score or individual part.
+@anchor{setMarkaliases}
+@item markaliases
+type: @code{(string_alias string_text, string_alias string_text, ...)}
+
+default value: @code{()}
+
+location: @code{part (initfile score inst part)}
+
+A mapping from text mark strings to texts.  Use this setting to effectively create aliases for `x' text marks.  By mapping "pcresc" to "crescendo poco a poco", for example, you can then specify `[x_ pcresc]' in a `.fms' file to make the desired text appear in the score.  The abbreviated alias string is also recognized in the `mark-groups' and `mark-group-defs' settings.  This setting should be used in a score or individual part.
+@anchor{setMaxPitch}
+@item max-pitch
+type: @code{note | rational0..128}
+
+default value: @code{c8}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Maximum pitch (untransposed) allowed for an instrument.  This is used to check if pitches fall within the correct range for an instrument.  Set it in an instrument or part definition.
+@anchor{setMaxTupletdur}
+@item max-tupletdur
+type: @code{rational>=0}
+
+default value: @code{0}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The maximum duration an outer-level tuplet is allowed to span when quantizing note times and durations.  Set this to the largest tuplet duration you want to appear in your score.  A value of zero means there is no limit on maximum duration.
+@anchor{setMeasBeatdiv}
+@item meas-beatdiv
+type: @code{rational>=1}
+
+default value: @code{4}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The number of divisions per beat, used when quantizing note events.  If `timesig-den' is 4 (meaning a beat is equal to one quarter note), a `meas-beatdiv' of 4 allows measure times and durations to be quantized down to the size of a sixteenth note.  A `meas-beatdiv' of 8 would allow precision at the level of thirty-second notes, etc..
+@anchor{setMeasDivs}
+@item meas-divs
+type: @code{((rational>0 rational>0 ...) (rational>0 rational>0 ...) ...)}
+
+default value: @code{()}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+A list of possible metrical divisions, used to split and tie notes and rests.  An entry of (3 2), for example, indicates that a measure with 5 beats can be subdivided into 3 + 2.  This overrides divisions in `default-measdivs' and should be used to specify irregular divisions for a particular section or group of measures.
+@anchor{setMeasdur}
+@item measdur
+type: @code{rational>=0}
+
+default value: @code{0}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The number of beats in a measure (i.e., the duration).  Usually the duration of a measure is specified by simply setting its duration (in the same way the duration of a note event is set).  Use this setting to override this and permanently set the duration of a measure definition.
+@anchor{setMeasparts}
+@item measparts
+type: @code{string_partid | (string_partid string_partid ...)}
+
+default value: @code{()}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+A list of parts to which a measure definition belongs.  By default, all measure and measure definitions are assigned to all parts.  Changing this setting value to a part id or list of part ids in a measure definition assigns that measure definition to only those parts.  You can use this setting, for example, to create polymeters.
+@anchor{setMergeChordscore}
+@item merge-chordscore
+type: @code{real>=0}
+
+default value: @code{0.5}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score encouraging separate voices to be merged together into chords.  Increasing this increases the chance of separate voices merging together into chords.
+@anchor{setMergeDistscore}
+@item merge-distscore
+type: @code{real>=0}
+
+default value: @code{1}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score encouraging merged notes to be close together pitchwise.  The higher this value is, the greater the penalty for merging voices with large intervals that might appear awkward in the score.
+@anchor{setMergeEngine}
+@item merge-engine
+type: @code{bfsearch|dynprog}
+
+default value: @code{bfsearch}
+
+location: @code{part (initfile score inst part)}
+
+Engines provide different types of search functionality to the rest of FOMUS's modules and are interchangeable.  For example, two of FOMUS's default engines `dynprog' and `bfsearch' execute two different search algorithms, each with different benefits.  Set this to the name of an engine module to change the search algorithm used for merging voices.
+@anchor{setMergeMinnotes}
+@item merge-minnotes
+type: @code{integer>=0}
+
+default value: @code{5}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The minimum number of note events required between changes in how voices are "merged" (i.e., separate voices are notated as chords or as monophonic lines marked "a2," etc.).  Set this to a higher value to cause merges to occur over larger spans of notes and vice versa.
+@anchor{setMergeSearchdepth}
+@item merge-searchdepth
+type: @code{integer>=10}
+
+default value: @code{25}
+
+location: @code{part (initfile score inst part)}
+
+The search depth used when an appropriate engine module (such as `bfsearch') is selected.  A larger search depth increases both computation time and quality.
+@anchor{setMidiinCh}
+@item midiin-ch
+type: @code{integer0..15 | (integer0..15 integer0..15 ...)}
+
+default value: @code{()}
+
+location: @code{import (initfile score import inst percinst)}
+
+Indicates which MIDI channel or channels input is read from (an empty list indicates all channels)  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidiinDrumchannel}
+@item midiin-drumchannel
+type: @code{integer0..127 | (integer0..127 integer0..127 ...)}
+
+default value: @code{9}
+
+location: @code{import (initfile score import inst percinst)}
+
+Specifies which MIDI channel or channels are considered to be drum channels.  When a MIDI event belongs to one of these channels, `midiin-note' can be used to select and assign specific notes to percussion instruments.  MIDI channels are numbered from 0 to 15 here, so channel 9 is the standard MIDI file drum channel.
+@anchor{setMidiinFilename}
+@item midiin-filename
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{import (initfile score import inst percinst)}
+
+Specifies that MIDI events belong to a sequence whose base filename (without path or extension) matches this value be selected for import.  This setting effectively distinguishes between MIDI files with different filenames.  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidiinInstname}
+@item midiin-instname
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{import (initfile score import inst percinst)}
+
+Specifies that MIDI events belong to an instrument whose name matches this value be selected for import.  This is just a text string associated with a certain MIDI track and isn't related to program changes.  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidiinNote}
+@item midiin-note
+type: @code{integer0..127 | (integer0..127 integer0..127 ...)}
+
+default value: @code{()}
+
+location: @code{import (initfile score import inst percinst)}
+
+Indicates a MIDI note or notes for importing percussion instruments (the MIDI message must also belong to a drum channel).  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidiinProg}
+@item midiin-prog
+type: @code{integer0..127 | (integer0..127 integer0..127 ...)}
+
+default value: @code{()}
+
+location: @code{import (initfile score import inst percinst)}
+
+Indicates a MIDI program change number or numbers.  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidiinSeqname}
+@item midiin-seqname
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{import (initfile score import inst percinst)}
+
+Specifies that MIDI events belong to a sequence whose name matches this value be selected for import.  A Type 1 or 2 MIDI file only has one sequence name, so this setting effectively distinguishes between MIDI files with different sequence names.  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidiinSeqnum}
+@item midiin-seqnum
+type: @code{integer0..65535 | (integer0..65535 integer0..65535 ...)}
+
+default value: @code{()}
+
+location: @code{import (initfile score import inst percinst)}
+
+Specifies that MIDI events belong to a sequence whose number matches this value be selected for import.  Sequence number starts at 0 here, like all other MIDI values.  A Type 1 or 2 MIDI file only has one sequence, so this setting effectively distinguishes between MIDI files with different sequence names.  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidiinSetperc}
+@item midiin-setperc
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{import (initfile score import inst percinst)}
+
+Specifies which percussion instrument receives a MIDI event if the import object is a match.  Use this setting if the import object is not inside a percussion instrument or you wish to override the default behavior.  (The default behavior is that percussion instruments receive MIDI data that matches any of their enclosed import objects.)
+@anchor{setMidiinSetvoice}
+@item midiin-setvoice
+type: @code{integer1..128 | (integer1..128 integer1..128 ...)}
+
+default value: @code{1}
+
+location: @code{import (initfile score import inst percinst)}
+
+Specifies which voice (or voice amoung several voices) a MIDI event is assigned.  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidiinTimescale}
+@item midiin-timescale
+type: @code{number_>0}
+
+default value: @code{1}
+
+location: @code{score (initfile score)}
+
+If set to anything other than 1, specifies that MIDI times and durations be scaled by that amount.  A value of 2 doubles all incoming times and durations, for example.
+@anchor{setMidiinTpose}
+@item midiin-tpose
+type: @code{integer-127..127 | (integer-127..127 integer-127..127 ...)}
+
+default value: @code{0}
+
+location: @code{import (initfile score import inst percinst)}
+
+Specifies that MIDI events matching the import structure be transposed before being inserted into a part.  The value is the transposition in semitones.
+@anchor{setMidiinTrack}
+@item midiin-track
+type: @code{integer0..127 | (integer0..127 integer0..127 ...)}
+
+default value: @code{()}
+
+location: @code{import (initfile score import inst percinst)}
+
+Indicates which MIDI track or tracks input is read from (an empty list indicates all tracks).  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidiinTrackname}
+@item midiin-trackname
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{import (initfile score import inst percinst)}
+
+Specifies that MIDI events belong to a track whose name matches this value be selected for import.  Put this setting inside an import object to specify how incoming MIDI data is matched and inserted into parts.  Lookup import objects in the FOMUS documentation for more information.
+@anchor{setMidioutAccentVelocity}
+@item midiout-accent-velocity
+type: @code{real0..1}
+
+default value: @code{1/8}
+
+location: @code{part (initfile score inst part)}
+
+The amount of velocity (on a scale from 0 to 1) to add when a MIDI note has an accent mark attached to it.  Set this to a level of increase appropriate for an accent.
+@anchor{setMidioutArtenv}
+@item midiout-artenv
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{export (initfile score export inst percinst)}
+
+Indicates whether or not a tone produced by this instrument can change in volume after the attack portion of the sound.  For example, the appropriate value is 'yes' for wind and string instruments and 'no' for piano, plucked and percussion instruments.  Use this setting to specify how FOMUS should simulate (using the track volume control) various articulations such as accents for this instrument.
+@anchor{setMidioutAttack}
+@item midiout-attack
+type: @code{real0..1}
+
+default value: @code{0.1}
+
+location: @code{part (initfile score inst part)}
+
+The duration (in seconds) of the attack portion of a MIDI instrument sound.  The MIDI channel volume is increased for notes with certain marks during this interval as a crude way of faking an accent.  Set this globally or in an instrument definition to a value that sounds appropriate for the instrument.
+@anchor{setMidioutChordvoicingVelocity}
+@item midiout-chordvoicing-velocity
+type: @code{real0..1}
+
+default value: @code{1/16}
+
+location: @code{part (initfile score inst part)}
+
+The amount of velocity to subtract from the notes of a chord that aren't at the top.  This adjustment is applied only to chords in a single voice (i.e., individual voices are processed separately).  Set this to balance the volume of individual notes in chords for instruments that play them.
+@anchor{setMidioutCtrldelta}
+@item midiout-ctrldelta
+type: @code{real0..1}
+
+default value: @code{0.05}
+
+location: @code{part (initfile score inst part)}
+
+The delta time increment (in seconds) used when a continuous change of any kind is created in a MIDI file.  Continouous changes include crescendo/diminuendo wedges and attack/release sound adjustments.  Decreasing this value increases the time resolution of the MIDI messages that execute these changes.
+@anchor{setMidioutDefaultDynmark}
+@item midiout-default-dynmark
+type: @code{string_dynmark}
+
+default value: @code{mf}
+
+location: @code{part (initfile score inst part)}
+
+The default MIDI dynamic level, used if no dynamic marks are present in the score or part.  Set this to the desired MIDI output level for scores that have no dynamic markings.
+@anchor{setMidioutDeltatime}
+@item midiout-deltatime
+type: @code{integer1..65535}
+
+default value: @code{960}
+
+location: @code{score (initfile score)}
+
+The delta time increment (or so-called "pulses per quarter note") for the MIDI file, expressed as the number of time increments per beat.  All MIDI events are quantized to this delta time value.  Set this to a higher value to increase the time resolution of the entire MIDI file.
+@anchor{setMidioutGracedur}
+@item midiout-gracedur
+type: @code{rational>0}
+
+default value: @code{1/6}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The duration of a grace note, in beats.  Set this to an appropriate value so that FOMUS can output MIDI grace notes properly.
+@anchor{setMidioutMarcatoMult}
+@item midiout-marcato-mult
+type: @code{real>0..2}
+
+default value: @code{2/3}
+
+location: @code{part (initfile score inst part)}
+
+The amount to multiply the duration of a MIDI note by when there is a marcato mark attached to it.  Set this to the ratio of a marcato note duration to a non-marcato note duration.  (The velocity is also altered as if there were a `sfz' mark attached to it.)
+@anchor{setMidioutMaxDynmark}
+@item midiout-max-dynmark
+type: @code{string_dynmark}
+
+default value: @code{fff}
+
+location: @code{part (initfile score inst part)}
+
+The dynamic mark used together with the value of `midiout-max-velocity' to scale MIDI output velocity values.
+@anchor{setMidioutMaxVelocity}
+@item midiout-max-velocity
+type: @code{real0..1}
+
+default value: @code{1}
+
+location: @code{part (initfile score inst part)}
+
+The maximum MIDI output velocity, expressed as a number from 0 to 1 (which is scaled to an actual MIDI velocity value from 0 to 127).  Setting this to 1, for example, specifies that when the highest dynamic mark (setting `midiout-max-dynmark') is encountered, the output MIDI velocity should be 127.
+@anchor{setMidioutMezzostaccMult}
+@item midiout-mezzostacc-mult
+type: @code{real>0..2}
+
+default value: @code{3/4}
+
+location: @code{part (initfile score inst part)}
+
+The amount to multiply the duration of a MIDI note by when there is a mezzo staccato articulation attached to it.  Set this to the ratio of a mezzo staccato note duration to a non-mezzo-staccato note duration.
+@anchor{setMidioutMinDynmark}
+@item midiout-min-dynmark
+type: @code{string_dynmark}
+
+default value: @code{pppp}
+
+location: @code{part (initfile score inst part)}
+
+The dynamic mark used together with the value of `midiout-min-velocity' to scale MIDI output velocity values.
+@anchor{setMidioutMinVelocity}
+@item midiout-min-velocity
+type: @code{real0..1}
+
+default value: @code{0}
+
+location: @code{part (initfile score inst part)}
+
+The minimum MIDI output velocity, expressed as a number from 0 to 1 (which is scaled to an actual MIDI velocity value from 0 to 127).  Setting this to 0, for example, specifies that when the lowest dynamic mark (setting `midiout-min-dynmark') is encountered, the output MIDI velocity should be 0.
+@anchor{setMidioutMultivoiceMarks}
+@item midiout-multivoice-marks
+type: @code{((integer1..128 integer1..128 ...) (integer1..128 integer1..128 ...) ...)}
+
+default value: @code{()}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+A list of voices containing marks that affect only events in the voice that they are in.  FOMUS assumes marks such as dynamic marks and wedges affect all voices in a part if the mark if found at the bottom of a staff or in the middle of a grand staff.  This assumption isn't always accurate.  Use this setting to help FOMUS interpret these marks correctly and produce more accurate MIDI output by listing all voices that contain their own dynamic/wedge marks.
+@anchor{setMidioutNote}
+@item midiout-note
+type: @code{integer0..127}
+
+default value: @code{60}
+
+location: @code{export (initfile score export inst percinst)}
+
+Indicates a MIDI note for a percussion instrument (FOMUS automatically sends percussion instrument events to MIDI drum tracks).  Use this setting in an export object inside an instrument definition to affect MIDI output.
+@anchor{setMidioutPercchannels}
+@item midiout-percchannels
+type: @code{((integer0..15 integer0..15 ...) (integer0..15 integer0..15 ...) ...)}
+
+default value: @code{(9)}
+
+location: @code{score (initfile score)}
+
+A list of channels to be used as MIDI percussion channels.  This is a list of lists so that different configurations may be specified for different MIDI output ports.  The first list specifies percussion channels for the first MIDI output port, etc..  The last list is repeated for any additional ports.  Channels numbers range from 0 to 15.
+@anchor{setMidioutProg}
+@item midiout-prog
+type: @code{integer0..127}
+
+default value: @code{0}
+
+location: @code{export (initfile score export inst percinst)}
+
+Indicates a MIDI program change number for an instrument.  Use this setting in an export object inside an instrument definition to affect MIDI output.
+@anchor{setMidioutProgchanges}
+@item midiout-progchanges
+type: @code{(string_mark integer0..127, string_mark integer0..127, ...)}
+
+default value: @code{()}
+
+location: @code{export (initfile score export inst percinst)}
+
+Mapping from mark id strings to MIDI program change numbers.  Set this in an export object inside an instrument definition to cause a program change whenever certain marks occur.  By default, FOMUS inserts program changes so that only the note or chord with the mark is affected.  If a program change is to be permanent, affecting all notes/chords after the one with the mark (e.g., for a `pizz' or `arco' mark), then a `*' character should be appended to the ID string.  Also, appending `+' or `-' to the ID overrides the value specified in `midiout-artenv' when this change occurs (`+' indicates `yes' and '-' indicates 'no').
+@anchor{setMidioutRelease}
+@item midiout-release
+type: @code{real0..1}
+
+default value: @code{0.1}
+
+location: @code{part (initfile score inst part)}
+
+The duration (in seconds) of the release portion of a MIDI instrument sound.  The MIDI channel volume is gradually decreased for this duration after the attack interval specified in `midiout-attack'.  Set this globally or in an instrument definition to a value that sounds appropriate for the instrument.
+@anchor{setMidioutSfzVelocity}
+@item midiout-sfz-velocity
+type: @code{real0..1}
+
+default value: @code{1/8}
+
+location: @code{part (initfile score inst part)}
+
+The minimum amount of additional MIDI velocity (velocity being on a scale from 0 to 1) required to achieve the effect of a `szf' or any similar marking.  Set this to the amount of velocity increase you might expect from a `szf' mark in a loud passage.  This setting exists to insure that the effect of `szf' marks are always heard in the output regardless of the current overall dynamic level.
+@anchor{setMidioutSlurAdd}
+@item midiout-slur-add
+type: @code{real0..1}
+
+default value: @code{0.1}
+
+location: @code{part (initfile score inst part)}
+
+The maximum amount of time (in seconds) to add to the duration of a MIDI note when there is a slur over it.  Set this to a value representing the extra duration a slurred note should be held.
+@anchor{setMidioutStaccatissimoMult}
+@item midiout-staccatissimo-mult
+type: @code{real>0..2}
+
+default value: @code{1/4}
+
+location: @code{part (initfile score inst part)}
+
+The amount to multiply the duration of a MIDI note by when there is a staccatissimo mark attached to it.  Set this to the ratio of a staccatissimo note duration to a non-staccato note duration.
+@anchor{setMidioutStaccatoMult}
+@item midiout-staccato-mult
+type: @code{real>0..2}
+
+default value: @code{1/2}
+
+location: @code{part (initfile score inst part)}
+
+The amount to multiply the duration of a MIDI note by when there is a staccato mark attached to it.  Set this to the ratio of a staccato note duration to a non-staccato note duration.
+@anchor{setMidioutTenutoAdd}
+@item midiout-tenuto-add
+type: @code{real0..1}
+
+default value: @code{0.1}
+
+location: @code{part (initfile score inst part)}
+
+The maximum amount of time (in seconds) to add to the duration of a MIDI note when there is a tenuto mark attached to it.  Set this to a value representing the extra duration a note with a tenuto mark should be held.
+@anchor{setMidioutTenutoVelocity}
+@item midiout-tenuto-velocity
+type: @code{real0..1}
+
+default value: @code{1/16}
+
+location: @code{part (initfile score inst part)}
+
+The amount of velocity to add when a MIDI note has a tenuto mark attached to it.  Set this to a level of increase appropriate for a tenuto mark.
+@anchor{setMidioutTimeVariation}
+@item midiout-time-variation
+type: @code{real0..1}
+
+default value: @code{0}
+
+location: @code{part (initfile score inst part)}
+
+Approximately the amount of time (in seconds) that MIDI note onsets and offsets can be randomly adjusted with in an attempt to make the output sound more "natural".  (The adjustment is made using a Gaussian random generator with this setting value as the standard deviation and 1.5 times this setting value as the maximum allowed deviation.)  Increasing this value increases randomness in the output.  It might also be worthwhile to increase `midiout-deltatime' to a finer resolution so that the output doesn't sound quantized.
+@anchor{setMidioutUsenoteoffs}
+@item midiout-usenoteoffs
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{score (initfile score)}
+
+If set to yes, use actual note-off events in MIDI output files.  If set to no, use note-on events with 0 velocities.  Most applications seem to expect the latter.
+@anchor{setMidioutVelVariation}
+@item midiout-vel-variation
+type: @code{real0..1}
+
+default value: @code{0}
+
+location: @code{part (initfile score inst part)}
+
+Approximately the amount (on a scale from 0 to 1) that MIDI note velocities can be randomly adjusted in an attempt to make the output sound more "natural".  (The adjustment is made using a Gaussian random generator with this setting value as the standard deviation and 1.5 times this setting value as the maximum allowed deviation.)  Increasing this value increases randomness in the output.
+@anchor{setMinMeasdur}
+@item min-measdur
+type: @code{rational>=0}
+
+default value: @code{2}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The minimum duration a measure created by FOMUS (i.e., not explicitly specified by the user) is allowed to be.  Measures smaller than this duration are merged with other (previous) measures to form larger measures.  FOMUS might need to create a small measure to accommodate a user-defined measure that doesn't align well with previous measures.  If you like tiny measures and don't want FOMUS to merge them with other measures, set the value of this setting to 0.
+@anchor{setMinPitch}
+@item min-pitch
+type: @code{note | rational0..128}
+
+default value: @code{a0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Minimum pitch (untransposed) allowed for an instrument.  This is used to check if pitches fall within the correct range for an instrument.  Set it in an instrument or part definition.
+@anchor{setMinTupletdur}
+@item min-tupletdur
+type: @code{rational>=0}
+
+default value: @code{0}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The minimum duration an outer-level tuplet is allowed to span when quantizing note times and durations.  Set this to the smallest tuplet duration you want to appear in your score.  A value of zero means there is no limit on minimum duration.
+@anchor{setModAccs}
+@item mod-accs
+type: @code{id_string | (id_string id_string ...), id_string = accs|postaccs}
+
+default value: @code{(accs postaccs)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for assigning accidental spellings (modules must be of type `accidentals').  Although FOMUS's default module takes key signatures into account, other modules may ignore key signatures.
+@anchor{setModBeam}
+@item mod-beam
+type: @code{id_string | (id_string id_string ...), id_string = beams}
+
+default value: @code{beams}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Module or list of modules responsible for beaming notes together (modules must be of type `beam').  The module should beams the notes according to metrical subdivisions and might take other factors into account.
+@anchor{setModCautaccs}
+@item mod-cautaccs
+type: @code{id_string | (id_string id_string ...), id_string = cautaccs}
+
+default value: @code{cautaccs}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for creating cautionary accidentals (modules must be of type `cautaccidentals').
+@anchor{setModCheck}
+@item mod-check
+type: @code{id_string | (id_string id_string ...), id_string = ranges}
+
+default value: @code{ranges}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for performing useful checks on input data (modules must be of type `check').  Module `ranges', for example, checks to see if all notes are in the correct ranges for their instruments.
+@anchor{setModDiv}
+@item mod-div
+type: @code{id_string | (id_string id_string ...), id_string = divide|untie|grdiv}
+
+default value: @code{(divide grdiv untie)}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Module or list of modules responsible for splitting and tying notes in each measure (modules must be of type `divide').
+@anchor{setModDivDivrules}
+@item mod-div-divrules
+type: @code{divrules}
+
+default value: @code{divrules}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The module used by FOMUS's measure dividing algorithm to search for valid combinations of metrical divisions and tuplets.  Different modules provide different rules affecting how rhythmic spellings and note divisions/ties are determined.  Set this to choose a different set of rules.
+@anchor{setModDyns}
+@item mod-dyns
+type: @code{id_string | (id_string id_string ...), id_string = dyns|phrdyns}
+
+default value: @code{(phrdyns dyns)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for converting numeric dynamic values into symbols (modules must be of type `dynamics').  Results may vary wildly depending how exactly this is done.
+@anchor{setModInput}
+@item mod-input
+type: @code{(string_ext string_modname, string_ext string_modname, ...), string_modname = |||||||||||fmsin||||||||midiin|||||||||||||||||||||||||||||}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+A mapping from filename extensions to modules used for loading input files into FOMUS (modules must be of type `input').  Use this setting to customize which frontend loader is invoked based on the input filename extension.
+@anchor{setModMarkevents}
+@item mod-markevents
+type: @code{id_string | (id_string id_string ...), id_string = markevs1|markevs2}
+
+default value: @code{(markevs1 markevs2)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for determining how mark events are interpretted before quantizing.
+@anchor{setModMarklayouts}
+@item mod-marklayouts
+type: @code{id_string | (id_string id_string ...), id_string = marks}
+
+default value: @code{marks}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for taking care of additional special layout issues related to marks (modules must be of type `marks').  Special layout issues include such decisions as where text marks should appear (above or below the staff) and whether marks should be merged in cases where there are multiple voices.
+@anchor{setModMarks}
+@item mod-marks
+type: @code{id_string | (id_string id_string ...), id_string = grslurs|markgrps|repdyns}
+
+default value: @code{(markgrps grslurs repdyns)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules that do various useful tasks related to marks (modules must be of type `markpairs').  For example, the `markgrps' module translates single marks into pairs of marks (like `pizz.' and `arco') where necessary so you don't have to keep track of them.
+@anchor{setModMeas}
+@item mod-meas
+type: @code{id_string | (id_string id_string ...), id_string = meas}
+
+default value: @code{meas}
+
+location: @code{part (initfile score inst part)}
+
+Module or list of modules responsible for creating measures (modules must be of type `measure').
+@anchor{setModMerge}
+@item mod-merge
+type: @code{id_string | (id_string id_string ...), id_string = merge}
+
+default value: @code{merge}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for "merging" multiple voices that appear on one staff (modules must be of type `merge').  Simultaneous rests of equivalent durations, for example, are merged into a single rest while notes that are rhythmically equivalent and appear within the same metrical division are merged into chords.
+@anchor{setModMetaparts}
+@item mod-metaparts
+type: @code{id_string | (id_string id_string ...), id_string = mparts}
+
+default value: @code{mparts}
+
+location: @code{score (initfile score)}
+
+Module or list of modules responsible for determining how notes are distributed from metaparts to score parts.
+@anchor{setModOcts}
+@item mod-octs
+type: @code{id_string | (id_string id_string ...), id_string = octs}
+
+default value: @code{octs}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for creating octave signs in appropriate places (modules must be of type `octavesigns').  Whether or not they are actually allowed and where they may occur (above or below the staff) may change depending on the instrument.
+@anchor{setModOutput}
+@item mod-output
+type: @code{(string_ext string_modname, string_ext string_modname, ...), string_modname = ||||||||||||fmsout||||lilyout||||midiout||||||||||||||||xmlout||||||||||||}
+
+default value: @code{(fms fmsout)}
+
+location: @code{score (initfile score)}
+
+A mapping from filename extensions to modules used for outputting data (modules must be of type `output').  Use this setting to customize which backend is invoked based on the filename extensions given in `filename' and `extensions'.
+@anchor{setModParts}
+@item mod-parts
+type: @code{id_string | (id_string id_string ...), id_string = parts}
+
+default value: @code{parts}
+
+location: @code{score (initfile score)}
+
+Module or list of modules responsible for determining how parts appear in the score (modules must be of type `parts').  This includes the ordering and grouping of instruments into families and sections.
+@anchor{setModPercnotes}
+@item mod-percnotes
+type: @code{id_string | (id_string id_string ...), id_string = pnotes}
+
+default value: @code{pnotes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for determining how percussion notes are laid out.
+@anchor{setModPquant}
+@item mod-pquant
+type: @code{id_string | (id_string id_string ...), id_string = pquant}
+
+default value: @code{pquant}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for quantizing pitches (modules must be of type `pitchquantize').
+@anchor{setModPrune}
+@item mod-prune
+type: @code{id_string | (id_string id_string ...), id_string = prune}
+
+default value: @code{prune}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Module or list of modules responsible for "pruning" overlapping note events (modules must be of type `prune').  Notes are truncated or eliminated if they overlap with other note events of the same pitch.
+@anchor{setModQuantDivrules}
+@item mod-quant-divrules
+type: @code{divrules}
+
+default value: @code{divrules}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The module used by FOMUS's quantizing algorithm to search for valid metrical divisions and tuplets.  Different modules provide different rules affecting how rhythmic spellings and note divisions/ties are determined.  Set this to choose a different set of rules.
+@anchor{setModReststaves}
+@item mod-reststaves
+type: @code{id_string | (id_string id_string ...), id_string = rstaves}
+
+default value: @code{rstaves}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Module or list of modules responsible for distributing rests to individual staves (modules must be of type `stavesrests').  Rests are treated separately from notes because they depend largely on the placement of neighboring note events.
+@anchor{setModSmarks}
+@item mod-smarks
+type: @code{id_string | (id_string id_string ...), id_string = smarks}
+
+default value: @code{smarks}
+
+location: @code{part (initfile score inst part)}
+
+Module or list of modules responsible for sorting out spanner marks (like octave signs) in separate staves (modules must be of type `staffmarks').
+@anchor{setModSpecial}
+@item mod-special
+type: @code{id_string | (id_string id_string ...), id_string = harms|percchs|trems}
+
+default value: @code{(harms percchs trems)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for taking care of any additional special layout issues (modules must be of type `special').  This is where tremolos and harmonics are handled, for example.
+@anchor{setModStaves}
+@item mod-staves
+type: @code{id_string | (id_string id_string ...), id_string = staves}
+
+default value: @code{staves}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for choosing staves and clefs (modules must be of type `staves').
+@anchor{setModTpose}
+@item mod-tpose
+type: @code{id_string | (id_string id_string ...), id_string = tpose}
+
+default value: @code{tpose}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for transposing parts according to their assigned instruments (modules must be of type `transpose').
+@anchor{setModTquant}
+@item mod-tquant
+type: @code{id_string | (id_string id_string ...), id_string = grtquant|tquant}
+
+default value: @code{(tquant grtquant)}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Module or list of modules responsible for quantizing note offsets and durations (modules must be of type `timequantize').
+@anchor{setModVmarks}
+@item mod-vmarks
+type: @code{id_string | (id_string id_string ...), id_string = vmarks}
+
+default value: @code{vmarks}
+
+location: @code{part (initfile score inst part)}
+
+Module or list of modules responsible for sorting out spanner marks in separate voices (modules must be of type `voicemarks').
+@anchor{setModVoices}
+@item mod-voices
+type: @code{id_string | (id_string id_string ...), id_string = voices}
+
+default value: @code{voices}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module or list of modules responsible for sorting note events into separate voices (modules must be of type `voices').
+@anchor{setMono}
+@item mono
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether or not notes are clipped when necessary to produce a monophonic line.  Set this to `yes' if you don't want any notes to overlap in the same voice.
+@anchor{setNThreads}
+@item n-threads
+type: @code{integer>=0}
+
+default value: @code{(machine dependent)}
+
+location: @code{score (initfile score)}
+
+Number of threads FOMUS can create at once to take advantage of multiple cores or CPUs.  If set to 0, all of FOMUS's routines run in the calling process's own thread.  A value of 1 causes FOMUS to do all of its processing in one separate thread.  Values greater than 1 cause FOMUS to schedule and run its algorithms in parallel, decreasing computation time.
+@anchor{setName}
+@item name
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{part (initfile score inst part)}
+
+The name of an instrument or part.  This appears in the score to the left of the first staff system.  Set this when defining an instrument, percussion instrument or part.
+@anchor{setNoteAccs}
+@item note-accs
+type: @code{(string_acc rational-128..128, string_acc rational-128..128, ...)}
+
+default value: @code{(- -1, b -1, f -1, F -1, + 1, # 1, s 1, S 1, n 0, N 0, _ 0)}
+
+location: @code{score (initfile score)}
+
+A mapping from symbols to accidental adjustments.  Use this to customize note names for a different language and/or scale in a `.fms' file.  The numbers are chromatic alterations to the base note (see `note-symbols').  The sum of `note-symbols', `note-accs', `note-microtones' and `note-octaves' gives the complete pitch number.  The order of strings in the list determines which symbols are used for printing (symbols earlier in the list take precedence over ones occurring later).
+@anchor{setNoteMicrotones}
+@item note-microtones
+type: @code{(string_mic rational-128..128, string_mic rational-128..128, ...)}
+
+default value: @code{(- -1/2, b -1/2, f -1/2, F -1/2, + 1/2, # 1/2, s 1/2, S 1/2, n 0, N 0, _ 0)}
+
+location: @code{score (initfile score)}
+
+A mapping from symbols to microtonal adjustments.  Use this to customize note names for a different language and/or scale in a `.fms' file.  The numbers are chromatic alterations to the base note (see `note-symbols').  The sum of `note-symbols', `note-accs', `note-microtones' and `note-octaves' gives the complete pitch number.  The order of strings in the list determines which symbols are used to print output (symbols earlier in the list take precedence over ones occurring later).
+@anchor{setNoteOctaves}
+@item note-octaves
+type: @code{(string_oct rational0..128, string_oct rational0..128, ...)}
+
+default value: @code{(0 12, 1 24, 2 36, 3 48, 4 60, 5 72, 6 84, 7 96, 8 108, ",,," 12, ",," 24, "," 36, . 48, "'" 60, "''" 72, "'''" 84, "''''" 96, "'''''" 108)}
+
+location: @code{score (initfile score)}
+
+A mapping from symbols to octave pitches.  Use this to customize note names for a different language and/or scale in a `.fms' file.  The sum of `note-symbols', `note-accs', `note-microtones' and `note-octaves' gives the complete pitch number.  An appropriate value for octave 4 is 60, for example, because 60 is the lowest note in the octave.  The order of strings in the list determines which symbols are used to print output (symbols earlier in the list take precedence over ones occurring later).
+@anchor{setNoteSymbols}
+@item note-symbols
+type: @code{(string_symb rational0..<12, string_symb rational0..<12, ...)}
+
+default value: @code{(c 0, C 0, d 2, D 2, e 4, E 4, f 5, F 5, g 7, G 7, a 9, A 9, b 11, B 11)}
+
+location: @code{score (initfile score)}
+
+A mapping from pitch names to diatonic pitches.  Use this to customize note names for a different language and/or scale in a `.fms' file.  By default, the strings symbols are the letter names from A to G and the numbers are the chromatic pitch classes from 0 (C) to 11 (B).  The sum of `note-symbols', `note-accs', `note-microtones' and `note-octaves' gives the complete pitch number.  Also, the order determines which symbols are used for printing (symbols earlier in the list take precedence over ones occurring later).
+@anchor{setOctsBeatdist}
+@item octs-beatdist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one beat in a measure.  A larger distance translates to a smaller weight in decisions regarding octave change signs and vice versa.
+@anchor{setOctsChangeScore}
+@item octs-change-score
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score that discourages octave signs changes.  Increasing this value decreases the chance of switching often between octave change signs.
+@anchor{setOctsDistmod}
+@item octs-distmod
+type: @code{blockdist|cartdist|notedist}
+
+default value: @code{notedist}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module that is used to calculate the "distance" between notes.  The closer two notes are to each other, the more important their relationship is in terms of note spelling, staff choice, voice assignments, etc..  Set this to change the algorithm used for calculating distance when making decisions regarding the use of octave signs.
+@anchor{setOctsDistmult}
+@item octs-distmult
+type: @code{real>0}
+
+default value: @code{3}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+FOMUS calculates the distance between note events so that it can weigh scores and penalties according to how close they are to each other.  An exponential curve is usually applied before actually calculating the weight.  This value is the distance at which a score calculated between two notes is decreased to 1/2 it's full value (at twice this distance the score is decreased to 1/4 it's full value, etc.).
+@anchor{setOctsDown}
+@item octs-down
+type: @code{integer0..2}
+
+default value: @code{1}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Value indicating which octave signs are allowed below a staff.  Set this in a staff definition to indicate which octave changes are allowed for an instrument.  0 means no octave changes allowed, 1 means a one-octave (8vb) change sign is allowed and 2 means a two-octave (15vb) change sign is allowed.
+@anchor{setOctsEngine}
+@item octs-engine
+type: @code{bfsearch|dynprog}
+
+default value: @code{bfsearch}
+
+location: @code{part (initfile score inst part)}
+
+Engines provide different types of search functionality to the rest of FOMUS's modules and are interchangeable.  For example, two of FOMUS's default engines `dynprog' and `bfsearch' execute two different search algorithms, each with different benefits.  Set this to the name of an engine module to change the search algorithm used for finding octave changes.
+@anchor{setOctsInstaffScore}
+@item octs-instaff-score
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when a note is inside the staff (or within a certain number of ledger lines).  Decreasing this value increases the likelyhood of inserting an octave sign.
+@anchor{setOctsMaxdist}
+@item octs-maxdist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The maximum distance allowed for octave sign calculations.  Notes that are more than this distance apart from each other are considered unrelated to each other and are not included in FOMUS's calculations.
+@anchor{setOctsOctavedist}
+@item octs-octavedist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one octave (i.e., two notes an octave apart have a distance equivalent to this value).  A larger distance translates to a smaller weight in decisions regarding octave change signs and vice versa.
+@anchor{setOctsSearchdepth}
+@item octs-searchdepth
+type: @code{integer>=10}
+
+default value: @code{25}
+
+location: @code{part (initfile score inst part)}
+
+The search depth used when an appropriate engine module (such as `bfsearch') is selected.  A larger search depth increases both computation time and quality.
+@anchor{setOctsSignScore}
+@item octs-sign-score
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score discouraging the use of octave signs.  Increasing this descreases the change of octave change signs occurring.
+@anchor{setOctsUp}
+@item octs-up
+type: @code{integer0..2}
+
+default value: @code{2}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Value indicating which octave signs are allowed above a staff.  Set this in a staff definition to indicate which octave changes are allowed for an instrument.  0 means no octave changes allowed, 1 means a one-octave (8va) change sign is allowed and 2 means a two-octave (15va) change sign is allowed.
+@anchor{setOpenStrings}
+@item open-strings
+type: @code{(note|rational0..128 note|rational0..128 ...)}
+
+default value: @code{()}
+
+location: @code{part (initfile score inst part)}
+
+Specifies the open strings of a string instrument or part.  Set this in the definition of a string instrument so that natural and artificial harmonics may be calculated correctly.
+@anchor{setOutput}
+@item output
+type: @code{string_ext | (string_ext string_ext ...), string_ext = fms|ly|mid|midi|xml}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+One or more filename extensions, each indicating an output file format (one output file is written for each one of these).  Use this setting to output more than one file or set it in your `.fomus' init file to cause FOMUS to automatically output a certain file type.  Example values are "ly" or (fms xml).
+@anchor{setPartmapTpose}
+@item partmap-tpose
+type: @code{rational-128..128}
+
+default value: @code{0}
+
+location: @code{partmap (initfile score partmap)}
+
+Specifies a transposition in semitones to apply when distributing note events from a metapart.
+@anchor{setPedStyle}
+@item ped-style
+type: @code{string}
+
+default value: @code{text}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Determines the style of a piano pedal marking.  Possible values are `text' for "Ped" and "*" text marks and `bracket' for lines and V-shapes.
+@anchor{setPedsCanspanone}
+@item peds-canspanone
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether piano pedal marks can span a single note by default.  Use this in notes events, measures, parts or at the score level to affect how pedal mark spanners are interpretted and processed.  This setting can be overriden when specifying a pedal sign by adding a `1' (can span a single note) or `m' (cannot span a single note) character to the mark.
+@anchor{setPedsCantouch}
+@item peds-cantouch
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether piano pedal marks can touch each other by default.  Use this in notes events, measures, parts or at the score level to affect how pedal mark spanners are interpretted and processed.  This setting can be overriden when specifying a pedal sign by adding a `-' (can touch) or `|' (cannot touch) character to the mark.
+@anchor{setPercName}
+@item perc-name
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{percinst (initfile score inst percinst)}
+
+The name of a percussion instrument.  This setting has a different meaning than the `name' setting.  It's value appears above the staff whenever a percussion instrument change needs to be indicated in the score.  Set this value when defining an percussion instrument that should be notated this way.
+@anchor{setPercNote}
+@item perc-note
+type: @code{integer0..128}
+
+default value: @code{c4}
+
+location: @code{percinst (initfile score inst percinst)}
+
+The note that appears on the score when a percussion instrument id is given as the pitch (unpitched clefs behave like alto clefs as far as note placement goes).  The name of the percussion instrument may then be used in place of a note or pitch value.  This is used only when defining a percussion instrument.
+@anchor{setPercVoice}
+@item perc-voice
+type: @code{integer0..128}
+
+default value: @code{0}
+
+location: @code{percinst (initfile score inst percinst)}
+
+The voice a note is inserted into when a percussion instrument id is given as the pitch.  If any voices are assigned to a note, they are overridden by this value.  This is used only when defining a percussion instrument.
+@anchor{setPercinstDefs}
+@item percinst-defs
+type: @code{(<percinst-def> <percinst-def> ...)}
+
+default value: @code{(<id bass-drum, imports <midiin-note (35 36)>, export <midiout-note 35>> <id cabasa, imports <midiin-note 69>, export <midiout-note 69>> <id chinese-cymbal, imports <midiin-note 52>, export <midiout-note 52>> <id claves, imports <midiin-note 75>, export <midiout-note 75>> <id closed-hihat, imports <midiin-note 42>, export <midiout-note 42>> <id cowbell, imports <midiin-note 56>, export <midiout-note 56>> <id crash-cymbal, imports <midiin-note (49 57)>, export <midiout-note 49>> <id cuica, imports <midiin-note (79 78)>, export <midiout-note 79>> <id default> <id guiro, imports <midiin-note (73 74)>, export <midiout-note 73>> <id hand-clap, imports <midiin-note 39>, export <midiout-note 39>> <id high-agogo, imports <midiin-note 67>, export <midiout-note 67>> <id high-bongo, imports <midiin-note 60>, export <midiout-note 60>> <id high-conga, imports <midiin-note (63 62)>, export <midiout-note 63>> <id high-floortom, imports <midiin-note 43>, export <midiout-note 43>> <id high-timbale, imports <midiin-note 65>, export <midiout-note 65>> <id high-tom, imports <midiin-note 50>, export <midiout-note 50>> <id high-woodblock, imports <midiin-note 76>, export <midiout-note 76>> <id highmid-tom, imports <midiin-note 48>, export <midiout-note 48>> <id low-agogo, imports <midiin-note 68>, export <midiout-note 68>> <id low-bongo, imports <midiin-note 61>, export <midiout-note 61>> <id low-conga, imports <midiin-note 64>, export <midiout-note 64>> <id low-floortom, imports <midiin-note 41>, export <midiout-note 41>> <id low-timbale, imports <midiin-note 66>, export <midiout-note 66>> <id low-tom, imports <midiin-note 45>, export <midiout-note 45>> <id low-woodblock, imports <midiin-note 77>, export <midiout-note 77>> <id lowmid-tom, imports <midiin-note 47>, export <midiout-note 47>> <id maracas, imports <midiin-note 70>, export <midiout-note 70>> <id open-hihat, imports <midiin-note 46>, export <midiout-note 46>> <id pedal-hihat, imports <midiin-note 44>, export <midiout-note 44>> <id ride-bell, imports <midiin-note 53>, export <midiout-note 53>> <id ride-cymbal, imports <midiin-note (51 59)>, export <midiout-note 51>> <id side-stick, imports <midiin-note 37>, export <midiout-note 37>> <id snare-drum, imports <midiin-note (38 40)>, export <midiout-note 38>> <id splash-cymbal, imports <midiin-note 55>, export <midiout-note 55>> <id tambourine, imports <midiin-note 54>, export <midiout-note 54>> <id triangle, imports <midiin-note (81 80)>, export <midiout-note 81>> <id vibraslap, imports <midiin-note 58>, export <midiout-note 58>> <id whistle, imports <midiin-note (71 72)>, export <midiout-note 71>>)}
+
+location: @code{score (initfile score)}
+
+This setting is FOMUS's percussion instrument library.  It's a list of default percussion instruments to choose from or use as templates for new ones.  The base list is defined in the `fomus.conf' file installed with FOMUS, though you can append new definitions in your own `.fomus' file.  Although it is possible, this should not be used in a `.fms' file or when defining instruments in a score.
+@anchor{setPresets}
+@item presets
+type: @code{string_prefix | (string_prefix string_prefix ...), string_prefix = common|contemp|draft|nottonal|quality|tonal}
+
+default value: @code{()}
+
+location: @code{score (initfile score)}
+
+A list of presets that are loaded immediately.  Each preset is a string representing a base filename (excluding the extension) in FOMUS's "presets" path.  If the preset file is found, it is effectively included at that point.  A preset file has the same format as the `.fomus' or `fomus.conf' file (i.e., it may only contain global settings) and has an `.fpr' extension.  You can define your own presets by placing `.fpr' files in a directory somewhere and adding the directory name to the FOMUS_PRESETS_PATH environment variable (e.g., put `export FOMUS_PRESETS_PATH="/home/me/presetdir1:/home/me/presetdir2"' in your .bash_profile script).
+@anchor{setPrintNotesymbol}
+@item print-notesymbol
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{score (initfile score)}
+
+Print notes as symbols (rather than as numbers) when appropriate.
+@anchor{setPruneType}
+@item prune-type
+type: @code{cutoff|transfer|split|steal}
+
+default value: @code{transfer}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Notes of the same pitch that overlap in the same voice must be adjusted or "pruned" somehow.  This can be done in several different ways.  `cutoff' specifies that the durations of earlier notes be "cut" to avoid conflicting with later notes.  `transfer' preserves the total duration of two conflicting notes by cutting the earlier note and extending the duration of the later note if necessary.  `split' splits notes into two parts if another conflicting note falls somewhere in the middle (i.e., an extra note might be created).  `steal' causes earlier notes to steal durations from any conflicting notes (i.e., the later notes are "cut").
+@anchor{setQuantError}
+@item quant-error
+type: @code{ave|mse}
+
+default value: @code{mse}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+How quantization error is calculated.  FOMUS's quantize module works by minimizing the amount of error and searches for the combinations of divisions and tuplets that provide the "best fit."  Choices are `ave' for average error and `mse' for mean-squared error (larger errors are less likely at the expense of a slightly higher average error).  Choose the one that represents best how you want quantization error to be calculated.
+@anchor{setQuantZerodurGracenotes}
+@item quant-zerodur-gracenotes
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Determines whether or not events quantized to a duration of zero should become grace notes.  Set this to `yes' if you want notes of very small duration to turn into grace notes or `no' if you want them to disappear.
+@anchor{setQuartertones}
+@item quartertones
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not pitches are quantized to quartertone values.  Set this to `yes' if you want quartertones.
+@anchor{setRight}
+@item right
+type: @code{touch|overlap|include}
+
+default value: @code{overlap}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Determines along with `left' how the end time of a mark event matches against note events to determine which ones receive the marks.  Choices are `touch', `overlap' and `include'.  `touch' specifies that the time of a note event be less or equal to the mark event's end time to match (the note need only touch the mark event to receive the marks).  `overlap' specifies that the time of a note event be less than the mark event's end time (the note must overlap with the mark event to receive the marks).  `include' specifies that the end time of a note event be less or equal to the mark event's end time (the note must be completely within the mark event to receive the marks).
+@anchor{setRightBarline}
+@item right-barline
+type: @code{string_barline}
+
+default value: @code{""}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The barline that appears to the left of the first measure that contains this setting.  Possible values are `' or `!' (normal barline), `!!' (double barline), `|!' (initial barline), `!|' (final bareline), `:' (dotted), `;' (dashed), `|:' (repeat right), `:|:' (repeat left and right), `:|' (repeat left).
+@anchor{setShortlongshortNotelevel}
+@item shortlongshort-notelevel
+type: @code{all|none|top|div}
+
+default value: @code{div}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The level at which a short-long-short sequence of notes is allowed to occur (e.g. eighth note, quarter note, eighth note).  Set this to a string indicating how short-long-short sequences may appear in the score.  `top' specifies that such a sequence is allowed only when they take up a full measure, `div' specifies that they are allowed when the notes are more than a beat in duration (i.e. "metrical division" level), `all' specifies that they are always allowed, and `none' specifies that they are never allowed.
+@anchor{setShowTrillnote}
+@item show-trillnote
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Indicates how trills should be notated.  If set to `yes', indicates that long trills are shown with a small note in parentheses indicating the auxiliary pitch.  Setting this to `no' indicates that trills are shown with an accidental above the trill sign.
+@anchor{setSlursCanspanrests}
+@item slurs-canspanrests
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether slur marks can span across rests by default.  Use this in notes events, measures, parts or at the score level to affect how slurs spanners are interpretted and processed.  This setting can be overriden when specifying a slur by adding an `r' (can span rests) or `n' (can only span notes) character to the mark.
+@anchor{setSlursCantouch}
+@item slurs-cantouch
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether slur marks can touch each other by default.  Use this in notes events, measures, parts or at the score level to affect how slurs spanners are interpretted and processed.  This setting can be overriden when specifying a slur by adding a `-' (can touch) or `|' (cannot touch) character to the mark.
+@anchor{setStaff}
+@item staff
+type: @code{integer>=1 | (integer>=1 integer>=1 ...)}
+
+default value: @code{()}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies a staff or list of staves for FOMUS to choose from.  Change the value of this setting for a note or measure definition to influence which staff the notes appear on.  Setting this to a single value effectively forces a staff selection while a list of values offers FOMUS a choice.
+@anchor{setStavesAppropriateClefScore}
+@item staves-appropriate-clef-score
+type: @code{real>=0}
+
+default value: @code{2}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score applied when higher pitches are in "higher" clefs and vice versa.  This helps insure that awkward clef changes don't occur when a pitch interval is leaping in the opposite direction.
+@anchor{setStavesAppropriateStaffScore}
+@item staves-appropriate-staff-score
+type: @code{real>=0}
+
+default value: @code{3}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score applied when relatively higher pitches in a melodic line are in higher staves and vice versa.  This helps insure that awkward staff changes don't occur when a pitch interval is leaping in the opposite direction.
+@anchor{setStavesBalanceScore}
+@item staves-balance-score
+type: @code{real>=0}
+
+default value: @code{5}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score for balancing voices across staves.  Increasing this helps spread prevent crowding of separate voices onto the same staff.
+@anchor{setStavesBeatdist}
+@item staves-beatdist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one beat in a measure.  A larger distance translates to a smaller weight in decisions regarding staves/clefs and vice versa.
+@anchor{setStavesClefVertorderScore}
+@item staves-clef-vertorder-score
+type: @code{real>=0}
+
+default value: @code{8.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score applied when clefs appear in the correct vertical order on more than one staff.  This persuades FOMUS to avoid situations where an upper staff is actually lower in register than a lower staff (and vice versa).
+@anchor{setStavesClefchangeScore}
+@item staves-clefchange-score
+type: @code{real>=0}
+
+default value: @code{8.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score for avoiding rapid clef changes.  Increasing this makes it less likely for clef changes to occur rapidly in succession.
+@anchor{setStavesDistmod}
+@item staves-distmod
+type: @code{blockdist|cartdist|notedist}
+
+default value: @code{notedist}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module that is used to calculate the "distance" between notes.  The closer two notes are to each other, the more important their relationship is in terms of note spelling, staff choice, voice assignments, etc..  Set this to change the algorithm used for calculating distance when making decisions regarding staff and clef changes.
+@anchor{setStavesDistmult}
+@item staves-distmult
+type: @code{real>0}
+
+default value: @code{1}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+FOMUS calculates the distance between note events so that it can weigh scores and penalties according to how close they are to each other.  An exponential curve is usually applied before actually calculating the weight.  This value is the distance at which a score calculated between two notes is decreased to 1/2 it's full value (at twice this distance the score is decreased to 1/4 it's full value, etc.).
+@anchor{setStavesEngine}
+@item staves-engine
+type: @code{bfsearch|dynprog}
+
+default value: @code{bfsearch}
+
+location: @code{part (initfile score inst part)}
+
+Engines provide different types of search functionality to the rest of FOMUS's modules and are interchangeable.  For example, two of FOMUS's default engines `dynprog' and `bfsearch' execute two different search algorithms, each with different benefits.  Set this to the name of an engine module to change the search algorithm used for finding staff and clef changes.
+@anchor{setStavesInstaffScore}
+@item staves-instaff-score
+type: @code{real>=0}
+
+default value: @code{13.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score applied when notes fit inside the staff.  A high score causes notes to appear inside their staves (i.e., without the use of copious ledger lines) and also affects the selection of proper clef signatures.
+@anchor{setStavesMaxdist}
+@item staves-maxdist
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The maximum distance allowed for staff/clef calculations.  Notes that are more than this distance apart from each other are considered unrelated to each other and are not included in FOMUS's calculations.
+@anchor{setStavesOctavedist}
+@item staves-octavedist
+type: @code{real>=0}
+
+default value: @code{2.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one octave (i.e., two notes an octave apart have a distance equivalent to this value).  A larger distance translates to a smaller weight in decisions regarding staves/clefs and vice versa.
+@anchor{setStavesPitchVertorderScore}
+@item staves-pitch-vertorder-score
+type: @code{real>=0}
+
+default value: @code{8.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score for putting simultaneous pitches in the correct vertical order (i.e., higher notes go on higher staves and vice versa).  Increasing this value makes it more likely for pitches to appear in the correct vertical order across staves.
+@anchor{setStavesPreferredClefScore}
+@item staves-preferred-clef-score
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score for using a staff's "preferred clef."  Preferred clefs are specified in staff objects with the `clef-preference' setting.
+@anchor{setStavesSearchdepth}
+@item staves-searchdepth
+type: @code{integer>=10}
+
+default value: @code{25}
+
+location: @code{part (initfile score inst part)}
+
+The search depth used when an appropriate engine module (such as `bfsearch') is selected.  A larger search depth increases both computation time and quality.
+@anchor{setStavesStaffchangeScore}
+@item staves-staffchange-score
+type: @code{real>=0}
+
+default value: @code{8.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score for avoiding rapid staff changes.  Increasing this makes it less likely for staff changes to occur rapidly in succession.
+@anchor{setStavesVoicemaxScore}
+@item staves-voicemax-score
+type: @code{real>=0}
+
+default value: @code{13}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score for placing no more than two voices in a staff.  Three or more voices could become crowded since note stems are forced to run into each other.  Increasing this value helps to avoid this situation.
+@anchor{setSulStyle}
+@item sul-style
+type: @code{string}
+
+default value: @code{sulletter}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Determines the style of a `sul' text marking.  Possible values are `sulletter' for "sul" to be followed by a note string name, `sulroman' for "sul" to be followed by a Roman numeral, `letter' for a letter only and `roman' for a Roman numeral only.
+@anchor{setSyncopatedNotelevel}
+@item syncopated-notelevel
+type: @code{all|none|top|div}
+
+default value: @code{div}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+The level at which a short-multiple-long-short syncopated sequence of notes is allowed to occur (e.g. eighth-quarter-quarter-eighth).  Set this to a string indicating how short-multiple-long-short sequences may appear in the score.  `top' specifies that such a sequence is allowed only when it takes up a full measure, `div' specifies that it is allowed when the notes are more than a beat in duration (i.e. "metrical division" level), `all' specifies that it is always allowed, and `none' specifies that it is never allowed.
+@anchor{setTextsCanspanone}
+@item texts-canspanone
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether text spanner marks can span a single note by default.  Use this in notes events, measures, parts or at the score level to affect how text spanners are interpretted and processed.  This setting can be overriden when specifying a text spanner by adding a `1' (can span a single note) or `m' (cannot span a single note) character to the mark.
+@anchor{setTextsCanspanrests}
+@item texts-canspanrests
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether text spanner marks can touch each other by default.  Use this in notes events, measures, parts or at the score level to affect how text spanners are interpretted and processed.  This setting can be overriden when specifying a text spanner by adding a `-' (can touch) or `|' (cannot touch) character to the mark.
+@anchor{setTextsCantouch}
+@item texts-cantouch
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether text spanner marks can touch each other by default.  Use this in notes events, measures, parts or at the score level to affect how text spanners are interpretted and processed.  This setting can be overriden when specifying a text spanner by adding a `-' (can touch) or `|' (cannot touch) character to the mark.
+@anchor{setTimesig}
+@item timesig
+type: @code{(integer>=0 integer_powof2>=1)}
+
+default value: @code{(0 1)}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+An explicit time signature definition, which overrides the one FOMUS calculates for you using `timesig-den'.  The first value in the list is the numerator and the second value is the denominator.  The default value of `(0 1)' means no explicit time signature is given.  FOMUS looks at this setting first when trying to calculate time signatures.  If `timesigs' isn't valid (e.g., when a measure is split or two measures are merged together) then a valid time signature is searched for in `timesigs'.  If a valid one isn't found there either then FOMUS ignores all user-supplied time signatures and creates one using `timesig-den'.
+@anchor{setTimesigC}
+@item timesig-c
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+If set to true, specifies that common and cut time signatures are to be notated with "c" symbols rather than numbers.  Set this globally or inside a measure definition.
+@anchor{setTimesigDen}
+@item timesig-den
+type: @code{integer_powof2>=1}
+
+default value: @code{4}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Specifies the number that should normally appear in the denominator of the time signature.  Set this globally or in a measure definition to influence how FOMUS calculates time signatures.  FOMUS multiplies this value by 2 or powers of 2 when necessary (e.g., when `timesig-den' is 4 and a measure contains 4+1/2 beats, FOMUS multiples 4 by 2 to get a time signature of 9/8).  FOMUS also interprets this as a dotted value when there is a compound meter (e.g., when timesig-den is 4 and a measure with compound meter contains 4 beats, FOMUS multiplies this 4 by 2 to get a signature of 9/8).
+@anchor{setTimesigs}
+@item timesigs
+type: @code{((integer>=1 integer_powof2>=1) (integer>=1 integer_powof2>=1) ...)}
+
+default value: @code{()}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+A list of time signatures that FOMUS can choose from when it creates a new time signature.  The format of each time signature is the same as in `timesig'.  FOMUS looks at `timesig' first when trying to calculate time signatures.  If `timesig' isn't valid then one is searched for in this list.  If a valid one isn't found here either then FOMUS ignores all user-supplied time signatures and creates one using `timesig-den'.
+@anchor{setTitle}
+@item title
+type: @code{string}
+
+default value: @code{""}
+
+location: @code{score (initfile score)}
+
+The title of the piece.  This appears in the score at the top of the first page.
+@anchor{setToVoice}
+@item to-voice
+type: @code{integer1..128 | (integer1..128 integer1..128 ...)}
+
+default value: @code{()}
+
+location: @code{partmap (initfile score partmap)}
+
+Specifies the voice or voices that note events are copied to in a metapart.  Use in conjunction with `from-voice' to specify a complete distribution rule (i.e., note events must be moved from one voice or group of voices to another).  Can be a single voice or a list of voices.  If both `from-voice' and `to-voice' are lists, then the two lists must be the same size so that the "from" and "to" voices match.
+@anchor{setTquantEngine}
+@item tquant-engine
+type: @code{divsearch}
+
+default value: @code{divsearch}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Engines provide different types of search functionality to the rest of FOMUS's modules and are interchangeable.  For example, two of FOMUS's default engines `dynprog' and `bfsearch' execute two different search algorithms, each with different benefits.  Set this to the name of an engine module to change the search algorithm used for time quantization.
+@anchor{setTranspose}
+@item transpose
+type: @code{rational-128..128}
+
+default value: @code{0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+An instrument's transposition in semitones, used to automatically transpose parts.  Set this in an instrument definition to an appropriate value (e.g., a B-flat clarinet would require a value of -2).
+@anchor{setTransposeKeysigs}
+@item transpose-keysigs
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+Whether or not to transpose key signatures along with notes.  Set this to `yes' if key signatures must change to reflect transpositions or `no' if key signatures in the score must be exactly the ones specified on input.
+@anchor{setTransposePart}
+@item transpose-part
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not to transpose a part.  Set this to `yes' at the score level if you want a transposed score or `no' if you want a "C" score.
+@anchor{setTremoloStyle}
+@item tremolo-style
+type: @code{string}
+
+default value: @code{none}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Determines whether or not tremolos are tied and if so, what kind of ties are used.  Possible values are `none' for no ties, `tied' for solid ties, `dotted' for dotted ties, and `dashed' for dashed ties.
+@anchor{setTremsToTrills}
+@item trems-to-trills
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not some tremolos are converted to trills.  If set to `yes', indicates that unmeasured tremolos that consist of only two notes and are only 2nd apart are converted to trills.
+@anchor{setTrillsToTrems}
+@item trills-to-trems
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not some trills are converted to tremolos.  If set to `yes', indicates that trills that aren't the standard interval of a 2nd are converted to unmeasured tremolos.
+@anchor{setTripledots}
+@item tripledots
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not to allow notes with triple dots (adding 7/8 of the duration).  Setting this to `yes' allows double-dotted notes to appear in the score while setting this to `no' disallows them.
+@anchor{setTupletDivs}
+@item tuplet-divs
+type: @code{((rational>0 rational>0 ...) (rational>0 rational>0 ...) ...)}
+
+default value: @code{()}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+A list of ways tuplets may be divided into smaller units, used to split and tie notes and rests.  An entry of (3 2), for example, indicates that a tuplet with 5 in its numerator may be subdivided into 3 + 2.  This overrides divisions in `default-tupletdivs' and should be used to specify alternate behavior for a prticular section or group of measures.
+@anchor{setTupletSymbols}
+@item tuplet-symbols
+type: @code{(string rational>0..128, string rational>0..128, ...)}
+
+default value: @code{(d 1+1/2, q 4/5, t 2/3, c 2/3)}
+
+location: @code{score (initfile score)}
+
+A mapping from tuplet strings to duration multipliers.  Use this to customize the duration symbols used in a `.fms' file.  `dur-symbols', `dur-dots', 'dur-tie' and 'tuplet-symbols' together determine a full duration by concatenating and "tying" them together.  A multipler of 2/3, for example, indicates a typical triplet note modification.
+@anchor{setTupletdur}
+@item tupletdur
+type: @code{rational>=0 | (rational>=0 rational>=0 ...)}
+
+default value: @code{0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+A tuplet duration or list of durations.  Setting this forces FOMUS to use tuplets or nested tuplets that spans only a specified duration.  A list value represents tuplet durations at multiple tuplet levels (the first list item represents the largest/outermost level).  A single numeric value (equivalent to a list of size one) specifies the duration only at the outermost tuplet level.  An empty list or zero in any list position indicates no restriction on tuplet size.  It's important to note that only valid tuplets allowed by FOMUS's rules (or specified with `tup..' and `..tup' marks) can appear (i.e., this setting can't be used to force FOMUS to create a tuplet at a specific location).
+@anchor{setTupletrat}
+@item tupletrat
+type: @code{rational>=0 | (rational>=0 rational>=0 ...)}
+
+default value: @code{0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+A tuplet division ratio.  Setting this forces FOMUS to use tuplets or nested tuplets with the given ratio.  A list value specifies the ratio at each tuplet level (the first list item represents the largest/outermost level).  A single numeric value (equivalent to a list of size one) specifies the ratio at the outermost tuplet level.  An integer in any list position specifies the number of divisions (or numerator of the tuplet ratio) while a rational number specifies the ratio itself.  An empty list or zero in any list position specifies no restriction on the tuplet ratio.  It's important to note that only valid tuplets allowed by FOMUS's rules (or specified with `tup..' and `..tup' marks) can appear (i.e., this setting can't be used to force FOMUS to create a tuplet at a specific location).
+@anchor{setTuplets}
+@item tuplets
+type: @code{(integer>=1 integer>=1 ...)}
+
+default value: @code{7}
+
+location: @code{measdef (initfile score inst part measdef)}
+
+List specifying the maximum tuplet division at each level (the first number in the list corresponds to the outermost tuplet level, etc.).  Set this to represent the highest tuplet division or divisions you want to appear in your score.  Increasing this increases computation time since FOMUS much search more for valid combinations of tuplet divisions.  The number of items in the list also specifies the number of nested tuplets allowed.  An empty list specifies that no tuplets are allowed at all.
+@anchor{setUntie}
+@item untie
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether or not FOMUS unties notes that can be combined into a single note.  FOMUS unties notes that fall within this range to make the notation easier to read.  The results are an unconventional style of notation that is appropriate for scores with complex rhythms and many notes beginning or ending on offbeats.
+@anchor{setUntieDurRange}
+@item untie-dur-range
+type: @code{(number>=0 number>=0)}
+
+default value: @code{(1/2 1+1/2)}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+A list of two values specifying the minimum and maximum durations an "untied" note is allowed to span.  FOMUS unties notes that fall within this range to make the notation easier to read.  The results are an unconventional style of notation that is appropriate for scores with complex rhythms and many notes beginning or ending on offbeats.  Change this setting to influence which notes FOMUS considers for untying.
+@anchor{setUseLevel}
+@item use-level
+type: @code{integer0..3}
+
+default value: @code{2}
+
+location: @code{score (initfile score)}
+
+Limits the experience level of the documentation returned by command-line help queries (0 = beginner, 1 = intermediate, 2 = advanced, 3 = guru).  Level 0 is for total newbies.  1 offers limited choices for impatient people.  2 is the recommended level to get any real use out of FOMUS.  Level 3 settings require a bit of technical knowledge and are used to tweak FOMUS's algorithms and improve performance.  Many settings for tweaking and directly inserting text into output files are also at level 3.
+@anchor{setVerbose}
+@item verbose
+type: @code{integer0..2}
+
+default value: @code{1}
+
+location: @code{score (initfile score)}
+
+Verbosity level (0 = none, 1 = some, 2 = a lot).
+@anchor{setVertmax}
+@item vertmax
+type: @code{integer>=1}
+
+default value: @code{1}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The maximum number of notes an instrument is able to play simultaneously in a single voice.  Set this in an instrument or part to the maximum number of notes that can appear in a chord.  For example, most instruments can only play one note at a time but keyboard instruments could have a value of 5 or more.  String instruments might also require larger values here for chords or double stops, etc..
+@anchor{setVoicesBeatdist}
+@item voices-beatdist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one beat in a measure.  A larger distance translates to a smaller weight in decisions regarding voice assignments and vice versa.
+@anchor{setVoicesConnectScore}
+@item voices-connect-score
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Encourages neighboring notes to be in a single voice (prevents hockets between voices).  Increasing this helps insure that continuity exists in each voice.
+@anchor{setVoicesDissimilarScore}
+@item voices-dissimilar-score
+type: @code{real>=0}
+
+default value: @code{55.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score encouraging dissimilar rhythms in separate voices.  This also encourages notes containing the same rhythms to be appropriately grouped into chords.  Increasing this value decreases the chance of multiple rhythms being notated in the same voice with a lot of chords and ties.
+@anchor{setVoicesDistmod}
+@item voices-distmod
+type: @code{blockdist|cartdist|notedist}
+
+default value: @code{notedist}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Module that is used to calculate the "distance" between notes.  The closer two notes are to each other, the more important their relationship is in terms of note spelling, staff choice, voice assignments, etc..  Set this to change the algorithm used for calculating distance when making decisions regarding voice assignments.
+@anchor{setVoicesDistmult}
+@item voices-distmult
+type: @code{real>0}
+
+default value: @code{1}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+FOMUS calculates the distance between note events so that it can weigh scores and penalties according to how close they are to each other.  An exponential curve is usually applied before actually calculating the weight.  This value is the distance at which a score calculated between two notes is decreased to 1/2 it's full value (at twice this distance the score is decreased to 1/4 it's full value, etc.).
+@anchor{setVoicesEngine}
+@item voices-engine
+type: @code{bfsearch|dynprog}
+
+default value: @code{bfsearch}
+
+location: @code{part (initfile score inst part)}
+
+Engines provide different types of search functionality to the rest of FOMUS's modules and are interchangeable.  For example, two of FOMUS's default engines `dynprog' and `bfsearch' execute two different search algorithms, each with different benefits.  Set this to the name of an engine module to change the search algorithm used for finding voice assignments.
+@anchor{setVoicesMaxdist}
+@item voices-maxdist
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+The maximum distance allowed for voice assignment calculations.  Notes that are more than this distance apart from each other are considered unrelated to each other and are not included in FOMUS's calculations.
+@anchor{setVoicesOctavedist}
+@item voices-octavedist
+type: @code{real>=0}
+
+default value: @code{1.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+If the `cartdist' distance or similar module is selected, this is the distance of one octave (i.e., two notes an octave apart have a distance equivalent to this value).  A larger distance translates to a smaller weight in decisions regarding voice assignments and vice versa.
+@anchor{setVoicesPrevgraceScore}
+@item voices-prevgrace-score
+type: @code{real>=0}
+
+default value: @code{5.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when the previous note in the same voice is a grace note (to insure continuity).  Increasing this value causes grace notes to stick together.
+@anchor{setVoicesSearchdepth}
+@item voices-searchdepth
+type: @code{integer>=10}
+
+default value: @code{25}
+
+location: @code{part (initfile score inst part)}
+
+The search depth used when an appropriate engine module (such as `bfsearch') is selected.  A larger search depth increases both computation time and quality.
+@anchor{setVoicesSmoothnessScore}
+@item voices-smoothness-score
+type: @code{real>=0}
+
+default value: @code{2.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when notes in close proximity to each other are also close to each other in pitch.  Increasing this value improves the voice leading in each voice.
+@anchor{setVoicesVertmaxScore}
+@item voices-vertmax-score
+type: @code{real>=0}
+
+default value: @code{1000.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when the number of overlapping notes in one voice doesn't exceed the limit for the instrument.  Increasing this increases the likelihood that chords exceeding the `vertmax' limit are split into separate voices (if possible).
+@anchor{setVoicesVoicecrossScore}
+@item voices-voicecross-score
+type: @code{real>=0}
+
+default value: @code{2.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when notes crossing in separate voices are ordered as expected (i.e., higher notes are in upper voices and vice versa).  Increasing this increases the chance of crossing notes being ordered correctly.
+@anchor{setVoicesVoiceleadingScore}
+@item voices-voiceleading-score
+type: @code{real>=0}
+
+default value: @code{13.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when adjacent notes are smoothly connected (i.e., smaller intervals are preferred over larger ones).  Increasing this value improves the voice leading in each voice.
+@anchor{setVoicesVoiceoverlapScore}
+@item voices-voiceoverlap-score
+type: @code{real>=0}
+
+default value: @code{21.0}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Score when overlapping notes are ordered as expected (i.e., overlapping higher notes are in upper voices and vice versa).  Increasing this value increases the chance of overlapping notes being ordered correctly.
+@anchor{setWedgesCanspanone}
+@item wedges-canspanone
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether crescendo/diminuendo wedge marks can span a single note by default.  Use this in notes events, measures, parts or at the score level to affect how crescendo/diminuendo spanners are interpretted and processed.  This setting can be overriden when specifying a wedge by adding a `1' (can span a single note) or `m' (cannot span a single note) character to the mark.
+@anchor{setWedgesCanspanrests}
+@item wedges-canspanrests
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether crescendo/diminuendo wedge marks can touch each other by default.  Use this in notes events, measures, parts or at the score level to affect how crescendo/diminuendo spanners are interpretted and processed.  This setting can be overriden when specifying a wedge by adding a `-' (can touch) or `|' (cannot touch) character to the mark.
+@anchor{setWedgesCantouch}
+@item wedges-cantouch
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Specifies whether crescendo/diminuendo wedge marks can touch each other by default.  Use this in notes events, measures, parts or at the score level to affect how crescendo/diminuendo spanners are interpretted and processed.  This setting can be overriden when specifying a wedge by adding a `-' (can touch) or `|' (cannot touch) character to the mark.
+@anchor{setWriteBypart}
+@item write-bypart
+type: @code{yes|no}
+
+default value: @code{yes}
+
+location: @code{score (initfile score)}
+
+Whether or not to group output events by part in an `.fms' output file.  Setting this to `yes' creates separate sections for each part.  Setting this to `no' organizes all events by their times, switching parts as necessary.
+@anchor{setWriteEqualsStr}
+@item write-equals-str
+type: @code{equals|colon}
+
+default value: @code{equals}
+
+location: @code{score (initfile score)}
+
+Whether to use `=' or `:' when outputting setting values to an `.fms' output file.  Set this value to `equals' to get `=' characters and `colon' to get `:' characters between setting names and values.
+@anchor{setWriteFileWidth}
+@item write-file-width
+type: @code{integer>=79}
+
+default value: @code{119}
+
+location: @code{score (initfile score)}
+
+Number of characters allowed per line in an `.fms' output file.  Used to wrap long lines into a more readable format.
+@anchor{setWriteIndentWidth}
+@item write-indent-width
+type: @code{integer0..20}
+
+default value: @code{8}
+
+location: @code{score (initfile score)}
+
+Number of spaces used for indentation in an `.fms' output file.
+@anchor{setWriteNonrepeatEvents}
+@item write-nonrepeat-events
+type: @code{(eventtype eventtype ...), eventtype = t|ti|tim|time|t*|ti*|tim*|time*|d|du|dur|duration|d*|du*|dur*|duration*|...}
+
+default value: @code{time*}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+A list of event parameters to write without repetition in an `.fms' output file (i.e., values are written only when they change), making the output more concise and easier to read.  Set this to the parameters that you don't want repeated in each note event.  An asterisk after a type string indicates that non-repeating events should also be followed by a newline to aid visibility.
+@anchor{setWriteWhichSettings}
+@item write-which-settings
+type: @code{none|score|config|all}
+
+default value: @code{score}
+
+location: @code{score (initfile score)}
+
+Indicates which global settings are saved to an `.fms' output file.  `none' means none, `score' means only those set globally in a score, `config' means those set in a score and set in the `.fomus' config file, and `all' means dump all setting values (including internal defaults).
+@anchor{setXmlAltervals}
+@item xml-altervals
+type: @code{(string (rational-128..128 rational-128..128), string (rational-128..128 rational-128..128), ...)}
+
+default value: @code{()}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+A mapping that translates accidentals into numbers to be inserted in the <alter> tag in a MusicXML output file.  The strings are the values to appear inside the <alter> tags (which should be integers or floats according the the MusicXML spec) and the pairs of rationals are the accidentals that are translated into the <alter> values (FOMUS stores two accidentals internally, a "normal" adjustment and a microtonal adjustment which correspond respectively to the `note-accs' and `note-microtones' settings).  Each pair may also be a single value, in which case the second value (the microtonal adjustment) is 0.  This setting allows for alternate methods of importing microtonal or other special accidentals that aren't directly supported in the MusicXML spec.  (You might also want to set `xml-suppress-acctag' to `no' when using this setting.)
+@anchor{setXmlIndent}
+@item xml-indent
+type: @code{integer>=0}
+
+default value: @code{0}
+
+location: @code{score (initfile score)}
+
+Number of spaces used for indenting in a MusicXML output file.  A value of 0 means tab characters are used for indentation.
+@anchor{setXmlSuppressAcctag}
+@item xml-suppress-acctag
+type: @code{yes|no}
+
+default value: @code{no}
+
+location: @code{note (initfile score inst part measdef staff clef note)}
+
+Whether to suppress the <accidental> and <accidental-mark> tags in a MusicXML output file.  This prevents FOMUS from complaining that it can't write an accidental when it is outside the range of values acceptable for MusicXML.
+@end table

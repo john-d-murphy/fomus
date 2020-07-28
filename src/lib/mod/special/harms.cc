@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -90,11 +90,11 @@ namespace harms {
       return base + ((fomus_int) 12 + 7 + 5 + 4 + 3); // 12 + 7 + 5 + 4
     throw invalid();
   }
-  fomus_rat bstot(const fomus_rat& base, const fomus_rat& s,
-                  const fomus_rat& pt, const bool art,
-                  const fomus_rat& maxartint,
-                  const fomus_rat& minint) { // base+sounding to touched (pt =
-                                             // possible touched)
+  fomus_rat
+  bstot(const fomus_rat& base, const fomus_rat& s, const fomus_rat& pt,
+        const bool art, const fomus_rat& maxartint,
+        const fomus_rat&
+            minint) { // base+sounding to touched (pt = possible touched)
     fomus_rat d(s - base);
     static const int h12[] = {12, 0};
     static const int h7[] = {7, 7 + 12, 0};

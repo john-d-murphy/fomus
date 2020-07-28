@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -82,10 +82,6 @@ namespace execout {
         exit(EXIT_FAILURE);
       if (close(tmpstdin[1]) < 0)
         exit(EXIT_FAILURE);
-      if (!out) {
-        if (setsid() < 0)
-          exit(EXIT_FAILURE);
-      }
       execvp(path, (char* const*) &args[0]); // searches for file in $PATH
       exit(EXIT_FAILURE);
     }

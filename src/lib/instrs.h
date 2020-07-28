@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -643,12 +643,6 @@ public:
     virtual void assignunsplit(/*noteev& note1*/) {
       throw wrongtype("a note");
     }
-    virtual int getpartialmeas() const {
-      throw wrongtype("a measure");
-    }
-    virtual int getpartialbarline() const {
-      throw wrongtype("a measure");
-    }
   };
   class modobjbase_sets : public modobjbase {
 protected:
@@ -952,8 +946,8 @@ public:
       str_base::sets.insert(setmap_val(
           CLEF_ID,
           boost::shared_ptr<varbase>(vars[CLEF_ID]->getnewstr(
-              0, cl, filepos(info_global))))); // set when fomusdata is
-                                               // created, so it's global
+              0, cl, filepos(info_global))))); // set when fomusdata is created,
+                                               // so it's global
     }
     clef_str(const clef_str& x, const staff_str* par) : str_base(x), par(par) {}
     boost::shared_ptr<clef_str> copy(const staff_str* newpar) const {
@@ -2000,7 +1994,6 @@ public:
     void reinserttmps();
     void mergefrom(part& x, const numb& shift);
     void insdefmeas(boost::shared_ptr<measdef_str>& ms);
-    // void postmeas();
   };
   inline bool operator<(const boost::shared_ptr<partormpart_str>& x,
                         const boost::shared_ptr<partormpart_str>& y) {

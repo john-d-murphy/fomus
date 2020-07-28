@@ -1,0 +1,4 @@
+@set UPDATED 3 July 2011
+@set UPDATED-MONTH July 2011
+@set EDITION 0.1.18-alpha
+@set VERSION 0.1.18-alpha

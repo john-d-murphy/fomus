@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -251,10 +251,8 @@ namespace prune {
           "  `cutoff' specifies that the durations of earlier notes be \"cut\" "
           "to avoid conflicting with later notes."
           "  `transfer' preserves the total duration of two conflicting notes "
-          "by "
-          "cutting the earlier note and extending the duration of the later "
-          "note "
-          "if necessary."
+          "by cutting the earlier note and extending the duration of the later "
+          "note if necessary."
           "  `split' splits notes into two parts if another conflicting note "
           "falls somewhere in the middle (i.e., an extra note might be "
           "created)."
@@ -274,11 +272,10 @@ namespace prune {
     case 1: {
       set->name = "mono"; // docscat{voices}
       set->type = module_bool;
-      set->descdoc =
-          "Specifies whether or not notes are clipped when necessary "
-          "to produce a monophonic line.  "
-          "Set this to `yes' if you don't want any notes to overlap "
-          "in the same voice.";
+      set->descdoc = "Specifies whether or not notes are clipped when "
+                     "necessary to produce a monophonic line.  "
+                     "Set this to `yes' if you don't want any notes to overlap "
+                     "in the same voice.";
       // set->typedoc = prunetyp; // same valid fun
 
       module_setval_int(&set->val, 0);

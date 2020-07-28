@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -311,7 +311,7 @@ public:
 public:
     dlmodt2(const T& st) : dlmodt1<T>(st) {}
     void* getdata(FOMUS f) const {
-      return T::initerrwrap(T::newdata(f));
+      return this->initerrwrap(T::newdata(f));
     }
     void freedata(void* data) const {
       T::freedata(data);

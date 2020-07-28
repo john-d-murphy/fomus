@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -345,15 +345,15 @@ public:
               search_nodes arr0 = {arr.size(), &arr[0]};
               // #ifndef NDEBUGOUT
               // 	      union search_score score =
-              // iface.get_score(iface.moddata, arr0); DBG("BFSEARCH GOT SCORE =
+              // iface.get_score(iface.moddata, arr0); 	      DBG("BFSEARCH GOT SCORE =
               // " << score.f << " and adding to " << n.score.f << std::endl);
-              // union search_score scoreadd = iface.score_add(iface.moddata,
-              // n.score, score); 	      DBG("RESULT = "
-              // << scoreadd.f << std::endl); 	      heapshptr o(new
-              // node(iface, id++, i.release(), ch,
-              // scoreadd, //off /*iface.get_time(iface.moddata, i.get())*/,
-              // np, nop[in], /*iface.get_endtime(iface.moddata, i.get()),*/
-              // arr.size())); #else
+              // 	      union search_score scoreadd =
+              // iface.score_add(iface.moddata, n.score, score); 	      DBG("RESULT = "
+              // << scoreadd.f << std::endl); 	      heapshptr o(new node(iface, id++,
+              // i.release(), ch, 				   scoreadd, //off
+              // /*iface.get_time(iface.moddata, i.get())*/, 				   np, nop[in],
+              // /*iface.get_endtime(iface.moddata, i.get()),*/ 				   arr.size()));
+              // #else
               heapshptr o(new node(
                   iface, id++, i.release(), ch,
                   (n.isbegin()
@@ -407,7 +407,7 @@ public:
 using namespace bfsearch;
 
 //#warning "*** check for fomus err also (err from other threads), exit if there
-// is one ***"
+//is one ***"
 
 const char* module_longname() {
   return "Best-First Search Engine";

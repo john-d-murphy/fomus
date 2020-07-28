@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -350,9 +350,8 @@ namespace fomus {
         continue; // if not first tied note
       assert(CASTNOTEEVBASE(n)->getisnote());
       if (ceo < CASTNOTEEV(n)->getfulltime()) {
-        poststavesdoit_aux(srvs,
-                           objs); // process only chords, make sure they all
-                                  // have same staff/clef
+        poststavesdoit_aux(srvs, objs); // process only chords, make sure they
+                                        // all have same staff/clef
         srvs.clear();
       }
       objs.push_back(CASTNOTEEV(n)); // gather full chord
@@ -369,9 +368,9 @@ namespace fomus {
   // this one is for rests
   void poststavesdoit2(
       FOMUS fom,
-      void* moddata) { // BY MEAS, RESTSONLY, NOPERCS, FIRSTONLY--rests
-                       // are dealt with later (when measure divs are
-                       // created)--(use this same fun)
+      void* moddata) { // BY MEAS, RESTSONLY, NOPERCS, FIRSTONLY--rests are
+                       // dealt with later (when measure divs are created)--(use
+                       // this same fun)
     DBG("we're at poststavesdoit2 now" << std::endl);
 #ifndef NDEBUGOUT
     ((fomusdata*) fom)->dumpall();

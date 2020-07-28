@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -34,8 +34,7 @@ namespace pnotes {
   }
   inline const char* doc() {
     return "Determines pitches, voices, and other attributes based on "
-           "percussion "
-           "instrument settings.";
+           "percussion instrument settings.";
   }
   void* newdata(FOMUS f);
   void freedata(void* dat);

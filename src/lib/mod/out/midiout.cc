@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -1691,10 +1691,9 @@ namespace midiout {
       for (fomus_rat v2(val * (fomus_int) 2), o(o1 + v2), oe(o2 - v2); o <= oe;
            o = o + v2) {
 #warning "with overlap"
-        tr.events.insert(
-            new mevent(o + mod.secstobeats(o, mod.gauss(tr.timedev)),
-                       ev_noteoff, ev2->val1,
-                       0)); // + overlap, also w/ gauss adj.
+        tr.events.insert(new mevent(
+            o + mod.secstobeats(o, mod.gauss(tr.timedev)), ev_noteoff,
+            ev2->val1, 0)); // + overlap, also w/ gauss adj.
         fomus_float o0 = module_rattofloat(o + val);
         tr.events.insert(new meventetim(
             o0 + mod.secstobeats(o0, mod.gauss(tr.timedev)), o0, ev_noteon,
@@ -2500,8 +2499,8 @@ int module_get_setting(int n, struct module_setting* set, int id) {
   //     set->descdoc = "The amount to multiply the duration of a MIDI note by
   //     when there is a slur over it.  "
   // 	"Set this to the ratio of a slurred note duration to a non-slurred note
-  // duration.  " 	"An increase in duration causes pitches to overlap and
-  // create a slurred effect.";
+  // duration.  " 	"An increase in duration causes pitches to overlap and create
+  // a slurred effect.";
   //     set->typedoc = multtype;
 
   //     module_setval_rat(&set->val, module_makerat(5, 4));

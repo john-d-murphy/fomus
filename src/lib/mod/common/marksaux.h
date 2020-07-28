@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -30,8 +30,7 @@ namespace marksaux {
 
   template <class I1, class I2, class L, class C1, class C2>
   inline void
-  inplace_set_difference(C1& cont1,
-                         C2& cont2) { // doesn't modify the first one
+  inplace_set_difference(C1& cont1, C2& cont2) { // doesn't modify the first one
     I1 first1(cont1.begin());
     I2 first2(cont2.begin());
     while (first1 != cont1.end() && first2 != cont2.end()) {

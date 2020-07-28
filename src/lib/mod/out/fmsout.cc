@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -177,10 +177,9 @@ namespace fmsout {
     return module_valid_int(val, 0, module_incl, 20, module_incl, 0,
                             writemaxwidthtype);
   }
-  const char* nonreptype =
-      "(eventtype eventtype ...), eventtype = "
-      "t|ti|tim|time|t*|ti*|tim*|time*|d|du|dur|duration|d*|"
-      "du*|dur*|duration*|...";
+  const char* nonreptype = "(eventtype eventtype ...), eventtype = "
+                           "t|ti|tim|time|t*|ti*|tim*|time*|d|du|dur|duration|"
+                           "d*|du*|dur*|duration*|...";
   // const char* ordertype = "(eventtype eventtype ...), eventtype =
   // t|ti|tim|time|d|du|dur|duration|...";
   int valid_nonrep_aux(int n, const char* val) {

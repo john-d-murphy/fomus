@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -417,7 +417,8 @@ namespace fomus {
       return stringify(out.str(), str);
     } else {
     NODEAL:
-      out << std::fixed << std::setprecision(3) << val;
+      out.setf(std::ios_base::fixed, std::ios_base::floatfield);
+      out << std::setprecision(3) << val;
     }
     return out.str();
   }
@@ -560,8 +561,8 @@ namespace fomus {
       throw;
     }
   }
-  void fomusdata::set_measdef() { // doesn't require an id!--for "embedded"
-                                  // measattrs
+  void
+  fomusdata::set_measdef() { // doesn't require an id!--for "embedded" measattrs
     try {
       measdef->complete(*this);
       if (!measdef->getid().empty()) {
@@ -911,7 +912,7 @@ public:
       if (!(*i)->ismetapart()) {
         boost::shared_ptr<part_str> tmp(((part_str&) (**i)).fomclone());
         //#warning "compare part against x.thedefpart and reset to tmp clone if
-        // matches"
+        //matches"
         clones.insert(
             std::map<part_str*, boost::shared_ptr<part_str>>::value_type(
                 (part_str*) i->get(), tmp));
@@ -1200,8 +1201,9 @@ public:
   // 	defpartsmap_constit i3(default_parts.find(str));
   // 	if (i3 == default_parts.end()) {
   // 	  if (boost::algorithm::iequals(str, "default")) curseldpart =
-  // thedefpartdef; 	  else { 	    CERR << "part `" << str << "' doesn't
-  // exist"; 	    pos.printerr(); 	    throw errbase();
+  // thedefpartdef; 	  else { 	    CERR << "part `" << str << "' doesn't exist";
+  // 	    pos.printerr();
+  // 	    throw errbase();
   // 	  }
   // 	} else curseldpart = i3->second;
   //     }
@@ -1499,13 +1501,6 @@ public:
         (*i++)->postinput3();
     }
   }
-
-  // void fomusdata::postmeas() {
-  //   std::for_each(scoreparts.begin(), scoreparts.end(),
-  //   boost::lambda::bind(&partormpart_str::postmeas,
-  // 									    boost::lambda::bind(&boost::shared_ptr<partormpart_str>::get,
-  // boost::lambda::_1)));
-  // }
 
   void fomusdata::fillnotes1() {
     std::for_each(

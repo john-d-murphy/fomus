@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -3416,10 +3416,9 @@ void fomus_run(FOMUS f) {
               boost::lambda::bind(&modbase::modout_hasext, boost::lambda::_1,
                                   boost::lambda::constant_ref(ii))));
           if (i == mods.end()) {
-            i = find_if(
-                mods.begin(), mods.end(),
-                bind(&modbase::modout_hasext, boost::lambda::_1,
-                     boost::lambda::constant_ref(boost::to_lower_copy(ii))));
+            i = find_if(mods.begin(), mods.end(),
+                        bind(&modbase::modout_hasext, std::placeholders::_1,
+                             boost::to_lower_copy(ii)));
             if (i == mods.end()) {
               CERR << "cannot write file of type `." << ii << '\'' << std::endl;
               throw errbase();

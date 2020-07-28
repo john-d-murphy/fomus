@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -398,8 +398,6 @@ LIBFOMUS_EXPORT enum module_markpos module_markpos(module_markobj mark);
 
 LIBFOMUS_EXPORT struct fomus_rat
 module_timesig(module_measobj meas); // the time signature (rat isn't reduced)
-LIBFOMUS_EXPORT int module_partialmeas(module_measobj meas);
-LIBFOMUS_EXPORT int module_partialbarline(module_measobj meas);
 
 LIBFOMUS_EXPORT const char* module_pitchtostr(struct module_value pitch);
 LIBFOMUS_EXPORT const char* module_pitchnametostr(struct module_value pitch,

@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -484,7 +484,7 @@ namespace midiin {
                 if (secs)
                   t *= (60.0 / tempo); // presumeably need to convert to beats
                                        // (or "quarternotes") using tempo (?)
-                t = ltrtime + t; // absolute time, supposedly in beats
+                t = ltrtime + t;       // absolute time, supposedly in beats
                 fomus_fval(fom, fomus_par_time, fomus_act_set, t * scale);
                 // fomus_float d((i->val1 / (fomus_float)i->val2) * 4);
                 fomus_rval(fom, fomus_par_duration, fomus_act_set, measdur.num,
@@ -527,8 +527,8 @@ namespace midiin {
                 for (boost::ptr_list<importstr>::const_iterator j(
                          impmap.begin());
                      j != impmap.end();
-                     ++j) { // iterator through user's parts
-                            // first--can go to multiple parts
+                     ++j) { // iterator through user's parts first--can go to
+                            // multiple parts
                   if (j->midimatches(o->tr, o->ch, progs[o->ch], o->val1,
                                      o->trname, seqname, basefn, o->inname)) {
                     j->setpartandpitch(fom, o->val1); // and add the note event

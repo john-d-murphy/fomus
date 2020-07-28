@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -2052,8 +2052,8 @@ public:
 
 private:
     scoped_info_objinfo_list
-        inoutpercinsts; // keep these separate so user can
-                        // call/reference all of them at once
+        inoutpercinsts; // keep these separate so user can call/reference all of
+                        // them at once
     scoped_info_objinfo_list inoutinsts;
     scoped_info_objinfo_list inoutparts;
     scoped_info_objinfo_list inoutmparts;
@@ -2306,7 +2306,6 @@ public:
     void collectallstaves();
     void sortorder();
     void postmparts();
-    // void postmeas();
     void fillnotes1();
     void fillholes1();
     void fillholes2();
@@ -2325,20 +2324,16 @@ public:
 #ifndef NDEBUGOUT
     void dumpall() const {
       DBG("--------------------------------------------------------------------"
-          "--"
           "--------------------------------------------------------------------"
-          "--"
-          "------------------------------------------------------------"
+          "----------------------------------------------------------------"
           << std::endl);
       DBG("DUMP" << std::endl);
       for (scorepartlist_constit i(scoreparts.begin()); i != scoreparts.end();
            ++i)
         (*i)->dumpall();
       DBG("--------------------------------------------------------------------"
-          "--"
           "--------------------------------------------------------------------"
-          "--"
-          "------------------------------------------------------------"
+          "----------------------------------------------------------------"
           << std::endl);
     }
 #endif

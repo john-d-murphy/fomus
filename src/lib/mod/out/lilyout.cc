@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -109,7 +109,7 @@ namespace lilyout {
 #define CMD_MACRO_STRINGIFY(xxx) #xxx
 #define CMD_MACRO(xxx) CMD_MACRO_STRINGIFY(xxx)
 
-// things that might change...
+  // things that might change...
 #define LILY_DYNMARKUP_CONST(xxx) "\\markup \\dynamic \"" << xxx << "\""
 #define LILY_DYNMARKUP(xxx) ("\\markup \\dynamic \"" + quotify(xxx) + "\"")
 
@@ -1037,8 +1037,7 @@ public:
               mpremeastextspan = true;
             } else {
               ou << "\\once \\override TextSpanner #'(bound-details left text) "
-                    "= "
-                    "\\markup \\bold \""
+                    "= \\markup \\bold \""
                  << ms0 << "\" ";
             }
             goto TEXTSPAN;
@@ -1054,8 +1053,7 @@ public:
               mpreitaltextspan = true;
             } else {
               ou << "\\once \\override TextSpanner #'(bound-details left text) "
-                    "= "
-                    "\\markup \\italic \""
+                    "= \\markup \\italic \""
                  << ms0 << "\" ";
             }
           } // case mark_graceslur_end: ingrsl = false; break;
@@ -2220,22 +2218,19 @@ public:
           if (mpretextspan)
             x << macropretextspan
               << " = #(define-music-function (par loc txt) (string?)  % set "
-                 "text "
-                 "spanner text\n  #{\\once \\override TextSpanner "
+                 "text spanner text\n  #{\\once \\override TextSpanner "
                  "#'(bound-details left text) = $txt #})"
               << el();
           if (mpremeastextspan)
             x << macropremeastextspan
               << " = #(define-music-function (par loc txt) (string?)  % set "
-                 "text "
-                 "spanner text\n  #{\\once \\override TextSpanner "
+                 "text spanner text\n  #{\\once \\override TextSpanner "
                  "#'(bound-details left text) = \\markup \\bold $txt #})"
               << el();
           if (mpreitaltextspan)
             x << macropreitaltextspan
               << " = #(define-music-function (par loc txt) (string?)  % set "
-                 "text "
-                 "spanner text\n  #{\\once \\override TextSpanner "
+                 "text spanner text\n  #{\\once \\override TextSpanner "
                  "#'(bound-details left text) = \\markup \\italic $txt #})"
               << el();
           if (mpedstyletext)
@@ -2245,8 +2240,7 @@ public:
           if (mpedstylebracket)
             x << macropedstylebracket
               << " = \\set Staff.pedalSustainStyle = #'bracket  % bracket "
-                 "pedal "
-                 "style"
+                 "pedal style"
               << el();
           module_value macs(module_setting_val(fom, extramacrosid));
           assert(macs.type == module_list);
@@ -2443,9 +2437,9 @@ public:
   int valid_accslist(const struct module_value val) {
     return module_valid_listofstrings(val, 11, 11, -1, -1, 0, accslisttype);
   }
-  const char* notenameslisttype = "(string_name string_name string_name "
-                                  "string_name string_name string_name "
-                                  "string_name)";
+  const char* notenameslisttype =
+      "(string_name string_name string_name string_name string_name "
+      "string_name string_name)";
   int valid_notenameslist(const struct module_value val) {
     return module_valid_listofstrings(val, 7, 7, -1, -1, 0, notenameslisttype);
   }
@@ -2658,7 +2652,7 @@ int module_get_setting(int n, struct module_setting* set, int id) {
                    "They are then there for your convenience if you go on to "
                    "edit the LilyPond file itself."
         //"The macros replace any of the convenience macros that FOMUS
-        // automatically inserts."
+        //automatically inserts."
         ;
     // set->typedoc = writesettingstype;
 
@@ -2677,7 +2671,7 @@ int module_get_setting(int n, struct module_setting* set, int id) {
         "List of strings to be inserted into the top of a LilyPond output "
         "file, after the macro section."
         //"  This is nearly the same as `lily-file-topheader'--it's just in a
-        // slightly different location."
+        //slightly different location."
         "  Each string in the list represents a newline-separated line of text."
         "  Use this to insert your own custom LilyPond code into the output "
         "file.";

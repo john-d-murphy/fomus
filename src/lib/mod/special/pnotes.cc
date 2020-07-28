@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -142,12 +142,11 @@ namespace pnotes {
     case 0: {
       set->name = "perc-voice"; // docscat{instsparts}
       set->type = module_int;
-      set->descdoc =
-          "The voice a note is inserted into when a percussion "
-          "instrument id is given as the pitch.  "
-          "If any voices are assigned to a note, they are overridden "
-          "by this value.  "
-          "This is used only when defining a percussion instrument.";
+      set->descdoc = "The voice a note is inserted into when a percussion "
+                     "instrument id is given as the pitch.  "
+                     "If any voices are assigned to a note, they are "
+                     "overridden by this value.  "
+                     "This is used only when defining a percussion instrument.";
       set->typedoc = voicetype;
 
       module_setval_int(&set->val, 0);
@@ -161,13 +160,12 @@ namespace pnotes {
     case 1: {
       set->name = "perc-note"; // docscat{instsparts}
       set->type = module_notesym;
-      set->descdoc =
-          "The note that appears on the score when a percussion "
-          "instrument id is given as the pitch (unpitched clefs "
-          "behave like alto clefs as far as note placement goes).  "
-          "The name of the percussion instrument may then be used in "
-          "place of a note or pitch value.  "
-          "This is used only when defining a percussion instrument.";
+      set->descdoc = "The note that appears on the score when a percussion "
+                     "instrument id is given as the pitch (unpitched clefs "
+                     "behave like alto clefs as far as note placement goes).  "
+                     "The name of the percussion instrument may then be used "
+                     "in place of a note or pitch value.  "
+                     "This is used only when defining a percussion instrument.";
       set->typedoc = voicetype;
 
       module_setval_int(&set->val, 60);

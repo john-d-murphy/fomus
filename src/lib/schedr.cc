@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -205,10 +205,9 @@ namespace fomus {
             ++i;
         }
       }
-      eventmap_it ne(
-          boost::prior(me)->second->getevents().end()); // there's always at
-                                                        // least 1 measure & 1
-                                                        // part
+      eventmap_it ne(boost::prior(me)
+                         ->second->getevents()
+                         .end()); // there's always at least 1 measure & 1 part
       std::for_each(mods.begin(), mods.end(),
                     boost::lambda::bind(
                         &stage::setends,
@@ -420,10 +419,8 @@ namespace fomus {
       break;
     }
     case 1: {
-      if (endpass <= 0) {
+      if (endpass <= 0)
         delfills();
-        // postmeas();
-      }
       prepare();
       endpass = getsubstages(sys.verb >= 2 ? "  quantizing time values..." : "",
                              TQUANTMOD_ID, sta, sys, filled, endpass, efix);
@@ -1050,8 +1047,7 @@ namespace fomus {
     assert(isvalid());
     scopedmoddata dat(mod, mod.getdata((void*) fd));
     DBG("**********************************************************************"
-        "**"
-        "************************************************"
+        "**************************************************"
         << std::endl);
 #ifndef NDEBUG
     lockcheck.reset(new bool(false));
@@ -1148,8 +1144,7 @@ namespace fomus {
       boost::unique_lock<boost::mutex> sylock(
           sys.symut); // locks the main cond mutex
       DBG("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
-          "$$"
-          "$$$$$$$$$$"
+          "$$$$$$$$$$$$"
           << std::endl);
       DBG("[[ " << sys.fin << " ]] stages ready to go" << std::endl);
 #ifndef NDEBUGOUT
@@ -1159,8 +1154,7 @@ namespace fomus {
 #endif
       DBG("[[ " << sys.alv << " ]] threads ready to go" << std::endl);
       DBG("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
-          "$$"
-          "$$$$$$$$$$"
+          "$$$$$$$$$$$$"
           << std::endl);
       for (int i = 0; i < sys.alv; ++i)
         threads.create_thread(exec_thread(sys));
@@ -1299,5 +1293,4 @@ namespace fomus {
   const module_value& fom_get_lval_up(const int id) {
     return threadfd->get_lval(id);
   }
-
 } // namespace fomus

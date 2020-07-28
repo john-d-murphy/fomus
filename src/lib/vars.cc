@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -111,7 +111,8 @@ namespace fomus {
     o << '(';
     if (!map.empty()) {
       map.begin()->second->print(o, fd, false);
-      for (globpercsvarvect_constit i(next(map.begin())); i != map.end(); ++i) {
+      for (globpercsvarvect_constit i(std::next(map.begin())); i != map.end();
+           ++i) {
         o << ' ';
         i->second->print(o, fd, false);
       }
@@ -149,7 +150,8 @@ namespace fomus {
     o << '(';
     if (!map.empty()) {
       map.begin()->second->print(o, fd, false);
-      for (globinstsvarvect_constit i(next(map.begin())); i != map.end(); ++i) {
+      for (globinstsvarvect_constit i(std::next(map.begin())); i != map.end();
+           ++i) {
         o << ' ';
         i->second->print(o, fd, false);
       }
@@ -346,7 +348,7 @@ namespace fomus {
       redosig(*i->second, *x, fd ? fd->getnotepr() : note_print,
               fd ? fd->getaccpr() : acc_print, fd ? fd->getmicpr() : mic_print,
               fd ? fd->getoctpr() : oct_print);
-      el.insert(listelmap::value_type(i->first, x.release()));
+      el.insert(listelmap::value_type(i->first, listelshptr(x.release())));
     }
     mval.reset();
     initmodval();
@@ -395,7 +397,8 @@ namespace fomus {
              i(user.begin());
          i != user.end(); ++i) {
       listelvect* x;
-      el.insert(listelmap::value_type(i->first, x = new listelvect));
+      el.insert(
+          listelmap::value_type(i->first, listelshptr(x = new listelvect)));
       redosig(*i->second, *x, ta.notepr, ta.accpr, ta.micpr, ta.octpr);
     }
     mval.reset();
@@ -405,51 +408,51 @@ namespace fomus {
   // ea is either 7 accs, or note name followed by any number of
   var_keysigs::var_keysigs() : mapvaroflistofstrings() {
     listelvect v;
-    el.insert(listelmap::value_type("cmaj", new listelvect(v)));
-    el.insert(listelmap::value_type("amin", new listelvect(v)));
+    el.insert(listelmap::value_type("cmaj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("amin", listelshptr(new listelvect(v))));
     v.push_back("f+");
-    el.insert(listelmap::value_type("gmaj", new listelvect(v)));
-    el.insert(listelmap::value_type("emin", new listelvect(v)));
+    el.insert(listelmap::value_type("gmaj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("emin", listelshptr(new listelvect(v))));
     v.push_back("c+");
-    el.insert(listelmap::value_type("dmaj", new listelvect(v)));
-    el.insert(listelmap::value_type("bmin", new listelvect(v)));
+    el.insert(listelmap::value_type("dmaj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("bmin", listelshptr(new listelvect(v))));
     v.push_back("g+");
-    el.insert(listelmap::value_type("amaj", new listelvect(v)));
-    el.insert(listelmap::value_type("f+min", new listelvect(v)));
+    el.insert(listelmap::value_type("amaj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("f+min", listelshptr(new listelvect(v))));
     v.push_back("d+");
-    el.insert(listelmap::value_type("emaj", new listelvect(v)));
-    el.insert(listelmap::value_type("c+min", new listelvect(v)));
+    el.insert(listelmap::value_type("emaj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("c+min", listelshptr(new listelvect(v))));
     v.push_back("a+");
-    el.insert(listelmap::value_type("bmaj", new listelvect(v)));
-    el.insert(listelmap::value_type("g+min", new listelvect(v)));
+    el.insert(listelmap::value_type("bmaj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("g+min", listelshptr(new listelvect(v))));
     v.push_back("e+");
-    el.insert(listelmap::value_type("f+maj", new listelvect(v)));
-    el.insert(listelmap::value_type("d+min", new listelvect(v)));
+    el.insert(listelmap::value_type("f+maj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("d+min", listelshptr(new listelvect(v))));
     v.push_back("b+");
-    el.insert(listelmap::value_type("c+maj", new listelvect(v)));
-    el.insert(listelmap::value_type("a+min", new listelvect(v)));
+    el.insert(listelmap::value_type("c+maj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("a+min", listelshptr(new listelvect(v))));
     v.clear();
     v.push_back("b-");
-    el.insert(listelmap::value_type("fmaj", new listelvect(v)));
-    el.insert(listelmap::value_type("dmin", new listelvect(v)));
+    el.insert(listelmap::value_type("fmaj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("dmin", listelshptr(new listelvect(v))));
     v.push_back("e-");
-    el.insert(listelmap::value_type("b-maj", new listelvect(v)));
-    el.insert(listelmap::value_type("gmin", new listelvect(v)));
+    el.insert(listelmap::value_type("b-maj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("gmin", listelshptr(new listelvect(v))));
     v.push_back("a-");
-    el.insert(listelmap::value_type("e-maj", new listelvect(v)));
-    el.insert(listelmap::value_type("cmin", new listelvect(v)));
+    el.insert(listelmap::value_type("e-maj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("cmin", listelshptr(new listelvect(v))));
     v.push_back("d-");
-    el.insert(listelmap::value_type("a-maj", new listelvect(v)));
-    el.insert(listelmap::value_type("fmin", new listelvect(v)));
+    el.insert(listelmap::value_type("a-maj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("fmin", listelshptr(new listelvect(v))));
     v.push_back("g-");
-    el.insert(listelmap::value_type("d-maj", new listelvect(v)));
-    el.insert(listelmap::value_type("b-min", new listelvect(v)));
+    el.insert(listelmap::value_type("d-maj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("b-min", listelshptr(new listelvect(v))));
     v.push_back("c-");
-    el.insert(listelmap::value_type("g-maj", new listelvect(v)));
-    el.insert(listelmap::value_type("e-min", new listelvect(v)));
+    el.insert(listelmap::value_type("g-maj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("e-min", listelshptr(new listelvect(v))));
     v.push_back("f-");
-    el.insert(listelmap::value_type("c-maj", new listelvect(v)));
-    el.insert(listelmap::value_type("a-min", new listelvect(v)));
+    el.insert(listelmap::value_type("c-maj", listelshptr(new listelvect(v))));
+    el.insert(listelmap::value_type("a-min", listelshptr(new listelvect(v))));
     assert(getid() == KEYSIG_ID);
     initmodval();
   }
@@ -501,31 +504,31 @@ namespace fomus {
     const boostspirit::symbols<numb>& op(fd ? fd->getoctpa() : oct_parse);
     if (lst.type != module_list)
       return false;
-    for (const module_value *i0 = lst.val.l.vals,
+    for (const module_value *i = lst.val.l.vals,
                             *ie = lst.val.l.vals + lst.val.l.n;
-         i0 < ie; ++i0) {
-      if (i0->type != module_string)
+         i < ie; ++i) {
+      if (i->type != module_string)
         return false;
       numb nov(module_none), acv(module_none), miv(module_none),
           ocv(module_none);
       parserule rl(notematchhasoct(mp, ap, ip, op, nov, acv, miv, ocv));
-      parse_it p(i0->val.s, endof(i0->val.s));
+      parse_it p(i->val.s, endof(i->val.s));
       parse(p, parse_it(), rl);
       rat m(nov.isnull() ? std::numeric_limits<fint>::min() + 1
                          : numtorat(nov));
       rat a(acv.isnull() ? std::numeric_limits<fint>::min() + 1
                          : numtorat(acv));
-      rat i(miv.isnull() ? std::numeric_limits<fint>::min() + 1
-                         : numtorat(miv));
+      rat i2(miv.isnull() ? std::numeric_limits<fint>::min() + 1
+                          : numtorat(miv));
       rat o(ocv.isnull() ? std::numeric_limits<fint>::min() + 1
                          : numtorat(ocv));
-      user.push_back(new userkeysigent(m, a, i, o));
+      user.push_back(new userkeysigent(m, a, i2, o));
       if (m.numerator() == std::numeric_limits<fint>::min() + 1)
         return false;
       if (a.numerator() == std::numeric_limits<fint>::min() + 1)
         a = 0; // must have at least these two things
-      if (i.numerator() == std::numeric_limits<fint>::min() + 1)
-        i = 0; // must have at least these two things
+      if (i2.numerator() == std::numeric_limits<fint>::min() + 1)
+        i2 = 0; // must have at least these two things
       if (o.numerator() !=
           std::numeric_limits<fint>::min() + 1) { // got an octave
         rat x0(o + m);
@@ -533,12 +536,12 @@ namespace fomus {
           continue; // better to skip it
         assert(todiatonic(x0.numerator()) >= 0 &&
                todiatonic(x0.numerator()) < 75);
-        sig[todiatonic(x0.numerator())] = std::pair<rat, rat>(a, i);
+        sig[todiatonic(x0.numerator())] = std::pair<rat, rat>(a, i2);
       } else {
         if (m.denominator() != 1 || isblack(m.numerator()))
           continue; // better to skip it
         for (int x = todiatonic(m.numerator()) % 7; x < 75; x += 7)
-          sig[x] = std::pair<rat, rat>(a, i);
+          sig[x] = std::pair<rat, rat>(a, i2);
       }
     }
     return true;
@@ -1232,8 +1235,6 @@ public:
     vars.push_back(boost::shared_ptr<varbase>(new var_inittempotxt));
     vars.push_back(boost::shared_ptr<varbase>(new var_inittempo));
     vars.push_back(boost::shared_ptr<varbase>(new var_detach));
-    vars.push_back(boost::shared_ptr<varbase>(new var_pickup));
-    // vars.push_back(boost::shared_ptr<varbase>(new var_leftpickup));
 
     initing = false;
     for (varsvect_constit i(vars.begin()); i != vars.end(); ++i)

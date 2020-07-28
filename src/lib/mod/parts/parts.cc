@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -357,7 +357,7 @@ int module_get_setting(int n, module_setting* set, int id) {
         "  The value of this setting must be the ID of one of the part layouts "
         "defined in `layout-defs'."
         //"  FOMUS has two predefined layouts that you can use: `small-ensemble'
-        // and `orchestra'."
+        //and `orchestra'."
         ;
     // set->typedoc = ensemtype;
 
@@ -375,7 +375,7 @@ int module_get_setting(int n, module_setting* set, int id) {
     set->descdoc =
         "A single part layout definition.  "
         //"If this is not a zero-length list, this definition is used instead of
-        // any predefined ones in setting `layout-defs'"
+        //any predefined ones in setting `layout-defs'"
         "Set this to define a layout and override the `layout' setting."
         "  Part layout definitions inform FOMUS on how to order and group the "
         "parts in a score."

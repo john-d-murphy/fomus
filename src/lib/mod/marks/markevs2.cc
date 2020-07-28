@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -363,16 +363,13 @@ namespace markevs2 {
           "  Choices are `touch', `overlap' and `include'."
           "  `touch' specifies that the end time of a note event be greater or "
           "equal to the mark event's time to match (the note need only touch "
-          "the "
-          "mark event to receive the marks)."
+          "the mark event to receive the marks)."
           "  `overlap' specifies that the end time of a note event be greater "
           "than the mark event's time (the note must overlap with the mark "
-          "event "
-          "to receive the marks)."
+          "event to receive the marks)."
           "  `include' specifies that the time of a note event be greater or "
           "equal to to the mark event's time (the note must be completely "
-          "within "
-          "the mark event to receive the marks).";
+          "within the mark event to receive the marks).";
       set->typedoc = markevtype;
 
       module_setval_string(&set->val, "overlap");
@@ -389,18 +386,15 @@ namespace markevs2 {
       set->type = module_string;
       set->descdoc =
           "Determines along with `left' how the end time of a mark event "
-          "matches "
-          "against note events to determine which ones receive the marks."
+          "matches against note events to determine which ones receive the "
+          "marks."
           "  Choices are `touch', `overlap' and `include'."
           "  `touch' specifies that the time of a note event be less or equal "
-          "to "
-          "the mark event's end time to match (the note need only touch the "
-          "mark "
-          "event to receive the marks)."
+          "to the mark event's end time to match (the note need only touch the "
+          "mark event to receive the marks)."
           "  `overlap' specifies that the time of a note event be less than "
-          "the "
-          "mark event's end time (the note must overlap with the mark event to "
-          "receive the marks)."
+          "the mark event's end time (the note must overlap with the mark "
+          "event to receive the marks)."
           "  `include' specifies that the end time of a note event be less or "
           "equal to the mark event's end time (the note must be completely "
           "within the mark event to receive the marks).";

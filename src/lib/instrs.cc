@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -105,7 +105,7 @@ namespace fomus {
       s << stringify(sets.begin()->second->getname(), ":=,") << ' '
         << sets.begin()->second->getvalstr(
                fd, ")>,"); // : el.begin()->first) << ' ' << el.begin()->second;
-      for (setmap_constit i(next(sets.begin())); i != sets.end(); ++i) {
+      for (setmap_constit i(std::next(sets.begin())); i != sets.end(); ++i) {
         s << ", " << stringify(i->second->getname(), ":=,") << ' '
           << i->second->getvalstr(fd, ")>,");
       }

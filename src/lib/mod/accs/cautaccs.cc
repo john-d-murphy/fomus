@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -231,7 +231,7 @@ int module_get_setting(int n, module_setting* set, int id) {
                    "  Increase this value to create more cautionary "
                    "accidentals that are farther apart."
         //"  Changing `cautaccs-distmod' also affects where cautionary
-        // accidentals occur."
+        //accidentals occur."
         ;
     set->typedoc = rangetype;
 
@@ -352,7 +352,7 @@ int module_get_setting(int n, module_setting* set, int id) {
         "relationship is in terms of note spelling, staff choice, voice "
         "assignments, etc.."
         //"  Since distance can be calculate in many different ways, there are
-        // several interchangeable modules for this."
+        //several interchangeable modules for this."
         "  Set this to change the algorithm used for calculating distance when "
         "making decisions regarding cautionary accidentals.";
 

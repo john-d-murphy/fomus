@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@
 #include <string>
 #include <vector>
 
-#include <boost/next_prior.hpp>
+#include <boost/utility.hpp> // next & prior
 
 #include "ifacedist.h"
 #include "ifacesearch.h"
@@ -141,19 +141,19 @@ namespace octs {
       assert(isanoct(n2) >= 0);
       sc.f =
           properoct(n2) +
-          isanoct(n2); // vertmax(arr, n2) * arr.size(); // multiply by arr
-                       // size so matches with accumulated calculations in loop
+          isanoct(n2); // vertmax(arr, n2) * arr.size(); // multiply by arr size
+                       // so matches with accumulated calculations in loop
       fomus_rat o2(module_pitch(n2.note));
       if (!arr.empty()) {
         fomus_float mx = 0, ll = 0;
         for (std::vector<scorenode>::const_iterator i(arr.begin()),
-             ie(boost::prior(arr.end()));
+             ie(std::prev(arr.end()));
              i != arr.end(); ++i) {
           assert(i->dist > 0);
           ll += i->dist;
-          assert(octchange(i, (i == ie ? n2 : *boost::next(i)->node), n2) >= 0);
-          mx += octchange(i, (i == ie ? n2 : *boost::next(i)->node), n2) *
-                i->dist;
+          assert(octchange(i, (i == ie ? n2 : *std::next(i)->node), n2) >= 0);
+          mx +=
+              octchange(i, (i == ie ? n2 : *std::next(i)->node), n2) * i->dist;
         }
         sc.f += mx / ll;
       }
@@ -205,8 +205,8 @@ namespace octs {
   extern "C" {
   void
   search_assign(void* moddata,
-                int choice); // makes a solution assignment & reports it so
-                             // that other phases of the program can continue
+                int choice); // makes a solution assignment & reports it so that
+                             // other phases of the program can continue
   union search_score search_get_score(void* moddata, struct search_nodes nodes);
   search_node search_new_node(
       void* moddata, search_node prevnode,
@@ -528,7 +528,7 @@ int module_get_setting(int n, module_setting* set, int id) {
         "relationship is in terms of note spelling, staff choice, voice "
         "assignments, etc.."
         //"  Since distance can be calculate in many different ways, there are
-        // several interchangeable modules for this."
+        //several interchangeable modules for this."
         "  Set this to change the algorithm used for calculating distance when "
         "making decisions regarding the use of octave signs.";
 

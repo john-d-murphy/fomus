@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -651,7 +651,7 @@ public:
                   parserule* p) const;
   };
 
-// for marks..., assumes a string (the mark name) has already been parsed
+  // for marks..., assumes a string (the mark name) has already been parsed
 #define MARKSTART boostspirit::ch_p('[')
 #define MARKSTART_PLUS boostspirit::str_p("+[")
 #define MARKSTART_MINUS boostspirit::str_p("-[")
@@ -1482,9 +1482,8 @@ public:
            strmatch(xx.str, endstr)[dosettingstring(xx, id)]))
   BOOST_SPIRIT_OPAQUE_RULE_PARSER(
       setlistnumsparse, (2, (((inscratch&), xx), ((const int), id))), -,
-      recerrpos(xx.pos.file, xx.pos.line, xx.pos.col,
-                xx.pos.maccnt)[dofilepos(xx)] // isplus2 is set to isplus in
-                                              // dofilepos()
+      recerrpos(xx.pos.file, xx.pos.line, xx.pos.col, xx.pos.maccnt)[dofilepos(
+          xx)] // isplus2 is set to isplus in dofilepos()
           >> listmatchnums(xx.lst, xx.num, xx.pt1, xx.pt2, xx.pt3, xx.isplus,
                            xx.pos, ferr)[dosettinglist(xx, id)])
   BOOST_SPIRIT_OPAQUE_RULE_PARSER(
@@ -2025,7 +2024,7 @@ public:
             xx, astr.conts, setconts, astr.rest, fomus_par_measdef,
             fomus_act_add,
             fomus_par_measdef_settingval)), // the same way as the other
-                                            // structs: meas (...)
+                                            // structs:  meas (...)
         measdefrule(mstructoridmatch(
             xx, shastr.conts, msetconts, shastr.rest, "|", "|",
             "|,:=")), // actually a measure w/ an optional measdef

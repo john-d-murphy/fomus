@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -315,7 +315,10 @@ namespace FNAMESPACE {
     case module_float: {
       {
         std::ostringstream ss;
-        ss << std::fixed << std::setprecision(5) << std::showpoint << x.val.f;
+        ss.setf(std::ios_base::fixed, std::ios_base::floatfield);
+        ss << std::setprecision(5);
+        ss.setf(std::ios_base::showpoint);
+        ss << x.val.f;
         std::string s(
             boost::trim_right_copy_if(ss.str(), boost::lambda::_1 == '0'));
         os << s;

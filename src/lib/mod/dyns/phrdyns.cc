@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -278,16 +278,14 @@ int module_get_setting(int n, struct module_setting* set, int id) {
   case 0: {
     set->name = "dynphrase-maxrestdur"; // docscat{dyns}
     set->type = module_rat;
-    set->descdoc = "The maximum rest duration allowed anywhere in a \"dynamics "
-                   "phrase,\" calculated for the purpose of attaching dynamic "
-                   "symbols to the beginnings and ends of them.  "
-                   "Adjust this setting to a value that makes sense for the "
-                   "type of music you are notating.  "
-                   "A rest duration larger than this value causes FOMUS to "
-                   "separate a musical passage into at least two phrases on "
-                   "either side of the rest.  "
-                   "These phrases may or may not correspond to actual phrase "
-                   "markings in the score (if there are any).";
+    set->descdoc =
+        "The maximum rest duration allowed anywhere in a dynamics phrase, "
+        "calculated for the purpose of attaching dynamic symbols to the "
+        "beginnings and ends of them.  "
+        "Adjust this setting to a value that makes sense for the type of music "
+        "you are notating.  "
+        "A rest duration larger than this value causes FOMUS to separate a "
+        "musical passage into at least two phrases on either side of the rest.";
     set->typedoc = maxrestdurtype;
 
     module_setval_rat(&set->val, module_makerat(1, 2));

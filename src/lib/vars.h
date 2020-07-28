@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -127,8 +127,8 @@ public:
   };
 
   struct scopedmodval
-      : public module_value { // this should always be initialized
-                              // when vars are constructed!
+      : public module_value { // this should always be initialized when vars are
+                              // constructed!
     scopedmodval() {
       type = module_none;
     }
@@ -727,7 +727,8 @@ public:
     }
     std::string getvalstr(const fomusdata* fd, const char* st) const {
       std::ostringstream s;
-      s << std::fixed << std::setprecision(3) << val;
+      s.setf(std::ios_base::fixed, std::ios_base::floatfield);
+      s << std::setprecision(3) << val;
       return s.str();
     }
   };
@@ -1641,7 +1642,7 @@ public:
     }
   };
 
-// MODVARS
+  // MODVARS
 #define MODVAR_FUNS                                                            \
   const std::string getmodsname() const {                                      \
     return mod.getsname();                                                     \
@@ -2344,8 +2345,7 @@ public:
       return "One or more filename extensions, each indicating an output file "
              "format (one output file is written for each one of these)."
              "  Use this setting to output more than one file or set it in "
-             "your "
-             "`.fomus' init file to cause FOMUS to automatically output a "
+             "your `.fomus' init file to cause FOMUS to automatically output a "
              "certain file type."
              "  Example values are \"ly\" or (fms xml).";
     }
@@ -2393,9 +2393,8 @@ public:
              "By default, all measure and measure definitions are assigned to "
              "all parts.  "
              "Changing this setting value to a part id or list of part ids in "
-             "a "
-             "measure definition assigns that measure definition to only those "
-             "parts.  "
+             "a measure definition assigns that measure definition to only "
+             "those parts.  "
              "You can use this setting, for example, to create polymeters.";
     }
     const char* gettypedoc() const {
@@ -2443,9 +2442,8 @@ public:
     } //
     const char* getdescdoc() const {
       return "A clef signature (used for instrument/part definitions and "
-             "placed "
-             "inside a clef object to specify what clef signature the object "
-             "represents).  "
+             "placed inside a clef object to specify what clef signature the "
+             "object represents).  "
              "A clef object should always contain at least this setting.";
     }
     const char* gettypedoc() const {
@@ -2697,11 +2695,9 @@ public:
     }
     const char* getdescdoc() const {
       return "A mapping from filename extensions to modules used for "
-             "outputting "
-             "data (modules must be of type `output')."
+             "outputting data (modules must be of type `output')."
              "  Use this setting to customize which backend is invoked based "
-             "on "
-             "the filename extensions given in `filename' and `extensions'.";
+             "on the filename extensions given in `filename' and `extensions'.";
     }
     const char* gettypedoc() const;
     bool isvalid(const fomusdata* fd) {
@@ -2753,15 +2749,12 @@ public:
     const char* getdescdoc() const {
       return "Default duration of a grace note."
              "  This value is used when a note event has a zero duration "
-             "(which "
-             "might happen after it is quantized) and the note is converted to "
-             "a "
-             "grace note."
+             "(which might happen after it is quantized) and the note is "
+             "converted to a grace note."
              "  Other situations might also call for the creation of grace "
              "notes."
              "  The written result depends on the setting `beat' and is "
-             "notated "
-             "the same way as a regular note of the same duration"
+             "notated the same way as a regular note of the same duration"
              " (e.g., if a duration of 1/4 produces a sixteenth note then the "
              "same holds true for a grace note).";
     }
@@ -2880,11 +2873,9 @@ public:
              "  Change the value of this setting for a note or measure "
              "definition to influence clef choices."
              "  The clef must be one that is defined for the instrument that "
-             "the "
-             "note or measure belongs to."
+             "the note or measure belongs to."
              "  Setting it to a single clef effectively forces a clef "
-             "selection "
-             "while a list of values offers FOMUS a choice.";
+             "selection while a list of values offers FOMUS a choice.";
     }
     const char* gettypedoc() const; // {return typstr.c_str();}
     bool isvalid(const fomusdata* fd) {
@@ -2980,12 +2971,10 @@ public:
     const char* getdescdoc() const {
       return "A mapping from pitch names to diatonic pitches."
              "  Use this to customize note names for a different language "
-             "and/or "
-             "scale in a `.fms' file."
+             "and/or scale in a `.fms' file."
              "  By default, the strings symbols are the letter names from A to "
-             "G "
-             "and the numbers are the chromatic pitch classes from 0 (C) to 11 "
-             "(B)."
+             "G and the numbers are the chromatic pitch classes from 0 (C) to "
+             "11 (B)."
              "  The sum of `note-symbols', `note-accs', `note-microtones' and "
              "`note-octaves' gives the complete pitch number."
              "  Also, the order determines which symbols are used for printing "
@@ -3054,8 +3043,7 @@ public:
     const char* getdescdoc() const {
       return "A mapping from symbols to accidental adjustments."
              "  Use this to customize note names for a different language "
-             "and/or "
-             "scale in a `.fms' file."
+             "and/or scale in a `.fms' file."
              "  The numbers are chromatic alterations to the base note (see "
              "`note-symbols')."
              "  The sum of `note-symbols', `note-accs', `note-microtones' and "
@@ -3128,8 +3116,7 @@ public:
     const char* getdescdoc() const {
       return "A mapping from symbols to microtonal adjustments."
              "  Use this to customize note names for a different language "
-             "and/or "
-             "scale in a `.fms' file."
+             "and/or scale in a `.fms' file."
              "  The numbers are chromatic alterations to the base note (see "
              "`note-symbols')."
              "  The sum of `note-symbols', `note-accs', `note-microtones' and "
@@ -3142,8 +3129,7 @@ public:
              // combine the two to get the proper accidental."
              "  The order of strings in the list determines which symbols are "
              "used to print output (symbols earlier in the list take "
-             "precedence "
-             "over ones occurring later).";
+             "precedence over ones occurring later).";
     }
     const char* gettypedoc() const {
       return "(string_mic rational-128..128, string_mic rational-128..128, "
@@ -3206,17 +3192,14 @@ public:
     const char* getdescdoc() const {
       return "A mapping from symbols to octave pitches."
              "  Use this to customize note names for a different language "
-             "and/or "
-             "scale in a `.fms' file."
+             "and/or scale in a `.fms' file."
              "  The sum of `note-symbols', `note-accs', `note-microtones' and "
              "`note-octaves' gives the complete pitch number."
              "  An appropriate value for octave 4 is 60, for example, because "
-             "60 "
-             "is the lowest note in the octave."
+             "60 is the lowest note in the octave."
              "  The order of strings in the list determines which symbols are "
              "used to print output (symbols earlier in the list take "
-             "precedence "
-             "over ones occurring later).";
+             "precedence over ones occurring later).";
     }
     const char* gettypedoc() const {
       return "(string_oct rational0..128, string_oct rational0..128, ...)";
@@ -3322,10 +3305,8 @@ public:
              "list of default percussion instruments to choose from or use as "
              "templates for new ones."
              "  The base list is defined in the `fomus.conf' file installed "
-             "with "
-             "FOMUS, though you can append new definitions in your own "
-             "`.fomus' "
-             "file."
+             "with FOMUS, though you can append new definitions in your own "
+             "`.fomus' file."
              "  Although it is possible, this should not be used in a `.fms' "
              "file or when defining instruments in a score.";
     }
@@ -3394,10 +3375,8 @@ public:
              "default instruments to choose from (or use as templates for new "
              "ones)."
              "  The base list is defined in the `fomus.conf' file installed "
-             "with "
-             "FOMUS, though you can append new definitions in your own "
-             "`.fomus' "
-             "file."
+             "with FOMUS, though you can append new definitions in your own "
+             "`.fomus' file."
              "  Although it is possible, this should not be used in a `.fms' "
              "file or when defining instruments in a score.";
     }
@@ -3490,8 +3469,7 @@ public:
     }
     const char* getdescdoc() const {
       return "Module or list of modules responsible for quantizing note "
-             "offsets "
-             "and durations (modules must be of type `timequantize')."
+             "offsets and durations (modules must be of type `timequantize')."
           // "  The list order affects (but might not completely determine) the
           // order in which modules are called."
           ;
@@ -3630,11 +3608,9 @@ public:
     }
     const char* getdescdoc() const {
       return "Module or list of modules responsible for performing useful "
-             "checks "
-             "on input data (modules must be of type `check')."
+             "checks on input data (modules must be of type `check')."
              "  Module `ranges', for example, checks to see if all notes are "
-             "in "
-             "the correct ranges for their instruments."
+             "in the correct ranges for their instruments."
           // "  The list order affects (but might not completely determine) the
           // order in which modules are called."
           ;
@@ -3728,8 +3704,7 @@ public:
     }
     const char* getdescdoc() const {
       return "Module or list of modules responsible for sorting note events "
-             "into "
-             "separate voices (modules must be of type `voices')."
+             "into separate voices (modules must be of type `voices')."
           // "  The list order affects (but might not completely determine) the
           // order in which modules are called."
           ;
@@ -3775,8 +3750,7 @@ public:
     }
     const char* getdescdoc() const {
       return "Module or list of modules responsible for \"pruning\" "
-             "overlapping "
-             "note events (modules must be of type `prune')."
+             "overlapping note events (modules must be of type `prune')."
              "  Notes are truncated or eliminated if they overlap with other "
              "note events of the same pitch."
           // "  The list order affects (but might not completely determine) the
@@ -4111,8 +4085,7 @@ public:
     }
     const char* getdescdoc() const {
       return "Module or list of modules responsible for creating octave signs "
-             "in "
-             "appropriate places (modules must be of type `octavesigns')."
+             "in appropriate places (modules must be of type `octavesigns')."
              "  Whether or not they are actually allowed and where they may "
              "occur (above or below the staff) may change depending on the "
              "instrument."
@@ -4166,7 +4139,7 @@ public:
              "dynamic values into symbols (modules must be of type `dynamics')."
              "  Results may vary wildly depending how exactly this is done."
           //"  You might also want to override the module's decisions by
-          // explicitly providing your own dynamic markings."
+          //explicitly providing your own dynamic markings."
           // "  The list order affects (but might not completely determine) the
           // order in which modules are called."
           ;
@@ -4365,12 +4338,10 @@ public:
     }
     const char* getdescdoc() const {
       return "Module or list of modules that do various useful tasks related "
-             "to "
-             "marks (modules must be of type `markpairs')."
+             "to marks (modules must be of type `markpairs')."
              "  For example, the `markgrps' module translates single marks "
-             "into "
-             "pairs of marks (like `pizz.' and `arco') where necessary so you "
-             "don't have to keep track of them."
+             "into pairs of marks (like `pizz.' and `arco') where necessary so "
+             "you don't have to keep track of them."
           //"  It also eliminates redundant dynamic markings."
           // "  The list order affects (but might not completely determine) the
           // order in which modules are called."
@@ -4418,11 +4389,10 @@ public:
     const char* getdescdoc() const {
       return "Module or list of modules responsible for taking care of "
              "additional special layout issues related to marks (modules must "
-             "be "
-             "of type `marks')."
+             "be of type `marks')."
              "  Special layout issues include such decisions as where text "
-             "marks "
-             "should appear (above or below the staff) and whether marks should"
+             "marks should appear (above or below the staff) and whether marks "
+             "should"
              " be merged in cases where there are multiple voices."
           // "  The list order affects (but might not completely determine) the
           // order in which modules are called."
@@ -4442,7 +4412,7 @@ public:
       el.push_back("harms");
       el.push_back("percchs");
       el.push_back("trems");
-      /*el.push_back("text"); el.push_back("pos");*/ /*initmodval();*/
+          /*el.push_back("text"); el.push_back("pos");*/ /*initmodval();*/
     }
     var_specialmod(const listelvect& str)
         : listofmods(str, module_modspecial) { /*initmodval();*/
@@ -4578,8 +4548,7 @@ public:
       return "Whether or not accidentals carry through to the end of the "
              "measure."
              "  The value `measure' indicates that accidentals affect all "
-             "notes "
-             "up the end of the measure while a value of `note' indicates"
+             "notes up the end of the measure while a value of `note' indicates"
              " that accidentals affect only the note they precede.  "
              "`note-naturals' is similar to `note' with the exception that "
              "accidentals (including naturals) always appear.";
@@ -4836,16 +4805,14 @@ public:
     const char* getdescdoc() const {
       return "Defines a mapping from strings to key signature definitions."
              "  A key signature definition is a list of strings each "
-             "containing "
-             "a base note name and accidental (e.g., `e-', `f+', etc.)."
+             "containing a base note name and accidental (e.g., `e-', `f+', "
+             "etc.)."
              "  Microtonal keysignatures are possible, though not all backends "
              "support this."
              "  If octaves are specified (e.g., `c4'), these are interpreted "
-             "as "
-             "individual exceptions."
+             "as individual exceptions."
              "  If a key signature is also to be interpreted as a major or "
-             "minor "
-             "mode, the identifying string must have"
+             "minor mode, the identifying string must have"
              " a suffix that appears in `keysig-major-symbol' or "
              "`keysig-minor-symbol'.";
     }
@@ -4925,10 +4892,8 @@ public:
       return "A string or list of suffixes that indicate the name of a major "
              "scale."
              "  For example, if you include the string \"maj\" on this list "
-             "then "
-             "any scale in `keysig-defs' with an identifier ending in \"maj\" "
-             "is "
-             "interpretted as a major scale.";
+             "then any scale in `keysig-defs' with an identifier ending in "
+             "\"maj\" is interpretted as a major scale.";
     }
     const char* gettypedoc() const {
       return "string_majsfx | (string_majsfx string_majsfx ...)";
@@ -4980,10 +4945,8 @@ public:
       return "A string or list of suffixes that indicate the name of a minor "
              "scale."
              "  For example, if you include the string \"min\" on this list "
-             "then "
-             "any scale in `keysig-defs' with an identifier ending in \"min\" "
-             "is "
-             "interpretted as a minor scale.";
+             "then any scale in `keysig-defs' with an identifier ending in "
+             "\"min\" is interpretted as a minor scale.";
     }
     const char* gettypedoc() const {
       return "string_minsfx | (string_minsfx string_minsfx ...)";
@@ -5040,9 +5003,8 @@ public:
     const char* getdescdoc() const {
       return "The number of beats in a measure (i.e., the duration)."
              "  Usually the duration of a measure is specified by simply "
-             "setting "
-             "its duration (in the same way the duration of a note event is "
-             "set)."
+             "setting its duration (in the same way the duration of a note "
+             "event is set)."
              "  Use this setting to override this and permanently set the "
              "duration of a measure definition."
           // "  For example, you might want to define a special measure
@@ -5098,13 +5060,11 @@ public:
              "  A duration of 1 in a compound meter is equivalent to a dotted "
              "note value and is subdivided into 3 smaller rhythmic divisions."
              "  If the value of `timesig-den' is responsible for determining "
-             "the "
-             "actual time signature the number is interpretted as a dotted "
+             "the actual time signature the number is interpretted as a dotted "
              "value."
              "  For example, if the meter is compound, `measdur' is 4 and "
              "`timesig-den' is 4, the denominator value of 4 is interpretted "
-             "as "
-             "a dotted quarter"
+             "as a dotted quarter"
              " note (a group of three eighths), so altogether these specify a "
              "time signature of 12/8 (or 4 dotted quarter notes per measure).";
     }
@@ -5209,20 +5169,16 @@ public:
              "FOMUS calculates time signatures."
              "  FOMUS multiplies this value by 2 or powers of 2 when necessary "
              "(e.g., when `timesig-den' is 4 and a measure contains 4+1/2 "
-             "beats, "
-             "FOMUS multiples 4 by 2 to get "
+             "beats, FOMUS multiples 4 by 2 to get "
              "a time signature of 9/8).  FOMUS also interprets this as a "
-             "dotted "
-             "value when there is a compound meter (e.g., when timesig-den is "
-             "4 "
-             "and a measure with compound "
+             "dotted value when there is a compound meter (e.g., when "
+             "timesig-den is 4 and a measure with compound "
              "meter contains 4 beats, FOMUS multiplies this 4 by 2 to get a "
              "signature of 9/8)."
           //"If the time signature is explicitly given by setting `timesig' "
           //"then this setting has no effect (that is, as long as the explicit
-          // time signature is valid).  " "This value may also be needed if
-          // FOMUS needs to create a new measure (along with a new time
-          // signature)."
+          //time signature is valid).  " "This value may also be needed if FOMUS
+          //needs to create a new measure (along with a new time signature)."
           ;
     }
     const char* gettypedoc() const {
@@ -5279,11 +5235,9 @@ public:
     const char* getdescdoc() const {
       return "Specifies what notated rhythmic value is equivalent to 1 beat.  "
              "Set this value globally to change how durations are notated in "
-             "the "
-             "score.  "
+             "the score.  "
              "The default value of 1/4, for example, specifies that a note "
-             "with "
-             "a duration of 1 is to be notated using a quarter note.  "
+             "with a duration of 1 is to be notated using a quarter note.  "
              "Like `timesig-den', the number becomes a dotted value when the "
              "meter is compound.  The default notation then for a note with "
              "duration 1 in compound meter "
@@ -5336,8 +5290,7 @@ public:
       return "An explicit time signature definition, which overrides the one "
              "FOMUS calculates for you using `timesig-den'.  "
              "The first value in the list is the numerator and the second "
-             "value "
-             "is the denominator.  "
+             "value is the denominator.  "
              "The default value of `(0 1)' means no explicit time signature is "
              "given.  "
              "FOMUS looks at this setting first when trying to calculate time "
@@ -5345,10 +5298,8 @@ public:
              "If `timesigs' isn't valid (e.g., when a measure is split or two "
              "measures are merged together) then "
              "a valid time signature is searched for in `timesigs'.  If a "
-             "valid "
-             "one isn't found there either then FOMUS ignores all "
-             "user-supplied "
-             "time signatures and "
+             "valid one isn't found there either then FOMUS ignores all "
+             "user-supplied time signatures and "
              "creates one using `timesig-den'.";
     }
     const char* gettypedoc() const {
@@ -5404,7 +5355,7 @@ public:
              "The format of each time signature is the same as in `timesig'.  "
              //"When fomus creates a new measure (by splitting or merging
              //existing measures) it must also create a new time signature for
-             // it.  "
+             //it.  "
              "FOMUS looks at `timesig' first when trying to calculate time "
              "signatures.  "
              "If `timesig' isn't valid then one is searched for in this list.  "
@@ -5468,8 +5419,7 @@ public:
     }
     const char* getdescdoc() const {
       return "If set to true, specifies that common and cut time signatures "
-             "are "
-             "to be notated with \"c\" symbols rather than numbers.  "
+             "are to be notated with \"c\" symbols rather than numbers.  "
              "Set this globally or inside a measure definition.";
     }
     // const char* gettypedoc() const {return "||";}
@@ -5559,8 +5509,7 @@ public:
     }
     const char* getdescdoc() const {
       return "An abbreviated name of an instrument or part.  This string "
-             "appears "
-             "to the left of all staff systems except the first.  "
+             "appears to the left of all staff systems except the first.  "
              "Set this when defining an instrument, percussion instrument or "
              "part.";
     }
@@ -5607,13 +5556,11 @@ public:
     }
     const char* getdescdoc() const {
       return "The name of a percussion instrument.  This setting has a "
-             "different "
-             "meaning than the `name' setting.  "
+             "different meaning than the `name' setting.  "
              "It's value appears above the staff whenever a percussion "
              "instrument change needs to be indicated in the score.  "
              "Set this value when defining an percussion instrument that "
-             "should "
-             "be notated this way.";
+             "should be notated this way.";
     }
     // const char* gettypedoc() const {return "measure|note|note-naturals";}
     bool isvalid(const fomusdata* fd) {
@@ -5809,8 +5756,7 @@ public:
              "file."
              "  `dur-symbols', `dur-dots', 'dur-tie' and 'tuplet-symbols' "
              "together determine a full duration by concatenating and "
-             "\"tying\" "
-             "them together."
+             "\"tying\" them together."
              "  Although the symbols might signify notated rhythms, they "
              "translate to fomus time values and not necessarily the rhythmic "
              "values that appear in the score.";
@@ -5881,11 +5827,9 @@ public:
              "file."
              "  `dur-symbols', `dur-dots', 'dur-tie' and 'tuplet-symbols' "
              "together determine a full duration by concatenating and "
-             "\"tying\" "
-             "them together."
+             "\"tying\" them together."
              "  A multipler of 3/2, for example, indicates a typical dotted "
-             "note "
-             "modification, though other non-standard multipliers may be "
+             "note modification, though other non-standard multipliers may be "
              "added.";
     }
     const char* gettypedoc() const {
@@ -6012,8 +5956,7 @@ public:
              "file."
              "  `dur-symbols', `dur-dots', 'dur-tie' and 'tuplet-symbols' "
              "together determine a full duration by concatenating and "
-             "\"tying\" "
-             "them together."
+             "\"tying\" them together."
              "  A multipler of 2/3, for example, indicates a typical triplet "
              "note modification.";
     }
@@ -6088,12 +6031,10 @@ public:
     const char* getdescdoc() const {
       return "If set to true, FOMUS dumps API messages when they are received."
              "  This can be used to find the proper messages to send to "
-             "FOMUS's "
-             "C API for specifying input events and settings."
+             "FOMUS's C API for specifying input events and settings."
              "  To find the proper messages for entering in a list of voices, "
              "for example, enter `voice (1 2 3)' into a `.fms' file (or send "
-             "it "
-             "via the `fomus_parse' function) "
+             "it via the `fomus_parse' function) "
              "and watch what gets printed out.";
     }
 
@@ -6230,14 +6171,11 @@ public:
     const char* getdescdoc() const {
       return "Specifies an accidental or choice of accidentals."
              "  Use this in a note event or over a range of events to "
-             "influence "
-             "accidental spelling."
+             "influence accidental spelling."
              "  The accidental strings are the same as note strings without "
-             "the "
-             "base pitch or octave."
+             "the base pitch or octave."
              "  Specifying one accidental effectively overrides FOMUS's "
-             "decision "
-             "(if the accidental is valid)."
+             "decision (if the accidental is valid)."
              "  An example of a safe way to override whether FOMUS chooses "
              "sharps or flats is to specify something like (n s ss) or (n f "
              "ff) "
@@ -6298,12 +6236,10 @@ public:
       return "A list of two numbers specifying a \"clipped\" segment of the "
              "score to appear in the output.  "
              "Useful if you only want to view a small sample of the output "
-             "(all "
-             "objects with time offsets outside the clip range are discarded). "
-             " "
+             "(all objects with time offsets outside the clip range are "
+             "discarded).  "
              "Set the first number in the list to the start time of the "
-             "segment "
-             "and the second number to the end time.  "
+             "segment and the second number to the end time.  "
              "Set either one to 0 to indicate no start or end time (two zeros "
              "indicates no clipping).";
     }
@@ -6368,17 +6304,14 @@ public:
              "If the preset file is found, it is effectively included at that "
              "point.  "
              "A preset file has the same format as the `.fomus' or "
-             "`fomus.conf' "
-             "file (i.e., it may only contain global settings) and has an "
-             "`.fpr' "
-             "extension.  "
+             "`fomus.conf' file (i.e., it may only contain global settings) "
+             "and has an `.fpr' extension.  "
              "You can define your own presets by placing `.fpr' files in a "
              "directory somewhere and adding the directory name "
              "to the FOMUS_PRESETS_PATH environment variable (e.g., put "
              "`export "
              "FOMUS_PRESETS_PATH=\"/home/me/presetdir1:/home/me/presetdir2\"' "
-             "in "
-             "your .bash_profile script).";
+             "in your .bash_profile script).";
     }
     const char* gettypedoc() const; // {return typstr.c_str();}
     bool isvalid(const fomusdata* fd) {
@@ -6594,8 +6527,7 @@ public:
     const char* getdescdoc() const {
       return "Specifies whether slur marks can touch each other by default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how slurs spanners are interpretted and processed.  "
+             "to affect how slurs spanners are interpretted and processed.  "
              "This setting can be overriden when specifying a slur by adding a "
              "`-' (can touch) or `|' (cannot touch) character to the mark.";
     }
@@ -6640,13 +6572,11 @@ public:
     const char* getdescdoc() const {
       return "Specifies whether slur marks can span across rests by default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how slurs spanners are interpretted and processed.  "
+             "to affect how slurs spanners are interpretted and processed.  "
              "This setting can be overriden when specifying a slur by adding "
              "an "
              "`r' (can span rests) or `n' (can only span notes) character to "
-             "the "
-             "mark.";
+             "the mark.";
     }
   };
 
@@ -6687,11 +6617,9 @@ public:
     }
     const char* getdescdoc() const {
       return "Specifies whether crescendo/diminuendo wedge marks can touch "
-             "each "
-             "other by default.  "
+             "each other by default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how crescendo/diminuendo spanners are interpretted and "
+             "to affect how crescendo/diminuendo spanners are interpretted and "
              "processed.  "
              "This setting can be overriden when specifying a wedge by adding "
              "a "
@@ -6738,8 +6666,7 @@ public:
       return "Specifies whether crescendo/diminuendo wedge marks can span a "
              "single note by default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how crescendo/diminuendo spanners are interpretted and "
+             "to affect how crescendo/diminuendo spanners are interpretted and "
              "processed.  "
              "This setting can be overriden when specifying a wedge by adding "
              "a "
@@ -6786,11 +6713,9 @@ public:
     }
     const char* getdescdoc() const {
       return "Specifies whether crescendo/diminuendo wedge marks can touch "
-             "each "
-             "other by default.  "
+             "each other by default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how crescendo/diminuendo spanners are interpretted and "
+             "to affect how crescendo/diminuendo spanners are interpretted and "
              "processed.  "
              "This setting can be overriden when specifying a wedge by adding "
              "a "
@@ -6837,8 +6762,7 @@ public:
       return "Specifies whether text spanner marks can touch each other by "
              "default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how text spanners are interpretted and processed.  "
+             "to affect how text spanners are interpretted and processed.  "
              "This setting can be overriden when specifying a text spanner by "
              "adding a "
              "`-' (can touch) or `|' (cannot touch) character to the mark.";
@@ -6884,8 +6808,7 @@ public:
       return "Specifies whether text spanner marks can span a single note by "
              "default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how text spanners are interpretted and processed.  "
+             "to affect how text spanners are interpretted and processed.  "
              "This setting can be overriden when specifying a text spanner by "
              "adding a "
              "`1' (can span a single note) or `m' (cannot span a single note) "
@@ -6933,8 +6856,7 @@ public:
       return "Specifies whether text spanner marks can touch each other by "
              "default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how text spanners are interpretted and processed.  "
+             "to affect how text spanners are interpretted and processed.  "
              "This setting can be overriden when specifying a text spanner by "
              "adding a "
              "`-' (can touch) or `|' (cannot touch) character to the mark.";
@@ -6985,10 +6907,8 @@ public:
     const char* getdescdoc() const {
       return "Determines the style of a `sul' text marking."
              "  Possible values are `sulletter' for \"sul\" to be followed by "
-             "a "
-             "note string name, `sulroman' for \"sul\" to be followed by a "
-             "Roman "
-             "numeral,"
+             "a note string name, `sulroman' for \"sul\" to be followed by a "
+             "Roman numeral,"
              " `letter' for a letter only and `roman' for a Roman numeral "
              "only.";
     }
@@ -7037,10 +6957,8 @@ public:
     const char* getdescdoc() const {
       return "A mapping from mark IDs to mark texts."
              "  Use this setting to customize the text that appears in the "
-             "score "
-             "for marks that are normally represented by text above or below "
-             "the "
-             "staff (e.g., `con sord.', `legato', etc.)."
+             "score for marks that are normally represented by text above or "
+             "below the staff (e.g., `con sord.', `legato', etc.)."
              "  `default-mark-texts' contains the default texts for all such "
              "marks while `mark-texts' might contain overrides only for a "
              "particular score or part."
@@ -7048,8 +6966,7 @@ public:
              // in `mark-texts' and then in `default-mark-texts'."
              "  This setting should appear in your `.fomus' file and should be "
              "modified using `+=' to insure that you are only replacing "
-             "entries "
-             "in this setting.";
+             "entries in this setting.";
     }
     const char* gettypedoc() const {
       return "(string_mark string_text, string_mark string_text, ...)";
@@ -7099,15 +7016,11 @@ public:
     const char* getdescdoc() const {
       return "A mapping from mark IDs to mark texts."
              "  Use this setting to customize the text that appears in the "
-             "score "
-             "for marks that are normally represented by text above or below "
-             "the "
-             "staff (e.g., `con sord.', `legato', etc.)."
+             "score for marks that are normally represented by text above or "
+             "below the staff (e.g., `con sord.', `legato', etc.)."
              "  `mark-texts' might contain overrides only for a particular "
-             "score "
-             "or part while `default-mark-texts' contains the default texts "
-             "for "
-             "all such marks."
+             "score or part while `default-mark-texts' contains the default "
+             "texts for all such marks."
              "  This setting should be used in a score or individual part.";
     }
     const char* gettypedoc() const {
@@ -7160,9 +7073,8 @@ public:
              "  Use this setting to effectively create aliases for `x' text "
              "marks."
              "  By mapping \"pcresc\" to \"crescendo poco a poco\", for "
-             "example, "
-             "you can then specify `[x_ pcresc]' in a `.fms' file to make the "
-             "desired text appear in the score."
+             "example, you can then specify `[x_ pcresc]' in a `.fms' file to "
+             "make the desired text appear in the score."
              "  The abbreviated alias string is also recognized in the "
              "`mark-groups' and `mark-group-defs' settings."
              "  This setting should be used in a score or individual part.";
@@ -7215,8 +7127,8 @@ public:
       return "Specifies whether piano pedal marks can touch each other by "
              "default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how pedal mark spanners are interpretted and processed.  "
+             "to affect how pedal mark spanners are interpretted and "
+             "processed.  "
              "This setting can be overriden when specifying a pedal sign by "
              "adding a "
              "`-' (can touch) or `|' (cannot touch) character to the mark.";
@@ -7262,8 +7174,8 @@ public:
       return "Specifies whether piano pedal marks can span a single note by "
              "default.  "
              "Use this in notes events, measures, parts or at the score level "
-             "to "
-             "affect how pedal mark spanners are interpretted and processed.  "
+             "to affect how pedal mark spanners are interpretted and "
+             "processed.  "
              "This setting can be overriden when specifying a pedal sign by "
              "adding a "
              "`1' (can span a single note) or `m' (cannot span a single note) "
@@ -7314,8 +7226,7 @@ public:
     const char* getdescdoc() const {
       return "Determines the style of a piano pedal marking."
              "  Possible values are `text' for \"Ped\" and \"*\" text marks "
-             "and "
-             "`bracket' for lines and V-shapes.";
+             "and `bracket' for lines and V-shapes.";
     }
     bool isvalid(const fomusdata* fd) {
       return module_valid_string(mval, -1, -1, valid_ispedstyle, gettypedoc());
@@ -7416,8 +7327,7 @@ public:
       return "If set to true, specifies that the duration of a note extends to "
              "the onset of the next note in the same voice.  "
              "The duration parameter of the note is ignored and replaced with "
-             "a "
-             "new one.";
+             "a new one.";
     }
     // const char* gettypedoc() const {return "||";}
     // bool isvalid() {return module_valid_intaux(val.getmodval(), 0,
@@ -7462,14 +7372,13 @@ public:
     }
     const char* getdescdoc() const {
       return "Together with `init-tempo' specifies a tempo mark to insert at "
-             "the "
-             "beginning of the score.  "
+             "the beginning of the score.  "
              "FOMUS adds tempo marks with this string to every part in the "
-             "score "
-             "at time 0 (provided `init-tempo' is something other than 0).  "
+             "score at time 0 (provided `init-tempo' is something other than "
+             "0).  "
              "Use this if you want to quickly add a tempo mark to the "
-             "beginning "
-             "of the score without defining a detached `mark' event.  "
+             "beginning of the score without defining a detached `mark' event. "
+             " "
              "See the documentation for `tempo' marks for an explanation of "
              "tempo text strings.";
     }
@@ -7519,11 +7428,11 @@ public:
       return "Together with `init-tempo-text' specifies a tempo mark to insert "
              "at the beginning of the score.  "
              "If this setting is set to anything other than 0, FOMUS adds "
-             "tempo "
-             "marks with this value to every part in the score at time 0.  "
+             "tempo marks with this value to every part in the score at time "
+             "0.  "
              "Use this if you want to quickly add a tempo mark to the "
-             "beginning "
-             "of the score without defining a detached `mark' event.  "
+             "beginning of the score without defining a detached `mark' event. "
+             " "
              "See the documentation for `tempo' marks for an explanation of "
              "tempo values.";
     }
@@ -7573,134 +7482,17 @@ public:
     }
     const char* getdescdoc() const {
       return "Some marks such as crescendo wedges often need to appear "
-             "detached "
-             "from notes events.  "
+             "detached from notes events.  "
              "Setting `detach' to `yes' insures that these marks appear in the "
              "location given by the mark event's time attribute, "
              "regardless of whether or not any note events are at that "
-             "location. "
-             " Setting `detach' to no forces all "
+             "location.  Setting `detach' to no forces all "
              "marks to be attached to note events.";
     }
     // const char* gettypedoc() const {return "||";}
     // bool isvalid() {return module_valid_intaux(val.getmodval(), 0,
     // module_incl, 2, module_incl, gettypedoc());}
   };
-
-  class var_pickup : public numvar {
-public:
-    var_pickup() : numvar((fint) 0) {
-      assert(getid() == PICKUP_ID);
-      initmodval();
-    }
-    var_pickup(const fint val) : numvar(val) {
-      initmodval();
-    }
-    var_pickup(const rat& val) : numvar(val) {
-      initmodval();
-    }
-    var_pickup(const var_pickup& x, const filepos& pos) : numvar(x, pos) {
-      initmodval();
-    }
-    var_pickup(const var_pickup& x, const numb& v, const filepos& pos)
-        : numvar(x, v, pos) {
-      initmodval();
-    }
-
-    // varbase* copy() const {return new var_pickup(*this);}
-    varbase* getnew(const fint v, const filepos& p) const {
-      return new var_pickup(*this, v, p);
-    }
-    varbase* getnew(const rat& val, const filepos& p) const {
-      return new var_pickup(*this, val, p);
-    }
-    varbase* getnew(const numb& v, const filepos& p) const {
-      return new var_pickup(*this, v, p);
-    }
-
-    const char* getname() const {
-      return "pickup";
-    } // docscat{meas}
-    module_setting_loc getloc() const {
-      return module_locmeasdef;
-    }
-    int getuselevel() const {
-      return 1;
-    }
-    const char* getdescdoc() const {
-      return "The duration of a pickup measure."
-             "  If a value other than 0 is specified, an extra mid-measure "
-             "barline is created in the first measure that contains this "
-             "setting."
-             "  Positive values indicate that the barline is to appear that "
-             "many "
-             "beats into the measure and negative values indicate that the "
-             "barline is to appear that many beats from the end of the measure "
-             "(i.e., the value is the length of the pickup)."
-             "  For example, specifying a `pickup' of -1 in a measure that is "
-             "4 "
-             "beats in duration creates a barline 3 beats into the measure "
-             "(indicating a 1-beat pickup)."
-             "  If this were the last measure in the piece, the extra beat "
-             "would "
-             "instead be truncated to a 3-beat measure (appropriate for pieces "
-             "that begin with a 1-beat pickup)."
-             "  If a positive `pickup' is specified, the `right-barline' "
-             "setting "
-             "applies to the extra mid-measure barline instead of the "
-             "rightmost "
-             "barline."
-             "  If a negative `pickup' is specified, the opposite is true (the "
-             "`left-barline' setting apples to the extra barline)."
-             "  Pickup measures at the beginning of a piece should begin at a "
-             "time less than 0 so that the actual pickup begins at 0.";
-    }
-    const char* gettypedoc() const {
-      return "rational";
-    }
-    bool isvalid(const fomusdata* fd) {
-      assert(!mval.notyet());
-      return module_valid_rat(val, makerat(0, 1), module_nobound, makerat(0, 1),
-                              module_nobound, 0, gettypedoc());
-    }
-  };
-
-  // class var_leftpickup:public numvar {
-  // public:
-  //   var_leftpickup():numvar((fint)0) {assert(getid() == LEFTPICKUP_ID);
-  //   initmodval();} var_leftpickup(const fint val):numvar(val) {initmodval();}
-  //   var_leftpickup(const rat& val):numvar(val) {initmodval();}
-  //   var_leftpickup(const var_leftpickup& x, const filepos& pos):numvar(x,
-  //   pos) {initmodval();} var_leftpickup(const var_leftpickup& x, const numb&
-  //   v, const filepos& pos):numvar(x, v, pos) {initmodval();}
-
-  //   //varbase* copy() const {return new var_leftpickup(*this);}
-  //   varbase* getnew(const fint v, const filepos& p) const {return new
-  //   var_leftpickup(*this, v, p);} varbase* getnew(const rat& val, const
-  //   filepos& p) const {return new var_leftpickup(*this, val, p);} varbase*
-  //   getnew(const numb& v, const filepos& p) const {return new
-  //   var_leftpickup(*this, v, p);}
-
-  //   const char* getname() const {return "left-pickup";} // docs**cat{meas}
-  //   module_setting_loc getloc() const {return module_locmeasdef;}
-  //   int getuselevel() const {return 1;}
-  //   const char* getdescdoc() const {
-  //     return "The duration of a pickup measure appearing before the measure
-  //     in which this setting appears."
-  // 	"  If a value other than 0 is specified, a mid-measure barline is
-  // created in the measure to the left of the one that contains this setting."
-  // " Also, if a pickup is specified, the `left-barline' setting applies to the
-  // extra mid-measure barline in the previous measure." 	"  For example,
-  // specifying a `pickup' of 1 in a measure following one that is 4 beats in
-  // duration creates a barline in the middle of the previous measure specifying
-  // a 1-beat pickup."
-  // 	;
-  //   }
-  //   const char* gettypedoc() const {return "rational>0";}
-  //   bool isvalid(const fomusdata* fd) {assert(!mval.notyet()); return
-  //   module_valid_rat(val, makerat(0, 1), module_excl, makerat(0, 1),
-  //   module_nobound, 0, gettypedoc());}
-  // };
 
 } // namespace fomus
 #endif

@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -161,13 +161,11 @@ namespace fomus {
         "If a `*' character is found in the string, it is replaced by a note "
         "that represents the value of the `beat' setting in that measure.  "
         "If two `*' characters are found with a rational or mixed number "
-        "between "
-        "them, then this value overrides the value of `beat'.  "
+        "between them, then this value overrides the value of `beat'.  "
         "If a `#' character is found in the string and a numerical argument is "
         "supplied, the `#' is replaced by that number.  "
         "For example, the string \"Allegro, * = #\" and a numerical argument "
-        "of "
-        "120 translates to \"Allegro, quarter-note = 120\" "
+        "of 120 translates to \"Allegro, quarter-note = 120\" "
         "(where `quarter-note' is an actual notated quarter note and the value "
         "of `beat' is 1/4 for that measure).  "
         "The string \"Allegro (*1/8* = #)\" and a numerical argument of 108 "
@@ -198,43 +196,43 @@ namespace fomus {
     insmark(new markbase(
         "salt",
         "Saltando text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[salt]",
         sin_isdetach)); // enum{salt}
     insmark(new markbase(
         "ric",
         "Ricochet or jeté text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[ric]",
         sin_isdetach)); // enum{ric}
     insmark(new markbase(
         "lv",
         "\"Let vibrate\" text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[lv]",
         sin_isdetach)); // enum{lv}
     insmark(new markbase(
         "flt",
         "Fluttertongue text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[flt]",
         sin_isdetach)); // enum{flt}
     insmark(new markbase(
         "slap",
         "\"Slap tongued\" text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[slap]",
         sin_isdetach)); // enum{slap}
     insmark(new markbase(
         "breath",
         "\"Breath tone\" text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[breath]",
         sin_isdetach)); // enum{breath}
 
@@ -242,260 +240,257 @@ namespace fomus {
     insmark(new markbase(
         "pizz",
         "String pizzicato text marking.  "
-        "To use, insert `pizz' markings on every note that is to be "
-        "played pizzicato.  "
-        "FOMUS then places \"pizz.\" and \"arco\" texts over the "
-        "correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `pizz' markings on every note that is to be played "
+        "pizzicato.  "
+        "FOMUS then places \"pizz.\" and \"arco\" texts over the correct notes "
+        "automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefabove, "[pizz]",
         sin_isdetach)); // enum{pizz}
     insmark(new markbase(
         "arco",
-        "String arco text marking.  You usually shouldn't specify "
-        "this directly (see the `pizz' marking)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "String arco text marking.  You usually shouldn't specify this "
+        "directly (see the `pizz' marking)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefabove, "[arco]",
         sin_isdetach)); // enum{arco}
 
     insmark(new markbase(
         "mute",
         "Mute text marking.  "
-        "To use, insert `mute' markings on every note that is to be "
-        "played with the mute on.  "
-        "FOMUS then places \"con sord.\" and \"senza sord.\" texts "
-        "over the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `mute' markings on every note that is to be played "
+        "with the mute on.  "
+        "FOMUS then places \"con sord.\" and \"senza sord.\" texts over the "
+        "correct notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefabove, "[mute]",
         sin_isdetach)); // enum{mute}
     insmark(new markbase(
         "unmute",
-        "Unmute text marking.  You usually shouldn't specify this "
-        "directly (see the `mute' marking)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "Unmute text marking.  You usually shouldn't specify this directly "
+        "(see the `mute' marking)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefabove, "[unmute]",
         sin_isdetach)); // enum{unmute}
 
     insmark(new markbase(
         "vib",
         "Vibrato text marking.  "
-        "To use, insert `vib' markings on every note that is to be "
-        "played with vibrato.  "
-        "FOMUS then places \"vib.\" and \"non vib.\" texts over the "
-        "correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `vib' markings on every note that is to be played with "
+        "vibrato.  "
+        "FOMUS then places \"vib.\" and \"non vib.\" texts over the correct "
+        "notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefabove, "[vib]",
         sin_isdetach)); // enum{vib}
     insmark(new markbase(
         "moltovib",
         "Molto vibrato text marking.  "
-        "To use, insert `moltovib' markings on every note that is "
-        "to be played molto vibrato.  "
-        "FOMUS then places \"molto vib.\" and \"non vib.\" texts "
-        "over the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `moltovib' markings on every note that is to be played "
+        "molto vibrato.  "
+        "FOMUS then places \"molto vib.\" and \"non vib.\" texts over the "
+        "correct notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefabove, "[moltovib]",
         sin_isdetach)); // enum{moltovib}
     insmark(new markbase(
         "nonvib",
-        "Non vibrato text marking.  You usually shouldn't specify "
-        "this directly (see the `vib' and `moltovib' markings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "Non vibrato text marking.  You usually shouldn't specify this "
+        "directly (see the `vib' and `moltovib' markings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefabove, "[nonvib]",
         sin_isdetach)); // enum{nonvib}
 
     insmark(new markbase(
         "leg",
         "Legato text marking.  "
-        "To use, insert `legato' markings on every note that is to "
-        "be played legato.  "
-        "FOMUS then places \"legato\" and \"non legato\" texts over "
-        "the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `legato' markings on every note that is to be played "
+        "legato.  "
+        "FOMUS then places \"legato\" and \"non legato\" texts over the "
+        "correct notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[leg]",
         sin_isdetach)); // enum{legato}
     insmark(new markbase(
         "moltoleg",
         "Molto legato text marking.  "
-        "To use, insert `molto legato' markings on every note that "
-        "is to be played molto legato.  "
-        "FOMUS then places \"molto legato\" and \"non legato\" "
-        "texts over the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `molto legato' markings on every note that is to be "
+        "played molto legato.  "
+        "FOMUS then places \"molto legato\" and \"non legato\" texts over the "
+        "correct notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[moltoleg]",
         sin_isdetach)); // enum{moltolegato}
     insmark(new markbase(
         "nonleg",
-        "Nonlegato text marking.  You usually shouldn't specify "
-        "this directly (see the `leg' and `moltoleg' markings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "Nonlegato text marking.  You usually shouldn't specify this directly "
+        "(see the `leg' and `moltoleg' markings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[nonleg]",
         sin_isdetach)); // enum{nonlegato}
 
     insmark(new markbase(
         "spic",
         "Spiccato text marking.  "
-        "To use, insert `spic' markings on every note that is to be "
-        "played spiccato.  "
-        "FOMUS then places \"spicc\" and \"ord.\" texts over the "
-        "correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `spic' markings on every note that is to be played "
+        "spiccato.  "
+        "FOMUS then places \"spicc\" and \"ord.\" texts over the correct notes "
+        "automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[spic]",
         sin_isdetach)); // enum{spic}
     insmark(new markbase(
         "tall",
         "\"at the frog\" text marking.  "
-        "To use, insert `tall' markings on every note that is to be "
-        "played al tallone.  "
-        "FOMUS then places \"al tallone\" and \"ord.\" texts over "
-        "the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `tall' markings on every note that is to be played al "
+        "tallone.  "
+        "FOMUS then places \"al tallone\" and \"ord.\" texts over the correct "
+        "notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[tall]",
         sin_isdetach)); // enum{tall}
     insmark(new markbase(
         "punta",
         "\"at the tip\" text marking.  "
-        "To use, insert `punta' markings on every note that is to "
-        "be played punta d'arco.  "
-        "FOMUS then places \"punta d'arco\" and \"ord.\" texts over "
-        "the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `punta' markings on every note that is to be played "
+        "punta d'arco.  "
+        "FOMUS then places \"punta d'arco\" and \"ord.\" texts over the "
+        "correct notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[punta]",
         sin_isdetach)); // enum{punta}
     insmark(new markbase(
         "pont",
         "\"near the bridge\" text marking.  "
-        "To use, insert `pont' markings on every note that is to be "
-        "played sul ponticello.  "
-        "FOMUS then places \"sul pont.\" and \"ord.\" texts over "
-        "the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `pont' markings on every note that is to be played sul "
+        "ponticello.  "
+        "FOMUS then places \"sul pont.\" and \"ord.\" texts over the correct "
+        "notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[pont]",
         sin_isdetach)); // enum{pont}
     insmark(new markbase(
         "tasto",
         "\"on the fingerboard\" text marking.  "
-        "To use, insert `tasto' markings on every note that is to "
-        "be played sul tasto.  "
-        "FOMUS then places \"sul tasto\" and \"ord.\" texts over "
-        "the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `tasto' markings on every note that is to be played "
+        "sul tasto.  "
+        "FOMUS then places \"sul tasto\" and \"ord.\" texts over the correct "
+        "notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[tasto]",
         sin_isdetach)); // enum{tasto}
     insmark(new markbase(
         "legno",
         "\"with the wood\" text marking.  "
-        "To use, insert `legno' markings on every note that is to "
-        "be played col legno.  "
-        "FOMUS then places \"col legno\" and \"ord.\" texts over "
-        "the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `legno' markings on every note that is to be played "
+        "col legno.  "
+        "FOMUS then places \"col legno\" and \"ord.\" texts over the correct "
+        "notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[legno]",
         sin_isdetach)); // enum{legno}
     insmark(new markbase(
         "flaut",
         "\"near the fingerboard\" text marking."
-        "To use, insert `flaut' markings on every note that is to "
-        "be played flautando.  "
-        "FOMUS then places \"flautando\" and \"ord.\" texts over "
-        "the correct notes automatically.  "
-        "(This behavior can be disabled if desired--see the "
-        "'mark-group-defs' and 'mark-groups' settings)."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "To use, insert `flaut' markings on every note that is to be played "
+        "flautando.  "
+        "FOMUS then places \"flautando\" and \"ord.\" texts over the correct "
+        "notes automatically.  "
+        "(This behavior can be disabled if desired--see the 'mark-group-defs' "
+        "and 'mark-groups' settings)."
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[flaut]",
         sin_isdetach)); // enum{flaut}
     insmark(new markbase(
         "etouf",
         "Dampen text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[etouf]",
         sin_isdetach)); // enum{etouf}
     insmark(new markbase(
         "table",
         "\"near the soundboard\" text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[table]",
         sin_isdetach)); // enum{table}
     // bisbigliando?
     insmark(new markbase(
         "cuivre",
         "Cuivré (or brassy) text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[cuivre]",
         sin_isdetach)); // enum{cuivre}
     insmark(new markbase(
         "bellsup",
         "\"Bells up\" text marking."
-        "  The precise text that appears in the score is controlled "
-        "by the `default-marktexts' and `marktexts' settings.",
+        "  The precise text that appears in the score is controlled by the "
+        "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[bellsup]",
         sin_isdetach)); // enum{bellsup}
 
     insmark(new markbase(
         "ord",
         "Naturale/ordinario/normale text marking.  You usually shouldn't "
-        "specify "
-        "this directly (e.g., see the `pont' and `tasto' markings)."
+        "specify this directly (e.g., see the `pont' and `tasto' markings)."
         "  The precise text that appears in the score is controlled by the "
         "`default-marktexts' and `marktexts' settings.",
         module_none, move_left, markpos_prefmiddleorabove, "[ord]",
         sin_isdetach)); // enum{ord}
 
-    insmark(
-        new markbase("break<",
-                     "System break, occurring at the barline at or after the "
-                     "attack time of the note.",
-                     module_none, move_left, markpos_notehead, "[break<]",
-                     sin_isdetach)); // enum{break_before}
-    insmark(
-        new markbase("break>",
-                     "System break, occurring at the barline at or after the "
-                     "release time of the note.",
-                     module_none, move_right, markpos_notehead, "[break>]",
-                     sin_isdetach)); // enum{break_after}
+    insmark(new markbase("break<",
+                         "System break, occurring at the barline at or after "
+                         "the attack time of the note.",
+                         module_none, move_left, markpos_notehead, "[break<]",
+                         sin_isdetach)); // enum{break_before}
+    insmark(new markbase("break>",
+                         "System break, occurring at the barline at or after "
+                         "the release time of the note.",
+                         module_none, move_right, markpos_notehead, "[break>]",
+                         sin_isdetach)); // enum{break_after}
 
     // misc.
     insmark(new markbase("ferm", "Fermata marking.", module_none, move_right,
@@ -514,24 +509,24 @@ namespace fomus {
         markpos_prefabove,
         "[ferm-verylong]")); // enum{fermata_verylong}  short, long, verylong
 
+    insmark(
+        new markbase("arp",
+                     "Arpeggio.  Applies to all notes in the same chord and "
+                     "only if a chord (two or more simultaneous notes) exists.",
+                     module_none, move_left, markpos_notehead,
+                     "[arp]")); // enum{arpeggio}  "", up, down
     insmark(new markbase(
-        "arp",
-        "Arpeggio.  Applies to all notes in the same chord and only "
+        "arp^",
+        "Upwards arpeggio.  Applies to all notes in the same chord and only if "
+        "a chord (two or more simultaneous notes) exists.",
+        module_none, move_left, markpos_notehead,
+        "[arp^]")); // enum{arpeggio_up}  "", up, down
+    insmark(new markbase(
+        "arp_",
+        "Downwards arpeggio.  Applies to all notes in the same chord and only "
         "if a chord (two or more simultaneous notes) exists.",
         module_none, move_left, markpos_notehead,
-        "[arp]")); // enum{arpeggio}  "", up, down
-    insmark(new markbase("arp^",
-                         "Upwards arpeggio.  Applies to all notes in the same "
-                         "chord and only if a "
-                         "chord (two or more simultaneous notes) exists.",
-                         module_none, move_left, markpos_notehead,
-                         "[arp^]")); // enum{arpeggio_up}  "", up, down
-    insmark(new markbase("arp_",
-                         "Downwards arpeggio.  Applies to all notes in the "
-                         "same chord and only if "
-                         "a chord (two or more simultaneous notes) exists.",
-                         module_none, move_left, markpos_notehead,
-                         "[arp_]")); // enum{arpeggio_down}  "", up, down
+        "[arp_]")); // enum{arpeggio_down}  "", up, down
 
     insmark(new markbase(
         "gliss<",
@@ -569,8 +564,7 @@ namespace fomus {
         "`longtr2' "
         "on two simultaneous notes to specify the entire trill.  "
         "The `FIXME' setting specifies whether trills greater than a single "
-        "step "
-        "are automatically notated as unmeasured tremolos instead "
+        "step are automatically notated as unmeasured tremolos instead "
         "(unison trills are always converted to tremolos).  Otherwise a small "
         "note in parentheses is used.",
         module_none, move_leftright, markpos_prefabove,
@@ -620,14 +614,14 @@ namespace fomus {
 
     insmark(new markbase(
         "natharm-touched",
-        "Indicates that the note is the place to touch on the "
-        "string in a natural harmonic.",
+        "Indicates that the note is the place to touch on the string in a "
+        "natural harmonic.",
         module_none, move_leftright, markpos_notehead, "[natharm-touched]",
         spr_dontspread)); // enum{natharm_touched}  before, after
     insmark(new markbase(
         "artharm-touched",
-        "Indicates that the note is the place to touch on the "
-        "string in an artificial harmonic.",
+        "Indicates that the note is the place to touch on the string in an "
+        "artificial harmonic.",
         module_none, move_leftright, markpos_notehead, "[artharm-touched]",
         spr_dontspread)); // enum{artharm_touched}  before, after
 
@@ -639,8 +633,8 @@ namespace fomus {
                          spr_dontspread)); // enum{artharm_base}  before, after
     insmark(new markbase(
         "natharm-string",
-        "Indicates that the note is the pitch of the open "
-        "string in a natural harmonic.",
+        "Indicates that the note is the pitch of the open string in a natural "
+        "harmonic.",
         module_none, move_leftright, markpos_notehead, "[natharm-string]",
         spr_dontspread)); // enum{natharm_string}  before, after
     // various text
@@ -649,8 +643,7 @@ namespace fomus {
         "Mark for indicating which string to play on.  " // The number argument
                                                          // specifies the string
                                                          // (a note or string
-                                                         // number).
-                                                         // "
+                                                         // number).  "
         "The `sul-style' setting specifies how this is to be interpretted and "
         "printed in the score.",
         module_none, move_left, markpos_prefabove,
@@ -661,23 +654,19 @@ namespace fomus {
                          sin_isdetach)); // enum{sf}
     insmark(new markbase("sff", "Double sforzando dynamic marking.",
                          module_none, move_left, markpos_prefmiddleorbelow,
-                         "[sff]",
-                         sin_isdetach)); // enum{sff}
+                         "[sff]", sin_isdetach)); // enum{sff}
     insmark(new markbase("sfff", "Triple sforzando dynamic marking.",
                          module_none, move_left, markpos_prefmiddleorbelow,
-                         "[sfff]",
-                         sin_isdetach)); // enum{sfff}
+                         "[sfff]", sin_isdetach)); // enum{sfff}
     insmark(new markbase("sfz", "Sforzato dynamic marking.", module_none,
                          move_left, markpos_prefmiddleorbelow, "[sfz]",
                          sin_isdetach)); // enum{sfz}
     insmark(new markbase("sffz", "Double sforzato dynamic marking.",
                          module_none, move_left, markpos_prefmiddleorbelow,
-                         "[sffz]",
-                         sin_isdetach)); // enum{sffz}
+                         "[sffz]", sin_isdetach)); // enum{sffz}
     insmark(new markbase("sfffz", "Triple sforzato dynamic marking.",
                          module_none, move_left, markpos_prefmiddleorbelow,
-                         "[sfffz]",
-                         sin_isdetach)); // enum{sfffz}
+                         "[sfffz]", sin_isdetach)); // enum{sfffz}
     insmark(new markbase("fz", "Forzando dynamic marking.", module_none,
                          move_left, markpos_prefmiddleorbelow, "[fz]",
                          sin_isdetach)); // enum{fz}
@@ -686,8 +675,7 @@ namespace fomus {
                          sin_isdetach)); // enum{ffz}
     insmark(new markbase("fffz", "Triple forzando dynamic marking.",
                          module_none, move_left, markpos_prefmiddleorbelow,
-                         "[fffz]",
-                         sin_isdetach)); // enum{fffz}
+                         "[fffz]", sin_isdetach)); // enum{fffz}
     insmark(new markbase("rfz", "Rinforzando dynamic marking.", module_none,
                          move_left, markpos_prefmiddleorbelow, "[rfz]",
                          sin_isdetach)); // enum{rfz}
@@ -752,51 +740,47 @@ namespace fomus {
         "An optional numeric argument overrides the note event's dynamic "
         "value.",
         module_number, move_leftright, markpos_prefmiddleorbelow,
-        "[dyn number]",
-        sin_isdetach)); // enum{dyn}
+        "[dyn number]", sin_isdetach)); // enum{dyn}
 
     spanmark* slur_begin;
-    insmark(
-        slur_begin = new spanmark(
-            "(..",
-            "Begin slur or bowing articulation." // enum{slur_begin}
-            "  The `(' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `(r..', `(-..' and `(r-..'.",
-            module_none, m_voicebegin, spr_cannotspanone, move_left,
-            markpos_notehead, "[(..]", 1, SLURCANTOUCHDEF_ID, 0,
-            SLURCANSPANRESTSDEF_ID));
+    insmark(slur_begin = new spanmark(
+                "(..",
+                "Begin slur or bowing articulation." // enum{slur_begin}
+                "  The `(' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `-' (the beginning and ends "
+                "of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `(r..', `(-..' and `(r-..'.",
+                module_none, m_voicebegin, spr_cannotspanone, move_left,
+                markpos_notehead, "[(..]", 1, SLURCANTOUCHDEF_ID, 0,
+                SLURCANSPANRESTSDEF_ID));
     spanmark* slur_end;
-    insmark(
-        slur_end = new spanmark(
-            "..)",
-            "End slur or bowing articulation." // enum{slur_end}
-            "  The `)' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `..)r', `..)-' and `..)r-'.",
-            module_none, m_voiceend, spr_cannotspanone, move_right,
-            markpos_notehead, "[..)]", 1, SLURCANTOUCHDEF_ID, 0,
-            SLURCANSPANRESTSDEF_ID));
+    insmark(slur_end = new spanmark(
+                "..)",
+                "End slur or bowing articulation." // enum{slur_end}
+                "  The `)' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `-' (the beginning and ends "
+                "of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `..)r', `..)-' and `..)r-'.",
+                module_none, m_voiceend, spr_cannotspanone, move_right,
+                markpos_notehead, "[..)]", 1, SLURCANTOUCHDEF_ID, 0,
+                SLURCANSPANRESTSDEF_ID));
     contmark* slur_cont;
-    insmark(
-        slur_cont = new contmark(
-            ".(.",
-            "Continue slur or bowing articulation." // enum{slur_cont}
-            "  FOMUS begins/ends slur marks where these continue marks "
-            "start/stop."
-            "  The `(' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `.(r.', `.(-.' and `.(r-.'.",
-            true, module_none, move_left, markpos_notehead, "[.(.]"));
+    insmark(slur_cont = new contmark(
+                ".(.",
+                "Continue slur or bowing articulation." // enum{slur_cont}
+                "  FOMUS begins/ends slur marks where these continue marks "
+                "start/stop."
+                "  The `(' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `-' (the beginning and ends "
+                "of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `.(r.', `.(-.' and `.(r-.'.",
+                true, module_none, move_left, markpos_notehead, "[.(.]"));
 
     spanmark* dottedslur_begin;
     insmark(
@@ -819,30 +803,31 @@ namespace fomus {
             "End dotted slur or bowing articulation." // enum{dottedslur_end}
             "  The `)' may be followed by one or more of the following flag "
             "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
+            "`n' (the mark cannot span rests), `-' (the beginning and ends of "
+            "the mark can touch) "
             "and `|' (the beginning and ends of the mark cannot touch).  "
             "Examples are `..dot)r', `..dot)-' and `..dot)r-'.",
             module_none, m_voiceend, spr_cannotspanone, move_right,
             markpos_notehead, "[..dot)]", 1, SLURCANTOUCHDEF_ID, 0,
             SLURCANSPANRESTSDEF_ID));
     contmark* dottedslur_cont;
-    insmark(dottedslur_cont = new contmark(
-                ".dot(.",
-                "Continue dotted slur or bowing "
-                "articulation." // enum{dottedslur_cont}
-                "  FOMUS begins/ends slur marks where "
-                "these continue marks start/stop."
-                "  The `(' may be followed by one or more "
-                "of the following flag characters: `r' "
-                "(the mark can span rests), "
-                "`n' (the mark cannot span rests), `-' "
-                "(the beginning and ends of the mark can "
-                "touch) "
-                "and `|' (the beginning and ends of the "
-                "mark cannot touch).  Examples are "
-                "`.dot(r.', `.dot(-.' and `.dot(r-.'.",
-                true, module_none, move_left, markpos_notehead, "[.dot(.]"));
+    insmark(
+        dottedslur_cont = new contmark(".dot(.",
+                                       "Continue dotted slur or bowing "
+                                       "articulation." // enum{dottedslur_cont}
+                                       "  FOMUS begins/ends slur marks where "
+                                       "these continue marks start/stop."
+                                       "  The `(' may be followed by one or "
+                                       "more of the following flag characters: "
+                                       "`r' (the mark can span rests), "
+                                       "`n' (the mark cannot span rests), `-' "
+                                       "(the beginning and ends of the mark "
+                                       "can touch) "
+                                       "and `|' (the beginning and ends of the "
+                                       "mark cannot touch).  Examples are "
+                                       "`.dot(r.', `.dot(-.' and `.dot(r-.'.",
+                                       true, module_none, move_left,
+                                       markpos_notehead, "[.dot(.]"));
 
     spanmark* dashedslur_begin;
     insmark(
@@ -865,336 +850,327 @@ namespace fomus {
             "End dashed slur or bowing articulation." // enum{dashedslur_end}
             "  The `)' may be followed by one or more of the following flag "
             "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
+            "`n' (the mark cannot span rests), `-' (the beginning and ends of "
+            "the mark can touch) "
             "and `|' (the beginning and ends of the mark cannot touch).  "
             "Examples are `..dash)r', `..dash)-' and `..dash)r-'.",
             module_none, m_voiceend, spr_cannotspanone, move_right,
             markpos_notehead, "[..dash)]", 1, SLURCANTOUCHDEF_ID, 0,
             SLURCANSPANRESTSDEF_ID));
     contmark* dashedslur_cont;
-    insmark(dashedslur_cont = new contmark(
-                ".dash(.",
-                "Continue dashed slur or bowing "
-                "articulation." // enum{dashedslur_cont}
-                "  FOMUS begins/ends slur marks where "
-                "these continue marks start/stop."
-                "  The `(' may be followed by one or more "
-                "of the following flag characters: `r' "
-                "(the mark can span rests), "
-                "`n' (the mark cannot span rests), `-' "
-                "(the beginning and ends of the mark can "
-                "touch) "
-                "and `|' (the beginning and ends of the "
-                "mark cannot touch).  Examples are "
-                "`.dash(r.', `.dash(-.' and `.dash(r-.'.",
-                true, module_none, move_left, markpos_notehead, "[.dash(.]"));
+    insmark(
+        dashedslur_cont = new contmark(".dash(.",
+                                       "Continue dashed slur or bowing "
+                                       "articulation." // enum{dashedslur_cont}
+                                       "  FOMUS begins/ends slur marks where "
+                                       "these continue marks start/stop."
+                                       "  The `(' may be followed by one or "
+                                       "more of the following flag characters: "
+                                       "`r' (the mark can span rests), "
+                                       "`n' (the mark cannot span rests), `-' "
+                                       "(the beginning and ends of the mark "
+                                       "can touch) "
+                                       "and `|' (the beginning and ends of the "
+                                       "mark cannot touch).  Examples are "
+                                       "`.dash(r.', `.dash(-.' and "
+                                       "`.dash(r-.'.",
+                                       true, module_none, move_left,
+                                       markpos_notehead, "[.dash(.]"));
 
     spanmark* phrase_begin;
-    insmark(phrase_begin =
-                new spanmark("((..",
-                             "Begin higher-level slur or phrase "
-                             "articulation.  " // enum{phrase_begin}
-                             "Use to indicate phrases marks over slurs "
-                             "created with `(..' and `..)' marks."
-                             "  The `((' may be followed by one or more "
-                             "of the following flag characters: `r' (the "
-                             "mark can span rests), "
+    insmark(
+        phrase_begin = new spanmark("((..",
+                                    "Begin higher-level slur or phrase "
+                                    "articulation.  " // enum{phrase_begin}
+                                    "Use to indicate phrases marks over slurs "
+                                    "created with `(..' and `..)' marks."
+                                    "  The `((' may be followed by one or more "
+                                    "of the following flag characters: `r' "
+                                    "(the mark can span rests), "
+                                    "`n' (the mark cannot span rests), `-' "
+                                    "(the beginning and ends of the mark can "
+                                    "touch) "
+                                    "and `|' (the beginning and ends of the "
+                                    "mark cannot touch).  Examples are "
+                                    "`((r..', `((-..' and `((r-..'.",
+                                    module_none, m_voicebegin,
+                                    spr_cannotspanone, move_left,
+                                    markpos_notehead, "[((..]", 2,
+                                    SLURCANTOUCHDEF_ID, 0,
+                                    SLURCANSPANRESTSDEF_ID));
+    spanmark* phrase_end;
+    insmark(phrase_end = new spanmark(
+                "..))",
+                "End higher-level slur or phrase articulation.  "
+                "Use to indicate phrases over slurs created with `(..' and "
+                "`..)' marks." // enum{phrase_end}
+                "  The `))' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `-' (the beginning and ends "
+                "of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `..))r', `..))-', and `..))r-'.",
+                module_none, m_voiceend, spr_cannotspanone, move_right,
+                markpos_notehead, "[..))]", 2, SLURCANTOUCHDEF_ID, 0,
+                SLURCANSPANRESTSDEF_ID));
+    contmark* phrase_cont;
+    insmark(phrase_cont =
+                new contmark(".((.",
+                             "Continue higher-level slur or phrase "
+                             "articulation." // enum{phrase_cont}
+                             "  FOMUS begins/ends slur marks where these "
+                             "continue marks start/stop."
+                             "  The `((' may be followed by one or more of the "
+                             "following flag characters: `r' (the mark can "
+                             "span rests), "
                              "`n' (the mark cannot span rests), `-' (the "
                              "beginning and ends of the mark can touch) "
                              "and `|' (the beginning and ends of the mark "
-                             "cannot touch).  Examples are `((r..', "
-                             "`((-..' and `((r-..'.",
-                             module_none, m_voicebegin, spr_cannotspanone,
-                             move_left, markpos_notehead, "[((..]", 2,
-                             SLURCANTOUCHDEF_ID, 0, SLURCANSPANRESTSDEF_ID));
-    spanmark* phrase_end;
-    insmark(
-        phrase_end = new spanmark(
-            "..))",
-            "End higher-level slur or phrase articulation.  "
-            "Use to indicate phrases over slurs created with `(..' and `..)' "
-            "marks." // enum{phrase_end}
-            "  The `))' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `..))r', `..))-', and `..))r-'.",
-            module_none, m_voiceend, spr_cannotspanone, move_right,
-            markpos_notehead, "[..))]", 2, SLURCANTOUCHDEF_ID, 0,
-            SLURCANSPANRESTSDEF_ID));
-    contmark* phrase_cont;
-    insmark(phrase_cont = new contmark(
-                ".((.",
-                "Continue higher-level slur or phrase "
-                "articulation." // enum{phrase_cont}
-                "  FOMUS begins/ends slur marks where these "
-                "continue marks start/stop."
-                "  The `((' may be followed by one or more of "
-                "the following flag characters: `r' (the mark "
-                "can span rests), "
-                "`n' (the mark cannot span rests), `-' (the "
-                "beginning and ends of the mark can touch) "
-                "and `|' (the beginning and ends of the mark "
-                "cannot touch).  Examples are `.((r.', "
-                "`.((-.' and `.((r-.'.",
-                true, module_none, move_left, markpos_notehead, "[.((.]"));
+                             "cannot touch).  Examples are `.((r.', `.((-.' "
+                             "and `.((r-.'.",
+                             true, module_none, move_left, markpos_notehead,
+                             "[.((.]"));
 
     spanmark* dottedphrase_begin;
-    insmark(dottedphrase_begin = new spanmark(
-                "dot((..",
-                "Begin higher-level dotted slur or phrase "
-                "articulation.  " // enum{dottedphrase_begin}
-                "Use to indicate phrases marks over slurs created "
-                "with `(..' and `..)' marks."
-                "  The `((' may be followed by one or more of the "
-                "following flag characters: `r' (the mark can span "
-                "rests), "
-                "`n' (the mark cannot span rests), `-' (the "
-                "beginning and ends of the mark can touch) "
-                "and `|' (the beginning and ends of the mark cannot "
-                "touch).  Examples are `dot((r..', `dot((-..', and "
-                "`dot((r-..'.",
-                module_none, m_voicebegin, spr_cannotspanone, move_left,
-                markpos_notehead, "[dot((..]", 2, SLURCANTOUCHDEF_ID, 0,
-                SLURCANSPANRESTSDEF_ID));
+    insmark(dottedphrase_begin =
+                new spanmark("dot((..",
+                             "Begin higher-level dotted slur or phrase "
+                             "articulation.  " // enum{dottedphrase_begin}
+                             "Use to indicate phrases marks over slurs created "
+                             "with `(..' and `..)' marks."
+                             "  The `((' may be followed by one or more of the "
+                             "following flag characters: `r' (the mark can "
+                             "span rests), "
+                             "`n' (the mark cannot span rests), `-' (the "
+                             "beginning and ends of the mark can touch) "
+                             "and `|' (the beginning and ends of the mark "
+                             "cannot touch).  Examples are `dot((r..', "
+                             "`dot((-..', and `dot((r-..'.",
+                             module_none, m_voicebegin, spr_cannotspanone,
+                             move_left, markpos_notehead, "[dot((..]", 2,
+                             SLURCANTOUCHDEF_ID, 0, SLURCANSPANRESTSDEF_ID));
     spanmark* dottedphrase_end;
-    insmark(dottedphrase_end = new spanmark(
-                "..dot))",
-                "End higher-level dotted slur or phrase "
-                "articulation.  " // enum{dottedphrase_end}
-                "Use to indicate phrases over slurs created with "
-                "`(..' and `..)' marks."
-                "  The `))' may be followed by one or more of the "
-                "following flag characters: `r' (the mark can span "
-                "rests), "
-                "`n' (the mark cannot span rests), `-' (the "
-                "beginning and ends of the mark can touch) "
-                "and `|' (the beginning and ends of the mark cannot "
-                "touch).  Examples are `..dot))r', `..dot))-' and "
-                "`..dot))r-'.",
-                module_none, m_voiceend, spr_cannotspanone, move_right,
-                markpos_notehead, "[..dot))]", 2, SLURCANTOUCHDEF_ID, 0,
-                SLURCANSPANRESTSDEF_ID));
+    insmark(dottedphrase_end =
+                new spanmark("..dot))",
+                             "End higher-level dotted slur or phrase "
+                             "articulation.  " // enum{dottedphrase_end}
+                             "Use to indicate phrases over slurs created with "
+                             "`(..' and `..)' marks."
+                             "  The `))' may be followed by one or more of the "
+                             "following flag characters: `r' (the mark can "
+                             "span rests), "
+                             "`n' (the mark cannot span rests), `-' (the "
+                             "beginning and ends of the mark can touch) "
+                             "and `|' (the beginning and ends of the mark "
+                             "cannot touch).  Examples are `..dot))r', "
+                             "`..dot))-' and `..dot))r-'.",
+                             module_none, m_voiceend, spr_cannotspanone,
+                             move_right, markpos_notehead, "[..dot))]", 2,
+                             SLURCANTOUCHDEF_ID, 0, SLURCANSPANRESTSDEF_ID));
     contmark* dottedphrase_cont;
-    insmark(dottedphrase_cont = new contmark(
-                ".dot((.",
-                "Continue higher-level dotted slur or phrase "
-                "articulation." // enum{dottedphrase_cont}
-                "  FOMUS begins/ends slur marks where these "
-                "continue marks start/stop."
-                "  The `((' may be followed by one or more of the "
-                "following flag characters: `r' (the mark can span "
-                "rests), "
-                "`n' (the mark cannot span rests), `-' (the "
-                "beginning and ends of the mark can touch) "
-                "and `|' (the beginning and ends of the mark cannot "
-                "touch).  Examples are `.dot((r.', `.dot((-.', and "
-                "`.dot((r-.'.",
-                true, module_none, move_left, markpos_notehead, "[.dot((.]"));
+    insmark(dottedphrase_cont =
+                new contmark(".dot((.",
+                             "Continue higher-level dotted slur or phrase "
+                             "articulation." // enum{dottedphrase_cont}
+                             "  FOMUS begins/ends slur marks where these "
+                             "continue marks start/stop."
+                             "  The `((' may be followed by one or more of the "
+                             "following flag characters: `r' (the mark can "
+                             "span rests), "
+                             "`n' (the mark cannot span rests), `-' (the "
+                             "beginning and ends of the mark can touch) "
+                             "and `|' (the beginning and ends of the mark "
+                             "cannot touch).  Examples are `.dot((r.', "
+                             "`.dot((-.', and `.dot((r-.'.",
+                             true, module_none, move_left, markpos_notehead,
+                             "[.dot((.]"));
 
     spanmark* dashedphrase_begin;
-    insmark(dashedphrase_begin = new spanmark(
-                "dash((..",
-                "Begin higher-level dashed slur or phrase "
-                "articulation.  " // enum{dashedphrase_begin}
-                "Use to indicate phrases marks over slurs created "
-                "with `(..' and `..)' marks."
-                "  The `((' may be followed by one or more of the "
-                "following flag characters: `r' (the mark can span "
-                "rests), "
-                "`n' (the mark cannot span rests), `-' (the "
-                "beginning and ends of the mark can touch) "
-                "and `|' (the beginning and ends of the mark cannot "
-                "touch).  Examples are `dash((r..', `dash((-..' and "
-                "`dash((r-..'.",
-                module_none, m_voicebegin, spr_cannotspanone, move_left,
-                markpos_notehead, "[dash((..]", 2, SLURCANTOUCHDEF_ID, 0,
-                SLURCANSPANRESTSDEF_ID));
+    insmark(dashedphrase_begin =
+                new spanmark("dash((..",
+                             "Begin higher-level dashed slur or phrase "
+                             "articulation.  " // enum{dashedphrase_begin}
+                             "Use to indicate phrases marks over slurs created "
+                             "with `(..' and `..)' marks."
+                             "  The `((' may be followed by one or more of the "
+                             "following flag characters: `r' (the mark can "
+                             "span rests), "
+                             "`n' (the mark cannot span rests), `-' (the "
+                             "beginning and ends of the mark can touch) "
+                             "and `|' (the beginning and ends of the mark "
+                             "cannot touch).  Examples are `dash((r..', "
+                             "`dash((-..' and `dash((r-..'.",
+                             module_none, m_voicebegin, spr_cannotspanone,
+                             move_left, markpos_notehead, "[dash((..]", 2,
+                             SLURCANTOUCHDEF_ID, 0, SLURCANSPANRESTSDEF_ID));
     spanmark* dashedphrase_end;
-    insmark(
-        dashedphrase_end = new spanmark(
-            "..dash))",
-            "End higher-level dashed slur or phrase articulation.  "
-            "Use to indicate phrases over slurs created with `(..' and `..)' "
-            "marks." // enum{dashedphrase_end}
-            "  The `))' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `..dash))r', `..dash))-' and `..dash))r-'.",
-            module_none, m_voiceend, spr_cannotspanone, move_right,
-            markpos_notehead, "[..dash))]", 2, SLURCANTOUCHDEF_ID, 0,
-            SLURCANSPANRESTSDEF_ID));
+    insmark(dashedphrase_end = new spanmark(
+                "..dash))",
+                "End higher-level dashed slur or phrase articulation.  "
+                "Use to indicate phrases over slurs created with `(..' and "
+                "`..)' marks." // enum{dashedphrase_end}
+                "  The `))' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `-' (the beginning and ends "
+                "of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `..dash))r', `..dash))-' and `..dash))r-'.",
+                module_none, m_voiceend, spr_cannotspanone, move_right,
+                markpos_notehead, "[..dash))]", 2, SLURCANTOUCHDEF_ID, 0,
+                SLURCANSPANRESTSDEF_ID));
     contmark* dashedphrase_cont;
-    insmark(dashedphrase_cont = new contmark(
-                ".dash((.",
-                "Continue higher-level dashed slur or phrase "
-                "articulation." // enum{dashedphrase_cont}
-                "  FOMUS begins/ends slur marks where these "
-                "continue marks start/stop."
-                "  The `((' may be followed by one or more of the "
-                "following flag characters: `r' (the mark can span "
-                "rests), "
-                "`n' (the mark cannot span rests), `-' (the "
-                "beginning and ends of the mark can touch) "
-                "and `|' (the beginning and ends of the mark cannot "
-                "touch).  Examples are `.dash((r.', `.dash((-.' and "
-                "`.dash((r-.'.",
-                true, module_none, move_left, markpos_notehead, "[.dash((.]"));
+    insmark(dashedphrase_cont =
+                new contmark(".dash((.",
+                             "Continue higher-level dashed slur or phrase "
+                             "articulation." // enum{dashedphrase_cont}
+                             "  FOMUS begins/ends slur marks where these "
+                             "continue marks start/stop."
+                             "  The `((' may be followed by one or more of the "
+                             "following flag characters: `r' (the mark can "
+                             "span rests), "
+                             "`n' (the mark cannot span rests), `-' (the "
+                             "beginning and ends of the mark can touch) "
+                             "and `|' (the beginning and ends of the mark "
+                             "cannot touch).  Examples are `.dash((r.', "
+                             "`.dash((-.' and `.dash((r-.'.",
+                             true, module_none, move_left, markpos_notehead,
+                             "[.dash((.]"));
 
     spanmark* graceslur_begin;
-    insmark(
-        graceslur_begin = new spanmark(
-            "grace(..",
-            "Begin grace note slur articulation.  (FOMUS automatically adds "
-            "these.)" // enum{graceslur_begin}
-            "  The `(' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `grace(r..', `grace(-..' and `grace(r-..'.",
-            module_none, m_voicebegin, spr_cannotspanone, move_left,
-            markpos_notehead, "[grace(..]", 5, SLURCANTOUCHDEF_ID, 0,
-            SLURCANSPANRESTSDEF_ID));
+    insmark(graceslur_begin = new spanmark(
+                "grace(..",
+                "Begin grace note slur articulation.  (FOMUS automatically "
+                "adds these.)" // enum{graceslur_begin}
+                "  The `(' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `-' (the beginning and ends "
+                "of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `grace(r..', `grace(-..' and `grace(r-..'.",
+                module_none, m_voicebegin, spr_cannotspanone, move_left,
+                markpos_notehead, "[grace(..]", 5, SLURCANTOUCHDEF_ID, 0,
+                SLURCANSPANRESTSDEF_ID));
     spanmark* graceslur_end;
-    insmark(
-        graceslur_end = new spanmark(
-            "..grace)",
-            "End grace note slur articulation.  (FOMUS automatically adds "
-            "these.)" // enum{graceslur_end}
-            "  The `)' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `..grace)r', `..grace)-' and `..grace)r-'.",
-            module_none, m_voiceend, spr_cannotspanone, move_right,
-            markpos_notehead, "[..grace)]", 5, SLURCANTOUCHDEF_ID, 0,
-            SLURCANSPANRESTSDEF_ID));
+    insmark(graceslur_end = new spanmark(
+                "..grace)",
+                "End grace note slur articulation.  (FOMUS automatically adds "
+                "these.)" // enum{graceslur_end}
+                "  The `)' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `-' (the beginning and ends "
+                "of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `..grace)r', `..grace)-' and `..grace)r-'.",
+                module_none, m_voiceend, spr_cannotspanone, move_right,
+                markpos_notehead, "[..grace)]", 5, SLURCANTOUCHDEF_ID, 0,
+                SLURCANSPANRESTSDEF_ID));
     contmark* graceslur_cont;
-    insmark(
-        graceslur_cont = new contmark(
-            ".grace(.",
-            "Continue grace note slur articulation." // enum{graceslur_cont}
-            "  FOMUS begins/ends slur marks where these continue marks "
-            "start/stop."
-            "  The `(' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `-' (the beginning and ends "
-            "of the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `.grace(r.', `.grace(-.' and `.grace(r-.'.",
-            true, module_none, move_left, markpos_notehead, "[.grace(.]"));
+    insmark(graceslur_cont = new contmark(
+                ".grace(.",
+                "Continue grace note slur articulation." // enum{graceslur_cont}
+                "  FOMUS begins/ends slur marks where these continue marks "
+                "start/stop."
+                "  The `(' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `-' (the beginning and ends "
+                "of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `.grace(r.', `.grace(-.' and `.grace(r-.'.",
+                true, module_none, move_left, markpos_notehead, "[.grace(.]"));
 
     spanmark* cresc_begin;
-    insmark(
-        cresc_begin = new spanmark(
-            "<..",
-            "Begin crescendo wedge." // enum{cresc_begin}
-            "  The `<' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `<1..', `<-..' and `<1-..'.",
-            module_none, m_voicebegin, sin_isdetach, move_left,
-            markpos_prefmiddleorbelow, "[<..]", 3, WEDGECANTOUCHDEF_ID,
-            WEDGECANSPANONEDEF_ID, WEDGECANSPANRESTSDEF_ID));
+    insmark(cresc_begin = new spanmark(
+                "<..",
+                "Begin crescendo wedge." // enum{cresc_begin}
+                "  The `<' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `<1..', `<-..' and `<1-..'.",
+                module_none, m_voicebegin, sin_isdetach, move_left,
+                markpos_prefmiddleorbelow, "[<..]", 3, WEDGECANTOUCHDEF_ID,
+                WEDGECANSPANONEDEF_ID, WEDGECANSPANRESTSDEF_ID));
     spanmark* cresc_end;
-    insmark(
-        cresc_end = new spanmark(
-            "..<",
-            "End crescendo wedge." // enum{cresc_end}
-            "  The `<' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `..<1', `..<-' and `..<1-'.",
-            module_none, m_voiceend, sin_isdetach, move_right,
-            markpos_prefmiddleorbelow, "[..<]", 3, WEDGECANTOUCHDEF_ID,
-            WEDGECANSPANONEDEF_ID, WEDGECANSPANRESTSDEF_ID));
+    insmark(cresc_end = new spanmark(
+                "..<",
+                "End crescendo wedge." // enum{cresc_end}
+                "  The `<' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `..<1', `..<-' and `..<1-'.",
+                module_none, m_voiceend, sin_isdetach, move_right,
+                markpos_prefmiddleorbelow, "[..<]", 3, WEDGECANTOUCHDEF_ID,
+                WEDGECANSPANONEDEF_ID, WEDGECANSPANRESTSDEF_ID));
     contmark* cresc_cont;
-    insmark(
-        cresc_cont = new contmark(
-            ".<.",
-            "Continue crescendo wedge." // enum{cresc_cont}
-            "  FOMUS begins/ends wedge marks where these continue marks "
-            "start/stop."
-            "  The `<' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `.<1.', `.<-.' and `.<1-.'.",
-            true, module_none, move_left, markpos_prefmiddleorbelow, "[.<.]",
-            sin_isdetach));
+    insmark(cresc_cont = new contmark(
+                ".<.",
+                "Continue crescendo wedge." // enum{cresc_cont}
+                "  FOMUS begins/ends wedge marks where these continue marks "
+                "start/stop."
+                "  The `<' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `.<1.', `.<-.' and `.<1-.'.",
+                true, module_none, move_left, markpos_prefmiddleorbelow,
+                "[.<.]", sin_isdetach));
 
     spanmark* dim_begin;
-    insmark(
-        dim_begin = new spanmark(
-            ">..",
-            "Begin diminuendo wedge." // enum{dim_begin}
-            "  The `>' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `>1..', `>-..' and `>1-..'.",
-            module_none, m_voicebegin, sin_isdetach, move_left,
-            markpos_prefmiddleorbelow, "[>..]", 3, WEDGECANTOUCHDEF_ID,
-            WEDGECANSPANONEDEF_ID, WEDGECANSPANRESTSDEF_ID));
+    insmark(dim_begin = new spanmark(
+                ">..",
+                "Begin diminuendo wedge." // enum{dim_begin}
+                "  The `>' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `>1..', `>-..' and `>1-..'.",
+                module_none, m_voicebegin, sin_isdetach, move_left,
+                markpos_prefmiddleorbelow, "[>..]", 3, WEDGECANTOUCHDEF_ID,
+                WEDGECANSPANONEDEF_ID, WEDGECANSPANRESTSDEF_ID));
     spanmark* dim_end;
-    insmark(
-        dim_end = new spanmark(
-            "..>",
-            "End diminuendo wedge." // enum{dim_end}
-            "  The `>' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `..>1', `..>-' and `..>1-'.",
-            module_none, m_voiceend, sin_isdetach, move_right,
-            markpos_prefmiddleorbelow, "[..>]", 3, WEDGECANTOUCHDEF_ID,
-            WEDGECANSPANONEDEF_ID, WEDGECANSPANRESTSDEF_ID));
+    insmark(dim_end = new spanmark(
+                "..>",
+                "End diminuendo wedge." // enum{dim_end}
+                "  The `>' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `..>1', `..>-' and `..>1-'.",
+                module_none, m_voiceend, sin_isdetach, move_right,
+                markpos_prefmiddleorbelow, "[..>]", 3, WEDGECANTOUCHDEF_ID,
+                WEDGECANSPANONEDEF_ID, WEDGECANSPANRESTSDEF_ID));
     contmark* dim_cont;
-    insmark(
-        dim_cont = new contmark(
-            ".>.",
-            "Continue diminuendo wedge." // enum{dim_cont}
-            "  FOMUS begins/ends wedge marks where these continue marks "
-            "start/stop."
-            "  The `>' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `.>1.', `.>-.' and `.>1-.'.",
-            true, module_none, move_left, markpos_prefmiddleorbelow, "[.>.]",
-            sin_isdetach));
+    insmark(dim_cont = new contmark(
+                ".>.",
+                "Continue diminuendo wedge." // enum{dim_cont}
+                "  FOMUS begins/ends wedge marks where these continue marks "
+                "start/stop."
+                "  The `>' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `.>1.', `.>-.' and `.>1-.'.",
+                true, module_none, move_left, markpos_prefmiddleorbelow,
+                "[.>.]", sin_isdetach));
 
     spanmark* ped_begin;
     insmark(ped_begin = new spanmark(
@@ -1203,8 +1179,7 @@ namespace fomus {
                 "  `ped' may be followed by one or more of the following flag "
                 "characters: `1' (the mark can span one note), "
                 "`m' (the mark cannot span one note), `-' (the beginning and "
-                "ends of "
-                "the mark can touch) "
+                "ends of the mark can touch) "
                 "and `|' (the beginning and ends of the mark cannot touch).  "
                 "Examples are `ped1..', `ped-..' and `ped1-..'."
                 "  To insure that this mark appears below the bottom staff, it "
@@ -1221,8 +1196,7 @@ namespace fomus {
                 "  `ped' may be followed by one or more of the following flag "
                 "characters: `1' (the mark can span one note), "
                 "`m' (the mark cannot span one note), `-' (the beginning and "
-                "ends of "
-                "the mark can touch) "
+                "ends of the mark can touch) "
                 "and `|' (the beginning and ends of the mark cannot touch).  "
                 "Examples are `..ped1', `..ped-' and `..ped1-'."
                 "  To insure that this mark appears below the bottom staff, it "
@@ -1247,13 +1221,12 @@ namespace fomus {
                 true, module_none, move_left, markpos_below, "[.ped.]",
                 sin_mustdetach));
 
-    insmark(
-        new textmark("x",
-                     "Text marking attached to a notehead.  "
-                     "The text for this usually appears above the note in a "
-                     "normal (non-italic) typeface.",
-                     module_string, move_left, markpos_prefabove,
-                     "[x string_text]")); // enum{text}
+    insmark(new textmark("x",
+                         "Text marking attached to a notehead.  "
+                         "The text for this usually appears above the note in "
+                         "a normal (non-italic) typeface.",
+                         module_string, move_left, markpos_prefabove,
+                         "[x string_text]")); // enum{text}
 
     insmark(new textmark("x_",
                          "Text marking in italics.  The text usually appears "
@@ -1262,45 +1235,41 @@ namespace fomus {
                          "[x_ string_text]",
                          sin_isdetach)); // enum{italictextabove}
     spanmark* itdntext_begin;
-    insmark(
-        itdntext_begin = new textspanner(
-            "x_..",
-            "Begin text spanner in italics."
-            "  The text for this usually appears below the staff or in the "
-            "middle of a grand staff."
-            "  The `x_' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `x_1..', `x_-..' and `x_1-..'.",
-            module_string, m_voicebegin, spr_isreduc | sin_isdetach, move_left,
-            markpos_prefmiddleorbelow, "[x_.. string_text]", 10,
-            TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
-            TEXTCANSPANRESTSDEF_ID)); // enum{italictextabove_begin}
+    insmark(itdntext_begin = new textspanner(
+                "x_..",
+                "Begin text spanner in italics."
+                "  The text for this usually appears below the staff or in the "
+                "middle of a grand staff."
+                "  The `x_' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `x_1..', `x_-..' and `x_1-..'.",
+                module_string, m_voicebegin, spr_isreduc | sin_isdetach,
+                move_left, markpos_prefmiddleorbelow, "[x_.. string_text]", 10,
+                TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
+                TEXTCANSPANRESTSDEF_ID)); // enum{italictextabove_begin}
     spanmark* itdntext_end;
-    insmark(
-        itdntext_end = new textspanner(
-            "..x_",
-            "End text spanner in italics."
-            "  The text for this usually appears below the staff or in the "
-            "middle of a grand staff."
-            "  The `x_' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `..x_1', `..x_-' and `..x_1-'.",
-            module_string, m_voiceend, spr_isreduc | sin_isdetach, move_right,
-            markpos_prefmiddleorbelow, "[..x_ string_text]", 10,
-            TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
-            TEXTCANSPANRESTSDEF_ID)); // enum{italictextabove_end}
+    insmark(itdntext_end = new textspanner(
+                "..x_",
+                "End text spanner in italics."
+                "  The text for this usually appears below the staff or in the "
+                "middle of a grand staff."
+                "  The `x_' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `..x_1', `..x_-' and `..x_1-'.",
+                module_string, m_voiceend, spr_isreduc | sin_isdetach,
+                move_right, markpos_prefmiddleorbelow, "[..x_ string_text]", 10,
+                TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
+                TEXTCANSPANRESTSDEF_ID)); // enum{italictextabove_end}
     contmark* itdntext_cont;
     insmark(
         itdntext_cont = new textcontmark(
@@ -1315,8 +1284,7 @@ namespace fomus {
             "`n' (the mark cannot span rests), `1' (the mark can span one "
             "note), "
             "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
+            "of the mark can touch) "
             "and `|' (the beginning and ends of the mark cannot touch).  "
             "Examples are `.x_1.', `.x_-.' and `.x_1-.'.",
             true, module_none, move_left, markpos_prefmiddleorbelow,
@@ -1329,45 +1297,41 @@ namespace fomus {
                          "[x^ string_text]",
                          sin_isdetach)); // enum{italictextbelow}
     spanmark* ituptext_begin;
-    insmark(
-        ituptext_begin = new textspanner(
-            "x^..",
-            "Begin text spanner in italics."
-            "  The text for this usually appears above the staff or in the "
-            "middle of a grand staff."
-            "  The `x^' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `x^1..', `x^-..' and `x^1-..'.",
-            module_string, m_voicebegin, spr_isreduc | sin_isdetach, move_left,
-            markpos_prefmiddleorabove, "[x^.. string_text]", 11,
-            TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
-            TEXTCANSPANRESTSDEF_ID)); // enum{italictextbelow_begin}
+    insmark(ituptext_begin = new textspanner(
+                "x^..",
+                "Begin text spanner in italics."
+                "  The text for this usually appears above the staff or in the "
+                "middle of a grand staff."
+                "  The `x^' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `x^1..', `x^-..' and `x^1-..'.",
+                module_string, m_voicebegin, spr_isreduc | sin_isdetach,
+                move_left, markpos_prefmiddleorabove, "[x^.. string_text]", 11,
+                TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
+                TEXTCANSPANRESTSDEF_ID)); // enum{italictextbelow_begin}
     spanmark* ituptext_end;
-    insmark(
-        ituptext_end = new textspanner(
-            "..x^",
-            "End text spanner in italics."
-            "  The text for this usually appears above the staff or in the "
-            "middle of a grand staff."
-            "  The `x^' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `..x^1', `..x^-' and `..x^1-'.",
-            module_string, m_voiceend, spr_isreduc | sin_isdetach, move_right,
-            markpos_prefmiddleorabove, "[..x^ string_text]", 11,
-            TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
-            TEXTCANSPANRESTSDEF_ID)); // enum{italictextbelow_end}
+    insmark(ituptext_end = new textspanner(
+                "..x^",
+                "End text spanner in italics."
+                "  The text for this usually appears above the staff or in the "
+                "middle of a grand staff."
+                "  The `x^' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `..x^1', `..x^-' and `..x^1-'.",
+                module_string, m_voiceend, spr_isreduc | sin_isdetach,
+                move_right, markpos_prefmiddleorabove, "[..x^ string_text]", 11,
+                TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
+                TEXTCANSPANRESTSDEF_ID)); // enum{italictextbelow_end}
     contmark* ituptext_cont;
     insmark(
         ituptext_cont = new textcontmark(
@@ -1382,8 +1346,7 @@ namespace fomus {
             "`n' (the mark cannot span rests), `1' (the mark can span one "
             "note), "
             "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
+            "of the mark can touch) "
             "and `|' (the beginning and ends of the mark cannot touch).  "
             "Examples are `.x^1.', `.x^-.' and `.x^1-.'.",
             true, module_string, move_left, markpos_prefmiddleorabove,
@@ -1395,63 +1358,56 @@ namespace fomus {
         module_string, move_left, markpos_prefabove, "[x! string_text]",
         sin_isdetach)); // enum{stafftext}
     spanmark* stafftext_begin;
-    insmark(
-        stafftext_begin = new textspanner(
-            "x!..",
-            "Begin text spanner in bold face.  The text for this usually "
-            "appears "
-            "above the staff."
-            "  The `x!' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `x!1..', `x!-..' and `x!1-..'.",
-            module_string, m_voicebegin, spr_isreduc | sin_isdetach, move_left,
-            markpos_prefabove, "[x!.. string_text]", 12, TEXTCANTOUCHDEF_ID,
-            TEXTCANSPANONEDEF_ID,
-            TEXTCANSPANRESTSDEF_ID)); // enum{stafftext_begin}
+    insmark(stafftext_begin = new textspanner(
+                "x!..",
+                "Begin text spanner in bold face.  The text for this usually "
+                "appears above the staff."
+                "  The `x!' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `x!1..', `x!-..' and `x!1-..'.",
+                module_string, m_voicebegin, spr_isreduc | sin_isdetach,
+                move_left, markpos_prefabove, "[x!.. string_text]", 12,
+                TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
+                TEXTCANSPANRESTSDEF_ID)); // enum{stafftext_begin}
     spanmark* stafftext_end;
-    insmark(
-        stafftext_end = new textspanner(
-            "..x!",
-            "End text spanner in bold face.  The text for this usually appears "
-            "above the staff."
-            "  The `x!' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `..x!1', `..x!-' and `..x!1-'.",
-            module_string, m_voiceend, spr_isreduc | sin_isdetach, move_right,
-            markpos_prefabove, "[..x! string_text]", 12, TEXTCANTOUCHDEF_ID,
-            TEXTCANSPANONEDEF_ID,
-            TEXTCANSPANRESTSDEF_ID)); // enum{stafftext_end}
+    insmark(stafftext_end = new textspanner(
+                "..x!",
+                "End text spanner in bold face.  The text for this usually "
+                "appears above the staff."
+                "  The `x!' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `..x!1', `..x!-' and `..x!1-'.",
+                module_string, m_voiceend, spr_isreduc | sin_isdetach,
+                move_right, markpos_prefabove, "[..x! string_text]", 12,
+                TEXTCANTOUCHDEF_ID, TEXTCANSPANONEDEF_ID,
+                TEXTCANSPANRESTSDEF_ID)); // enum{stafftext_end}
     contmark* stafftext_cont;
-    insmark(
-        stafftext_cont = new textcontmark(
-            ".x!.",
-            "Continue text spanner in bold face.  The text for this usually "
-            "appears above the staff." // enum{stafftext_cont}
-            "  FOMUS begins/ends text marks where these continue marks "
-            "start/stop."
-            "  The `x!' may be followed by one or more of the following flag "
-            "characters: `r' (the mark can span rests), "
-            "`n' (the mark cannot span rests), `1' (the mark can span one "
-            "note), "
-            "`m' (the mark cannot span one note), `-' (the beginning and ends "
-            "of "
-            "the mark can touch) "
-            "and `|' (the beginning and ends of the mark cannot touch).  "
-            "Examples are `.x!1.', `.x!-.' and `.x!1-.'.",
-            true, module_string, move_left, markpos_prefabove,
-            "[.x!. string_text]", sin_isdetach));
+    insmark(stafftext_cont = new textcontmark(
+                ".x!.",
+                "Continue text spanner in bold face.  The text for this "
+                "usually appears above the staff." // enum{stafftext_cont}
+                "  FOMUS begins/ends text marks where these continue marks "
+                "start/stop."
+                "  The `x!' may be followed by one or more of the following "
+                "flag characters: `r' (the mark can span rests), "
+                "`n' (the mark cannot span rests), `1' (the mark can span one "
+                "note), "
+                "`m' (the mark cannot span one note), `-' (the beginning and "
+                "ends of the mark can touch) "
+                "and `|' (the beginning and ends of the mark cannot touch).  "
+                "Examples are `.x!1.', `.x!-.' and `.x!1-.'.",
+                true, module_string, move_left, markpos_prefabove,
+                "[.x!. string_text]", sin_isdetach));
 
     // vocal text
     insmark(new textmark("*", "Vocal/lyric text syllable.", module_string,
@@ -1463,8 +1419,8 @@ namespace fomus {
                          move_right, markpos_notehead, "[~]")); // enum{tie}
     insmark(new tupletmark(
         "tup..",
-        "Begin a tuplet on this note.  If the optional number "
-        "argument is given, begin a tuplet at that nested level.",
+        "Begin a tuplet on this note.  If the optional number argument is "
+        "given, begin a tuplet at that nested level.",
         module_number, move_left, markpos_notehead,
         "[tup.. integer>=1]")); // enum{tuplet_begin}
     insmark(

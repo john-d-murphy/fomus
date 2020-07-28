@@ -1,0 +1,1995 @@
+;;   Copyright (C) 2009, 2010, 2011  David Psenicka
+;;   This file is part of FOMUS.
+
+;;   FOMUS is free software: you can redistribute it and/or modify
+;;   it under the terms of the GNU General Public License as published by
+;;   the Free Software Foundation, either version 3 of the License, or
+;;   (at your option) any later version.
+
+;;   FOMUS is distributed in the hope that it will be useful,
+;;   but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;   GNU General Public License for more details.
+
+;;   You should have received a copy of the GNU General Public License
+;;   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;; ------------------------------------------------------------------------------------------------------------------------
+;; FOMUS INTERFACE FOR LISP
+
+(defpackage #:fomusmod
+  (:nicknames #:fmsmod)
+  (:use #:common-lisp)
+  ;; (:shadow #:load #:rest)
+  (:export
+   #:fomus-rat
+   #:module-type
+   #:parts-grouptype
+   #:module-clefids
+   #:module-barlines
+   #:module-markpos
+   #:module-markids
+   #:module-iter-type
+   #:module-value-type
+   #:module-list
+   #:module
+   #:module-value
+   #:module-setting-loc
+   #:module-setting
+   #:module-mark
+   #:module-bound
+   #:module-objlist
+   #:module-intslist
+   #:module-ratslist
+   #:module-markslist
+   #:module-noteparts
+   #:module-keysigref
+   #:module-callbacks
+   #:fomus-modapi-version
+   #:module-stdout
+   #:module-stderr
+   #:module-new-list
+   #:module-free-list
+   #:module-setval-int
+   #:module-setval-float
+   #:module-setval-rat
+   #:module-setval-string
+   #:module-setval-list
+   #:module-getval-int
+   #:module-getval-float
+   #:module-getval-rat
+   #:module-getval-string
+   #:module-getval-list
+   #:module-valuetostr
+   #:module-ratreduce
+   #:module-makerat-reduce
+   #:module-rattoint
+   #:module-rattofloat
+   #:module-inttorat
+   #:module-floattorat
+   #:module-rateq
+   #:module-ratneq
+   #:module-ratlt
+   #:module-ratlteq
+   #:module-ratgt
+   #:module-ratgteq
+   #:module-ratplus
+   #:module-ratminus
+   #:module-ratmult
+   #:module-ratdiv
+   #:module-ratinv
+   #:module-ratneg
+   #:module-rattostr
+   #:module-makerat
+   #:module-valid-int
+   #:module-valid-rat
+   #:module-valid-num
+   #:module-valid-string
+   #:module-valid-listofints
+   #:module-valid-listofrats
+   #:module-valid-listofnums
+   #:module-valid-listofstrings
+   #:module-valid-listofvals
+   #:module-valid-maptoints
+   #:module-valid-maptorats
+   #:module-valid-maptonums
+   #:module-valid-maptostrings
+   #:module-valid-maptovals
+   #:module-valid-printiferr
+   #:module-setting-fval
+   #:module-setting-rval
+   #:module-setting-ival
+   #:module-setting-sval
+   #:module-setting-val
+   #:module-settingid
+   #:module-setting-allowed
+   #:module-get-percinsts
+   #:module-get-insts
+   #:module-get-parts
+   #:module-nextnote
+   #:module-nextmeas
+   #:module-nextpart
+   #:module-peeknextnote
+   #:module-peeknextmeas
+   #:module-peeknextpart
+   #:module-meas
+   #:module-part
+   #:module-id
+   #:module-less
+   #:module-isnote
+   #:module-isrest
+   #:module-ismarkrest
+   #:module-isgrace
+   #:module-isperc
+   #:module-isfullmeasrest
+   #:module-vtime
+   #:module-time
+   #:module-vgracetime
+   #:module-gracetime
+   #:module-vdur
+   #:module-dur
+   #:module-gracedur
+   #:module-vgracedur
+   #:module-adjdur
+   #:module-adjgracedur
+   #:module-beatstoadjdur
+   #:module-vendtime
+   #:module-endtime
+   #:module-vgraceendtime
+   #:module-graceendtime
+   #:module-vgracetiedendtime
+   #:module-gracetiedendtime
+   #:module-vtiedendtime
+   #:module-tiedendtime
+   #:module-istiedleft
+   #:module-istiedright
+   #:module-leftmosttiednote
+   #:module-rightmosttiednote
+   #:module-isbeginchord
+   #:module-isendchord
+   #:module-ischordlow
+   #:module-ischordhigh
+   #:module-tupletbegin
+   #:module-tupletend
+   #:module-tuplet
+   #:module-fulltupdur
+   #:module-writtenmult
+   #:module-vpitch
+   #:module-pitch
+   #:module-writtennote
+   #:module-dyn
+   #:module-voice
+   #:module-voices
+   #:module-hasvoice
+   #:module-staffvoice
+   #:module-staff
+   #:module-staves
+   #:module-hasstaff
+   #:module-totalnstaves
+   #:module-clefs
+   #:module-clefsinstaff
+   #:module-hasclef
+   #:module-hasstaffclef
+   #:module-clef
+   #:module-staffclef
+   #:module-clefmidpitch
+   #:module-fullwrittenacc
+   #:module-writtenacc1
+   #:module-writtenacc2
+   #:module-fullacc
+   #:module-acc1
+   #:module-acc2
+   #:module-octsign
+   #:module-octavebegin
+   #:module-octaveend
+   #:module-divs
+   #:module-partgroupbegin
+   #:module-partgroupend
+   #:module-singlemarks
+   #:module-spannerbegins
+   #:module-spannerends
+   #:module-marks
+   #:module-markid
+   #:module-markbaseid
+   #:module-markcantouch
+   #:module-markcanspanone
+   #:module-markisdetachable
+   #:module-markisvoice
+   #:module-markisstaff
+   #:module-markisspannerbegin
+   #:module-markisspannerend
+   #:module-markcanreduce
+   #:module-markcanspanrests
+   #:module-markcanendonrests
+   #:module-markspangroup
+   #:module-markstring
+   #:module-marknum
+   #:module-markisspecialpair
+   #:module-getmarkevlist
+   #:module-markpos
+   #:module-timesig
+   #:module-pitchtostr
+   #:module-pitchnametostr
+   #:module-percinststr
+   #:module-strtoclef
+   #:module-cleftostr
+   #:module-strtomark
+   #:module-marktostr
+   #:module-strtonote
+   #:module-strtoacc
+   #:module-skipassign
+   #:module-getposstring
+   #:module-keysigref
+   #:module-keysigacc
+   #:module-measkeysigacc
+   #:module-inst
+   #:module-percinst
+   #:module-get-auxiface
+   #:module-register
+   #:accs-assign
+   #:beams-assign-beams
+   #:cautaccs-assign
+   #:divide-tuplet
+   #:divide-split
+   #:divide-gracesplit
+   #:divide-assign-initdivs
+   #:divide-assign-split
+   #:divide-assign-gracesplit
+   #:divide-assign-unsplit
+   #:markevs-assign-add
+   #:markpos-assign
+   #:marks-which
+   #:marks-assign-add
+   #:marks-assign-remove
+   #:marks-assign-done
+   #:meas-assign
+   #:merge-assign-merge
+   #:metaparts-partmaps
+   #:metaparts-getpartmaps
+   #:metaparts-partmappart
+   #:module-ismetapart
+   #:metaparts-assign
+   #:metaparts-assign-done
+   #:octs-assign
+   #:parts-assigngroup
+   #:parts-assignorder
+   #:percnotes-assign
+   #:pquant-assign
+   #:prune-assign
+   #:prune-assign-done
+   #:rstaves-assign
+   #:special-markspec
+   #:special-markslist
+   #:special-assign-delete
+   #:special-assign-makeinv
+   #:special-assign-newnote
+   #:staves-staff
+   #:staves-clef
+   #:staves-assign
+   #:tpose-assign
+   #:tpose-assign-keysig
+   #:tquant-assign-time
+   #:tquant-assign-gracetime
+   #:tquant-delete
+   #:voices-assign
+   #:modin-importpercid
+   #:modin-imports
+   #:modin-imports
+   #:modout-export
+   #:modout-beamsleft
+   #:modout-beamsright
+   #:modout-connbeamsleft
+   #:modout-connbeamsright
+   #:modout-isinvisible
+   #:modout-rightbarline
+   #:modout-keysig-modetype
+   #:modout-keysig-indiv
+   #:modout-keysig
+   #:modout-keysigdef
+   #:modout-keysigequal
+   #:modout-markorder
+   #:modout-tempostr
+   #:modout-tempostr
+   #:abs-int
+   #:abs-rat
+   #:mod-int
+   #:mod-float
+   #:mod-rat
+   #:div2-int
+   #:div2-rat
+   #:maxdiv2-int
+   #:maxdiv2-rat
+   #:isexpof2-int
+   #:isexpof2-rat
+   #:mfloor
+   #:mfloorto-int
+   #:mfloorto-rat
+   #:roundto-int
+   #:roundto-rat
+   #:modutil-lowmults
+   #:lowmults
+   #:modutil-range
+   #:modutil-ranges
+   #:ranges-init
+   #:ranges-insert
+   #:ranges-remove
+   #:ranges-free
+   #:ranges-get
+   #:ranges-size
+   #:diff-int
+   #:diff-rat
+   #:modutil-rhythm
+   #:rhythm
+   #:whitenotes
+   #:blacknotes
+   #:iswhite-int
+   #:iswhite-rat
+   #:isblack-int
+   #:isblack-rat
+   #:diatonicnotes
+   #:chromaticnotes
+   #:todiatonic
+   #:tochromatic
+   #:toroman
+   #:search-engine-interfaceid
+   #:search-nodes
+   #:search
+   #:search-api
+   #:search-iface
+   #:dumb-engine-interfaceid
+   #:dumb-iface
+   #:divsearch-engine-interfaceid
+   #:divsearch-andnode
+   #:divsearch-ornode
+   #:divsearch
+   #:divsearch-api
+   #:divsearch-iface
+   #:dist-dist-interfaceid
+   #:dist-data
+   #:dist-iface
+   #:divrules-divrules-interfaceid
+   #:divrules-andnode
+   #:divrules-ornode
+   #:divrules-range
+   #:divrules-rangelist
+   #:divrules-data
+   #:divrules-iface
+   ))
+
+;; #+fomus-usepackage
+;; (eval-when (:compile-toplevel :load-toplevel :execute)
+;;   (use-package 'fomus 'common-lisp-user))
+(provide :fomusmod)
+(in-package #:fomusmod)
+
+;; ------------------------------------------------------------------------------------------------------------------------
+;;; this file was automatically generated by swig (http://www.swig.org).
+;;; version 1.3.40
+;;;
+;;; do not make changes to this file unless you know what you are doing--modify
+;;; the swig interface file instead.
+
+
+(cffi:defcstruct fomus-rat
+	(num :long)
+	(den :long))
+
+(cffi:defcenum module-type
+	:module-nomodtype
+	:module-modinternal
+	:module-modinput
+	:module-modoutput
+	:module-modengine
+	:module-modaux
+	:module-modmeas
+	:module-modtquant
+	:module-modpquant
+	:module-modcheck
+	:module-modtpose
+	:module-modvoices
+	:module-modmarkevs
+	:module-modprune
+	:module-modvmarks
+	:module-modaccs
+	:module-modcautaccs
+	:module-modstaves
+	:module-modrstaves
+	:module-modsmarks
+	:module-modocts
+	:module-moddynamics
+	:module-moddivide
+	:module-modmerge
+	:module-modbeams
+	:module-modmarks
+	:module-modmarklayouts
+	:module-modparts
+	:module-modmetaparts
+	:module-modpercnotes
+	:module-modspecial)
+
+(cffi:defcenum parts-grouptype
+	:parts-nogroup
+	:parts-group
+	:parts-choirgroup
+	:parts-grandstaff)
+
+(cffi:defcenum module-clefids
+	:clef-subbass-8down
+	:clef-bass-8down
+	:clef-c-baritone-8down
+	:clef-f-baritone-8down
+	:clef-tenor-8down
+	:clef-subbass
+	:clef-alto-8down
+	:clef-bass
+	:clef-mezzosoprano-8down
+	:clef-c-baritone
+	:clef-f-baritone
+	:clef-soprano-8down
+	:clef-tenor
+	:clef-subbass-8up
+	:clef-treble-8down
+	:clef-alto
+	:clef-bass-8up
+	:clef-mezzosoprano
+	:clef-c-baritone-8up
+	:clef-f-baritone-8up
+	:clef-soprano
+	:clef-tenor-8up
+	:clef-treble
+	:clef-alto-8up
+	:clef-mezzosoprano-8up
+	:clef-soprano-8up
+	:clef-treble-8up
+	:clef-percussion
+	:clef-nclefs)
+
+(cffi:defcenum module-barlines
+	:barline-normal
+	:barline-dotted
+	:barline-dashed
+	:barline-double
+	:barline-initial
+	:barline-final
+	:barline-initfinal
+	:barline-repeatleft
+	:barline-repeatright
+	:barline-repeatleftright)
+
+(cffi:defcenum module-markpos
+	:markpos-notehead
+	:markpos-above
+	:markpos-below
+	:markpos-prefabove
+	:markpos-prefbelow
+	:markpos-prefmiddleorabove
+	:markpos-prefmiddleorbelow)
+
+(cffi:defcenum module-markids
+	:mark-staccato
+	:mark-staccatissimo
+	:mark-accent
+	:mark-tenuto
+	:mark-marcato
+	:mark-mezzostaccato
+	:mark-harm
+	:mark-open
+	:mark-stopped
+	:mark-snap
+	:mark-tempo
+	:mark-upbow
+	:mark-downbow
+	:mark-damp
+	:mark-snappizz
+	:mark-salt
+	:mark-ric
+	:mark-lv
+	:mark-flt
+	:mark-slap
+	:mark-breath
+	:mark-pizz
+	:mark-arco
+	:mark-mute
+	:mark-unmute
+	:mark-vib
+	:mark-moltovib
+	:mark-nonvib
+	:mark-legato
+	:mark-moltolegato
+	:mark-nonlegato
+	:mark-spic
+	:mark-tall
+	:mark-punta
+	:mark-pont
+	:mark-tasto
+	:mark-legno
+	:mark-flaut
+	:mark-etouf
+	:mark-table
+	:mark-cuivre
+	:mark-bellsup
+	:mark-ord
+	:mark-break-before
+	:mark-break-after
+	:mark-fermata
+	:mark-fermata-short
+	:mark-fermata-long
+	:mark-fermata-verylong
+	:mark-arpeggio
+	:mark-arpeggio-up
+	:mark-arpeggio-down
+	:mark-gliss-before
+	:mark-gliss-after
+	:mark-port-before
+	:mark-port-after
+	:mark-breath-before
+	:mark-breath-after
+	:mark-longtrill
+	:mark-longtrill2
+	:mark-trem
+	:mark-trem2
+	:mark-natharm-sounding
+	:mark-artharm-sounding
+	:mark-natharm-touched
+	:mark-artharm-touched
+	:mark-artharm-base
+	:mark-natharm-string
+	:mark-sul
+	:mark-sf
+	:mark-sff
+	:mark-sfff
+	:mark-sfz
+	:mark-sffz
+	:mark-sfffz
+	:mark-fz
+	:mark-ffz
+	:mark-fffz
+	:mark-rfz
+	:mark-rf
+	:mark-pppppp
+	:mark-ppppp
+	:mark-pppp
+	:mark-ppp
+	:mark-pp
+	:mark-p
+	:mark-mp
+	:mark-ffff
+	:mark-fff
+	:mark-ff
+	:mark-f
+	:mark-mf
+	:mark-fp
+	:mark-fzp
+	:mark-sfp
+	:mark-sfzp
+	:mark-dyn
+	:mark-slur-begin
+	:mark-slur-end
+	:mark-slur-cont
+	:mark-dottedslur-begin
+	:mark-dottedslur-end
+	:mark-dottedslur-cont
+	:mark-dashedslur-begin
+	:mark-dashedslur-end
+	:mark-dashedslur-cont
+	:mark-phrase-begin
+	:mark-phrase-end
+	:mark-phrase-cont
+	:mark-dottedphrase-begin
+	:mark-dottedphrase-end
+	:mark-dottedphrase-cont
+	:mark-dashedphrase-begin
+	:mark-dashedphrase-end
+	:mark-dashedphrase-cont
+	:mark-graceslur-begin
+	:mark-graceslur-end
+	:mark-graceslur-cont
+	:mark-cresc-begin
+	:mark-cresc-end
+	:mark-cresc-cont
+	:mark-dim-begin
+	:mark-dim-end
+	:mark-dim-cont
+	:mark-ped-begin
+	:mark-ped-end
+	:mark-ped-cont
+	:mark-text
+	:mark-italictextabove
+	:mark-italictextabove-begin
+	:mark-italictextabove-end
+	:mark-italictextabove-cont
+	:mark-italictextbelow
+	:mark-italictextbelow-begin
+	:mark-italictextbelow-end
+	:mark-italictextbelow-cont
+	:mark-stafftext
+	:mark-stafftext-begin
+	:mark-stafftext-end
+	:mark-stafftext-cont
+	:mark-vocal-text
+	:mark-tie
+	:mark-tuplet-begin
+	:mark-tuplet-end
+	:mark-graceslash
+	:mark-nmarks)
+
+(cffi:defcenum module-iter-type
+	(:module-all #.#x0)
+	(:module-bypart #.#x1)
+	(:module-bymeas #.#x2)
+	(:module-bymeasgroups #.#x4)
+	(:module-byvoice #.#x8)
+	(:module-bystaff #.#x10)
+	(:module-nograce #.#x20)
+	(:module-graceonly #.#x40)
+	(:module-norests #.#x80)
+	(:module-restsonly #.#x100)
+	(:module-firsttied #.#x200)
+	(:module-midtied #.#x400)
+	(:module-lasttied #.#x800)
+	(:module-noperc #.#x1000)
+	(:module-perconly #.#x2000)
+	(:module-noinvisible #.#x4000))
+
+(cffi:defcenum module-value-type
+	:module-none
+	:module-bool
+	:module-int
+	:module-float
+	:module-rat
+	:module-number
+	:module-notesym
+	:module-string
+	:module-stringnum
+	:module-list
+	:module-list-nums
+	:module-list-strings
+	:module-symmap-nums
+	:module-symmap-strings
+	:module-list-numlists
+	:module-list-stringlists
+	:module-symmap-numlists
+	:module-symmap-stringlists
+	:module-special)
+
+(cffi:defcstruct module-list
+	(n :int)
+	(vals :pointer))
+
+(cffi:defcunion module_value_val
+	(i :long)
+	(f :double)
+	(r fomus-rat)
+	(s :string)
+	(l module-list))
+
+(cffi:defcstruct module-value
+	(type module-value-type)
+	(val module_value_val))
+
+(cffi:defcenum module-setting-loc
+	:module-noloc
+	:module-locscore
+	:module-locimport
+	:module-locexport
+	:module-locinst
+	:module-locpercinst
+	:module-locpartmap
+	:module-locpart
+	:module-locmeasdef
+	:module-locstaff
+	:module-locclef
+	:module-locnote)
+
+(cffi:defcstruct module-setting
+	(name :string)
+	(type module-value-type)
+	(descdoc :string)
+	(typedoc :string)
+	(val module-value)
+	(loc module-setting-loc)
+	(valid :pointer)
+	(uselevel :int))
+
+(cffi:defcstruct module-mark
+	(name :string)
+	(type module-value-type)
+	(props :unsigned-int)
+	(doc :string))
+
+(cffi:defcenum module-bound
+	:module-nobound
+	:module-incl
+	:module-excl)
+
+(cffi:defcstruct module-objlist
+	(n :int)
+	(objs :pointer))
+
+(cffi:defcstruct module-intslist
+	(n :int)
+	(ints :pointer))
+
+(cffi:defcstruct module-ratslist
+	(n :int)
+	(rats :pointer))
+
+(cffi:defcstruct module-markslist
+	(n :int)
+	(marks :pointer))
+
+(cffi:defcstruct module-noteparts
+	(note fomus-rat)
+	(acc1 fomus-rat)
+	(acc2 fomus-rat)
+	(oct fomus-rat))
+
+(cffi:defcstruct module-keysigref
+	(acc1 fomus-rat)
+	(acc2 fomus-rat))
+
+(cffi:defcstruct module-callbacks
+	(init_fun :pointer)
+	(free_fun :pointer)
+	(initerr_fun :pointer)
+	(newdata_fun :pointer)
+	(freedata_fun :pointer)
+	(longname_fun :pointer)
+	(author_fun :pointer)
+	(doc_fun :pointer)
+	(err_fun :pointer)
+	(type_fun :pointer)
+	(engine_fun :pointer)
+	(getsetting_fun :pointer)
+	(itertype_fun :pointer)
+	(priority_fun :pointer)
+	(mod_fillinterface_fun :pointer)
+	(mod_interfaceid_fun :pointer)
+	(sameinst_fun :pointer)
+	(ready_fun :pointer)
+	(getext_fun :pointer)
+	(getloadid_fun :pointer)
+	(load_fun :pointer)
+	(write_fun :pointer)
+	(ispre_fun :pointer)
+	(getinterface_fun :pointer)
+	(engaux_interfaceid_fun :pointer)
+	(run_fun :pointer)
+	(aux_fillinterface_fun :pointer))
+
+(cl:defconstant fomus-modapi-version 1)
+
+(cffi:defcfun ("module_stdout" module-stdout) :void
+  (str :string)
+  (n :unsigned-long))
+
+(cffi:defcfun ("module_stderr" module-stderr) :void
+  (str :string)
+  (n :unsigned-long))
+
+(cffi:defcfun ("module_new_list" module-new-list) module-list
+  (n :int))
+
+(cffi:defcfun ("module_free_list" module-free-list) :void
+  (list module-list))
+
+(cffi:defcfun ("module_setval_int" module-setval-int) :void
+  (val :pointer)
+  (i :long))
+
+(cffi:defcfun ("module_setval_float" module-setval-float) :void
+  (val :pointer)
+  (f :double))
+
+(cffi:defcfun ("module_setval_rat" module-setval-rat) :void
+  (val :pointer)
+  (r :pointer))
+
+(cffi:defcfun ("module_setval_string" module-setval-string) :void
+  (val :pointer)
+  (s :string))
+
+(cffi:defcfun ("module_setval_list" module-setval-list) :void
+  (val :pointer)
+  (n :int))
+
+(cffi:defcfun ("module_getval_int" module-getval-int) :long
+  (val module-value))
+
+(cffi:defcfun ("module_getval_float" module-getval-float) :double
+  (val module-value))
+
+(cffi:defcfun ("module_getval_rat" module-getval-rat) fomus-rat
+  (val :pointer))
+
+(cffi:defcfun ("module_getval_string" module-getval-string) :string
+  (val module-value))
+
+(cffi:defcfun ("module_getval_list" module-getval-list) module-list
+  (val :pointer))
+
+(cffi:defcfun ("module_valuetostr" module-valuetostr) :string
+  (x module-value))
+
+(cffi:defcfun ("module_ratreduce" module-ratreduce) :void
+  (x :pointer))
+
+(cffi:defcfun ("module_makerat_reduce" module-makerat-reduce) fomus-rat
+  (n :long)
+  (d :long))
+
+(cffi:defcfun ("module_rattoint" module-rattoint) :long
+  (x fomus-rat))
+
+(cffi:defcfun ("module_rattofloat" module-rattofloat) :double
+  (x fomus-rat))
+
+(cffi:defcfun ("module_inttorat" module-inttorat) fomus-rat
+  (x :long))
+
+(cffi:defcfun ("module_floattorat" module-floattorat) fomus-rat
+  (x :long))
+
+(cffi:defcfun ("module_rateq" module-rateq) :int
+  (a fomus-rat)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratneq" module-ratneq) :int
+  (a fomus-rat)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratlt" module-ratlt) :int
+  (a fomus-rat)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratlteq" module-ratlteq) :int
+  (a fomus-rat)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratgt" module-ratgt) :int
+  (a fomus-rat)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratgteq" module-ratgteq) :int
+  (a fomus-rat)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratplus" module-ratplus) fomus-rat
+  (a :pointer)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratminus" module-ratminus) fomus-rat
+  (a :pointer)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratmult" module-ratmult) fomus-rat
+  (a :pointer)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratdiv" module-ratdiv) fomus-rat
+  (a :pointer)
+  (b :pointer))
+
+(cffi:defcfun ("module_ratinv" module-ratinv) fomus-rat
+  (x :pointer))
+
+(cffi:defcfun ("module_ratneg" module-ratneg) fomus-rat
+  (x :pointer))
+
+(cffi:defcfun ("module_rattostr" module-rattostr) :string
+  (x fomus-rat))
+
+(cffi:defcfun ("module_makerat" module-makerat) fomus-rat
+  (n :long)
+  (d :long))
+
+(cffi:defcfun ("module_valid_int" module-valid-int) :int
+  (val module-value)
+  (min :long)
+  (minbnd module-bound)
+  (max :long)
+  (maxbnd :pointer)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_rat" module-valid-rat) :int
+  (val module-value)
+  (min :pointer)
+  (minbnd module-bound)
+  (max :pointer)
+  (maxbnd :pointer)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_num" module-valid-num) :int
+  (val module-value)
+  (min :pointer)
+  (minbnd module-bound)
+  (max :pointer)
+  (maxbnd :pointer)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_string" module-valid-string) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_listofints" module-valid-listofints) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (min :long)
+  (minbnd module-bound)
+  (max :long)
+  (maxbnd :pointer)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_listofrats" module-valid-listofrats) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (min :pointer)
+  (minbnd module-bound)
+  (max :pointer)
+  (maxbnd :pointer)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_listofnums" module-valid-listofnums) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (min :pointer)
+  (minbnd module-bound)
+  (max :pointer)
+  (maxbnd :pointer)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_listofstrings" module-valid-listofstrings) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (minstrlen :int)
+  (maxstrlen :int)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_listofvals" module-valid-listofvals) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_maptoints" module-valid-maptoints) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (min :long)
+  (minbnd module-bound)
+  (max :long)
+  (maxbnd :pointer)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_maptorats" module-valid-maptorats) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (min :pointer)
+  (minbnd module-bound)
+  (max :pointer)
+  (maxbnd :pointer)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_maptonums" module-valid-maptonums) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (min :pointer)
+  (minbnd module-bound)
+  (max :pointer)
+  (maxbnd :pointer)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_maptostrings" module-valid-maptostrings) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (minstrlen :int)
+  (maxstrlen :int)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_maptovals" module-valid-maptovals) :int
+  (val module-value)
+  (minlen :int)
+  (maxlen :int)
+  (fun :pointer)
+  (printerr :string))
+
+(cffi:defcfun ("module_valid_printiferr" module-valid-printiferr) :int
+  (valid :int)
+  (printerr :string))
+
+(cffi:defcfun ("module_setting_fval" module-setting-fval) :double
+  (o :pointer)
+  (id :int))
+
+(cffi:defcfun ("module_setting_rval" module-setting-rval) fomus-rat
+  (o :pointer)
+  (id :int))
+
+(cffi:defcfun ("module_setting_ival" module-setting-ival) :long
+  (o :pointer)
+  (id :int))
+
+(cffi:defcfun ("module_setting_sval" module-setting-sval) :string
+  (o :pointer)
+  (id :int))
+
+(cffi:defcfun ("module_setting_val" module-setting-val) module-value
+  (o :pointer)
+  (id :int))
+
+(cffi:defcfun ("module_settingid" module-settingid) :int
+  (set :string))
+
+(cffi:defcfun ("module_setting_allowed" module-setting-allowed) :int
+  (allowedin module-setting-loc)
+  (setloc :pointer))
+
+(cffi:defcfun ("module_get_percinsts" module-get-percinsts) module-objlist
+  (f :pointer)
+  (all :int))
+
+(cffi:defcfun ("module_get_insts" module-get-insts) module-objlist
+  (f :pointer)
+  (all :int))
+
+(cffi:defcfun ("module_get_parts" module-get-parts) module-objlist
+  (f :pointer))
+
+(cffi:defcfun ("module_nextnote" module-nextnote) :pointer)
+
+(cffi:defcfun ("module_nextmeas" module-nextmeas) :pointer)
+
+(cffi:defcfun ("module_nextpart" module-nextpart) :pointer)
+
+(cffi:defcfun ("module_peeknextnote" module-peeknextnote) :pointer
+  (note :pointer))
+
+(cffi:defcfun ("module_peeknextmeas" module-peeknextmeas) :pointer
+  (meas :pointer))
+
+(cffi:defcfun ("module_peeknextpart" module-peeknextpart) :pointer
+  (part :pointer))
+
+(cffi:defcfun ("module_meas" module-meas) :pointer
+  (note :pointer))
+
+(cffi:defcfun ("module_part" module-part) :pointer
+  (obj :pointer))
+
+(cffi:defcfun ("module_id" module-id) :string
+  (obj :pointer))
+
+(cffi:defcfun ("module_less" module-less) :int
+  (obj1 :pointer)
+  (obj2 :pointer))
+
+(cffi:defcfun ("module_isnote" module-isnote) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_isrest" module-isrest) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_ismarkrest" module-ismarkrest) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_isgrace" module-isgrace) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_isperc" module-isperc) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_isfullmeasrest" module-isfullmeasrest) :int
+  (meas :pointer))
+
+(cffi:defcfun ("module_vtime" module-vtime) module-value
+  (obj :pointer))
+
+(cffi:defcfun ("module_time" module-time) fomus-rat
+  (obj :pointer))
+
+(cffi:defcfun ("module_vgracetime" module-vgracetime) module-value
+  (obj :pointer))
+
+(cffi:defcfun ("module_gracetime" module-gracetime) fomus-rat
+  (obj :pointer))
+
+(cffi:defcfun ("module_vdur" module-vdur) module-value
+  (obj :pointer))
+
+(cffi:defcfun ("module_dur" module-dur) fomus-rat
+  (obj :pointer))
+
+(cffi:defcfun ("module_gracedur" module-gracedur) fomus-rat
+  (obj :pointer))
+
+(cffi:defcfun ("module_vgracedur" module-vgracedur) module-value
+  (note :pointer))
+
+(cffi:defcfun ("module_adjdur" module-adjdur) fomus-rat
+  (obj :pointer)
+  (level :int))
+
+(cffi:defcfun ("module_adjgracedur" module-adjgracedur) fomus-rat
+  (obj :pointer)
+  (level :int))
+
+(cffi:defcfun ("module_beatstoadjdur" module-beatstoadjdur) fomus-rat
+  (obj :pointer)
+  (dur :pointer)
+  (level :int))
+
+(cffi:defcfun ("module_vendtime" module-vendtime) module-value
+  (obj :pointer))
+
+(cffi:defcfun ("module_endtime" module-endtime) fomus-rat
+  (obj :pointer))
+
+(cffi:defcfun ("module_vgraceendtime" module-vgraceendtime) module-value
+  (obj :pointer))
+
+(cffi:defcfun ("module_graceendtime" module-graceendtime) fomus-rat
+  (obj :pointer))
+
+(cffi:defcfun ("module_vgracetiedendtime" module-vgracetiedendtime) module-value
+  (obj :pointer))
+
+(cffi:defcfun ("module_gracetiedendtime" module-gracetiedendtime) fomus-rat
+  (obj :pointer))
+
+(cffi:defcfun ("module_vtiedendtime" module-vtiedendtime) module-value
+  (note :pointer))
+
+(cffi:defcfun ("module_tiedendtime" module-tiedendtime) fomus-rat
+  (note :pointer))
+
+(cffi:defcfun ("module_istiedleft" module-istiedleft) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_istiedright" module-istiedright) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_leftmosttiednote" module-leftmosttiednote) :pointer
+  (note :pointer))
+
+(cffi:defcfun ("module_rightmosttiednote" module-rightmosttiednote) :pointer
+  (note :pointer))
+
+(cffi:defcfun ("module_isbeginchord" module-isbeginchord) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_isendchord" module-isendchord) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_ischordlow" module-ischordlow) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_ischordhigh" module-ischordhigh) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_tupletbegin" module-tupletbegin) :int
+  (note :pointer)
+  (level :int))
+
+(cffi:defcfun ("module_tupletend" module-tupletend) :int
+  (note :pointer)
+  (level :int))
+
+(cffi:defcfun ("module_tuplet" module-tuplet) fomus-rat
+  (note :pointer)
+  (level :int))
+
+(cffi:defcfun ("module_fulltupdur" module-fulltupdur) fomus-rat
+  (note :pointer)
+  (level :int))
+
+(cffi:defcfun ("module_writtenmult" module-writtenmult) fomus-rat
+  (meas :pointer))
+
+(cffi:defcfun ("module_vpitch" module-vpitch) module-value
+  (note :pointer))
+
+(cffi:defcfun ("module_pitch" module-pitch) fomus-rat
+  (note :pointer))
+
+(cffi:defcfun ("module_writtennote" module-writtennote) :long
+  (note :pointer))
+
+(cffi:defcfun ("module_dyn" module-dyn) module-value
+  (note :pointer))
+
+(cffi:defcfun ("module_voice" module-voice) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_voices" module-voices) module-intslist
+  (obj :pointer))
+
+(cffi:defcfun ("module_hasvoice" module-hasvoice) :int
+  (note :pointer)
+  (voice :int))
+
+(cffi:defcfun ("module_staffvoice" module-staffvoice) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_staff" module-staff) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_staves" module-staves) module-intslist
+  (obj :pointer))
+
+(cffi:defcfun ("module_hasstaff" module-hasstaff) :int
+  (note :pointer)
+  (staff :int))
+
+(cffi:defcfun ("module_totalnstaves" module-totalnstaves) :int
+  (obj :pointer))
+
+(cffi:defcfun ("module_clefs" module-clefs) module-intslist
+  (obj :pointer))
+
+(cffi:defcfun ("module_clefsinstaff" module-clefsinstaff) module-intslist
+  (obj :pointer)
+  (staff :int))
+
+(cffi:defcfun ("module_hasclef" module-hasclef) :int
+  (obj :pointer)
+  (clef :int))
+
+(cffi:defcfun ("module_hasstaffclef" module-hasstaffclef) :int
+  (obj :pointer)
+  (clef :int)
+  (staff :int))
+
+(cffi:defcfun ("module_clef" module-clef) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_staffclef" module-staffclef) :string
+  (part :pointer)
+  (staff :int))
+
+(cffi:defcfun ("module_clefmidpitch" module-clefmidpitch) :int
+  (clef :int))
+
+(cffi:defcfun ("module_fullwrittenacc" module-fullwrittenacc) fomus-rat
+  (note :pointer))
+
+(cffi:defcfun ("module_writtenacc1" module-writtenacc1) fomus-rat
+  (note :pointer))
+
+(cffi:defcfun ("module_writtenacc2" module-writtenacc2) fomus-rat
+  (note :pointer))
+
+(cffi:defcfun ("module_fullacc" module-fullacc) fomus-rat
+  (note :pointer))
+
+(cffi:defcfun ("module_acc1" module-acc1) fomus-rat
+  (note :pointer))
+
+(cffi:defcfun ("module_acc2" module-acc2) fomus-rat
+  (note :pointer))
+
+(cffi:defcfun ("module_octsign" module-octsign) :int
+  (note :pointer))
+
+(cffi:defcfun ("module_octavebegin" module-octavebegin) :int
+  (obj :pointer))
+
+(cffi:defcfun ("module_octaveend" module-octaveend) :int
+  (obj :pointer))
+
+(cffi:defcfun ("module_divs" module-divs) module-ratslist
+  (meas :pointer))
+
+(cffi:defcfun ("module_partgroupbegin" module-partgroupbegin) parts-grouptype
+  (part :pointer)
+  (lvl :int))
+
+(cffi:defcfun ("module_partgroupend" module-partgroupend) :int
+  (part :pointer)
+  (lvl :int))
+
+(cffi:defcfun ("module_singlemarks" module-singlemarks) module-markslist
+  (note :pointer))
+
+(cffi:defcfun ("module_spannerbegins" module-spannerbegins) module-markslist
+  (note :pointer))
+
+(cffi:defcfun ("module_spannerends" module-spannerends) module-markslist
+  (note :pointer))
+
+(cffi:defcfun ("module_marks" module-marks) module-markslist
+  (note :pointer))
+
+(cffi:defcfun ("module_markid" module-markid) :int
+  (mark :pointer))
+
+(cffi:defcfun ("module_markbaseid" module-markbaseid) :int
+  (id :int))
+
+(cffi:defcfun ("module_markcantouch" module-markcantouch) :int
+  (id :int)
+  (note :pointer))
+
+(cffi:defcfun ("module_markcanspanone" module-markcanspanone) :int
+  (id :int)
+  (note :pointer))
+
+(cffi:defcfun ("module_markisdetachable" module-markisdetachable) :int
+  (id :int))
+
+(cffi:defcfun ("module_markisvoice" module-markisvoice) :int
+  (id :int))
+
+(cffi:defcfun ("module_markisstaff" module-markisstaff) :int
+  (id :int))
+
+(cffi:defcfun ("module_markisspannerbegin" module-markisspannerbegin) :int
+  (id :int))
+
+(cffi:defcfun ("module_markisspannerend" module-markisspannerend) :int
+  (id :int))
+
+(cffi:defcfun ("module_markcanreduce" module-markcanreduce) :int
+  (id :int))
+
+(cffi:defcfun ("module_markcanspanrests" module-markcanspanrests) :int
+  (id :int)
+  (note :pointer))
+
+(cffi:defcfun ("module_markcanendonrests" module-markcanendonrests) :int
+  (id :int)
+  (note :pointer))
+
+(cffi:defcfun ("module_markspangroup" module-markspangroup) :int
+  (type :int))
+
+(cffi:defcfun ("module_markstring" module-markstring) :string
+  (mark :pointer))
+
+(cffi:defcfun ("module_marknum" module-marknum) module-value
+  (mark :pointer))
+
+(cffi:defcfun ("module_markisspecialpair" module-markisspecialpair) :int
+  (type1 :int)
+  (type2 :int))
+
+(cffi:defcfun ("module_getmarkevlist" module-getmarkevlist) module-objlist
+  (part :pointer))
+
+(cffi:defcfun ("module_markpos" module-markpos) module-markpos
+  (mark :pointer))
+
+(cffi:defcfun ("module_timesig" module-timesig) fomus-rat
+  (meas :pointer))
+
+(cffi:defcfun ("module_pitchtostr" module-pitchtostr) :string
+  (pitch module-value))
+
+(cffi:defcfun ("module_pitchnametostr" module-pitchnametostr) :string
+  (pitch module-value)
+  (forceacc :int))
+
+(cffi:defcfun ("module_percinststr" module-percinststr) :string
+  (note :pointer))
+
+(cffi:defcfun ("module_strtoclef" module-strtoclef) :int
+  (str :string))
+
+(cffi:defcfun ("module_cleftostr" module-cleftostr) :string
+  (en :int))
+
+(cffi:defcfun ("module_strtomark" module-strtomark) :int
+  (str :string))
+
+(cffi:defcfun ("module_marktostr" module-marktostr) :string
+  (id :int))
+
+(cffi:defcfun ("module_strtonote" module-strtonote) fomus-rat
+  (str :string)
+  (parts :pointer))
+
+(cffi:defcfun ("module_strtoacc" module-strtoacc) fomus-rat
+  (str :string)
+  (parts :pointer))
+
+(cffi:defcfun ("module_skipassign" module-skipassign) :void
+  (note :pointer))
+
+(cffi:defcfun ("module_getposstring" module-getposstring) :string
+  (note :pointer))
+
+(cffi:defcfun ("module_keysigref" module-keysigref) :pointer
+  (meas :pointer))
+
+(cffi:defcfun ("module_keysigacc" module-keysigacc) module-keysigref
+  (note :pointer))
+
+(cffi:defcfun ("module_measkeysigacc" module-measkeysigacc) module-keysigref
+  (meas :pointer)
+  (note :int))
+
+(cffi:defcfun ("module_inst" module-inst) :pointer
+  (obj :pointer))
+
+(cffi:defcfun ("module_percinst" module-percinst) :pointer
+  (note :pointer))
+
+(cffi:defcfun ("module_get_auxiface" module-get-auxiface) :void
+  (modname :string)
+  (ifaceid :int)
+  (iface :pointer))
+
+(cffi:defcfun ("module_register" module-register) :void
+  (name :string)
+  (callbacks :pointer))
+
+(cffi:defcfun ("accs_assign" accs-assign) :void
+  (note :pointer)
+  (acc fomus-rat)
+  (micacc :pointer))
+
+(cffi:defcfun ("beams_assign_beams" beams-assign-beams) :void
+  (note :pointer)
+  (leftbeams :int)
+  (rightbeams :int))
+
+(cffi:defcfun ("cautaccs_assign" cautaccs-assign) :void
+  (note :pointer))
+
+(cffi:defcstruct divide-tuplet
+	(tuplet fomus-rat)
+	(begin :int)
+	(end :int)
+	(fulldur fomus-rat))
+
+(cffi:defcstruct divide-split
+	(note :pointer)
+	(time fomus-rat)
+	(n :int)
+	(tups :pointer))
+
+(cffi:defcstruct divide-gracesplit
+	(note :pointer)
+	(grtime fomus-rat))
+
+(cffi:defcfun ("divide_assign_initdivs" divide-assign-initdivs) :void
+  (meas :pointer)
+  (initdivs module-ratslist))
+
+(cffi:defcfun ("divide_assign_split" divide-assign-split) :void
+  (meas :pointer)
+  (split divide-split))
+
+(cffi:defcfun ("divide_assign_gracesplit" divide-assign-gracesplit) :void
+  (meas :pointer)
+  (split divide-gracesplit))
+
+(cffi:defcfun ("divide_assign_unsplit" divide-assign-unsplit) :void
+  (rightnote :pointer))
+
+(cffi:defcfun ("markevs_assign_add" markevs-assign-add) :void
+  (part :pointer)
+  (voice :int)
+  (off module-value)
+  (type :int)
+  (arg1 :string)
+  (arg2 :pointer))
+
+(cffi:defcfun ("markpos_assign" markpos-assign) :void
+  (mark :pointer)
+  (pos module-markpos))
+
+(cffi:defcenum marks-which
+	:marks-begin
+	:marks-end
+	:marks-sing)
+
+(cffi:defcfun ("marks_assign_add" marks-assign-add) :void
+  (note :pointer)
+  (type :int)
+  (arg1 :string)
+  (arg2 module-value))
+
+(cffi:defcfun ("marks_assign_remove" marks-assign-remove) :void
+  (note :pointer)
+  (type :int)
+  (arg1 :string)
+  (arg2 module-value))
+
+(cffi:defcfun ("marks_assign_done" marks-assign-done) :void
+  (note :pointer))
+
+(cffi:defcfun ("meas_assign" meas-assign) :void
+  (measbase :pointer)
+  (time fomus-rat)
+  (dur :pointer)
+  (rmable :int))
+
+(cffi:defcfun ("merge_assign_merge" merge-assign-merge) :void
+  (note :pointer)
+  (tonote :pointer))
+
+(cffi:defcstruct metaparts-partmaps
+	(n :int)
+	(partmaps :pointer))
+
+(cffi:defcfun ("metaparts_getpartmaps" metaparts-getpartmaps) metaparts-partmaps
+  (part :pointer))
+
+(cffi:defcfun ("metaparts_partmappart" metaparts-partmappart) :pointer
+  (partsmap :pointer))
+
+(cffi:defcfun ("module_ismetapart" module-ismetapart) :int
+  (part :pointer))
+
+(cffi:defcfun ("metaparts_assign" metaparts-assign) :void
+  (note :pointer)
+  (part :pointer)
+  (voice :int)
+  (pitch fomus-rat))
+
+(cffi:defcfun ("metaparts_assign_done" metaparts-assign-done) :void
+  (note :pointer))
+
+(cffi:defcfun ("octs_assign" octs-assign) :void
+  (note :pointer)
+  (octs :int))
+
+(cffi:defcfun ("parts_assigngroup" parts-assigngroup) :void
+  (begin :pointer)
+  (end :pointer)
+  (type parts-grouptype))
+
+(cffi:defcfun ("parts_assignorder" parts-assignorder) :void
+  (part :pointer)
+  (ord :int)
+  (tempomarks :int))
+
+(cffi:defcfun ("percnotes_assign" percnotes-assign) :void
+  (note :pointer)
+  (voice :int)
+  (pitch fomus-rat))
+
+(cffi:defcfun ("pquant_assign" pquant-assign) :void
+  (note :pointer)
+  (pitch fomus-rat))
+
+(cffi:defcfun ("prune_assign" prune-assign) :void
+  (note :pointer)
+  (time1 fomus-rat)
+  (time2 :pointer))
+
+(cffi:defcfun ("prune_assign_done" prune-assign-done) :void
+  (note :pointer))
+
+(cffi:defcfun ("rstaves_assign" rstaves-assign) :void
+  (note :pointer)
+  (staff :int)
+  (clef :int))
+
+(cffi:defcstruct special-markspec
+	(id :int)
+	(str :string)
+	(val module-value))
+
+(cffi:defcstruct special-markslist
+	(n :int)
+	(marks :pointer))
+
+(cffi:defcfun ("special_assign_delete" special-assign-delete) :void
+  (note :pointer))
+
+(cffi:defcfun ("special_assign_makeinv" special-assign-makeinv) :void
+  (note :pointer))
+
+(cffi:defcfun ("special_assign_newnote" special-assign-newnote) :void
+  (note :pointer)
+  (pitch fomus-rat)
+  (acc1 :pointer)
+  (acc2 :pointer)
+  (marks :pointer))
+
+(cffi:defcfun ("staves_staff" staves-staff) :pointer
+  (part :pointer)
+  (staff :int))
+
+(cffi:defcfun ("staves_clef" staves-clef) :pointer
+  (part :pointer)
+  (staff :int)
+  (clef :int))
+
+(cffi:defcfun ("staves_assign" staves-assign) :void
+  (note :pointer)
+  (staff :int)
+  (clef :int))
+
+(cffi:defcfun ("tpose_assign" tpose-assign) :void
+  (note :pointer)
+  (pitch fomus-rat))
+
+(cffi:defcfun ("tpose_assign_keysig" tpose-assign-keysig) :void
+  (meas :pointer)
+  (str :string))
+
+(cffi:defcfun ("tquant_assign_time" tquant-assign-time) :void
+  (note :pointer)
+  (time fomus-rat)
+  (dur :pointer))
+
+(cffi:defcfun ("tquant_assign_gracetime" tquant-assign-gracetime) :void
+  (note :pointer)
+  (time fomus-rat)
+  (gracetime :pointer)
+  (dur :pointer))
+
+(cffi:defcfun ("tquant_delete" tquant-delete) :void
+  (note :pointer))
+
+(cffi:defcfun ("voices_assign" voices-assign) :void
+  (note :pointer)
+  (voice :int))
+
+(cffi:defcfun ("modin_importpercid" modin-importpercid) :string
+  (imp :pointer))
+
+(cffi:defcstruct modin-imports
+	(n :int)
+	(obj :pointer))
+
+(cffi:defcfun ("modin_imports" modin-imports) modin-imports
+  (part :pointer))
+
+(cffi:defcfun ("modout_export" modout-export) :pointer
+  (part :pointer))
+
+(cffi:defcfun ("modout_beamsleft" modout-beamsleft) :int
+  (note :pointer))
+
+(cffi:defcfun ("modout_beamsright" modout-beamsright) :int
+  (note :pointer))
+
+(cffi:defcfun ("modout_connbeamsleft" modout-connbeamsleft) :int
+  (note :pointer))
+
+(cffi:defcfun ("modout_connbeamsright" modout-connbeamsright) :int
+  (note :pointer))
+
+(cffi:defcfun ("modout_isinvisible" modout-isinvisible) :int
+  (note :pointer))
+
+(cffi:defcfun ("modout_rightbarline" modout-rightbarline) module-barlines
+  (meas :pointer))
+
+(cffi:defcenum modout-keysig-modetype
+	:keysig-none
+	:keysig-common-maj
+	:keysig-common-min
+	:keysig-indiv
+	:keysig-fullindiv)
+
+(cffi:defcstruct modout-keysig-indiv
+	(dianote :int)
+	(acc1 fomus-rat)
+	(acc2 fomus-rat))
+
+(cffi:defcstruct modout-keysig
+	(mode modout-keysig-modetype)
+	(dianote :int)
+	(acc :int)
+	(n :int)
+	(indiv :pointer))
+
+(cffi:defcfun ("modout_keysigdef" modout-keysigdef) modout-keysig
+  (meas :pointer))
+
+(cffi:defcfun ("modout_keysigequal" modout-keysigequal) :int
+  (key1 modout-keysig)
+  (key2 :pointer))
+
+(cffi:defcfun ("modout_markorder" modout-markorder) :int
+  (mark :pointer))
+
+(cffi:defcstruct modout-tempostr
+	(str1 :string)
+	(beat fomus-rat)
+	(str2 :string))
+
+(cffi:defcfun ("modout_tempostr" modout-tempostr) modout-tempostr
+  (note :pointer)
+  (mark :pointer))
+
+(cffi:defcfun ("abs_int" abs-int) :long
+  (x :long))
+
+(cffi:defcfun ("abs_rat" abs-rat) fomus-rat
+  (x :pointer))
+
+(cffi:defcfun ("mod_int" mod-int) :long
+  (x :long)
+  (y :long))
+
+(cffi:defcfun ("mod_float" mod-float) :double
+  (x :double)
+  (y :double))
+
+(cffi:defcfun ("mod_rat" mod-rat) fomus-rat
+  (x :pointer)
+  (y :pointer))
+
+(cffi:defcfun ("div2_int" div2-int) :long
+  (x :long))
+
+(cffi:defcfun ("div2_rat" div2-rat) fomus-rat
+  (x :pointer))
+
+(cffi:defcfun ("maxdiv2_int" maxdiv2-int) :long
+  (x :long))
+
+(cffi:defcfun ("maxdiv2_rat" maxdiv2-rat) fomus-rat
+  (x :pointer))
+
+(cffi:defcfun ("isexpof2_int" isexpof2-int) :int
+  (x :long))
+
+(cffi:defcfun ("isexpof2_rat" isexpof2-rat) :int
+  (x fomus-rat))
+
+(cffi:defcfun ("mfloor" mfloor) :long
+  (x module-value))
+
+(cffi:defcfun ("mfloorto_int" mfloorto-int) :long
+  (x module-value)
+  (to :long))
+
+(cffi:defcfun ("mfloorto_rat" mfloorto-rat) fomus-rat
+  (x :pointer)
+  (to :pointer))
+
+(cffi:defcfun ("roundto_int" roundto-int) :long
+  (x module-value)
+  (to :long))
+
+(cffi:defcfun ("roundto_rat" roundto-rat) fomus-rat
+  (x :pointer)
+  (to :pointer))
+
+(cffi:defcstruct modutil-lowmults
+	(n :long)
+	(vals :pointer))
+
+(cffi:defcfun ("lowmults" lowmults) modutil-lowmults
+  (x :long))
+
+(cffi:defcstruct modutil-range
+	(x1 module-value)
+	(x2 module-value))
+
+(cffi:defcstruct modutil-ranges
+	(n :long)
+	(ranges :pointer))
+
+(cffi:defcfun ("ranges_init" ranges-init) :pointer)
+
+(cffi:defcfun ("ranges_insert" ranges-insert) :void
+  (rangeobj :pointer)
+  (range modutil-range))
+
+(cffi:defcfun ("ranges_remove" ranges-remove) :void
+  (rangeobj :pointer)
+  (range modutil-range))
+
+(cffi:defcfun ("ranges_free" ranges-free) :void
+  (rangeobj :pointer))
+
+(cffi:defcfun ("ranges_get" ranges-get) modutil-ranges
+  (rangeobj :pointer))
+
+(cffi:defcfun ("ranges_size" ranges-size) :long
+  (rangeobj :pointer))
+
+(cffi:defcfun ("diff_int" diff-int) :long
+  (x :long)
+  (y :long))
+
+(cffi:defcfun ("diff_rat" diff-rat) fomus-rat
+  (x :pointer)
+  (y :pointer))
+
+(cffi:defcstruct modutil-rhythm
+	(dur fomus-rat)
+	(dots :int))
+
+(cffi:defcfun ("rhythm" rhythm) modutil-rhythm
+  (dur :pointer))
+
+(cffi:defcvar ("whitenotes" whitenotes)
+ :pointer)
+
+(cffi:defcvar ("blacknotes" blacknotes)
+ :pointer)
+
+(cffi:defcfun ("iswhite_int" iswhite-int) :int
+  (x :long))
+
+(cffi:defcfun ("iswhite_rat" iswhite-rat) :int
+  (x fomus-rat))
+
+(cffi:defcfun ("isblack_int" isblack-int) :int
+  (x :long))
+
+(cffi:defcfun ("isblack_rat" isblack-rat) :int
+  (x fomus-rat))
+
+(cffi:defcvar ("diatonicnotes" diatonicnotes)
+ :pointer)
+
+(cffi:defcvar ("chromaticnotes" chromaticnotes)
+ :pointer)
+
+(cffi:defcfun ("todiatonic" todiatonic) :long
+  (x :long))
+
+(cffi:defcfun ("tochromatic" tochromatic) :long
+  (x :long))
+
+(cffi:defcfun ("toroman" toroman) :string
+  (n :int))
+
+(cl:defconstant search-engine-interfaceid 2)
+
+(cffi:defcstruct search-nodes
+	(n :int)
+	(nodes :pointer))
+
+(cffi:defcunion search_score
+	(i :long)
+	(f :double)
+	(ptr :pointer))
+
+(cffi:defcstruct search-api
+	(begin :pointer)
+	(end :pointer))
+
+(cffi:defcstruct search-iface
+	(api search-api)
+	(moddata :pointer)
+	(nchoices :int)
+	(min_score search_score)
+	(heapsize :long)
+	(assign :pointer)
+	(get_score :pointer)
+	(new_node :pointer)
+	(free_node :pointer)
+	(err :pointer)
+	(score_lt :pointer)
+	(score_add :pointer)
+	(is_outofrange :pointer))
+
+(cl:defconstant dumb-engine-interfaceid 1)
+
+(cffi:defcstruct dumb-iface
+	(moddata :pointer)
+	(run :pointer)
+	(err :pointer))
+
+(cl:defconstant divsearch-engine-interfaceid 3)
+
+(cffi:defcstruct divsearch-andnode
+	(n :int)
+	(nodes :pointer))
+
+(cffi:defcstruct divsearch-ornode
+	(n :int)
+	(ands :pointer))
+
+(cffi:defcunion divsearch_score
+	(i :long)
+	(f :double)
+	(ptr :pointer))
+
+(cffi:defcstruct divsearch-api
+	(new_andnode :pointer)
+	(push_back :pointer)
+	(get_ornode :pointer)
+	(get_andnode :pointer))
+
+(cffi:defcstruct divsearch-iface
+	(api divsearch-api)
+	(moddata :pointer)
+	(min_score divsearch_score)
+	(score :pointer)
+	(expand :pointer)
+	(assemble :pointer)
+	(score_lt :pointer)
+	(free_node :pointer)
+	(get_root :pointer)
+	(is_leaf :pointer)
+	(solution :pointer)
+	(err :pointer))
+
+(cl:defconstant dist-dist-interfaceid 1)
+
+(cffi:defcstruct dist-data
+	(octdist_setid :int)
+	(beatdist_setid :int)
+	(byendtime :int)
+	(rangemax :double))
+
+(cffi:defcstruct dist-iface
+	(moddata :pointer)
+	(dist :pointer)
+	(is_outofrange :pointer)
+	(free_moddata :pointer)
+	(data dist-data))
+
+(cl:defconstant divrules-divrules-interfaceid 2)
+
+(cffi:defcstruct divrules-andnode
+	(n :int)
+	(divs :pointer))
+
+(cffi:defcstruct divrules-ornode
+	(n :int)
+	(ands :pointer))
+
+(cffi:defcstruct divrules-range
+	(time1 :pointer)
+	(time2 :pointer)
+	(lvl :int))
+
+(cffi:defcstruct divrules-rangelist
+	(n :int)
+	(ranges :pointer))
+
+(cffi:defcstruct divrules-data
+	(meas :pointer)
+	(dotnotelvl_setid :int)
+	(dbldotnotelvl_setid :int)
+	(slsnotelvl_setid :int)
+	(syncnotelvl_setid :int))
+
+(cffi:defcstruct divrules-iface
+	(moddata :pointer)
+	(expand :pointer)
+	(get_root :pointer)
+	(free_moddata :pointer)
+	(free_node :pointer)
+	(time :pointer)
+	(endtime :pointer)
+	(dur :pointer)
+	(tieleftallowed :pointer)
+	(tierightallowed :pointer)
+	(issmall :pointer)
+	(ntupletlevels :pointer)
+	(leveldur :pointer)
+	(istupletbegin :pointer)
+	(istupletend :pointer)
+	(durmult :pointer)
+	(isnoteonly :pointer)
+	(get_initdivs :pointer)
+	(iscompound :pointer)
+	(tuplet :pointer)
+	(data divrules-data))
+
+

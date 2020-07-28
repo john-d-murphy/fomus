@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -183,7 +183,7 @@ namespace fomus {
 #define RELOCK xxx.lock()
 #endif
 
-// wrapper for any value w/ mutex checks
+  // wrapper for any value w/ mutex checks
 #ifndef NDEBUG
   template <typename T>
   struct mutcheck _NONCOPYABLE {
@@ -557,7 +557,7 @@ public:
           off1 - (x.isgrace() ? RMUT(x.off).groff
                               : RMUT(x.off).off); // NO SPLITTING TUPLETS--this
                                                   // is for the postties routine
-    } // shouldn't split grace notes
+    }                                             // shouldn't split grace notes
     durbase(MUTPARAM_ durbase& x)
         : offbase(WITHMUTP_ x), dur(x.dur _MUTP) _MUTINITP(tups),
           point(x.point _MUTP) {}
@@ -2183,8 +2183,7 @@ public:
     // noteev(int, noteev& x, const numb& off):noteevbase(x, off, 0),
     // dynbase(WITHMUT_ x), tiedbase(WITHMUT_ 0, x), note(x.note _MUT),
     // acc1(x.acc1 _MUT), acc2(x.acc2 _MUT), beaml(0 _MUT), beamr(0 _MUT),
-    // cautacc(false _MUT), 					    percname(x.percname _MUT), perc(x.perc
-    // _MUT) {
+    // cautacc(false _MUT), 					    percname(x.percname _MUT), perc(x.perc _MUT) {
     // }
     noteev(noteev& x)
         : noteevbase(x), dynbase(WITHMUT_ x), tiedbase(WITHMUT),
@@ -3103,19 +3102,18 @@ protected:
     MUTCHECK(module_barlines) barlin;
     const void* orig; // <-- not actually used as pointer, used to distinguish
                       // user-defined blocks
-    MUTCHECK(int) icp;
-
 public:
     measure(const numb& off, const numb& dur,
             boost::shared_ptr<measdef_str>& attrs, partormpart_str& prt)
         : durbase(WITHOUTMUT_ off, (fint) 0, dur),
           attrs(attrs) _MUTINIT(events), prt(&prt) _MUTINIT(divs),
           rmable(false), isfmr(false _MUT) _MUTINIT(newkey),
-          barlin(barline_normal _MUT),
+          barlin(barline_normal _MUT)
 #ifndef NDEBUG
-          orig(0),
+          ,
+          orig(0)
 #endif
-          icp(0 _MUT) _MUTINIT(newevents) {
+              _MUTINIT(newevents) {
     }
     measure(const numb& off, const numb& dur,
             boost::shared_ptr<measdef_str>& attrs, partormpart_str* prt,
@@ -3123,47 +3121,34 @@ public:
         : durbase(WITHOUTMUT_ off, (fint) 0, dur),
           attrs(attrs) _MUTINIT(events), prt(prt) _MUTINIT(divs),
           rmable(rmable), isfmr(false _MUT) _MUTINIT(newkey),
-          barlin(barline_normal _MUT), orig(orig),
-          icp(0 _MUT) _MUTINIT(newevents) {}
+          barlin(barline_normal _MUT), orig(orig) _MUTINIT(newevents) {}
     measure(boost::shared_ptr<measdef_str>& ms, partormpart_str& prt)
         : durbase(WITHOUTMUT_(fint) 0, (fint) 0, (fint) 4),
           attrs(ms) _MUTINIT(events), prt(&prt) _MUTINIT(divs), rmable(false),
-          isfmr(false _MUT) _MUTINIT(newkey), barlin(barline_normal _MUT),
+          isfmr(false _MUT) _MUTINIT(newkey), barlin(barline_normal _MUT)
 #ifndef NDEBUG
-          orig(0),
+          ,
+          orig(0)
 #endif
-          icp(0 _MUT) _MUTINIT(newevents) {
+              _MUTINIT(newevents) {
     } // the initial full-score measure
     measure(measure& x, partormpart_str* prt)
         : durbase(WITHOUTMUT_ x), attrs(x.attrs) _MUTINIT(events),
           prt(prt) _MUTINIT(divs), rmable(false),
           isfmr(false _MUT) _MUTINIT(newkey), barlin(CMUT(x.barlin) _MUT),
-          orig(x.orig), icp(0 _MUT) _MUTINIT(newevents) {}
+          orig(x.orig) _MUTINIT(newevents) {}
     measure(measure& x, partormpart_str* prt, const int, const numb& shift)
         : durbase(WITHOUTMUT_ x, 0, shift), attrs(x.attrs) _MUTINIT(events),
           prt(prt) _MUTINIT(divs), rmable(false),
           isfmr(false _MUT) _MUTINIT(newkey), barlin(CMUT(x.barlin) _MUT),
-          orig(x.orig), icp(0 _MUT) _MUTINIT(newevents) {}
+          orig(x.orig) _MUTINIT(newevents) {}
     measure(measure& x, partormpart_str* prt, const numb& off)
         : durbase(WITHOUTMUT_ off, (fint) 0, RMUT(x.dur)),
           attrs(x.attrs) _MUTINIT(events), prt(prt) _MUTINIT(divs),
           rmable(false), isfmr(false _MUT) _MUTINIT(newkey),
-          barlin(CMUT(x.barlin) _MUT), orig(x.orig),
-          icp(0 _MUT) _MUTINIT(newevents) {
+          barlin(CMUT(x.barlin) _MUT), orig(x.orig) _MUTINIT(newevents) {
       assert(!CMUT(x.isfmr));
       getkeysig_init();
-    }
-    measure(measure& x, partormpart_str* prt, const numb& off, const numb& dur,
-            const int i)
-        : durbase(WITHOUTMUT_ off, (fint) 0, dur),
-          attrs(x.attrs) _MUTINIT(events), prt(prt) _MUTINIT(divs),
-          rmable(true), // pickup measure constructor
-          isfmr(false _MUT) _MUTINIT(newkey), barlin(CMUT(x.barlin) _MUT),
-          orig(x.orig), icp(i _MUT) _MUTINIT(newevents) {
-      // assert(!CMUT(x.isfmr));
-      // getkeysig_init();
-      assert(false); // need to know if getkeysig_init has been called for other
-                     // measures yet
     }
     void insertnew(noteevbase* ev) {
       ev->setmeas(this, XMUT(events).insert(ev->getfulltime_nomut(MUTDBG), ev));
@@ -3485,14 +3470,6 @@ public:
       READLOCK;
       return RMUT(isfmr);
     }
-    int getpartialmeas() const {
-      READLOCK;
-      return RMUT(icp) % 2;
-    }
-    int getpartialbarline() const {
-      READLOCK;
-      return RMUT(icp) > 2 ? RMUT(icp) - 2 : 0;
-    }
     percinstr_str* findpercinst(const char* name) const {
       return prt->findpercinst(name);
     }
@@ -3569,7 +3546,6 @@ public:
           numtorat(get_ival(COMP_ID) ? RMUT(dur) * (fint) 3 : RMUT(dur))
               .denominator());
     }
-    void dosplit(part& prt, rat p);
   };
   inline bool
   noteevbase::getoctavebegin() { // octaves are unique within ea. chord + staffn
@@ -3784,8 +3760,7 @@ public:
       int st = get1staff();
       int os = RMUT(octsign);
       UNLOCKP(meas)->checkoct(
-          self, ti, st,
-          os); // make sure all notes in chord/staff are same
+          self, ti, st, os); // make sure all notes in chord/staff are same
     }
     post_apisetvalue();
   }
@@ -3894,9 +3869,6 @@ public:
     }
     void insertnewmeas(const offgroff& o, measure* m) {
       WRITELOCK;
-      WMUT(newmeass).insert(o, m);
-    }
-    void insertnewmeas_nomut(const offgroff& o, measure* m) {
       WMUT(newmeass).insert(o, m);
     }
     void fixmeasures();
@@ -4059,10 +4031,6 @@ public:
     }
     void reinserttmps();
     void mergefrom(part& x, const numb& shift);
-    // void postmeas();
-    partormpart_str* getdef() const {
-      return def;
-    }
   };
   inline void partormpart_str::mergefrom(part& x, const numb& shift) {
     prt->mergefrom(x, shift);
@@ -4070,7 +4038,6 @@ public:
   inline void partormpart_str::reinserttmps() {
     prt->reinserttmps();
   }
-  // inline void partormpart_str::postmeas() {prt->postmeas();}
   inline void partormpart_str::insertnewmeas(const offgroff& o, measure* m) {
     prt->insertnewmeas(o, m);
   }

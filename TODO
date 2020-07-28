@@ -3,7 +3,6 @@ TODO:
 finish:
   for beta version:
     documentation (examples)
-      nested tuplets example
     better error messages when wrong type of value is input (like a list for a pitch)
     trills on chords?
     enharmonic tremolos

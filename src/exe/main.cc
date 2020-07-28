@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -935,8 +935,8 @@ int main(int ac, char** av) {
         "Output filename (defaults to path/basename of input filename or value "
         "of `filename' setting)")
         //("format,f", value<vector<string> >(), "Output format (defaults to
-        // value of `format' setting--may be specified more than once)") //
-        // multi 2-option
+        //value of `format' setting--may be specified more than once)") // multi
+        //2-option
 
         ("preset,p", boost::program_options::value<std::vector<std::string>>(),
          "Apply a preset before inputting data (may be specified more than "
@@ -958,15 +958,16 @@ int main(int ac, char** av) {
             "Number of selections to print");
     boost::program_options::options_description idesc("Advanced Search Options",
                                                       CONSOLE_WIDTH);
-    idesc.add_options()(
-        "search,s", boost::program_options::value<std::vector<std::string>>(),
-        "Search string (`-s KEY:STRING' or `-s KEY=STRING', "
-        "may be specified more than once)\n"
-        "Module keys = name, longname, author, doc\n"
-        "Setting keys = name, doc, modname, modlongname, "
-        "modauthor, moddoc\n"
-        "Mark keys = name, doc, modname, modlongname, "
-        "modauthor, moddoc") // multi 2-option!!!
+    idesc.add_options()("search,s",
+                        boost::program_options::value<
+                            std::vector<std::string>>(),
+                        "Search string (`-s KEY:STRING' or `-s KEY=STRING', "
+                        "may be specified more than once)\n"
+                        "Module keys = name, longname, author, doc\n"
+                        "Setting keys = name, doc, modname, modlongname, "
+                        "modauthor, moddoc\n"
+                        "Mark keys = name, doc, modname, modlongname, "
+                        "modauthor, moddoc") // multi 2-option!!!
 
         ("sort,r", boost::program_options::value<std::vector<std::string>>(),
          "Sort key (`-r KEY:asc|desc' or `-r KEY=asc|desc', may be specified "

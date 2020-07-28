@@ -1,0 +1,582 @@
+@table @code
+@item !
+arguments: @code{[!]}
+
+Staccatissimo articulation.
+@item ((..
+arguments: @code{[((..]}
+
+Begin higher-level slur or phrase articulation.  Use to indicate phrases marks over slurs created with `(..' and `..)' marks.  The `((' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `((r..', `((-..' and `((r-..'.
+@item (..
+arguments: @code{[(..]}
+
+Begin slur or bowing articulation.  The `(' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `(r..', `(-..' and `(r-..'.
+@item *
+arguments: @code{[* string_text]}
+
+Vocal/lyric text syllable.
+@item +
+arguments: @code{[+]}
+
+Stopped/left-hand pizzicato symbol.
+@item -
+arguments: @code{[-]}
+
+Tenuto articulation.
+@item .
+arguments: @code{[.]}
+
+Staccato articulation.
+@item .((.
+arguments: @code{[.((.]}
+
+Continue higher-level slur or phrase articulation.  FOMUS begins/ends slur marks where these continue marks start/stop.  The `((' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.((r.', `.((-.' and `.((r-.'.
+@item .(.
+arguments: @code{[.(.]}
+
+Continue slur or bowing articulation.  FOMUS begins/ends slur marks where these continue marks start/stop.  The `(' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.(r.', `.(-.' and `.(r-.'.
+@item ..)
+arguments: @code{[..)]}
+
+End slur or bowing articulation.  The `)' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..)r', `..)-' and `..)r-'.
+@item ..))
+arguments: @code{[..))]}
+
+End higher-level slur or phrase articulation.  Use to indicate phrases over slurs created with `(..' and `..)' marks.  The `))' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..))r', `..))-', and `..))r-'.
+@item ..<
+arguments: @code{[..<]}
+
+End crescendo wedge.  The `<' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..<1', `..<-' and `..<1-'.
+@item ..>
+arguments: @code{[..>]}
+
+End diminuendo wedge.  The `>' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..>1', `..>-' and `..>1-'.
+@item ..dash)
+arguments: @code{[..dash)]}
+
+End dashed slur or bowing articulation.  The `)' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..dash)r', `..dash)-' and `..dash)r-'.
+@item ..dash))
+arguments: @code{[..dash))]}
+
+End higher-level dashed slur or phrase articulation.  Use to indicate phrases over slurs created with `(..' and `..)' marks.  The `))' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..dash))r', `..dash))-' and `..dash))r-'.
+@item ..dot)
+arguments: @code{[..dot)]}
+
+End dotted slur or bowing articulation.  The `)' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..dot)r', `..dot)-' and `..dot)r-'.
+@item ..dot))
+arguments: @code{[..dot))]}
+
+End higher-level dotted slur or phrase articulation.  Use to indicate phrases over slurs created with `(..' and `..)' marks.  The `))' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..dot))r', `..dot))-' and `..dot))r-'.
+@item ..grace)
+arguments: @code{[..grace)]}
+
+End grace note slur articulation.  (FOMUS automatically adds these.)  The `)' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..grace)r', `..grace)-' and `..grace)r-'.
+@item ..ped
+arguments: @code{[..ped]}
+
+End piano pedal mark.  `ped' may be followed by one or more of the following flag characters: `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..ped1', `..ped-' and `..ped1-'.  To insure that this mark appears below the bottom staff, it should be defined in a mark event and not attached to a note.
+@item ..tup
+arguments: @code{[..tup integer>=1]}
+
+End a tuplet on this note.  If the optional number argument is given, end a tuplet at that nested level.
+@item ..x!
+arguments: @code{[..x! string_text]}
+
+End text spanner in bold face.  The text for this usually appears above the staff.  The `x!' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..x!1', `..x!-' and `..x!1-'.
+@item ..x^
+arguments: @code{[..x^ string_text]}
+
+End text spanner in italics.  The text for this usually appears above the staff or in the middle of a grand staff.  The `x^' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..x^1', `..x^-' and `..x^1-'.
+@item ..x_
+arguments: @code{[..x_ string_text]}
+
+End text spanner in italics.  The text for this usually appears below the staff or in the middle of a grand staff.  The `x_' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `..x_1', `..x_-' and `..x_1-'.
+@item .<.
+arguments: @code{[.<.]}
+
+Continue crescendo wedge.  FOMUS begins/ends wedge marks where these continue marks start/stop.  The `<' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.<1.', `.<-.' and `.<1-.'.
+@item .>.
+arguments: @code{[.>.]}
+
+Continue diminuendo wedge.  FOMUS begins/ends wedge marks where these continue marks start/stop.  The `>' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.>1.', `.>-.' and `.>1-.'.
+@item .dash((.
+arguments: @code{[.dash((.]}
+
+Continue higher-level dashed slur or phrase articulation.  FOMUS begins/ends slur marks where these continue marks start/stop.  The `((' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.dash((r.', `.dash((-.' and `.dash((r-.'.
+@item .dash(.
+arguments: @code{[.dash(.]}
+
+Continue dashed slur or bowing articulation.  FOMUS begins/ends slur marks where these continue marks start/stop.  The `(' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.dash(r.', `.dash(-.' and `.dash(r-.'.
+@item .dot((.
+arguments: @code{[.dot((.]}
+
+Continue higher-level dotted slur or phrase articulation.  FOMUS begins/ends slur marks where these continue marks start/stop.  The `((' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.dot((r.', `.dot((-.', and `.dot((r-.'.
+@item .dot(.
+arguments: @code{[.dot(.]}
+
+Continue dotted slur or bowing articulation.  FOMUS begins/ends slur marks where these continue marks start/stop.  The `(' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.dot(r.', `.dot(-.' and `.dot(r-.'.
+@item .grace(.
+arguments: @code{[.grace(.]}
+
+Continue grace note slur articulation.  FOMUS begins/ends slur marks where these continue marks start/stop.  The `(' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.grace(r.', `.grace(-.' and `.grace(r-.'.
+@item .ped.
+arguments: @code{[.ped.]}
+
+Continue piano pedal mark.  `ped' may be followed by one or more of the following flag characters: `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.ped1.', `.ped-.' and `.ped1-.'.  To insure that this mark appears below the bottom staff, it should be defined in a mark event and not attached to a note.
+@item .x!.
+arguments: @code{[.x!. string_text]}
+
+Continue text spanner in bold face.  The text for this usually appears above the staff.  FOMUS begins/ends text marks where these continue marks start/stop.  The `x!' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.x!1.', `.x!-.' and `.x!1-.'.
+@item .x^.
+arguments: @code{[.x^. string_text]}
+
+Continue text spanner in italics.  FOMUS begins/ends text marks where these continue marks start/stop.  The text for this usually appears above the staff or in the middle of a grand staff.  The `x^' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.x^1.', `.x^-.' and `.x^1-.'.
+@item .x_.
+arguments: @code{[.x_. string_text]}
+
+Continue text spanner in italics.  FOMUS begins/ends text marks where these continue marks start/stop.  The text for this usually appears below the staff or in the middle of a grand staff.  The `x_' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `.x_1.', `.x_-.' and `.x_1-.'.
+@item /
+arguments: @code{[/]}
+
+Attach a slash to a group of grace notes.
+@item /.
+arguments: @code{[/.]}
+
+Mezzo staccato or portato (combined tenuto and staccato mark) articulation.
+@item 0
+arguments: @code{[0]}
+
+Harmonic symbol.
+@item <..
+arguments: @code{[<..]}
+
+Begin crescendo wedge.  The `<' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `<1..', `<-..' and `<1-..'.
+@item >
+arguments: @code{[>]}
+
+Accent articulation.
+@item >..
+arguments: @code{[>..]}
+
+Begin diminuendo wedge.  The `>' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `>1..', `>-..' and `>1-..'.
+@item ^
+arguments: @code{[^]}
+
+Martellato articulation.
+@item arco
+arguments: @code{[arco]}
+
+String arco text marking.  You usually shouldn't specify this directly (see the `pizz' marking).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item arp
+arguments: @code{[arp]}
+
+Arpeggio.  Applies to all notes in the same chord and only if a chord (two or more simultaneous notes) exists.
+@item arp^
+arguments: @code{[arp^]}
+
+Upwards arpeggio.  Applies to all notes in the same chord and only if a chord (two or more simultaneous notes) exists.
+@item arp_
+arguments: @code{[arp_]}
+
+Downwards arpeggio.  Applies to all notes in the same chord and only if a chord (two or more simultaneous notes) exists.
+@item artharm-base
+arguments: @code{[artharm-base]}
+
+Indicates that the note is the base pitch to play on the string in an artificial harmonic.
+@item artharm-sounding
+arguments: @code{[artharm-sounding]}
+
+Indicates that the note is the sounding pitch in an artificial harmonic.
+@item artharm-touched
+arguments: @code{[artharm-touched]}
+
+Indicates that the note is the place to touch on the string in an artificial harmonic.
+@item bellsup
+arguments: @code{[bellsup]}
+
+"Bells up" text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item break<
+arguments: @code{[break<]}
+
+System break, occurring at the barline at or after the attack time of the note.
+@item break>
+arguments: @code{[break>]}
+
+System break, occurring at the barline at or after the release time of the note.
+@item breath
+arguments: @code{[breath]}
+
+"Breath tone" text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item breath<
+arguments: @code{[breath<]}
+
+A breath mark placed before the note.
+@item breath>
+arguments: @code{[breath>]}
+
+A breath mark placed after the note.
+@item cuivre
+arguments: @code{[cuivre]}
+
+Cuivr@'e (or brassy) text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item damp
+arguments: @code{[damp]}
+
+Dampen symbol (cross plus circle).
+@item dash((..
+arguments: @code{[dash((..]}
+
+Begin higher-level dashed slur or phrase articulation.  Use to indicate phrases marks over slurs created with `(..' and `..)' marks.  The `((' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `dash((r..', `dash((-..' and `dash((r-..'.
+@item dash(..
+arguments: @code{[dash(..]}
+
+Begin dashed slur or bowing articulation.  The `(' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `dash(r..', `dash(-..' and `dash(r-..'.
+@item dot((..
+arguments: @code{[dot((..]}
+
+Begin higher-level dotted slur or phrase articulation.  Use to indicate phrases marks over slurs created with `(..' and `..)' marks.  The `((' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `dot((r..', `dot((-..', and `dot((r-..'.
+@item dot(..
+arguments: @code{[dot(..]}
+
+Begin dotted slur or bowing articulation.  The `(' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `dot(r..', `dot(-..' and `dot(r-..'.
+@item downbow
+arguments: @code{[downbow]}
+
+Down-bow symbol.
+@item dyn
+arguments: @code{[dyn number]}
+
+An unknown dynamic marking.  The numeric dynamic value for the note event is scaled to a proper dynamic text mark using the settings `dyn-range' and `dynsym-range'.  An optional numeric argument overrides the note event's dynamic value.
+@item etouf
+arguments: @code{[etouf]}
+
+Dampen text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item f
+arguments: @code{[f]}
+
+Forte dynamic level.
+@item ferm
+arguments: @code{[ferm]}
+
+Fermata marking.
+@item ferm-long
+arguments: @code{[ferm-long]}
+
+Long fermata marking.
+@item ferm-short
+arguments: @code{[ferm-short]}
+
+Short fermata marking.
+@item ferm-verylong
+arguments: @code{[ferm-verylong]}
+
+Very long fermata marking.
+@item ff
+arguments: @code{[ff]}
+
+Fortissimo dynamic level.
+@item fff
+arguments: @code{[fff]}
+
+Fortississimo dynamic level.
+@item ffff
+arguments: @code{[ffff]}
+
+Fortissississimo dynamic level.
+@item fffz
+arguments: @code{[fffz]}
+
+Triple forzando dynamic marking.
+@item ffz
+arguments: @code{[ffz]}
+
+Double forzando dynamic marking.
+@item flaut
+arguments: @code{[flaut]}
+
+"near the fingerboard" text marking.To use, insert `flaut' markings on every note that is to be played flautando.  FOMUS then places "flautando" and "ord." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item flt
+arguments: @code{[flt]}
+
+Fluttertongue text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item fp
+arguments: @code{[fp]}
+
+Forte-piano dynamic marking.
+@item fz
+arguments: @code{[fz]}
+
+Forzando dynamic marking.
+@item fzp
+arguments: @code{[fzp]}
+
+Forzando-piano dynamic marking.
+@item gliss<
+arguments: @code{[gliss<]}
+
+Glissando sign, connecting to the previous note in the same voice.
+@item gliss>
+arguments: @code{[gliss>]}
+
+Glissando sign, connecting to the next note in the same voice.
+@item grace(..
+arguments: @code{[grace(..]}
+
+Begin grace note slur articulation.  (FOMUS automatically adds these.)  The `(' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `grace(r..', `grace(-..' and `grace(r-..'.
+@item leg
+arguments: @code{[leg]}
+
+Legato text marking.  To use, insert `legato' markings on every note that is to be played legato.  FOMUS then places "legato" and "non legato" texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item legno
+arguments: @code{[legno]}
+
+"with the wood" text marking.  To use, insert `legno' markings on every note that is to be played col legno.  FOMUS then places "col legno" and "ord." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item longtr
+arguments: @code{[longtr]}
+
+The main note of a trill.  This should be used together with `longtr2' on two simultaneous notes to specify the entire trill.  The `FIXME' setting specifies whether trills greater than a single step are automatically notated as unmeasured tremolos instead (unison trills are always converted to tremolos).  Otherwise a small note in parentheses is used.
+@item longtr2
+arguments: @code{[longtr2]}
+
+The auxiliary note of a trill, usually notated as an accidental above or below the trill sign.  This should be used together with `longtr' on two simultaneous notes to specify the entire trill.  The auxiliary note is deleted during FOMUS's processing, so any additional marks should be placed in the base `longtr' trill note.
+@item lv
+arguments: @code{[lv]}
+
+"Let vibrate" text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item mf
+arguments: @code{[mf]}
+
+Mezzo-forte dynamic level.
+@item moltoleg
+arguments: @code{[moltoleg]}
+
+Molto legato text marking.  To use, insert `molto legato' markings on every note that is to be played molto legato.  FOMUS then places "molto legato" and "non legato" texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item moltovib
+arguments: @code{[moltovib]}
+
+Molto vibrato text marking.  To use, insert `moltovib' markings on every note that is to be played molto vibrato.  FOMUS then places "molto vib." and "non vib." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item mp
+arguments: @code{[mp]}
+
+Mezzo-piano dynamic level.
+@item mute
+arguments: @code{[mute]}
+
+Mute text marking.  To use, insert `mute' markings on every note that is to be played with the mute on.  FOMUS then places "con sord." and "senza sord." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item natharm-sounding
+arguments: @code{[natharm-sounding]}
+
+Indicates that the note is the sounding pitch in a natural harmonic.
+@item natharm-string
+arguments: @code{[natharm-string]}
+
+Indicates that the note is the pitch of the open string in a natural harmonic.
+@item natharm-touched
+arguments: @code{[natharm-touched]}
+
+Indicates that the note is the place to touch on the string in a natural harmonic.
+@item nonleg
+arguments: @code{[nonleg]}
+
+Nonlegato text marking.  You usually shouldn't specify this directly (see the `leg' and `moltoleg' markings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item nonvib
+arguments: @code{[nonvib]}
+
+Non vibrato text marking.  You usually shouldn't specify this directly (see the `vib' and `moltovib' markings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item o
+arguments: @code{[o]}
+
+Open string/unstopped symbol.
+@item ord
+arguments: @code{[ord]}
+
+Naturale/ordinario/normale text marking.  You usually shouldn't specify this directly (e.g., see the `pont' and `tasto' markings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item p
+arguments: @code{[p]}
+
+Piano dynamic level.
+@item ped..
+arguments: @code{[ped..]}
+
+Begin piano pedal mark.  `ped' may be followed by one or more of the following flag characters: `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `ped1..', `ped-..' and `ped1-..'.  To insure that this mark appears below the bottom staff, it should be defined in a mark event and not attached to a note.
+@item pizz
+arguments: @code{[pizz]}
+
+String pizzicato text marking.  To use, insert `pizz' markings on every note that is to be played pizzicato.  FOMUS then places "pizz." and "arco" texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item pont
+arguments: @code{[pont]}
+
+"near the bridge" text marking.  To use, insert `pont' markings on every note that is to be played sul ponticello.  FOMUS then places "sul pont." and "ord." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item port<
+arguments: @code{[port<]}
+
+Portamento sign, connecting to the previous note in the same voice.
+@item port>
+arguments: @code{[port>]}
+
+Portamento sign, connecting to the next note in the same voice.
+@item pp
+arguments: @code{[pp]}
+
+Pianissimo dynamic level.
+@item ppp
+arguments: @code{[ppp]}
+
+Pianississimo dynamic level.
+@item pppp
+arguments: @code{[pppp]}
+
+Pianissississimo dynamic level.
+@item ppppp
+arguments: @code{[ppppp]}
+
+Pianississississimo dynamic level.
+@item pppppp
+arguments: @code{[pppppp]}
+
+Pianissississississimo dynamic level.
+@item punta
+arguments: @code{[punta]}
+
+"at the tip" text marking.  To use, insert `punta' markings on every note that is to be played punta d'arco.  FOMUS then places "punta d'arco" and "ord." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item rf
+arguments: @code{[rf]}
+
+Rinforzando dynamic marking.
+@item rfz
+arguments: @code{[rfz]}
+
+Rinforzando dynamic marking.
+@item ric
+arguments: @code{[ric]}
+
+Ricochet or jet@'e text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item salt
+arguments: @code{[salt]}
+
+Saltando text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item sf
+arguments: @code{[sf]}
+
+Sforzando dynamic marking.
+@item sff
+arguments: @code{[sff]}
+
+Double sforzando dynamic marking.
+@item sfff
+arguments: @code{[sfff]}
+
+Triple sforzando dynamic marking.
+@item sfffz
+arguments: @code{[sfffz]}
+
+Triple sforzato dynamic marking.
+@item sffz
+arguments: @code{[sffz]}
+
+Double sforzato dynamic marking.
+@item sfp
+arguments: @code{[sfp]}
+
+Sforzando-piano dynamic marking.
+@item sfz
+arguments: @code{[sfz]}
+
+Sforzato dynamic marking.
+@item sfzp
+arguments: @code{[sfzp]}
+
+Sforzato-piano dynamic marking.
+@item slap
+arguments: @code{[slap]}
+
+"Slap tongued" text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item snap
+arguments: @code{[snap]}
+
+Snap pizzicato symbol.
+@item snappizz
+arguments: @code{[snappizz]}
+
+Snap pizzicato symbol.
+@item spic
+arguments: @code{[spic]}
+
+Spiccato text marking.  To use, insert `spic' markings on every note that is to be played spiccato.  FOMUS then places "spicc" and "ord." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item sul
+arguments: @code{[sul integer0..128]}
+
+Mark for indicating which string to play on.  The `sul-style' setting specifies how this is to be interpretted and printed in the score.
+@item table
+arguments: @code{[table]}
+
+"near the soundboard" text marking.  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item tall
+arguments: @code{[tall]}
+
+"at the frog" text marking.  To use, insert `tall' markings on every note that is to be played al tallone.  FOMUS then places "al tallone" and "ord." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item tasto
+arguments: @code{[tasto]}
+
+"on the fingerboard" text marking.  To use, insert `tasto' markings on every note that is to be played sul tasto.  FOMUS then places "sul tasto" and "ord." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item tempo
+arguments: @code{[tempo string_text real>0]}
+
+Tempo marking.  The string argument is placed above the staff at the location of the mark.  If a `*' character is found in the string, it is replaced by a note that represents the value of the `beat' setting in that measure.  If two `*' characters are found with a rational or mixed number between them, then this value overrides the value of `beat'.  If a `#' character is found in the string and a numerical argument is supplied, the `#' is replaced by that number.  For example, the string "Allegro, * = #" and a numerical argument of 120 translates to "Allegro, quarter-note = 120" (where `quarter-note' is an actual notated quarter note and the value of `beat' is 1/4 for that measure).  The string "Allegro (*1/8* = #)" and a numerical argument of 108 translates to "Allegro (eighth-note = 108)".  The string "Allegro (*3/8* = #)" and a numerical argument of 108 translates to "Allegro (dotted-quarter-note = 108)".  An empty string and a numerical argument of 60 translates to "quarter-note = 60" (assuming `beat' is set to 1/4).  To insure that this mark appears above the top staff, it should be defined in a mark event and not attached to a note.
+@item trem
+arguments: @code{[trem rational>0]}
+
+A tremolo.  The optional numeric argument indicates the duration of a single tremolo beat.  No argument indicates an unmeasured tremolo.  When used together with `trem2' on two sets of simultaneous pitches/chords, specifies a keyboard-style tremelo with `trem' indicating the first chord and `trem2' indicating the second.  The `FIXME' setting specifies whether unmeasured semitone/wholetone tremolos are automatically notated as trills instead.
+@item trem2
+arguments: @code{[trem2]}
+
+The second chord in a keyboard-style tremelo.  This must be used with `trem'.
+@item tup..
+arguments: @code{[tup.. integer>=1]}
+
+Begin a tuplet on this note.  If the optional number argument is given, begin a tuplet at that nested level.
+@item unmute
+arguments: @code{[unmute]}
+
+Unmute text marking.  You usually shouldn't specify this directly (see the `mute' marking).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item upbow
+arguments: @code{[upbow]}
+
+Up-bow symbol.
+@item vib
+arguments: @code{[vib]}
+
+Vibrato text marking.  To use, insert `vib' markings on every note that is to be played with vibrato.  FOMUS then places "vib." and "non vib." texts over the correct notes automatically.  (This behavior can be disabled if desired--see the 'mark-group-defs' and 'mark-groups' settings).  The precise text that appears in the score is controlled by the `default-marktexts' and `marktexts' settings.
+@item x
+arguments: @code{[x string_text]}
+
+Text marking attached to a notehead.  The text for this usually appears above the note in a normal (non-italic) typeface.
+@item x!
+arguments: @code{[x! string_text]}
+
+Text marking in bold face.  The text usually appears above the staff.
+@item x!..
+arguments: @code{[x!.. string_text]}
+
+Begin text spanner in bold face.  The text for this usually appears above the staff.  The `x!' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `x!1..', `x!-..' and `x!1-..'.
+@item x^
+arguments: @code{[x^ string_text]}
+
+Text marking in italics.  The text usually appears above the staff or in the middle of a grand staff.
+@item x^..
+arguments: @code{[x^.. string_text]}
+
+Begin text spanner in italics.  The text for this usually appears above the staff or in the middle of a grand staff.  The `x^' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `x^1..', `x^-..' and `x^1-..'.
+@item x_
+arguments: @code{[x_ string_text]}
+
+Text marking in italics.  The text usually appears below the staff or in the middle of a grand staff.
+@item x_..
+arguments: @code{[x_.. string_text]}
+
+Begin text spanner in italics.  The text for this usually appears below the staff or in the middle of a grand staff.  The `x_' may be followed by one or more of the following flag characters: `r' (the mark can span rests), `n' (the mark cannot span rests), `1' (the mark can span one note), `m' (the mark cannot span one note), `-' (the beginning and ends of the mark can touch) and `|' (the beginning and ends of the mark cannot touch).  Examples are `x_1..', `x_-..' and `x_1-..'.
+@item ~
+arguments: @code{[~]}
+
+Forces a tie to the next note.
+@end table

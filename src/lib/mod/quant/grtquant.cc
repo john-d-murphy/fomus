@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -29,8 +29,7 @@
 #include <string>
 #include <vector>
 
-//#include <boost/utility.hpp>
-#include <boost/next_prior.hpp>
+#include <boost/utility.hpp>
 
 #include "ifacedumb.h"
 #include "module.h"
@@ -132,7 +131,7 @@ namespace grtquant {
       i->fixupdur(wrm);
     }
     assert(!vect.empty());
-    for (std::vector<holder>::iterator c(be), i(boost::next(be)); i < en;
+    for (std::vector<holder>::iterator c(be), i(std::next(be)); i < en;
          ++i) { // loop through all, group into chords & set to same durs
       if (c->o1 == i->o1) {    // same offset
         if (i->dur > c->dur) { // if i is greater dur than previous, rest durs
@@ -149,26 +148,25 @@ namespace grtquant {
     }
     if (mi != en) {
       fomus_rat cur = {0, 1};
-      for (std::vector<holder>::iterator i(mi), l(boost::prior(en));;
+      for (std::vector<holder>::iterator i(mi), l(std::prev(en));;
            ++i) { // 0 and after
         module_value o1(i->o1), o2(i->o2);
         i->setoff(cur);
         if (i >= l)
           break;
-        if (!isolap(*boost::next(i), o1, o2, i->dur)) {
+        if (!isolap(*std::next(i), o1, o2, i->dur)) {
           cur = cur + i->dur;
         }
       }
     }
     if (mi > be) {
       fomus_rat cur = {0, 1};
-      for (std::vector<holder>::iterator i(boost::prior(mi));;
-           --i) { // before 0
+      for (std::vector<holder>::iterator i(std::prev(mi));; --i) { // before 0
         module_value o1(i->o1), o2(i->o2);
         i->setendoff(cur);
         if (i == be)
           break;
-        if (!isolap(*boost::prior(i), o1, o2, i->dur)) {
+        if (!isolap(*std::prev(i), o1, o2, i->dur)) {
           cur = cur - i->dur;
         }
       }

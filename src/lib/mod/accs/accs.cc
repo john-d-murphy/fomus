@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -46,7 +46,7 @@ namespace accs {
 
   const char* ierr = 0;
 
-// nchoices = 15
+  // nchoices = 15
 #define NACC 5
 #define NQT 3
   const int choicetoacc[] = {0, -1, 1, -2, 2}; // mod 3
@@ -307,8 +307,8 @@ namespace accs {
   extern "C" {
   void
   search_assign(void* moddata,
-                int choice); // makes a solution assignment & reports it so
-                             // that other phases of the program can continue
+                int choice); // makes a solution assignment & reports it so that
+                             // other phases of the program can continue
   union search_score search_get_score(void* moddata, struct search_nodes nodes);
   search_node search_new_node(
       void* moddata, search_node prevnode,
@@ -609,7 +609,7 @@ int module_get_setting(int n, struct module_setting* set, int id) {
         "relationship is in terms of note spelling, staff choice, voice "
         "assignments, etc.."
         //"  Since distance can be calculate in many different ways, there are
-        // several interchangeable modules for this."
+        //several interchangeable modules for this."
         "  Set this to change the algorithm used for calculating distance when "
         "making decisions regarding accidentals.";
 

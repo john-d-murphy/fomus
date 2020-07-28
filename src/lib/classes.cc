@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -310,12 +310,6 @@ namespace fomus {
         integerr("measure");
       }
     }
-    for (measmap::iterator i(CMUT(meass).begin()); i != CMUT(meass).end();
-         ++i) { // pickup measures
-      rat p(i->second->get_rval(PICKUP_ID));
-      if (p != 0)
-        i->second->dosplit(*this, p);
-    }
     module_value en(boost::prior(RMUT(newmeass).end())->second->getendtime());
     for (measmap_it m(CMUT(meass).begin()); m != CMUT(meass).end(); ++m) {
       measure& mea(*m->second);
@@ -370,7 +364,7 @@ namespace fomus {
   }
 
   //#warning "check this, the inserted note event should receive the same tuplet
-  // information as concurrent note events"
+  //information as concurrent note events"
   void part::reinsert(std::auto_ptr<noteevbase>& e, const char* what) {
     DISABLEMUTCHECK;
     measmap_it i(CMUT(meass).upper_bound(offgroff(e->gettime_nomut())));
@@ -452,8 +446,8 @@ namespace fomus {
   marksbase::marksbase(MUTPARAM_ marksbase& x)
       : MUTINITP_(marks) MUTINITP_(nmarks) newm(false _MUTP) _MUTINITP(s)
             _MUTINITP(b)
-                _MUTINITP(e) {     // don't care about oldmarks, isinv = true
-                                   // if splitting rests in voice >1000
+                _MUTINITP(e) {     // don't care about oldmarks, isinv = true if
+                                   // splitting rests in voice >1000
     WMUT(x.marks).sort(markslr()); // sort by left, leftright, right
     while (!RMUT(x.marks).empty() &&
            RMUT(x.marks).back().getmove() == move_right)
@@ -816,22 +810,6 @@ namespace fomus {
          i != RMUT(tmpevs).end();) {
       std::auto_ptr<noteevbase> x(WMUT(tmpevs).release(i++).release());
       reinsert(x, "internal");
-    }
-  }
-
-  void measure::dosplit(part& prt, rat p) {
-    int i;
-    if (p < 0) {
-      p += numtorat(getdur());
-      i = 0;
-    } else
-      i = 2; // right-barline applies to the extra barline
-    if (p > 0 && p < getdur()) {
-      WMUT(icp) = i + 2; // 2 or 4 = incomplete, right
-      numb t(gettime() + p);
-      prt.insertnewmeas_nomut(
-          t, new measure(*this, prt.getdef(), t, getdur() - p, (2 - i) + 1));
-      WMUT(dur) = numb(p);
     }
   }
 

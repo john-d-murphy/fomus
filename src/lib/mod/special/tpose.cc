@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -198,9 +198,8 @@ namespace tpose {
                 }
                 if (m0 != kysgs.end())
                   tpose_assign_keysig(
-                      m,
-                      m0->second
-                          .c_str()); // assign new key signature for measure
+                      m, m0->second
+                             .c_str()); // assign new key signature for measure
               }
             }
           }

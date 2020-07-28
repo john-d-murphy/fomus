@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -314,8 +314,8 @@ namespace trems {
             assert(nos2.size() == 1);
             assert(tri.type == module_none);
             // if (tri.type == module_none) { // not user-supplied, find the
-            // accidental #warning "should this be comparing pitch classes? i.e.
-            // module_note(nos2[0]->n) - module_note(nos1[0]->n) < (fomus_int)3"
+            // accidental #warning "should this be comparing pitch classes?  i.e.
+            //module_note(nos2[0]->n) - module_note(nos1[0]->n) < (fomus_int)3"
             // no because this should have been sorted out already
             if (!typ && todiatonic(module_writtennote(nos2[0]->n)) -
                                 todiatonic(module_writtennote(nos1[0]->n)) ==

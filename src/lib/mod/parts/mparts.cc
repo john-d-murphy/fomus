@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -158,8 +158,7 @@ namespace mparts {
           "metapart.  Use in conjunction with `to-voice' to specify "
           "a complete distribution rule (i.e., note events must be moved from "
           "one voice or group of voices to another).  Can be a single voice or "
-          "a "
-          "list of voices."
+          "a list of voices."
           "  If both `from-voice' and `to-voice' are lists, then the two lists "
           "must be the same size so that the "
           "\"from\" and \"to\" voices match.";
@@ -181,8 +180,7 @@ namespace mparts {
           "metapart.  Use in conjunction with `from-voice' to specify "
           "a complete distribution rule (i.e., note events must be moved from "
           "one voice or group of voices to another).  Can be a single voice or "
-          "a "
-          "list of voices."
+          "a list of voices."
           "  If both `from-voice' and `to-voice' are lists, then the two lists "
           "must be the same size so that the "
           "\"from\" and \"to\" voices match.";

@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -202,7 +202,7 @@ namespace dyns {
         boost::ptr_deque<ass>::iterator be(pts[0]);
         boost::ptr_deque<ass>::iterator l(pts[1]);
         fomus_float w = module_setting_fval(be->n, wedgeid);
-        if (w > 0) { // 1/9/12 was w >= 0
+        if (w >= 0 /*&& ((pts[0].first < pts[1].first && pts[1] > pts[2]) || (pts[0].first > pts[1].first && pts[1] < pts[2]))*/) {
           fomus_int sz = 0;
           fomus_float dif = 0;
           fomus_rat t1(module_time(be->n)), t2(module_time(l->n));

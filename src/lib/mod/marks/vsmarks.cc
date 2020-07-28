@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -305,11 +305,10 @@ public:
           (pass10 || endids.find(*j) !=
                          endids.end()); // passes: 1. markcantouch  2.
                                         // markcan'ttouch (or saved in endids)
-      if (pass1
-              ? module_markcantouch(mk.ty, i->n)
-              : !module_markcantouch(mk.ty,
-                                     i->n)) { // ends should be evaluated before
-                                              // the begins in this case
+      if (pass1 ? module_markcantouch(mk.ty, i->n)
+                : !module_markcantouch(
+                      mk.ty, i->n)) { // ends should be evaluated before the
+                                      // begins in this case
 #ifndef NDEBUGOUT
         DBG("SPANS=" << std::endl);
         dumpnodemap(spans);

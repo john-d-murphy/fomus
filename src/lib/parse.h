@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -124,8 +124,6 @@ namespace FNAMESPACE {
 #define INITTEMPOTXT_ID 90
 #define INITTEMPO_ID 91
 #define DETACH_ID 92
-#define PICKUP_ID 93
-  // #define LEFTPICKUP_ID 94
 
   typedef boostspirit::position_iterator<
       char const*, boostspirit::file_position_base<std::string>>
@@ -214,13 +212,13 @@ public:
                              boostspirit::comment_p("//") |
                              boostspirit::comment_nest_p("/-", "-/")))
 
-// +/- PARSER
+  // +/- PARSER
 #define PLUSMATCH boostspirit::ch_p('+')
 #define MINUSMATCH boostspirit::ch_p('-')
 #define MULTMATCH boostspirit::ch_p('*')
 #define DIVMATCH boostspirit::ch_p('/')
 
-// LISTS
+  // LISTS
 #define LISTSTART boostspirit::ch_p('(')
 #define LISTEND boostspirit::ch_p(')')
 #define LISTSTARTOREND boostspirit::chset_p("()")
@@ -907,7 +905,7 @@ public:
                      listmatchdelim]) >>
        boostspirit::anychar_p))
 
-// MAP
+  // MAP
 #ifdef BUILD_LIBFOMUS
 
   typedef std::map<const std::string, listel> listelmap;

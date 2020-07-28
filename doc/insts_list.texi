@@ -1,0 +1,180 @@
+@itemize @bullet
+@item
+... (id: @code{default})
+@item
+A Clarinet (id: @code{a-clarinet})
+@item
+A Piccolo Trumpet (id: @code{a-piccolo-trumpet})
+@item
+Accordion (id: @code{accordion})
+@item
+Alto Choir (id: @code{alto-choir})
+@item
+Alto Clarinet (id: @code{alto-clarinet})
+@item
+Alto Flute (id: @code{alto-flute})
+@item
+Alto Saxophone (id: @code{alto-saxophone})
+@item
+Alto Trombone (id: @code{alto-trombone})
+@item
+B-flat Bass Trumpet (id: @code{bflat-bass-trumpet})
+@item
+B-flat Clarinet (id: @code{bflat-clarinet})
+@item
+B-flat Cornet (id: @code{bflat-cornet})
+@item
+B-flat Piccolo Trumpet (id: @code{bflat-piccolo-trumpet})
+@item
+B-flat Trumpet (id: @code{bflat-trumpet})
+@item
+B-flat Wagner Tuba (id: @code{bflat-wagner-tuba})
+@item
+Banjo (id: @code{banjo})
+@item
+Baritone (id: @code{baritone})
+@item
+Baritone (id: @code{baritone-tuba})
+@item
+Baritone Oboe (id: @code{baritone-oboe})
+@item
+Baritone Saxophone (id: @code{baritone-saxophone})
+@item
+Bass (id: @code{bass})
+@item
+Bass Choir (id: @code{bass-choir})
+@item
+Bass Clarinet (id: @code{bass-clarinet})
+@item
+Bass Flute (id: @code{bass-flute})
+@item
+Bass Guitar (id: @code{bass-guitar})
+@item
+Bass Saxophone (id: @code{bass-saxophone})
+@item
+Bass Trombone (id: @code{bass-trombone})
+@item
+Basset Horn (id: @code{basset-horn})
+@item
+Bassoon (id: @code{bassoon})
+@item
+C Trumpet (id: @code{c-trumpet})
+@item
+Celesta (id: @code{celesta})
+@item
+Cello (id: @code{cello})
+@item
+Chimes (id: @code{chimes})
+@item
+Contra Alto Clarinet (id: @code{contra-alto-clarinet})
+@item
+Contrabass (id: @code{contrabass})
+@item
+Contrabass Clarinet (id: @code{contrabass-clarinet})
+@item
+Contrabass Saxophone (id: @code{contrabass-saxophone})
+@item
+Contrabass Trombone (id: @code{contrabass-trombone})
+@item
+Contrabassoon (id: @code{contrabassoon})
+@item
+Contralto (id: @code{contralto})
+@item
+D Clarinet (id: @code{d-clarinet})
+@item
+D Trumpet (id: @code{d-trumpet})
+@item
+E-flat Alto Horn (id: @code{eflat-alto-horn})
+@item
+E-flat Bass Trumpet (id: @code{eflat-bass-trumpet})
+@item
+E-flat Clarinet (id: @code{eflat-clarinet})
+@item
+E-flat Cornet (id: @code{eflat-cornet})
+@item
+E-flat Trumpet (id: @code{eflat-trumpet})
+@item
+Electric Piano (id: @code{electric-piano})
+@item
+English Horn (id: @code{english-horn})
+@item
+Euphonium (id: @code{euphonium})
+@item
+F Alto Horn (id: @code{f-alto-horn})
+@item
+F Wagner Tuba (id: @code{f-wagner-tuba})
+@item
+Flugelhorn (id: @code{flugelhorn})
+@item
+Flute (id: @code{flute})
+@item
+Glockenspiel (id: @code{glockenspiel})
+@item
+Guitar (id: @code{guitar})
+@item
+Harmonica (id: @code{harmonica})
+@item
+Harmonium (id: @code{harmonium})
+@item
+Harp (id: @code{harp})
+@item
+Harpsichord (id: @code{harpsichord})
+@item
+Heckelphone (id: @code{heckelphone})
+@item
+Horn (id: @code{horn})
+@item
+Mandolin (id: @code{mandolin})
+@item
+Marimba (id: @code{marimba})
+@item
+Mezzo Soprano (id: @code{mezzo-soprano})
+@item
+Oboe (id: @code{oboe})
+@item
+Oboe D'amore (id: @code{oboe-damore})
+@item
+Organ Manuals (id: @code{organ-manuals})
+@item
+Organ Pedals (id: @code{organ-pedals})
+@item
+Percussion (id: @code{percussion})
+@item
+Piano (id: @code{piano})
+@item
+Piccolo (id: @code{piccolo})
+@item
+Sopranino Saxophone (id: @code{sopranino-saxophone})
+@item
+Soprano (id: @code{soprano})
+@item
+Soprano Choir (id: @code{soprano-choir})
+@item
+Soprano Saxophone (id: @code{soprano-saxophone})
+@item
+Tenor (id: @code{tenor})
+@item
+Tenor (id: @code{tenor-8down})
+@item
+Tenor Choir (id: @code{tenor-choir})
+@item
+Tenor Saxophone (id: @code{tenor-saxophone})
+@item
+Tenor Trombone (id: @code{tenor-trombone})
+@item
+Timpani (id: @code{timpani})
+@item
+Troubadour Harp (id: @code{troubadour-harp})
+@item
+Tuba (id: @code{tuba})
+@item
+Ukulele (id: @code{ukulele})
+@item
+Vibraphone (id: @code{vibraphone})
+@item
+Viola (id: @code{viola})
+@item
+Violin (id: @code{violin})
+@item
+Xylophone (id: @code{xylophone})
+@end itemize

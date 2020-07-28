@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -103,13 +103,12 @@ namespace markevs1 {
     // 	set->name = "detach"; // doc**scat{marks}
     // 	set->type = module_bool;
     // 	set->descdoc = //"Most marks (e.g., articulation) must be attached to
-    // note events.  " 	  "Some marks such as crescendo wedges often need to
-    // appear detached from notes events.  " 	  "Setting `detach' to `yes'
-    // insures that these marks appear in the location given by the mark event's
-    // time
-    // attribute, " 	  "regardless of whether or not any note events are at
-    // that location.  Setting `detach' to no forces all " 	  "marks to be
-    // attached to note events.";
+    // note events.  " 	  "Some marks such as crescendo wedges often need to appear
+    // detached from notes events.  " 	  "Setting `detach' to `yes' insures that
+    // these marks appear in the location given by the mark event's time
+    // attribute, " 	  "regardless of whether or not any note events are at that
+    // location.  Setting `detach' to no forces all " 	  "marks to be attached to
+    // note events.";
     // 	//set->typedoc = markevtype;
 
     // 	module_setval_int(&set->val, 1);

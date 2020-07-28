@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -49,7 +49,7 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 
-#include <boost/integer/common_factor_rt.hpp>
+#include <boost/math/common_factor_rt.hpp>
 
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/replace.hpp>
@@ -358,8 +358,7 @@ public:
   }
 
   int indentid, partnameid, partabbrid, timesigstyleid, thetitleid, theauthorid,
-      beatid, pedstyleid, praccid, altervalsid, verboseid, xmlviewextid,
-      xmlviewexepathid, xmlviewexeargsid;
+      beatid, pedstyleid, praccid, altervalsid;
 
   struct part {
     module_partobj p;
@@ -715,9 +714,8 @@ public:
               enclose xxx(x, "direction-type");
               enclose yyy(x, "words");
               x << attr<const char*>(
-                  "font-size",
-                  "large"); // xx-small, x-small, small,
-                            // medium, large, x-large, xx-large
+                  "font-size", "large"); // xx-small, x-small, small, medium,
+                                         // large, x-large, xx-large
               x << te.str1;
             }
             if (te.beat != (fomus_int) 0) {
@@ -737,9 +735,8 @@ public:
               enclose xxx(x, "direction-type");
               enclose yyy(x, "words");
               x << attr<const char*>(
-                  "font-size",
-                  "large"); // xx-small, x-small, small,
-                            // medium, large, x-large, xx-large
+                  "font-size", "large"); // xx-small, x-small, small, medium,
+                                         // large, x-large, xx-large
               x << te.str2;
             }
           } break;
@@ -1714,7 +1711,7 @@ public:
       nos.push_back(n);
       fomus_rat dq(module_dur(n) * wrm4); // duration in # of quarter notes
       if (dq > (fomus_int) 0)
-        divs = boost::integer::lcm(divs, dq.den);
+        divs = boost::math::lcm(divs, dq.den);
       module_skipassign(n);
       n = module_nextnote();
     }
@@ -2075,25 +2072,8 @@ public:
           }
         }
         x.f << '\n';
-        x.f.close();
         //#warning "use app-arch/zip for zip compression"
-        std::string ext(module_setting_sval(fom, xmlviewextid));
-        if (!ext.empty() && ext[0] != '.')
-          ext = '.' + ext; // make sure it has a dot
-        boost::filesystem::path opath(FS_CHANGE_EXTENSION(fn, ext));
-        try {
-          const char* path = module_setting_sval(fom, xmlviewexepathid);
-          if (strlen(path) <= 0)
-            return;
-          if (module_setting_ival(fom, verboseid) >= 1)
-            fout << "opening viewer..." << std::endl;
-          struct module_list l(module_setting_val(fom, xmlviewexeargsid).val.l);
-          execout::exec(0, path, std::vector<std::string>(), l,
-                        opath.FS_FILE_STRING().c_str());
-          return;
-        } catch (const execout::execerr& e) {
-          CERR << "error viewing `" << fn.FS_FILE_STRING() << '\'' << std::endl;
-        }
+        return;
       } catch (const boost::filesystem::ofstream::failure& e) {
         CERR << "error writing `" << fn.FS_FILE_STRING() << '\'' << std::endl;
       }
@@ -2145,9 +2125,9 @@ public:
     return module_valid_int(val, 0, module_incl, 0, module_nobound, 0,
                             indenttype);
   }
-  const char* altervalstype = "(string (rational-128..128 rational-128..128), "
-                              "string (rational-128..128 "
-                              "rational-128..128), ...)";
+  const char* altervalstype =
+      "(string (rational-128..128 rational-128..128), string "
+      "(rational-128..128 rational-128..128), ...)";
   int valid_altervalstype_aux(int n, const char* sym, struct module_value val) {
     return module_valid_listofrats(val, 1, 2, module_makerat(-128, 1),
                                    module_incl, module_makerat(128, 1),
@@ -2325,61 +2305,6 @@ int module_get_setting(int n, struct module_setting* set, int id) {
     altervalsid = id;
     break;
   }
-  case 3: {
-    set->name = "xml-view-extension"; // docscat{xmlout}
-    set->type = module_string;
-    set->descdoc = "Filename extension expected by the MusicXML output viewer "
-                   "application set in `xml-view-exe-path'."
-                   "  (This setting will be more useful when it's possible to "
-                   "save compressed `.mxl' files.)";
-    // set->typedoc = writesettingstype;
-
-    module_setval_string(&set->val, "xml");
-
-    set->loc = module_locscore;
-    // set->valid = valid_writesets;
-    set->uselevel = 3;
-    xmlviewextid = id;
-    break;
-  }
-  case 4: {
-    set->name = "xml-view-exe-path"; // docscat{xmlout}
-    set->type = module_string;
-    set->descdoc = "Path to executable of viewer application to launch for "
-                   "viewing MusicXML output files."
-                   "  If this is specified, FOMUS automatically displays the "
-                   "output `.pdf' file."
-                   "  If the viewer executable is in your path then only the "
-                   "filename is necessary."
-                   "  Set this to an empty string to prevent FOMUS from "
-                   "invoking the viewer automatically.";
-    // set->typedoc = writesettingstype;
-
-    module_setval_string(&set->val, "");
-
-    set->loc = module_locscore;
-    // set->valid = valid_writesets;
-    set->uselevel = 2;
-    xmlviewexepathid = id;
-    break;
-  }
-  case 5: {
-    set->name = "xml-view-exe-args"; // docscat{xmlout}
-    set->type = module_list_strings;
-    set->descdoc = "A list of additional arguments to be passed to the "
-                   "MusicXML output viewer application set in "
-                   "`xml-view-exe-path' (in addition to the input filename)."
-                   "  Each string is a shell command line argument.";
-    // set->typedoc = accslisttype;
-
-    module_setval_list(&set->val, 0);
-
-    set->loc = module_locscore;
-    // set->valid = valid_accslist;
-    set->uselevel = 3;
-    xmlviewexeargsid = id;
-    break;
-  }
   default:
     return 0;
   }
@@ -2387,11 +2312,6 @@ int module_get_setting(int n, struct module_setting* set, int id) {
 }
 
 void module_ready() {
-  verboseid = module_settingid("verbose");
-  if (verboseid < 0) {
-    ierr = "missing required setting `verbose'";
-    return;
-  }
   timesigstyleid = module_settingid("timesig-c");
   if (timesigstyleid < 0) {
     ierr = "missing required setting `timesig-c'";

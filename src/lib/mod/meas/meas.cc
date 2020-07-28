@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -194,11 +194,9 @@ namespace meas {
       set->type = module_number;
       set->descdoc =
           "The minimum duration a measure created by FOMUS (i.e., not "
-          "explicitly "
-          "specified by the user) is allowed to be.  "
+          "explicitly specified by the user) is allowed to be.  "
           "Measures smaller than this duration are merged with other "
-          "(previous) "
-          "measures to form larger measures."
+          "(previous) measures to form larger measures."
           "  FOMUS might need to create a small measure to accommodate a "
           "user-defined measure that doesn't align well with previous measures."
           "  If you like tiny measures and don't want FOMUS to merge them with "
@@ -220,8 +218,7 @@ namespace meas {
           "The number of divisions per beat, used when quantizing note events. "
           " "
           "If `timesig-den' is 4 (meaning a beat is equal to one quarter "
-          "note), "
-          "a `meas-beatdiv' of 4 allows measure times and "
+          "note), a `meas-beatdiv' of 4 allows measure times and "
           "durations to be quantized down to the size of a sixteenth note.  "
           "A `meas-beatdiv' of 8 would allow precision at the level of "
           "thirty-second notes, etc..";

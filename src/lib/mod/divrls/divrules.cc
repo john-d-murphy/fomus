@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 /*
-    Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+    Copyright (C) 2009, 2010, 2011  David Psenicka
     This file is part of FOMUS.
 
     FOMUS is free software: you can redistribute it and/or modify
@@ -1165,8 +1165,7 @@ public:
                         div.tuplet, true, false,
                         div_left); // no tie to the right
         pushnewsigdivr(ands, div, module_makerat(1, 4), div_right,
-                       /*true*/ false,
-                       /*true*/ false, module_makerat(3, 4));
+                       /*true*/ false, /*true*/ false, module_makerat(3, 4));
         if (atsigtop(div, dbldotnotelvl)) {
           divrules_andnodeex_nodel& ands = ornode.getnewandnodeex();
           pushnewdivundiv(ands, div, module_makerat(7, 8), module_makerat(0, 1),
@@ -1178,8 +1177,7 @@ public:
       {
         divrules_andnodeex_nodel& ands = ornode.getnewandnodeex();
         pushnewsigdivr(ands, div, module_makerat(1, 4), div_left,
-                       /*true*/ false,
-                       /*true*/ false, module_makerat(0, 1));
+                       /*true*/ false, /*true*/ false, module_makerat(0, 1));
         pushnewdivundiv(ands, div, module_makerat(3, 4), module_makerat(1, 4),
                         div.tuplet, false, true,
                         div_right); // no tie to the left
@@ -1383,8 +1381,8 @@ public:
         fomus_rat r(*j - x1); // durrat
         bool ra = j == pe || (isexpof2(r) && isexpof2((fomus_int) 1 - r));
         pushnewsmalldiv(
-            /*node*/ ands, /*par*/ div, /*durrat*/ r, /*pt1*/ x1,
-            /*wh*/ di, /*al*/ la, /*ar*/ ra,
+            /*node*/ ands, /*par*/ div, /*durrat*/ r, /*pt1*/ x1, /*wh*/ di,
+            /*al*/ la, /*ar*/ ra,
             /*div*/ std::max(div2((div.div * r).num), (fomus_int) 2));
         di = (++j == pe ? div_right : div_mid);
         x1 = x1 + r;
@@ -2422,7 +2420,7 @@ int module_get_setting(int n, module_setting* set, int id) {
         "score.  "
         "A value of zero means there is no limit on minimum duration.";
     //	"Decreasing this value (or setting it to zero) increases computation
-    // time and vice versa.";
+    //time and vice versa.";
     // 	"The level at which notes are allowed to be dotted.  This is only used
     // for quantizing.  "
     // 	"`top' specifies that dotted notes are allowed only when they take up a
@@ -2453,7 +2451,7 @@ int module_get_setting(int n, module_setting* set, int id) {
         "score.  "
         "A value of zero means there is no limit on maximum duration.";
     //	"Increasing this value (or setting it to zero) increases computation
-    // time and vice versa.";
+    //time and vice versa.";
     // 	"The level at which notes are allowed to be dotted.  This is only used
     // for quantizing.  "
     // 	"`top' specifies that dotted notes are allowed only when they take up a

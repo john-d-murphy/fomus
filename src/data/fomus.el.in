@@ -1,4 +1,4 @@
-;;   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+;;   Copyright (C) 2009, 2010, 2011  David Psenicka
 ;;   This file is part of FOMUS.
 
 ;;   FOMUS is free software: you can redistribute it and/or modify
@@ -187,12 +187,21 @@
   "Run FOMUS executable on file in current buffer."
   (interactive)
   (save-some-buffers)
-  (let ((c (concat fomus-pathname " ")))
+  (let ((b (get-buffer-create "*FOMUS Output*"))
+	(c (concat fomus-pathname " ")))
     (if (> (length fomus-args) 0) (setq c (concat c fomus-args " ")))
-    (let ((compilation-scroll-output t)) 
-      (compilation-start (concat c (shell-quote-argument (buffer-file-name)))
-                        'compilation-mode
-                        (lambda (mode) "*FOMUS Output*")))))
+    ;; (setq fomus-current-error 0)
+    (save-excursion
+      ;; (set-buffer b)
+      (with-current-buffer b
+	(setq-default major-mode 'compilation-mode)
+	(set-buffer-major-mode b)
+	(toggle-read-only -1)
+	(erase-buffer)))
+    (display-buffer b)
+    (let ((process-connection-type nil))
+      (start-process-shell-command "fomus" b (concat c (shell-quote-argument (buffer-file-name)))))
+    ))
 (defun fomus-run-args ()
   "Run FOMUS on file in current buffer, prompting for additional arguments."
   (interactive)

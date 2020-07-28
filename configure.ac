@@ -1,6 +1,6 @@
 # -*- Autoconf -*-
 
-#   Copyright (C) 2009, 2010, 2011, 2012, 2013  David Psenicka
+#   Copyright (C) 2009, 2010, 2011  David Psenicka
 #   This file is part of FOMUS.
 
 #   FOMUS is free software: you can redistribute it and/or modify
@@ -38,11 +38,11 @@
 AC_PREREQ(2.61)
 
 # format: ?.?.?-alpha-rc?
-AC_INIT([FOMUS],[0.1.19-alpha-rc3],[fomus-user@lists.sourceforge.net])
+AC_INIT([FOMUS],[0.1.18-alpha],[fomus-user@lists.sourceforge.net])
 
 AC_CONFIG_AUX_DIR([libltdl/config])
 AC_CONFIG_SRCDIR([src/lib/api.cc])
-AM_INIT_AUTOMAKE([no-installinfo foreign subdir-objects])
+AM_INIT_AUTOMAKE([no-installinfo foreign])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -106,20 +106,21 @@ AS_IF([test "x$SPDEBUG" = "xno" -o "x$SPDEBUGCODE" = "xno"], [DBGFLAGS="-DNDEBUG
 AS_IF([test "x$SPDEBUGOUT" = "xno"], [DBGOUTFLAGS=" -DNDEBUGOUT"])
 AS_IF([test "x$SPDEBUGCODE" = "xno"], [DBGASSFLAGS=" -DNDEBUGASS"])
 AX_NOT_ENABLE_FRAME_POINTER(OMITFLAGS)
-# AX_CHECK_COMPILE_FLAG([-ffinite-math-only], [MATHFLAGS+=" -ffinite-math-only"])
-# AX_CHECK_COMPILE_FLAG([-fno-math-errno], [MATHFLAGS+=" -fno-math-errno"])
-# AX_CHECK_COMPILE_FLAG([-fno-trapping-math], [MATHFLAGS+=" -fno-trapping-math"])
-# AX_CHECK_COMPILE_FLAG([-fno-signaling-nans], [MATHFLAGS+=" -fno-signaling-nans"])
-# AX_CHECK_COMPILE_FLAG([-frepo], [OPTFLAGS+=" -frepo"])
-AX_CHECK_COMPILE_FLAG([-fno-omit-frame-pointer], [DEBFLAGS+=" -fno-omit-frame-pointer"])
-AX_CHECK_COMPILE_FLAG([-ftrapv], [DEBFLAGS+=" -ftrapv"])
-# AX_CHECK_COMPILE_FLAG([-fnon-call-exceptions], [DEBFLAGS+=" -fnon-call-exceptions"])
-AX_CHECK_COMPILE_FLAG([-fsignaling-nans], [DEBFLAGS+=" -fsignaling-nans"])
-# AX_CHECK_COMPILE_FLAG([-fno-inline], [DEBFLAGS+=" -fno-inline"])
-AX_CHECK_COMPILE_FLAG([-fvisibility=hidden], [EXPFLAGS+=" -fvisibility=hidden"], [EXPCPPFLAGS+=" -DDONTHAVE_VISIBILITY"])
+# AX_CHECK_COMPILER_FLAGS([-ffinite-math-only], [MATHFLAGS+=" -ffinite-math-only"])
+# AX_CHECK_COMPILER_FLAGS([-fno-math-errno], [MATHFLAGS+=" -fno-math-errno"])
+# AX_CHECK_COMPILER_FLAGS([-fno-trapping-math], [MATHFLAGS+=" -fno-trapping-math"])
+# AX_CHECK_COMPILER_FLAGS([-fno-signaling-nans], [MATHFLAGS+=" -fno-signaling-nans"])
+# AX_CHECK_COMPILER_FLAGS([-frepo], [OPTFLAGS+=" -frepo"])
+AX_CHECK_COMPILER_FLAGS([-fno-omit-frame-pointer], [DEBFLAGS+=" -fno-omit-frame-pointer"])
+AX_CHECK_COMPILER_FLAGS([-ftrapv], [DEBFLAGS+=" -ftrapv"])
+# AX_CHECK_COMPILER_FLAGS([-fnon-call-exceptions], [DEBFLAGS+=" -fnon-call-exceptions"])
+AX_CHECK_COMPILER_FLAGS([-fsignaling-nans], [DEBFLAGS+=" -fsignaling-nans"])
+# AX_CHECK_COMPILER_FLAGS([-fno-inline], [DEBFLAGS+=" -fno-inline"])
+AX_CHECK_COMPILER_FLAGS([-fvisibility=hidden], [EXPFLAGS+=" -fvisibility=hidden"], [EXPCPPFLAGS+=" -DDONTHAVE_VISIBILITY"])
 
 # Debug/Nondebug flags
-AS_IF([test "x$SPDEBUG" != "xno"],
+AS_IF([test "x$SPDEBUG" != "xno"], 
+
       [CFLAGS="-g -O0$DEBFLAGS$PROFFLAGS$SPBIT"] [CXXFLAGS="-g -O0$DEBFLAGS$PROFFLAGS$SPBIT"] 
       [FOMUS_CFLAGS="$WARNFLAGS$EXPFLAGS"] [FOMUS_CFLAGSX="$WARNFLAGS"] 
       [FOMUS_CPPFLAGS="$DBGFLAGS$DBGOUTFLAGS$DBGASSFLAGS$EXPCPPFLAGS"], 
@@ -158,7 +159,6 @@ LSPROG=`which ls`
 # system
 AX_BOOST_SYSTEM
 BOOST_SYSTEM_LIB_TD=`echo "$BOOST_SYSTEM_LIB" | $SED 's/^-l//' | $SED 's/-[[sgydpn]][[sgydpn]]*\([[^a-z0-9]]\|$\)/\1/'`
-AS_IF([test -z "$BOOST_SYSTEM_LIB_TD"], [AC_MSG_ERROR([can't find `mt' version of Boost::System library])])
 AC_MSG_CHECKING([for -l$BOOST_SYSTEM_LIB_TD])
 BOOST_SYSTEM_LIB_AFILE=`$LSPROG $MYBOOSTLIBDIR/*$BOOST_SYSTEM_LIB_TD.* 2>/dev/null`
 AS_IF([test -n "$BOOST_SYSTEM_LIB_AFILE"],
@@ -171,7 +171,6 @@ AS_IF([test -n "$BOOST_SYSTEM_LIB_AFILE"],
 # filesystem
 AX_BOOST_FILESYSTEM
 BOOST_FILESYSTEM_LIB_TD=`echo "$BOOST_FILESYSTEM_LIB" | $SED 's/^-l//' | $SED 's/-[[sgydpn]][[sgydpn]]*\([[^a-z0-9]]\|$\)/\1/'`
-AS_IF([test -z "$BOOST_FILESYSTEM_LIB_TD"], [AC_MSG_ERROR([can't find `mt' version of Boost::Filesystem library])])
 AC_MSG_CHECKING([for -l$BOOST_FILESYSTEM_LIB_TD])
 BOOST_FILESYSTEM_LIB_AFILE=`$LSPROG $MYBOOSTLIBDIR/*$BOOST_FILESYSTEM_LIB_TD.* 2>/dev/null`
 AS_IF([test -n "$BOOST_FILESYSTEM_LIB_AFILE"],
@@ -184,7 +183,6 @@ AS_IF([test -n "$BOOST_FILESYSTEM_LIB_AFILE"],
 # program options
 AX_BOOST_PROGRAM_OPTIONS
 BOOST_PROGRAM_OPTIONS_LIB_TD=`echo "$BOOST_PROGRAM_OPTIONS_LIB" | $SED 's/^-l//' | $SED 's/-[[sgydpn]][[sgydpn]]*\([[^a-z0-9]]\|$\)/\1/'`
-AS_IF([test -z "$BOOST_PROGRAM_OPTIONS_LIB_TD"], [AC_MSG_ERROR([can't find `mt' version of Boost::Program_Options library])])
 AC_MSG_CHECKING([for -l$BOOST_PROGRAM_OPTIONS_LIB_TD])
 BOOST_PROGRAM_OPTIONS_LIB_AFILE=`$LSPROG $MYBOOSTLIBDIR/*$BOOST_PROGRAM_OPTIONS_LIB_TD.* 2>/dev/null`
 AS_IF([test -n "$BOOST_PROGRAM_OPTIONS_LIB_AFILE"],
@@ -197,7 +195,6 @@ AS_IF([test -n "$BOOST_PROGRAM_OPTIONS_LIB_AFILE"],
 # thread
 AX_BOOST_THREAD
 BOOST_THREAD_LIB_TD=`echo "$BOOST_THREAD_LIB" | $SED 's/^-l//' | $SED 's/-[[sgydpn]][[sgydpn]]*\([[^a-z0-9]]\|$\)/\1/'`
-AS_IF([test -z "$BOOST_THREAD_LIB_TD"], [AC_MSG_ERROR([can't find `mt' version of Boost::Thread library])])
 AC_MSG_CHECKING([for -l$BOOST_THREAD_LIB_TD])
 BOOST_THREAD_LIB_AFILE=`$LSPROG $MYBOOSTLIBDIR/*$BOOST_THREAD_LIB_TD.* 2>/dev/null`
 AS_IF([test -n "$BOOST_THREAD_LIB_AFILE"],
@@ -210,7 +207,6 @@ AS_IF([test -n "$BOOST_THREAD_LIB_AFILE"],
 # iostreams
 AX_BOOST_IOSTREAMS
 BOOST_IOSTREAMS_LIB_TD=`echo "$BOOST_IOSTREAMS_LIB" | $SED 's/^-l//' | $SED 's/-[[sgydpn]][[sgydpn]]*\([[^a-z0-9]]\|$\)/\1/'`
-AS_IF([test -z "$BOOST_IOSTREAMS_LIB_TD"], [AC_MSG_ERROR([can't find `mt' version of Boost::IOStreams library])])
 AC_MSG_CHECKING([for -l$BOOST_IOSTREAMS_LIB_TD])
 BOOST_IOSTREAMS_LIB_AFILE=`$LSPROG $MYBOOSTLIBDIR/*$BOOST_IOSTREAMS_LIB_TD.* 2>/dev/null`
 AS_IF([test -n "$BOOST_IOSTREAMS_LIB_AFILE"],
