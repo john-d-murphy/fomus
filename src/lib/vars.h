@@ -3459,7 +3459,7 @@ public:
     }
 
     const char* getname() const {
-      return "mod-tquant";
+      return "tquant";
     } // docscat{mods}
     module_setting_loc getloc() const {
       return module_locmeasdef;
@@ -4139,7 +4139,7 @@ public:
              "dynamic values into symbols (modules must be of type `dynamics')."
              "  Results may vary wildly depending how exactly this is done."
           //"  You might also want to override the module's decisions by
-          //explicitly providing your own dynamic markings."
+          // explicitly providing your own dynamic markings."
           // "  The list order affects (but might not completely determine) the
           // order in which modules are called."
           ;
@@ -4412,7 +4412,7 @@ public:
       el.push_back("harms");
       el.push_back("percchs");
       el.push_back("trems");
-          /*el.push_back("text"); el.push_back("pos");*/ /*initmodval();*/
+      /*el.push_back("text"); el.push_back("pos");*/ /*initmodval();*/
     }
     var_specialmod(const listelvect& str)
         : listofmods(str, module_modspecial) { /*initmodval();*/
@@ -4611,7 +4611,7 @@ public:
 
     // const char* gettypedoc() const {return "measure|note|note-naturals";}
     //#warning "check this against the map of keysig stings!--also update it
-    //when keysigs are updated" can't really do that
+    // when keysigs are updated" can't really do that
     bool isvalid(const fomusdata* fd) {
       assert(!mval.notyet());
       return true;
@@ -5177,8 +5177,9 @@ public:
              "signature of 9/8)."
           //"If the time signature is explicitly given by setting `timesig' "
           //"then this setting has no effect (that is, as long as the explicit
-          //time signature is valid).  " "This value may also be needed if FOMUS
-          //needs to create a new measure (along with a new time signature)."
+          // time signature is valid).  " "This value may also be needed if
+          // FOMUS needs to create a new measure (along with a new time
+          // signature)."
           ;
     }
     const char* gettypedoc() const {
@@ -5354,8 +5355,8 @@ public:
              "creates a new time signature.  "
              "The format of each time signature is the same as in `timesig'.  "
              //"When fomus creates a new measure (by splitting or merging
-             //existing measures) it must also create a new time signature for
-             //it.  "
+             // existing measures) it must also create a new time signature for
+             // it.  "
              "FOMUS looks at `timesig' first when trying to calculate time "
              "signatures.  "
              "If `timesig' isn't valid then one is searched for in this list.  "
@@ -6300,7 +6301,7 @@ public:
              "Each preset is a string representing a base filename (excluding "
              "the extension) in FOMUS's \"presets\" path.  "
              //"Specifying a list is the same as setting the value to each
-             //string in the list individually.  "
+             // string in the list individually.  "
              "If the preset file is found, it is effectively included at that "
              "point.  "
              "A preset file has the same format as the `.fomus' or "
